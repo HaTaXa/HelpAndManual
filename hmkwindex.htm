@@ -1,0 +1,501 @@
+﻿<!DOCTYPE html>
+<html><head>
+   <title>Презентация Help &amp; Manual</title>
+   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+   <meta http-equiv="content-language" content="ru" />
+   <meta name="robots" content="index,follow" />
+   <meta http-equiv="Content-Style-Type" content="text/css" />
+   <script type="text/javascript" src="jquery.js"></script>
+   <script type="text/javascript" src="jquery.tools.min.js"></script>
+   <script type="text/javascript" src="jquery.scrollTo-min.js"></script>
+   <link type="text/css" href="default.css" rel="stylesheet" />
+   <link id="tabscheme" type="text/css" href="hm_topic.css" rel="stylesheet" />
+<!--[if IE 9]>
+<link id="iesvgcss" rel="stylesheet" type="text/css" href="hm_webhelp_svg.css" />
+<![endif]-->
+<style type="text/css">
+html, body {
+	overflow: hidden; 
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;  
+	}
+div#hmidxheader {
+	position: absolute;
+	background: transparent;
+	top: 10px; left: 10px; right: 18px;
+	}
+div#idxheader { 
+	position: relative;
+	top: 0px; left: 0px; right: 0px;
+	display: none;
+	background-color: white;
+	z-index: 100;
+	}
+div#idxbody {
+	position: absolute;
+	top: 85px; bottom: 0; left: 9px; right: 0;
+	overflow-y: scroll;
+	margin-right: 2px;
+	padding-bottom: 5px;
+	border-top: 1px solid silver;
+	}
+ label {
+	cursor: pointer;
+}
+.navtitle { font-size: 13pt; font-weight: bold; margin-bottom: 10px; }
+.nojstitle { font-size: 11pt; white-space: nowrap; margin-top: -8px; }
+.nojstitle a { color: black; text-decoration: none; }
+.nojstitle a:visited {color: black;}
+.nojstitle a:hover {text-decoration: underline; }
+#idx          { margin: 0; padding: 0; }     /* div tag that wraps the keyword index */
+#idx a        { color: #000; text-decoration: none; outline: none;}  /* all links in index appear as text */
+#idx a:visited { color: #000; } 
+#idx a:hover        { color: #000; text-decoration: underline; } 
+
+#idx p             { margin: 2px; }       /* keywords and secondary keywords */
+#idx p.idxkeyword2 { margin-left: 20px }  /* indentation for secondary keywords */
+.idxsection  { font-family: Arial,Helvetica; font-weight: normal; font-size: 14pt; color: #000000; text-decoration: none;
+			  margin-top: 15px; margin-bottom: 5px; }
+.idxkeyword  { font-family: Arial,Helvetica; font-weight: normal; font-size: 11pt; color: #000000; text-decoration: none; }
+.idxkeyword2 { font-family: Arial,Helvetica; font-weight: normal; font-size: 11pt; color: #000000; text-decoration: none; }
+.idxlink     { font-family: Arial,Helvetica; font-weight: normal; font-size: 9pt; color: #000000; text-decoration: none; }
+p.idxkeyword a:link, p.idxkeyword2 a:link { color: black; text-decoration: none;}
+p.idxkeyword a:visited, p.idxkeyword2 a:visited {color: black;}
+p.idxkeyword a:hover, p.idxkeyword2 a:hover { color: black; text-decoration: underline;}
+span.idxlabel { font-family: Arial,Helvetica; font-weight: normal; font-size: 8pt;}
+table\.idxtable { background: #F4F4F4;
+	border: 1px solid #000000;
+	border-collapse: collapse;
+	-moz-box-shadow: 2px 2px 2px #B0B0B0;
+	-webkit-box-shadow: 2px 2px 2px #B0B0B0;
+	box-shadow: 2px 2px 2px #B0B0B0;
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=B0B0B0, Direction=135, Strength=4); 
+	}
+td.idxtable    { background: #F4F4F4; }
+td.idxtable a:link { color: black; text-decoration: none;}
+td.idxtable a:visited {color: black;}
+td.idxtable a:hover { color: black; text-decoration: underline;}
+a.idxrefs:link {color: black; text-decoration: none;}
+a.idxrefs:visited {color: black;}
+a.idxrefs:hover {color: black; text-decoration: underline;}
+.searchopts { font-size: 12px;}
+</style>
+<script type="text/javascript">
+/*! Keyword index init functions for HM Premium Pack Version 2.71
+Copyright (c) 2008-2015 by Tim Green 
+All rights reserved. */
+
+var clicked = [],
+	idxTMP = "",
+	idxCount = 0,
+	idxMin = 3 < 3 ? 3 : 3,
+	idxSearchType = function(){return (document.getElementById("fullsearch").checked ? "" : document.getElementById("wordsearch").checked ? "\\b" : "^" )},
+	currentMode = null,
+	instantMode = null,
+	Parent;
+// Check for parent and reload UI if no parent
+try {
+	Parent = parent.window && parent.hmWebHelp ? parent.window : window.opener && window.opener.hmWebHelp ? window.opener : false;
+	} catch(err) {
+	Parent = false;
+	document.location.replace("index.html");
+	}
+
+// Escape special regex characters in search terms	
+function rxFix(cString) {
+	var testChrs = ["\\","^","$",".","|","?","*","+","(",")","[","{"],
+	newString = "",
+	testChr = "";
+	
+	for (var str = 0; str < cString.length; str++) {
+		testChr = cString.charAt(str);
+		for (var chr = 0; chr < testChrs.length; chr++ ) {
+		if (testChr==testChrs[chr]) {
+			testChr = "\\" + testChr;
+			break;
+		}
+	}
+	newString += testChr;
+	}
+	return newString;
+}
+
+// Scroll to index separator letter header
+function gotoIndex(target) {
+ if ($(target).length > 0) {
+ 	$("span.idxkeyword,span.idxkeyword2").css("backgroundColor","transparent");
+	$("div#idxbody").scrollTo($(target), 400);
+ } else {
+ alert("Не индексируюмые записи, начинающиеся с " + target.replace("#",""));
+ }
+}
+// Scroll to search term
+function hmScrollToKey() {
+	var pOffset = $("div#idxbody").height();
+	var idx = $("#idxSearch").val();
+	var rxIdx = new RegExp(idxSearchType() + rxFix(idx), "i");
+	var idxSearch = $("span.idxkeyword,span.idxkeyword2").filter(function(){
+		return (rxIdx.test($(this).text()));
+		});
+	if ($(idxSearch[idxCount]).offset() && idx != "") {
+		var pos = $(idxSearch[idxCount]).offset();
+		while (pos && pos.top < (pOffset + $("#idxSearch").scrollTop())) {
+			idxCount++;
+			pos = $(idxSearch[idxCount]).offset();
+		}
+	if ($(idxSearch[idxCount]).html() != null) {
+	$("div#idxbody").scrollTo(idxSearch[idxCount],400,{offset: -10});
+	}else
+		// Reset search after last entry
+	 {
+		idxCount = 0;
+		// $("div#idxbody").scrollTo({top:'0px', left:'0px'}, 400);
+		$("div#idxbody").scrollTo(idxSearch[idxCount],400,{offset: -10});
+	}
+	} 
+  }
+// Find and highlight search term 
+function hmFindKey() {
+	var idx = $("#idxSearch").val();
+		$("span.idxkeyword,span.idxkeyword2").css("backgroundColor","transparent");
+	var rxIdx = new RegExp(idxSearchType() + rxFix(idx), "i");
+	var idxSearch = $("span.idxkeyword,span.idxkeyword2").filter(function(){
+		return (rxIdx.test($(this).text()));
+		});
+	var target = $(idxSearch)[0];
+	if (idxSearch.length > 0 && idx.length > 0) {
+		$(idxSearch).css("background-color","yellow");
+		$("div#idxbody").scrollTo(target,400,{offset: -10});
+		} else if (idx.length == 0) {
+                    $("div#idxbody").scrollTo({top:'0px', left:'0px'}, 400);
+                } 
+	}
+// Index tracking counter
+function idxIncr(idx) {
+	if ((idxTMP == idx) && (idx != "")) {
+	idxCount++;
+	} else {
+	idxCount = 0;
+	idxTMP = idx;
+	}
+}
+// Search in index, container function
+function indexSearch() {
+	var lengthCheck = $("#idxSearch").val().length;
+	if (lengthCheck < idxMin && lengthCheck > 0 && document.getElementById("instantsearch").checked) return;
+	var idx = $("#idxSearch").val();
+    idxIncr(idx);
+	if (idx == "") hmFindKey();
+	if (idxCount > 0 && idx != "") {
+		hmScrollToKey();
+		}
+	else
+		hmFindKey();
+}
+// Non-scrolling header in index
+function nsHeader() {
+	var headHeight = $("div#idxheader").outerHeight()+10;
+	$("div#idxbody").css("top",headHeight+"px");
+}
+// Page init
+$(document).ready(function() {
+	// Script init
+	$("div#hmidxheader").hide();
+	$("div#idxbody").css("margin","5px 0px 2px 0px");
+	$("div#idxheader").css("display","block");
+	$("table.idxtable").css("position","absolute");
+	nsHeader();
+	$(window).bind("resize", function() {
+		nsHeader();
+		});
+	
+	// Disable Instant search?
+	if (false) {
+	   $("input#instantsearch").attr("disabled","true").removeAttr("checked").parent("label").hide();
+	   }
+
+// Index window is undocked
+if (window.opener) {
+	// Display tab box for undocked window 
+	$("ul.tabs").show();
+	$("ul.tabs a").css("cursor","default");
+	// $("body").css("background-color","#f1f1f1");
+	$("div#hmbox").css("padding", "10px");
+
+// Match skin to main window
+	$("link#tabscheme").attr("href","hm_webhelp_undocked.css");	
+	$("body,html").css("backgroundImage", "url('blackpaisley.jpeg')");
+
+	// Poller to close undocked index window if main window closes, reloads or goes elsewhere
+	var closeCheck = setInterval(function(){
+		function closeIt() {clearInterval(closeCheck); window.close();}
+		try { var windowsOpen = window.opener.hmWebHelp.openWindows.length; 
+			} catch(err) { closeIt();}	
+			if(!window.opener || windowsOpen < 1) {
+				closeIt();
+				}
+		},500);
+	} // End if window.opener
+
+	
+// Scroll target topic into view when link is clicked, cachefix management, reload as indication if target topic is already loaded
+
+$("a[target='hmcontent']").on("click", function(event) {
+	var target = $(this).attr("href"),
+		targetTest = target.substr(0,target.indexOf("#")),
+		Parent = parent.window && parent.hmWebHelp ? parent.window : window.opener && window.opener.hmWebHelp ? window.opener : false;
+		
+		if (Parent && Parent.hmnavpages.cachefix) {
+				event.preventDefault();
+				Parent.document.getElementById("hmcontent").src = Parent.hmCacheFix.getTarget(target);
+			}
+		if (Parent) {
+	Parent.hmWebHelp.tocWin.tocScroller(target);
+			if (targetTest == Parent.hmWebHelp.currentPage) {
+				Parent.hmWebHelp.tabsapi.click(0);
+			}
+		}
+	
+	});
+
+// Listener for index search
+$("#idxSearch").keydown(function(event){
+	var doInstant = document.getElementById("instantsearch").checked;
+	if (event.keyCode == 13) {
+	event.preventDefault();
+	indexSearch();
+	}
+	else if (doInstant) {
+		setTimeout(function(){indexSearch()},50);
+	}
+	});
+
+// Generic search reset function
+function resetSearch() {
+	if ($("#idxSearch").val().length > 0) {
+		$("#idxSearch").val("");
+		indexSearch();
+		}
+}
+
+// Reset search when any of the mode settings are changed
+$("input#startsearch, input#fullsearch, input#wordsearch, input#instantsearch").on("click",function(event){
+	var thisButton = $(this).attr("id");
+	isChecked = $(this)[0].checked;
+	
+	switch (thisButton) {
+		case "instantsearch":
+			if (isChecked !== instantMode)
+				resetSearch();
+			instantMode = isChecked;
+		break;
+		default:
+			if ((isChecked && currentMode !== thisButton) || (!isChecked && currentMode === thisButton))
+				resetSearch();
+			currentMode = thisButton;
+	}
+	});	
+
+// Index args listener for index term stored in parent page
+if (window.frameElement && Parent.hmLayout.hmIndexArg != "") {
+  var indexCheck = setInterval(function(){
+    var box = document.getElementById("idxSearch");
+  try {if (box.name) {
+       clearInterval(indexCheck);
+       box.value = Parent.hmLayout.hmIndexArg;
+       Parent.hmLayout.hmIndexArg = "";
+	   setTimeout(function() {
+		indexSearch();
+		},200);
+    }
+  } catch(err) {}
+  },100);
+} // Index args listener 
+
+
+	
+});
+</script>
+   <script type="text/javascript" src="helpman_settings.js"></script>
+   <script type="text/javascript" src="hmcontextids.js"></script>
+</head>
+<body>
+<!-- Help & Manual Premium Pack templates by Tim Green, Copyright (c) 2011-2015, All Rights Reserved -->
+<ul id="topictabs" class="tabs">
+<li id="indextab" class="hmtabs"><a href="#" id="indextablink" class="current"><span>Слова</span></a></li>
+</ul>
+<div id="hmbox">
+<div id="hmidxheader">
+<p class="navtitle">Презентация Help &amp; Manual</p>
+<p class="nojstitle"><a href="hmcontent.htm" target="_self">Содержание</a> | <b>Слова</b></p>
+</div>
+<div id="hminnerbox">
+<div id="idxheader">
+<div id="indexRefs">
+  <a href="javascript:gotoIndex('#A')" class="idxrefs">A</a>
+  <a href="javascript:gotoIndex('#B')" class="idxrefs">B</a>
+  <a href="javascript:gotoIndex('#C')" class="idxrefs">C</a>
+  <a href="javascript:gotoIndex('#D')" class="idxrefs">D</a>
+  <a href="javascript:gotoIndex('#E')" class="idxrefs">E</a>
+  <a href="javascript:gotoIndex('#F')" class="idxrefs">F</a>
+  <a href="javascript:gotoIndex('#G')" class="idxrefs">G</a>
+  <a href="javascript:gotoIndex('#H')" class="idxrefs">H</a>
+  <a href="javascript:gotoIndex('#I')" class="idxrefs">I</a>
+  <a href="javascript:gotoIndex('#J')" class="idxrefs">J</a>
+  <a href="javascript:gotoIndex('#K')" class="idxrefs">K</a>
+  <a href="javascript:gotoIndex('#L')" class="idxrefs">L</a>
+  <a href="javascript:gotoIndex('#M')" class="idxrefs">M</a>
+  <a href="javascript:gotoIndex('#N')" class="idxrefs">N</a>
+  <a href="javascript:gotoIndex('#O')" class="idxrefs">O</a>
+  <a href="javascript:gotoIndex('#P')" class="idxrefs">P</a>
+  <a href="javascript:gotoIndex('#Q')" class="idxrefs">Q</a>
+  <a href="javascript:gotoIndex('#R')" class="idxrefs">R</a>
+  <a href="javascript:gotoIndex('#S')" class="idxrefs">S</a>
+  <a href="javascript:gotoIndex('#T')" class="idxrefs">T</a>
+  <a href="javascript:gotoIndex('#U')" class="idxrefs">U</a>
+  <a href="javascript:gotoIndex('#V')" class="idxrefs">V</a>
+  <a href="javascript:gotoIndex('#W')" class="idxrefs">W</a>
+  <a href="javascript:gotoIndex('#X')" class="idxrefs">X</a>
+  <a href="javascript:gotoIndex('#Y')" class="idxrefs">Y</a>
+  <a href="javascript:gotoIndex('#Z')" class="idxrefs">Z</a>
+
+<p style="text-indent: 0px;">
+  <a href="javascript:gotoIndex('#А')" class="idxrefs">А</a>
+  <a href="javascript:gotoIndex('#Б')" class="idxrefs">Б</a>
+  <a href="javascript:gotoIndex('#В')" class="idxrefs">В</a>
+  <a href="javascript:gotoIndex('#Г')" class="idxrefs">Г</a>
+  <a href="javascript:gotoIndex('#Д')" class="idxrefs">Д</a>
+  <a href="javascript:gotoIndex('#Е')" class="idxrefs">Е</a>
+  <a href="javascript:gotoIndex('#Ё')" class="idxrefs">Ё</a>
+  <a href="javascript:gotoIndex('#З')" class="idxrefs">Ж</a>
+  <a href="javascript:gotoIndex('#И')" class="idxrefs">И</a>
+  <a href="javascript:gotoIndex('#Й')" class="idxrefs">Й</a>
+  <a href="javascript:gotoIndex('#К')" class="idxrefs">К</a>
+  <a href="javascript:gotoIndex('#Л')" class="idxrefs">Л</a>
+  <a href="javascript:gotoIndex('#М')" class="idxrefs">М</a>
+  <a href="javascript:gotoIndex('#Н')" class="idxrefs">Н</a>
+  <a href="javascript:gotoIndex('#О')" class="idxrefs">О</a>
+  <a href="javascript:gotoIndex('#П')" class="idxrefs">П</a>
+  <a href="javascript:gotoIndex('#Р')" class="idxrefs">Р</a>
+  <a href="javascript:gotoIndex('#С')" class="idxrefs">С</a>
+  <a href="javascript:gotoIndex('#Т')" class="idxrefs">Т</a>
+  <a href="javascript:gotoIndex('#У')" class="idxrefs">У</a>
+  <a href="javascript:gotoIndex('#Ф')" class="idxrefs">Ф</a>
+  <a href="javascript:gotoIndex('#Х')" class="idxrefs">Х</a>
+  <a href="javascript:gotoIndex('#Ц')" class="idxrefs">Ц</a>
+  <a href="javascript:gotoIndex('#Ч')" class="idxrefs">Ч</a>
+  <a href="javascript:gotoIndex('#Ш')" class="idxrefs">Ш</a>
+  <a href="javascript:gotoIndex('#Щ')" class="idxrefs">Щ</a>
+  <a href="javascript:gotoIndex('#Ъ')" class="idxrefs">Ъ</a>
+  <a href="javascript:gotoIndex('#Ы')" class="idxrefs">Ы</a>
+  <a href="javascript:gotoIndex('#Ь')" class="idxrefs">Ь</a>
+  <a href="javascript:gotoIndex('#Э')" class="idxrefs">Э</a>
+  <a href="javascript:gotoIndex('#Ю')" class="idxrefs">Ю</a>
+  <a href="javascript:gotoIndex('#Я')" class="idxrefs">Я</a></p>
+<div id="callout-wrap">
+<div id="callout">
+</div>
+</div>
+<form id="searchForm" style="margin-top: 2px; margin-bottom: 2px;">
+<input type="text" name="idxSearch" size="20" value="" id="idxSearch" />
+&nbsp;<button type="button" onclick="indexSearch();" title="Нажмите кнопку снова или нажмите Enter, чтобы перейти к следующему выделенному объекту">Ключевые слова для поиска</button>
+<label><input type="checkbox" id="instantsearch" name="instantsearch" checked value="Мгновенный Поиск"><span class="searchopts">Мгновенный Поиск</span></label>
+<label><input type="radio" id="startsearch" name="fullsearch" checked value="Первое Слово"><span class="searchopts">Первое Слово</span></label>
+<label><input type="radio" id="wordsearch" name="fullsearch" value="В Любом Месте Слова"><span class="searchopts">В Любом Месте Слова</span></label>
+<label><input type="radio" id="fullsearch" name="fullsearch" value="Полнотекстовый Поиск"><span class="searchopts">Полнотекстовый Поиск</span></label>
+</form>
+</div>
+</div>
+<div id="idxbody">
+<!-- Place holder for the keyword index - this variable is REQUIRED! -->
+<script type="text/javascript">
+
+  function hmInitHideLinks(cssCode) {
+  	var styleElement = document.createElement("style");
+  	styleElement.type = "text/css";
+  	if (styleElement.styleSheet) {
+    	styleElement.styleSheet.cssText = cssCode;
+  	}
+  	else {
+    	styleElement.appendChild(document.createTextNode(cssCode));
+  	}
+  	document.getElementsByTagName("head")[0].appendChild(styleElement);
+  }
+
+  hmInitHideLinks("#idx div { display: none }");
+
+  var currentdiv = null;
+  var canhidelinks = true;
+
+  function hmshowLinks(divID) {
+    var thisdiv = document.getElementById(divID);
+    canhidelinks = true;
+    hmhideLinks();
+    if (thisdiv) {
+      currentdiv = thisdiv;
+      $(currentdiv).show();
+      $(currentdiv).mouseover(hmdivMouseOver).mouseout(hmdivMouseOut);
+      $(document).mouseup(hmhideLinks);
+    }
+  }
+  function hmdivMouseOver() { canhidelinks = false; };
+  function hmdivMouseOut() { canhidelinks = true; };
+  function hmhideLinks() {
+    if (canhidelinks) {
+      if (currentdiv) {
+        $(currentdiv).hide();
+        $(currentdiv).unbind("onmouseover", "onmouseout");
+      }
+      currentdiv = null;
+      $(document).unbind("onmouseup");
+    }
+  }
+</script>
+<div id="idx" style="margin:0;padding:0;border:none">
+<a name="H" id="H"></a><p class="idxsection">- H -</p>
+<p class="idxkeyword"><a href="softwarehelpandmanual.htm" target="hmcontent"><span class="idxkeyword">Help &amp; Manual</span></a></p>
+<p class="idxkeyword"><a href="buyhelpandmanual.htm" target="hmcontent"><span class="idxkeyword">http://softline.ru/</span></a></p>
+<p class="idxkeyword2"><a href="buyhelpandmanual.htm" target="hmcontent"><span class="idxkeyword2">http://store.softline.ru/ec-software-gmbh/</span></a></p>
+<a name="V" id="V"></a><p class="idxsection">- V -</p>
+<p class="idxkeyword"><a href="svpii.htm" target="hmcontent"><span class="idxkeyword">veda@elcode.ru</span></a></p>
+<a name="Б" id="Б"></a><p class="idxsection">- Б -</p>
+<p class="idxkeyword"><a href="javascript:void(0)" onclick="return hmshowLinks('k4')"><span class="idxkeyword">Боброва Н.В.</span></a></p>
+<div id="k4" style="position:relative;margin:0 0 0 20px;top:-3px">
+<table class="idxtable" style="padding:4px"><tr><td class="idxtable"><table style="border:none;padding:0"><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib71.htm" target="hmcontent"><span class="idxlink">ИБ 71</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib165.htm" target="hmcontent"><span class="idxlink">ИБ 165</span></a></td></tr></table></td></tr></table></div>
+<a name="В" id="В"></a><p class="idxsection">- В -</p>
+<p class="idxkeyword"><a href="memoib71.htm" target="hmcontent"><span class="idxkeyword">Волохова Д.Е.</span></a></p>
+<a name="Е" id="Е"></a><p class="idxsection">- Е -</p>
+<p class="idxkeyword"><a href="memoib165.htm" target="hmcontent"><span class="idxkeyword">Еграшкина Ю.Д.</span></a></p>
+<a name="О" id="О"></a><p class="idxsection">- О -</p>
+<p class="idxkeyword"><a href="memoib122.htm" target="hmcontent"><span class="idxkeyword">Отбор документов для включения в ИБ_Оформление отдельных документов при включении в ИБ</span></a></p>
+<a name="П" id="П"></a><p class="idxsection">- П -</p>
+<p class="idxkeyword"><a href="memoib122.htm" target="hmcontent"><span class="idxkeyword">Памятка по отнесению документов к подбанку Региональный выпуск (бюджетные организации) от 14.03.2012</span></a></p>
+<p class="idxkeyword"><a href="memoib165.htm" target="hmcontent"><span class="idxkeyword">Памятка по оформлению документов, утверждающих тарифы, действующие с календарной разбивкой от 10.10.2014</span></a></p>
+<p class="idxkeyword"><a href="memoib71.htm" target="hmcontent"><span class="idxkeyword">Памятка по оформлению редакционных строк в таблицах от 08.06.2012</span></a></p>
+<p class="idxkeyword"><a href="letterib1.htm" target="hmcontent"><span class="idxkeyword">Перфильева Е.В.</span></a></p>
+<p class="idxkeyword"><a href="letterib1.htm" target="hmcontent"><span class="idxkeyword">Письмо Е.В. Перфильевой от 19.09.2014 &lt;О памятке по оформлению документов, утверждающих тарифы, действующие с календарной разбивкой от 10.10.2014&gt;</span></a></p>
+<p class="idxkeyword"><a href="javascript:void(0)" onclick="return hmshowLinks('k13')"><span class="idxkeyword">Подготовка документа К+ оформление и обработка_Оформление отдельных частей текста документа К+</span></a></p>
+<div id="k13" style="position:relative;margin:0 0 0 20px;top:-3px">
+<table class="idxtable" style="padding:4px"><tr><td class="idxtable"><table style="border:none;padding:0"><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib165.htm" target="hmcontent"><span class="idxlink">ИБ 165</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="letterib1.htm" target="hmcontent"><span class="idxlink">ИБ 1</span></a></td></tr></table></td></tr></table></div>
+<p class="idxkeyword"><a href="memoib71.htm" target="hmcontent"><span class="idxkeyword">Подготовка документа К+ оформление и обработка_Редакции документа К+</span></a></p>
+<a name="С" id="С"></a><p class="idxsection">- С -</p>
+<p class="idxkeyword"><a href="javascript:void(0)" onclick="return hmshowLinks('k15')"><span class="idxkeyword">Солянина Наталия Владиславовна</span></a></p>
+<div id="k15" style="position:relative;margin:0 0 0 20px;top:-3px">
+<table class="idxtable" style="padding:4px"><tr><td class="idxtable"><table style="border:none;padding:0"><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="otavtora.htm" target="hmcontent"><span class="idxlink">От Автора</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="completion.htm" target="hmcontent"><span class="idxlink">Заключение</span></a></td></tr></table></td></tr></table></div>
+<p class="idxkeyword"><a href="sravnitelniyanaliz.htm" target="hmcontent"><span class="idxkeyword">СПС КонсультантПлюс</span></a></p>
+<p class="idxkeyword"><a href="javascript:void(0)" onclick="return hmshowLinks('k17')"><span class="idxkeyword">Сысина Е.Ю.</span></a></p>
+<div id="k17" style="position:relative;margin:0 0 0 20px;top:-3px">
+<table class="idxtable" style="padding:4px"><tr><td class="idxtable"><table style="border:none;padding:0"><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib165.htm" target="hmcontent"><span class="idxlink">ИБ 165</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib122.htm" target="hmcontent"><span class="idxlink">ИБ 122</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="letterib1.htm" target="hmcontent"><span class="idxlink">ИБ 1</span></a></td></tr></table></td></tr></table></div>
+</div>
+
+</div> <!-- idxbody --> 
+</div><!-- hminnerbox -->
+</div><!-- hmbox -->
+<script type="text/javascript">
+$(document).ready(function() {
+// Close popups when clicked so they are not orphaned
+$("span.idxlink").click(function() { setTimeout(function(){hmhideLinks();},500)});
+});
+</script>
+</body>
+</html>

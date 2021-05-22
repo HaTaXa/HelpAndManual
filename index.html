@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Страница справочника</title>
+	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+
+	<!-- подключение скриптов js, jQuery -->
+	<!-- <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> -->
+
+	<meta name="robots" content="index, follow"/>
+	<meta name="description" content="&nbsp;">
+
+	<!-- подключение стилей -->
+	<link rel="stylesheet" href="css/styles.css"> <!-- вместо файла hm_webhelp.css -->
+	<!-- <link id="colorscheme" rel="stylesheet" type="text/css" href="hm_webhelp.css"> -->
+	<link rel="stylesheet" href="css/index.css"> <!-- Взято из: расположено в теге "<head>" основного файла index.html -->
+
+	<!-- еще скрипты js, jquery -->
+	<!-- <script type="text/javascript" src="js/helpman_settings.js"></script>
+	<script type="text/javascript" src="js/helpman_navigation.js"></script>
+	<script type="text/javascript" src="js/hmwebhelp.js"></script>
+	<script type="text/javascript" src="js/hmcontextids.js"></script> -->
+
+	<!-- [if IE 9]>
+	<link id="iesvgcss" rel="stylesheet" type="text/css" href="css/svg.css" />
+<![endif] -->
+<!-- [if lte IE 8]>
+	<style type="text/css">.compact-toolbar, .banner-toolbar {background-image: url("image/gb-banner.gif");}
+	ul.tabs a.current, div#idTabsCtab {background-image: url("image/gb-banner.gif");}
+	</style>
+<![endif] -->
+</head>
+<body>
+	<div id="idContainer" class="container">
+		<!-- Баннер на официальный сайт компании -->
+		<div id="idBanner" style="display: none;">
+			<a href="http://www.1gl.ru" title="БСС «Система Главбух» официальный сайт" target="_blank">
+				<div><img src="image/gb-banner.gif" alt="БСС «Главбух»"></div>
+				<p>www.1gl.ru</p>
+			</a>
+		</div>
+		<!-- Панель инструментов -->
+		<div id="idToolbar" class="compact-toolbar toolbar-up"> <!-- style="min-width: 850px;" -->
+			<table id="idToolbarTable">
+				<tbody>
+					<tr>
+						<!-- поле быстрый поиск -->
+						<td class="toolbar-search">
+							<div id="idQuickSearch" class="search-text-on">
+								<input id="idInputSearch" type="text" name="inputSearch" autocapitalize="off" autocorrect="off" title="Быстрый поиск" placeholder="Введите текст">
+								<span id="idNavIconQuickSearch" onclick="remoteSearch()">
+									<img id="idQuickSearchOn" class="nav-icon" src="image/search.png" title="Поиск разделов справки" alt="Поиск разделов справки">
+									<img id="idQuickSearchOff" src="image/searchoff.png">
+								</span>
+								<!-- <br> -->
+								<span class="nav-text-on">Быстрый поиск</span>
+							</div>
+						</td>
+						<!-- кнопки на панеле слева -->
+						<td class="toolbar-left">
+							<div class="nav-icon-box-left">
+								<span id="idNavIconTopic" onclick="topicsPane()" title="Выберите вкладку главная тема">
+									<img id="idTopicOn" class="nav-icon" src="image/browse.png">
+								</span>
+								<!-- <br> -->
+								<span id="idTopicText" class="nav-text-on">Обзор</span>
+							</div>
+							<div class="nav-icon-box-left">
+								<span id="idNavIconIndex" onclick="indexPane()" title="Ключевые слова">
+									<img id="idIndexOn" class="nav-icon" src="image/index.png">
+								</span>
+								<img id="idIndexOff" src="image/index_off.png">
+								<!-- <br> -->
+								<span id="idIndexText" class="nav-text-on">Слова</span>
+							</div>
+							<div class="nav-icon-box-left">
+								<span id="idNavIconSearch" onclick="searchPane()">
+									<img id="idSearchOn" class="nav-icon" src="image/search.png" title="Поиск разделов справки" alt="Поиск разделов справки">
+								</span>
+								<img id="idSearchOff" src="image/searchoff.png">
+								<!-- <br> -->
+								<span id="idSearchText" class="nav-text-on">Поиск</span>
+							</div>
+							<div id="idUndocTabTool" class="nav-icon-box-left">
+								<span id="idNavIconUndocTab" onclick="undockTab()">
+									<img id="idUndocTabOn" class="nav-icon" src="image/tabundock.png" title="Открепить текущую вкладку" alt="Открепить текущую вкладку" style="display: none;">
+								</span>
+								<img id="idUndocTabOff" class="nav-icon" src="image/tabundock_off.png">
+								<!-- <br> -->
+								<span id="idUndocTabText" class="nav-text-on nav-text-off">Открепить</span>
+							</div>
+							<div id="idNewTabTool" class="nav-icon-box-left">
+								<span id="idNavIconNewTab" onclick="newTab()">
+									<img id="idNewTabOn" class="nav-icon" src="image/tabnew.png" title="Открыть актуальную тему в новой вкладке" alt="Открыть актуальную тему в новой вкладке">
+								</span>
+								<img id="idNewTabOff" src="image/tabnew_off.png" title="Выберите главную вкладку, чтобы активировать эту функцию" alt="Выберите главную вкладку, чтобы активировать эту функцию" style="display: none;">
+								<!-- <br> -->
+								<span id="idNewTabText" class="nav-text-on">Новая вкладка</span>
+							</div>
+						</td>
+						<!-- 2 кнопки на панеле в центре: показать/скрыть и развернуть/свернуть -->
+						<td class="toolbar-center">
+							<div class="nav-icon-box-right">
+								<span id="idNavIconShowHide" onclick="bannerShowHide()">
+									<img id="idShowHideOn" class="nav-icon" src="image/gb.gif" title="Показать/Скрыть официальный сайт компании" alt="Показать/Скрыть официальный сайт компании">
+								</span>
+								<!-- <br> -->
+								<span class="nav-text-on">Показать/Скрыть</span>
+							</div>
+							<div class="nav-icon-box-right">
+								<span id="idNavIconExpand" onclick="textHiddenExpand()">
+									<img id="idExpandOn" class="nav-icon" src="image/expandon.png" title="Развернуть/Свернуть скрытый текст в текущей теме" alt="Развернуть/Свернуть скрытый текст в текущей теме">
+								</span>
+								<img id="idExpandOff" src="image/expandoff.png" style="display: none;">
+								<!-- <br> -->
+								<span id="idExpandText" class="nav-text-on">Развернуть/Свернуть</span>
+							</div>
+						</td>
+						<!-- кнопки на панеле справа -->
+						<td id="idTopicNavTD" class="toolbar-right">
+							<div id="idPermalinkTool" class="nav-icon-box-right">
+								<span id="idNavIconPermalink" onclick="setPermalink(hmnavpages.top)">
+									<img id="idPermalinkOn" class="nav-icon" src="image/permalink.png" title="Скопировать постоянную ссылку" alt="Скопировать постоянную ссылку">
+								</span>
+								<img id="idPermalinkOff" src="image/permalinkoff.png" style="display: none;">
+								<!-- <br> -->
+								<span id="idPermalinkText" class="nav-text-on">Постоянная<br>ссылка</span>
+							</div>
+							<!-- кнопка email -->
+							<div id="idFeedBackTool" class="nav-icon-box-right">
+								<a id="idNavIconFeedBack" href="mailto:user231082@gmail.com">
+									<!-- в img было: style="position: relative; z-index: 100; display: inline;" -->
+									<img id="idFeedBackOn" class="nav-icon" src="image/emailon.png" title="Техподдержка" alt="Техподдержка" onmouseover="this.src='image/support.gif'" onmouseout="this.src='image/emailon.png'">
+								</a>
+								<img id="idFeedBackOff" src="image/emailoff.png" style="display: none;">
+								<!-- <br> -->
+								<span id="idFeedBackText" class="nav-text-on">E-mail</span>
+							</div>
+							<!-- Печать -->
+							<div id="idPrintTool" class="nav-icon-box-right">
+								<a id="idNavIconPrinter" href="javascript: void(0);" onclick="printTopic(activePage)">
+									<img id="idPrinterOn" class="nav-icon" src="image/printer.png" title="Распечатать текущую тему" alt="Распечатать текущую тему">
+								</a>
+								<img id="idPrinterOff" src="image/printer_off.png" style="display: none;">
+								<!-- <br> -->
+								<span id="idPrinterText" class="nav-text-on">Печать</span>
+							</div>
+							<!-- кнопка Домой -->
+							<div class="nav-icon-box-right">
+								<a id="idNavIconHome" class="nav-cache" href="esdbssGlavbyx.htm" target="hmcontent" onclick="pageHome(this.href)">
+									<img class="nav-icon" src="image/home.png" title="Домашняя страница" alt="Домашняя страница">
+								</a>
+								<!-- <br> -->
+								<span class="nav-text-on">Домой</span>
+							</div>
+							<!-- кнопка Назад -->
+							<div class="nav-icon-box-right">
+								<a id="idNavIconPrevious" class="nav-cache" href="esdbssGlavbyx.html" target="hmcontent" onclick="pagePrevious(this.href)">
+									<img class="nav-icon" src="image/arrow_Previous.png" title="На предыдущую страницу" alt="На предыдущую страницу">
+								</a>
+								<!-- <br> -->
+								<span class="nav-text-on">Назад</span>
+							</div>
+							<!-- кнопка Вперед -->
+							<div class="nav-icon-box-right">
+								<a id="idNavIconNext" class="nav-cache" href="esdbssGlavbyx.html" target="hmcontent" onclick="pageNext(this.href)">
+									<img class="nav-icon" src="image/arrow_Next.png" title="На следующую страницу" alt="На следующую страницу">
+								</a>
+								<!-- <br> -->
+								<span class="nav-text-on">Вперед</span>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<!-- Боковая панель навигации -->
+		<!-- для idNavBox стили прописаны в styles.css
+			style="width: 275px; margin-top: 12px; top: 41px; left: 0px;"
+			style="width: 275px; margin-top: 12px; top: 41px; left: -270px;" -->
+		<div id="idNavBox" class="nav-box-up nav-box-show">
+			<!--  -->
+			<div id="idDragDivider" style="cursor: col-resize;"></div>
+			<div id="idNavHandle">
+				<a href="javascript: void(0)" onclick="NavShowHide()">
+					<img id="idNavShowHide" src="image/nav_close.png" title="Скрыть содержимое панели" alt="Скрыть содержимое панели" style="border: 0;">
+				</a>
+			</div>
+			<!-- страница "Панель Навигация" -->
+			<div id="idNavBorder">
+				<!-- (i) скрипт расположен в фале hmwebhelp.js -->
+				<!-- <script type="text/javascript">WebHelp.writeTOC();</script> -->
+				<iframe id="hmnavigation" name="hmnavigation" class="scroll-pane" src="navigationPane.htm" title="Панель Навигация"></iframe>
+			</div>
+		</div>
+		<!-- Контентная часть -->
+		<!-- (i) idTopicPane стиль прописан в styles.css
+			для style="left: 292px;margin-top: 8px;top: 67px;" -->
+		<div id="idTopicPane" class="topic-pane-up topic-pane-right">
+			<div id="idTabControls">
+				<div id="idTabsCtab">
+					<div id="idTabsCtabRight">
+						<img id="idTabEndLeft" class="tab-player" src="image/tabendleft.png" title="Начало панели вкладок" alt="Начало панели вкладок">
+						<img id="idTabLeft" class="tab-player" src="image/tableft.png" title="Предыдущая вкладка" alt="Предыдущая вкладка">
+						<img id="idToggleMenuTab" class="tab-player" src="image/tabs_menu.png" title="Меню вкладок" alt="Меню вкладок">
+						<img id="idTabRight" class="tab-player" src="image/tabright.png" title="Следующая вкладка" alt="Следующая вкладка">
+						<img id="idTabEndRight" class="tab-player" src="image/tabendright.png" title="Конец панели вкладок" alt="Конец панели вкладок">
+					</div>
+				</div>
+				<!--  -->
+				<div id="idTabsMenuBox">
+					<div id="idTabsMenu" class="idMenu">
+						<ul id="idTabsList">
+							<li>
+								<a id="idTabList0" href="#" onclick="TabSlider.goToTab(0, true)" style="font-weight: bold;">Актуальная Тема:&nbsp;ЕСД БСС «Главбух»</a>
+							</li>
+							<li>
+								<a id="idTabList1" href="#" onclick="TabSlider.goToTab(1, true)" style="font-weight: normal;">Ключевые слова</a>
+							</li>
+							<li>
+								<a id="idTabList2" href="#" onclick="TabSlider.goToTab(2, true)" style="font-weight: normal;">Поиск</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!--  -->
+				<div id="idTabsWindow">
+					<div id="idTabsLider" style="width: 272px;">
+						<ul id="idTopicTabs" class="tabs">
+							<li id="idTopicTab" class="topic-tab" ondblclick="alert(`Нельзя открепить вкладку «Главная»`)" onclick="topicTab();" tabnum="0">
+								<a id="idTopicTabLink" class="current" href="#topictablink" data="ЕСД БСС «Главбух»" title="ЕСД БСС «Главбух»">
+									<span class="">ЕСД БСС «Главбух»</span>
+								</a>
+							</li>
+							<li id="idIndexTab" class="topic-tab" onclick="keywordsTab();" hpage="index" tabnum="1">
+								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку">
+								<a id="idIndexTabLink" href="#indextablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку указатель" class="">
+									<span class="">Ключевые слова</span>
+								</a>
+							</li>
+							<li id="idSearchTab" class="topic-tab" onclick="searchTab();" hpage="search" tabnum="2" style="display: list-item;">
+								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку" style="display: none; cursor: pointer;">
+								<a id="idSearchTabLink" href="#searchtablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Поиск»" class="" style="display: block;">
+									<span class="">Поиск</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<!-- страница "Контент-Текст" -->
+			<div id="idTopicBox">
+				<div id="idContentBox" style="display: block;">
+					<!-- (i) скрипт расположен в фале hmwebhelp.js -->
+					<!-- <script type="text/javascript">WebHelp.writeTopic();</script> -->
+					<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esdbssGlavbyx.htm" title="Контент-Текст"></iframe>
+				</div>
+			</div>
+			<!-- страница "ключевые слова" -->
+			<div id="idIndexBox" style="display: none;">
+				<iframe id="idFrameIndex" name="frameIndex" class="scroll-pane" src="keywords.htm" title="Ключевые слова"></iframe>
+			</div>
+			<!-- страница "Поиск" -->
+			<div id="idSearchBox" style="display: none;">
+				<iframe id="idFrameSearch" name="frameSearch" class="scroll-pane" src="search.htm" title="Поиск"></iframe>
+			</div>
+		</div>
+	</div>
+
+	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
+	<!-- локальное подключение библиотеки jquery: несжатый -->
+	<script src="js/jquery-3.6.0.js"></script>
+	<!-- локальное подключение библиотеки jquery: минимизированный -->
+	<!-- <script src="js/jquery-3.6.0.min.js"></script> -->
+	<!-- ************************************************************ -->
+	<!-- ссылка на jquery CDN: несжатый -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script> -->
+	<!-- ссылка на jquery CDN: минимизированный -->
+	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
+	<!-- ************************************************************ -->
+	<!-- другие js-скрипты -->
+	<script src="js/scripts.js" async></script>
+</body>
+</html>

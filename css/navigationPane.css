@@ -1,0 +1,335 @@
+/*
+Взято из файла hmcontent.htm, стили были прописаны внутри страницы в хедере
+*/
+
+body, html {
+	background-color: transparent;
+	overflow: auto;
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+}
+/* General links */
+a {
+	color: #ffffff;
+	text-decoration: none;
+}
+a:visited {
+	color: #ffffff;
+}
+a:hover {
+	color: #ffffff;
+	text-decoration: underline;
+}
+a:focus {
+	outline: #707070 dashed thin;
+}
+
+/* TOC LIST CSS */
+#idToc {
+	margin: 0;
+	padding: 0;
+} /* General margin of the TOC (root entry) */
+
+#idToc li {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background-position: left center;
+	vertical-align: bottom;
+} /* Vertical spacing between TOC items */
+
+/* для каждого последнего потомка li в ul */
+/* #idToc li:last-child {
+	padding: 0 0 3px 0;
+} */
+
+li#idToc_li2,
+li#idToc_li3 {
+	padding: 4px 0 4px 0;
+}
+
+#idToc ul {
+	margin: 2px 0 0 0;
+	padding: 0;
+	vertical-align: bottom;
+} /* Indentation per level (negative value) */
+
+.image-expand {
+	background: url(../image/tgl_expand.gif) no-repeat;
+}
+.image-collapse {
+	background: url(../image/tgl_collapse.gif) no-repeat;
+}
+
+.list-show {
+	display: block;
+}
+.list-hide {
+	display: none;
+}
+
+/* TOC LIST CSS */
+div#idTocHeader {
+	position: absolute;
+	top: 10px; left: 10px; right: 18px;
+	overflow: hidden;
+}
+
+div#idTocBody {
+	position: absolute;
+/* ??? (i) не знаю для чего, но используется при внедрении боковой панели навигации */
+	background-image: url("../image/spacer.gif");
+	top: 85px;
+	left: 7px;
+	right: 0;
+	bottom: 170px;
+	overflow-y: auto;
+	border-style: solid;
+	border-color: #3f3f3f;
+	border-width: 1px 0 1px 0;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin-right: 2px;
+}
+
+div#tree {
+	overflow-y: hidden;
+}
+
+div#idTocFooter {
+	position: absolute;
+	bottom: 0;
+	left: 8px;
+	right: 8px;
+	background-color: transparent;
+	overflow: hidden;
+}
+
+div#idTocFooter p {
+	font-size: 0.7em;
+	text-align: center;
+	margin-bottom: 5px auto;
+	text-indent: 0;
+	color: #737373;
+}
+
+hr#idTocFooter {
+	border-style: solid;
+	border-color: #3f3f3f;
+	border-width: 1px 0 1px 0;
+}
+
+img#idFeedBackOn:hover {
+	position: fixed; /* устраняем смещение всплывающей картинки */
+/* Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
+	transform: translate (-50%, -80%);
+	-moz-transform: translate(-50%, -80%); /* Для Firefox */
+	-ms-transform: translate(-50%, -80%); /* Для IE */
+	-webkit-transform: translate(-50%, -80%); /* Для Safari, Chrome, iOS */
+	-o-transform: translate(-50%, -80%); /* Для Opera */
+	margin: 0;
+	padding: 2px 4px 2px 4px;
+	border-color: #fff;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	font-weight: normal; /* насыщенность шрифта */
+	z-index: 100;
+}
+
+.nav-title {
+	font-size: 13pt;
+	font-weight: bold;
+	/* margin-bottom: 10px; */
+	/* line-height: 93%; */
+}
+.nav-subtitle {
+	display: none;
+	font-size: 9pt;
+	font-weight: bold;
+	padding: 0;
+	margin: -8px 0 0 0;
+	color: silver;
+}
+.no-js-title {
+	font-size: 11pt;
+	white-space: nowrap;
+	margin-top: -8px;
+}
+.no-js-title a {
+	color: #ffffff;
+	text-decoration: none;
+}
+.no-js-title a:visited {
+	color: black;
+}
+.no-js-title a:hover {
+	text-decoration: underline;
+}
+li.heading1 {
+	background-position: 1px 1px !important;
+}
+.heading1 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 11pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading2,
+.heading3,
+.heading4,
+.heading5,
+.heading6,
+.heading7,
+.heading8,
+.heading9,
+.heading10 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+/* .heading3 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading4 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading5 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading6 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading7 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading8 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading9 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+}
+.heading10 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: silver;
+	text-decoration: none;
+} */
+.hilight1 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 11pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+.hilight2,
+.hilight3,
+.hilight4,
+.hilight5,
+.hilight6,
+.hilight7,
+.hilight8,
+.hilight9,
+.hilight10 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+/* .hilight3 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+.hilight4 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+.hilight5 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+.hilight6 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+.hilight7 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}
+.hilight8 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}.hilight9 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+}.hilight10 {
+	font-family: Arial, Helvetica;
+	font-weight: normal;
+	font-size: 10pt;
+	color: #000000;
+	background: #dedede;
+	text-decoration: none;
+} */

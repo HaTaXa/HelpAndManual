@@ -1,0 +1,324 @@
+/* Text Styles */
+hr {
+	color: #000000;
+}
+body, table, tr, th /* Normal */ {
+	font-size: 12pt;
+	font-family: "Times New Roman", Times, Georgia, serif;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+span.f_BodyText /* Body Text */ {
+}
+span.f_Callouts /* Callouts */ {
+	font-size: 10pt;
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	letter-spacing: -1px;
+}
+span.f_CodeExample /* Code Example */ {
+	font-size: 8pt;
+	font-family: "Courier New";
+}
+span.f_Comment /* Comment */ {
+}
+span.f_CourerNew /* Courer New */ {
+	font-size: 11pt;
+	font-family: "Courier New";
+}
+span.f_Heading1 /* Heading1 */ {
+	font-size: 16pt;
+	font-weight: bold;
+}
+span.f_Heading1Black /* Heading1 Black */ {
+	font-size: 16pt;
+	font-weight: bold;
+}
+span.f_Heading2 /* Heading2 */ {
+	font-weight: bold;
+}
+span.f_Heading3 /* Heading3 */ {
+	font-weight: bold;
+}
+span.f_ImageCaption /* Image Caption */ {
+	font-size: 8pt;
+	font-weight: bold;
+}
+span.f_MyBodyText0 /* My Body Text (0) */ {
+}
+span.f_MyBodyText1 /* My Body Text (1) */ {
+}
+span.f_MyBodyText2 /* My Body Text (2) */ {
+}
+span.f_MyBodyText3 /* My Body Text (3) */ {
+}
+span.f_MyBodyText4 /* My Body Text (4) */ {
+}
+span.f_MyBodyText9 /* My Body Text (9) */ {
+}
+span.f_MyHeading1Standard /* My Heading1 (Standard) */ {
+	font-size: 16pt;
+	font-weight: bold;
+}
+span.f_MyHeading1Black /* My Heading1 Black */ {
+	font-size: 16pt;
+	font-weight: bold;
+}
+span.f_MyHeading3 /* My Heading3 */ {
+	font-weight: bold;
+}
+span.f_Notes /* Notes */ {
+}
+span.f_NotesBox /* NotesBox */ {
+}
+span.f_PopupBox /* Popup Box */ {
+	font-size: 9pt;
+}
+span.f_SeeAlso /* SeeAlso */ {
+	font-family: "Segoe UI Semibold", Tahoma, Verdana, Arial, sans-serif;
+}
+span.f_T_Code /* T_Code */ {
+	font-size: 11pt;
+	font-family: "Courier New";
+	letter-spacing: -1px;
+}
+span.f_T_Emphasis /* T_Emphasis */ {
+	font-size: 10pt;
+	font-family: "Segoe UI", Tahoma, Verdana, Arial, sans-serif;
+	font-weight: bold;
+}
+span.f_T_Entry /* T_Entry */ {
+	font-size: 11pt;
+	font-family: "Courier New";
+	font-weight: bold;
+	letter-spacing: -1px;
+}
+span.f_T_Entry10pt /* T_Entry 10pt */ {
+	font-size: 10pt;
+	font-family: "Courier New";
+	font-style: italic;
+	font-weight: bold;
+	letter-spacing: -1px;
+}
+span.f_T_Menu /* T_Menu */ {
+	font-size: 11pt;
+	font-family: "Segoe UI Semibold", Tahoma, Verdana, Arial, sans-serif;
+}
+span.f_T_Menu10p /* T_Menu 10p */ {
+	font-size: 11pt;
+	font-family: "Segoe UI Semibold", Tahoma, Verdana, Arial, sans-serif;
+}
+span.f_Text /* Text */ {
+}
+span.f_TipBody /* Tip Body */ {
+	font-family: Verdana, Geneva, Arial, sans-serif;
+	letter-spacing: -1px;
+}
+span.f_TipHeading /* Tip Heading */ {
+	font-family: Tahoma, Geneva, Verdana, sans-serif;
+	font-weight: bold;
+}
+/* Paragraph styles */
+p /* Normal */ {
+	text-align: left;
+	text-indent: 19px;
+	padding: 0px 0px 0px 0px;
+	margin: 7px 0px 7px 0px;
+}
+.p_BodyText /* Body Text */ {
+	font-size: 12pt;
+	margin: 7px 0px 10px 0px;
+}
+.p_Callouts /* Callouts */ {
+	font-size: 10pt;
+	margin: 7px 0px 5px 0px;
+}
+.p_CodeExample /* Code Example */ {
+	font-size: 8pt;
+	text-indent: 0px;
+	white-space: nowrap;
+	page-break-inside: avoid;
+	margin: 0px 0px 0px 0px;
+}
+.p_Comment /* Comment */ {
+	font-size: 12pt;
+}
+.p_CourerNew /* Courer New */ {
+	font-size: 11pt;
+	margin: 0px 0px 0px 0px;
+}
+.p_Heading1 /* Heading1 */ {
+	font-size: 100%;
+	font-weight: normal;
+	text-align: center;
+	text-indent: 0px;
+	padding: 0px 0px 0px 0px;
+	margin: 9px 0px 9px 0px;
+}
+.p_Heading1Black /* Heading1 Black */ {
+	font-size: 100%;
+	font-weight: normal;
+	text-align: center;
+	text-indent: 0px;
+	padding: 0px 0px 0px 0px;
+	margin: 9px 0px 9px 0px;
+}
+.p_Heading2 /* Heading2 */ {
+	font-size: 100%;
+	font-weight: normal;
+	text-align: center;
+	text-indent: 0px;
+	padding: 0px 0px 0px 0px;
+	margin: 9px 0px 9px 0px;
+}
+.p_Heading3 /* Heading3 */ {
+	font-size: 100%;
+	font-weight: normal;
+	text-align: center;
+	text-indent: 0px;
+	padding: 0px 0px 0px 0px;
+	margin: 9px 0px 9px 0px;
+}
+.p_ImageCaption /* Image Caption */ {
+	font-size: 8pt;
+}
+.p_MyBodyText0 /* My Body Text (0) */ {
+	font-size: 12pt;
+	margin: 7px 0px 0px 0px;
+}
+.p_MyBodyText1 /* My Body Text (1) */ {
+	font-size: 12pt;
+	text-indent: 18px;
+	margin: 7px 0px 0px 0px;
+}
+.p_MyBodyText2 /* My Body Text (2) */ {
+	font-size: 12pt;
+	text-indent: 18px;
+}
+.p_MyBodyText3 /* My Body Text (3) */ {
+	font-size: 12pt;
+	text-indent: -18px;
+	margin: 7px 0px 7px 18px;
+}
+.p_MyBodyText4 /* My Body Text (4) */ {
+	font-size: 12pt;
+	text-indent: 18px;
+	background: #ffff99;
+}
+.p_MyBodyText9 /* My Body Text (9) */ {
+	font-size: 12pt;
+}
+.p_MyHeading1Standard /* My Heading1 (Standard) */ {
+	font-size: 16pt;
+	text-align: center;
+	text-indent: 0px;
+}
+.p_MyHeading1Black /* My Heading1 Black */ {
+	font-size: 16pt;
+	text-align: center;
+	text-indent: 0px;
+}
+.p_MyHeading3 /* My Heading3 */ {
+	font-size: 12pt;
+	text-align: center;
+	text-indent: 0px;
+}
+.p_Notes /* Notes */ {
+	font-size: 12pt;
+	text-indent: 0px;
+}
+.p_NotesBox /* NotesBox */ {
+	font-size: 12pt;
+	text-indent: 0px;
+	margin: 10px 0px 7px 0px;
+}
+.p_PopupBox /* Popup Box */ {
+	font-size: 9pt;
+}
+.p_SeeAlso /* SeeAlso */ {
+	font-size: 12pt;
+	page-break-after: avoid;
+	margin: 10px 0px 7px 0px;
+}
+.p_Text /* Text */ {
+	font-size: 12pt;
+	text-indent: 0px;
+	margin: 0px 0px 0px 0px;
+}
+.p_TipBody /* Tip Body */ {
+	font-size: 12pt;
+}
+.p_TipHeading /* Tip Heading */ {
+	font-size: 12pt;
+}
+
+#hmpopupdiv /* used for javascript text popups */ {
+	display: none;
+	position: absolute;
+	z-index: 1000;
+	background-color: #ffffff;
+	padding: 6px;
+	border: 1px solid #000000;
+	border-radius: 5px;
+	box-shadow: 5px 5px 5px #888;
+}
+
+#hmlightbox /* image lightbox */ {
+	border: none;
+	padding: 8px;
+	background: #fff;
+	font-size: 110%;
+	font-weight: bold;
+	color: #777;
+	box-shadow: 5px 5px 5px #888;
+}
+
+a.dropdown-toggle /* dropdown toggle caption */ {
+	cursor: pointer;
+}
+a.inline-toggle /* inline toggle caption */ {
+	cursor: pointer;
+}
+img.dropdown-toggle-icon /* toggle icon */ {
+	cursor: pointer;
+}
+/* CSS for responsive image maps */
+
+.hmImageMap a.hmHotspotRect {
+	display: block;
+	position: absolute;
+	border: 1px solid transparent;
+	background: #000;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+.hmImageMap a.hmHotspotEllipse {
+	display: block;
+	position: absolute;
+	border-radius: 50%;
+	border: 1px solid transparent;
+	background: #000;
+	opacity: 0.01;
+	filter: alpha(opacity=1);
+}
+.hmImageMap:hover a.hmHotspotRect {
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+.hmImageMap:hover a.hmHotspotEllipse {
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+a.hmHotspotRect:hover {
+	border: 1px solid #000;
+	background: #fff;
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}
+a.hmHotspotEllipse:hover {
+	border: 1px solid #000;
+	background: #fff;
+	opacity: 0.3;
+	filter: alpha(opacity=30);
+}

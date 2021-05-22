@@ -1,0 +1,34 @@
+/* Turn off background gradients for IE 9 because they
+protrude over the edges of rounded corners */
+
+ul.tabs a, ul.tabs a.current, div#hmtabsCtab, div#hmtoolbar, img.naviconH, div#hmnavbox, div#hmnavborder {
+	filter: none;
+	-ms-filter: none;
+	}
+
+ul.tabs a {
+    background-image: url(../image/taboff_gradient.svg);
+    background-size: 100% 100%;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+}
+
+div#hmtoolbar, ul.tabs a.current, div#hmtabsCtab {
+    background-image: url(../image/toolbar_gradient.svg);
+    background-size: 100% 100%;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+}
+
+div#hmnavborder {
+    background-image: url(../image/navborder_gradient.svg);
+    background-size: 100% 100%;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+	}
+div#hmnavbox {
+    background-image: url(../image/navbox_gradient.svg);
+    background-size: 100% 100%;
+    background-repeat: repeat-x;
+    background-position: 0 0;
+}
