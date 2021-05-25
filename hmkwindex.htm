@@ -16,15 +16,15 @@
 <![endif]-->
 <style type="text/css">
 html, body {
-	overflow: hidden; 
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;  
+	overflow: hidden;
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
 	}
 div#hmidxheader {
 	position: absolute;
 	background: transparent;
 	top: 10px; left: 10px; right: 18px;
 	}
-div#idxheader { 
+div#idxheader {
 	position: relative;
 	top: 0px; left: 0px; right: 0px;
 	display: none;
@@ -49,8 +49,8 @@ div#idxbody {
 .nojstitle a:hover {text-decoration: underline; }
 #idx          { margin: 0; padding: 0; }     /* div tag that wraps the keyword index */
 #idx a        { color: #000; text-decoration: none; outline: none;}  /* all links in index appear as text */
-#idx a:visited { color: #000; } 
-#idx a:hover        { color: #000; text-decoration: underline; } 
+#idx a:visited { color: #000; }
+#idx a:hover        { color: #000; text-decoration: underline; }
 
 #idx p             { margin: 2px; }       /* keywords and secondary keywords */
 #idx p.idxkeyword2 { margin-left: 20px }  /* indentation for secondary keywords */
@@ -69,7 +69,7 @@ table\.idxtable { background: #F4F4F4;
 	-moz-box-shadow: 2px 2px 2px #B0B0B0;
 	-webkit-box-shadow: 2px 2px 2px #B0B0B0;
 	box-shadow: 2px 2px 2px #B0B0B0;
-	filter: progid:DXImageTransform.Microsoft.Shadow(color=B0B0B0, Direction=135, Strength=4); 
+	filter: progid:DXImageTransform.Microsoft.Shadow(color=B0B0B0, Direction=135, Strength=4);
 	}
 td.idxtable    { background: #F4F4F4; }
 td.idxtable a:link { color: black; text-decoration: none;}
@@ -82,7 +82,7 @@ a.idxrefs:hover {color: black; text-decoration: underline;}
 </style>
 <script type="text/javascript">
 /*! Keyword index init functions for HM Premium Pack Version 2.71
-Copyright (c) 2008-2015 by Tim Green 
+Copyright (c) 2008-2015 by Tim Green
 All rights reserved. */
 
 var clicked = [],
@@ -101,12 +101,12 @@ try {
 	document.location.replace("index.html");
 	}
 
-// Escape special regex characters in search terms	
+// Escape special regex characters in search terms
 function rxFix(cString) {
 	var testChrs = ["\\","^","$",".","|","?","*","+","(",")","[","{"],
 	newString = "",
 	testChr = "";
-	
+
 	for (var str = 0; str < cString.length; str++) {
 		testChr = cString.charAt(str);
 		for (var chr = 0; chr < testChrs.length; chr++ ) {
@@ -152,9 +152,9 @@ function hmScrollToKey() {
 		// $("div#idxbody").scrollTo({top:'0px', left:'0px'}, 400);
 		$("div#idxbody").scrollTo(idxSearch[idxCount],400,{offset: -10});
 	}
-	} 
+	}
   }
-// Find and highlight search term 
+// Find and highlight search term
 function hmFindKey() {
 	var idx = $("#idxSearch").val();
 		$("span.idxkeyword,span.idxkeyword2").css("backgroundColor","transparent");
@@ -168,7 +168,7 @@ function hmFindKey() {
 		$("div#idxbody").scrollTo(target,400,{offset: -10});
 		} else if (idx.length == 0) {
                     $("div#idxbody").scrollTo({top:'0px', left:'0px'}, 400);
-                } 
+                }
 	}
 // Index tracking counter
 function idxIncr(idx) {
@@ -208,7 +208,7 @@ $(document).ready(function() {
 	$(window).bind("resize", function() {
 		nsHeader();
 		});
-	
+
 	// Disable Instant search?
 	if (false) {
 	   $("input#instantsearch").attr("disabled","true").removeAttr("checked").parent("label").hide();
@@ -216,35 +216,35 @@ $(document).ready(function() {
 
 // Index window is undocked
 if (window.opener) {
-	// Display tab box for undocked window 
+	// Display tab box for undocked window
 	$("ul.tabs").show();
 	$("ul.tabs a").css("cursor","default");
 	// $("body").css("background-color","#f1f1f1");
 	$("div#hmbox").css("padding", "10px");
 
 // Match skin to main window
-	$("link#tabscheme").attr("href","hm_webhelp_undocked.css");	
+	$("link#tabscheme").attr("href","hm_webhelp_undocked.css");
 	$("body,html").css("backgroundImage", "url('blackpaisley.jpeg')");
 
 	// Poller to close undocked index window if main window closes, reloads or goes elsewhere
 	var closeCheck = setInterval(function(){
 		function closeIt() {clearInterval(closeCheck); window.close();}
-		try { var windowsOpen = window.opener.hmWebHelp.openWindows.length; 
-			} catch(err) { closeIt();}	
+		try { var windowsOpen = window.opener.hmWebHelp.openWindows.length;
+			} catch(err) { closeIt();}
 			if(!window.opener || windowsOpen < 1) {
 				closeIt();
 				}
 		},500);
 	} // End if window.opener
 
-	
+
 // Scroll target topic into view when link is clicked, cachefix management, reload as indication if target topic is already loaded
 
 $("a[target='hmcontent']").on("click", function(event) {
 	var target = $(this).attr("href"),
 		targetTest = target.substr(0,target.indexOf("#")),
 		Parent = parent.window && parent.hmWebHelp ? parent.window : window.opener && window.opener.hmWebHelp ? window.opener : false;
-		
+
 		if (Parent && Parent.hmnavpages.cachefix) {
 				event.preventDefault();
 				Parent.document.getElementById("hmcontent").src = Parent.hmCacheFix.getTarget(target);
@@ -255,7 +255,7 @@ $("a[target='hmcontent']").on("click", function(event) {
 				Parent.hmWebHelp.tabsapi.click(0);
 			}
 		}
-	
+
 	});
 
 // Listener for index search
@@ -282,7 +282,7 @@ function resetSearch() {
 $("input#startsearch, input#fullsearch, input#wordsearch, input#instantsearch").on("click",function(event){
 	var thisButton = $(this).attr("id");
 	isChecked = $(this)[0].checked;
-	
+
 	switch (thisButton) {
 		case "instantsearch":
 			if (isChecked !== instantMode)
@@ -294,7 +294,7 @@ $("input#startsearch, input#fullsearch, input#wordsearch, input#instantsearch").
 				resetSearch();
 			currentMode = thisButton;
 	}
-	});	
+	});
 
 // Index args listener for index term stored in parent page
 if (window.frameElement && Parent.hmLayout.hmIndexArg != "") {
@@ -310,10 +310,10 @@ if (window.frameElement && Parent.hmLayout.hmIndexArg != "") {
     }
   } catch(err) {}
   },100);
-} // Index args listener 
+} // Index args listener
 
 
-	
+
 });
 </script>
    <script type="text/javascript" src="helpman_settings.js"></script>
@@ -488,7 +488,7 @@ if (window.frameElement && Parent.hmLayout.hmIndexArg != "") {
 <table class="idxtable" style="padding:4px"><tr><td class="idxtable"><table style="border:none;padding:0"><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib165.htm" target="hmcontent"><span class="idxlink">ИБ 165</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="memoib122.htm" target="hmcontent"><span class="idxlink">ИБ 122</span></a></td></tr><tr style="vertical-align:baseline"><td><img src="ciconidx.gif" style="border:none" alt="Icon"></td><td><a href="letterib1.htm" target="hmcontent"><span class="idxlink">ИБ 1</span></a></td></tr></table></td></tr></table></div>
 </div>
 
-</div> <!-- idxbody --> 
+</div> <!-- idxbody -->
 </div><!-- hminnerbox -->
 </div><!-- hmbox -->
 <script type="text/javascript">

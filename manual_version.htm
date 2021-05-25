@@ -11,17 +11,21 @@
 			/* background: #3f3f3f; */
 			background: #fff;
 		}
-		p{
+		div {
+			width: 100%;
+		}
+		p {
 			text-align: center;
 			text-indent: 0px;
-			font-family: 'Verdana, Tahoma, sans-serif';
-			font-size: 12pt;
 		}
-		div {
-			/* display: flex;
-			flex-direction: column; */
-			width: 100%;
-			/* margin: auto; */
+		.courier-new {
+			font-family: 'Courier New', Courier, monospace;
+		}
+		.text-color-silver {
+			color: #737373;
+		}
+		.text-color-silver:hover {
+			color: #fff;
 		}
 		.header {
 			position: absolute;
@@ -29,17 +33,22 @@
 			top: 0;
 			right: 0;
 			overflow: hidden;
+			background: url(image/bg-top.png) no-repeat;
+			background-size: 100% 100%;
+			font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+			font-size: 0.7em;
+			color: #fff;
 		}
 		.body {
 			position: absolute;
 			left: 0;
-			top: 60px;
+			top: 48px;
 			right: 0;
-			bottom: 120px;
+			bottom: 88px;
 			overflow: auto;
 			border-width: 1px 0 1px 0;
 			border-style: solid;
-			background: #fff;
+			font-size: 12pt;
 		}
 		.footer {
 			position: absolute;
@@ -47,18 +56,25 @@
 			right: 0;
 			bottom: 0;
 			overflow: hidden;
-			font-size: 10pt;
+			background: url(image/bg-bottom.png) no-repeat;
+			background-size: 100% 100%;
+			font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+			font-size: 0.7em;
+			color: #fff;
 		}
-		.footer .p{
-			font-family: 'Courier New', Courier, monospace;
+		.footer .a {
+			color: #737373;
+		}
+		.footer .a:hover {
+			color: #fff;
 		}
 	</style>
 </head>
 <body>
 	<div class="header">
-		<p>
+		<p class="text-color-silver">
 			ЕСД БСС «Главбух»<br>
-			<b>Версия:</b>&nbsp;<span style="font-weight: bold; color: red;">v.1.0</span>
+			<b>Версия: v.1.0</b>
 		</p>
 	</div>
 	<div class="body">
@@ -77,12 +93,14 @@
 		</p>
 	</div>
 	<div class="footer">
-		<p>
+		<p class="text-color-silver">
 			<b>Разработчик и автор инструкций</b>:<br>
-			<i>Солянина<br>Натал<u>И</u>я Владиславовна</i>
+			<span class="courier-new">
+				<i>Солянина<br>Натал<u>И</u>я Владиславовна</i>
+			</span>
 		</p>
-		<p>
-			&copy;&nbsp;<a href="https://hataxa.github.io/test/">HaTaXa</a> 2021
+		<p class="text-color-silver">
+			&copy;&nbsp;«<a class="a" href="https://hataxa.github.io/HelpAndManual/">HaTaXa</a>» 2021
 		</p>
 	</div>
 </body>

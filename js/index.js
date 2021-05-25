@@ -31,7 +31,7 @@ var hmnavpages = {
 	idx: "hmkwindex.htm",
 	sch: "hmftsearch.htm",
 	top: "index.html",
-	def: "esdbssGlavbyx.htm",
+	def: "esd_bss_glavbyx.htm",
 	query: window.location.search.substring(1).replace(/:/g,""),
 	hash: window.location.hash,
 	cachefix: 30,

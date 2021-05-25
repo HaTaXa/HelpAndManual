@@ -1,20 +1,391 @@
+//дожидаемся полной загрузки страницы, (i) но проверка на null все равно получается нужна, не пойму тогда для чего onload?
+window.onload = function () {
+	// Инициализация переменных
+	// topictablink = document.getElementById('idTopicTabLink');
+	// indextablink = document.getElementById('idIndexTabLink');
+	// searchtablink = document.getElementById('idSearchTabLink');
+
+	// события элементов вкладок
+	// события вкладки топик
+	if ('#idTopicTabLink' != null) {
+		// наведение курсора
+		$('#idTopicTabLink').mouseover(function () {
+			$('ul.tabs a#idTopicTabLink span').addClass('hover');
+		});
+		$('#idTopicTabLink').mouseout(function () {
+			$('ul.tabs a#idTopicTabLink span').removeClass('hover');
+		});
+		// событие клик
+		$('#idTopicTabLink').on('click', function () {
+			// ссылки во вкладках
+			$('#idTopicTabLink').addClass('current');
+			$('#idIndexTabLink').removeClass('current');
+			$('#idSearchTabLink').removeClass('current');
+			// контент-текст
+			$('#idContentBox').css('display', 'block');
+			$('#idIndexBox').css('display', 'none');
+			$('#idSearchBox').css('display', 'none');
+			// кнопки на панели инструментов
+			// кнопка открепить нет доступа
+			$('#idUndocTabOn').css('display', 'none');
+			$('#idUndocTabOff').css('display', 'block');
+			$('#idUndocTabText').addClass('nav-text-off');
+			// кнопка новая вкладка доступна
+			$('#idNewTabOn').css('display', 'block');
+			$('#idNewTabOff').css('display', 'none');
+			$('#idNewTabText').removeClass('nav-text-off');
+			// кнопка развернуть/свернуть доступна
+			$('#idExpandOn').css('display', 'block');
+			$('#idExpandOff').css('display', 'none');
+			$('#idExpandText').removeClass('nav-text-off');
+			// кнопка постоянная ссылка доступна
+			$('#idPermalinkOn').css('display', 'block');
+			$('#idPermalinkOff').css('display', 'none');
+			$('#idPermalinkText').removeClass('nav-text-off');
+			// кнопка email доступна
+			$('#idFeedBackOn').css('display', 'block');
+			$('#idFeedBackOff').css('display', 'none');
+			$('#idFeedBackText').removeClass('nav-text-off');
+			// кнопка печать доступна
+			$('#idPrinterOn').css('display', 'block');
+			$('#idPrinterOff').css('display', 'none');
+			$('#idPrinterText').removeClass('nav-text-off');
+		});
+	};
+	// события вкладки ключевые слова
+	if ('#idIndexTabLink' != null) {
+		// наведение курсора
+		$('#idIndexTabLink').mouseover(function () {
+			$('ul.tabs li#idIndexTab img').css('display', 'block');
+			$('ul.tabs a#idIndexTabLink span').addClass('hover');
+		});
+		$('#idIndexTabLink').mouseout(function () {
+			$('ul.tabs li#idIndexTab img').css('display', 'none');
+			$('ul.tabs a#idIndexTabLink span').removeClass('hover');
+		});
+		// событие клик
+		$('#idIndexTabLink').on('click', function () {
+			// ссылки во вкладках
+			$('#idIndexTabLink').addClass('current');
+			$('#idTopicTabLink').removeClass('current');
+			$('#idSearchTabLink').removeClass('current');
+			// контент-текст
+			$('#idIndexBox').css('display', 'block');
+			$('#idContentBox').css('display', 'none');
+			$('#idSearchBox').css('display', 'none');
+			// кнопки на панели инструментов
+			// кнопка открепить доступа
+			$('#idUndocTabOn').css('display', 'block');
+			$('#idUndocTabOff').css('display', 'none');
+			$('#idUndocTabText').removeClass('nav-text-off');
+			// кнопка новая вкладка нет доступа
+			$('#idNewTabOn').css('display', 'none');
+			$('#idNewTabOff').css('display', 'block');
+			$('#idNewTabText').addClass('nav-text-off');
+			// кнопка развернуть/свернуть нет доступа
+			$('#idExpandOn').css('display', 'none');
+			$('#idExpandOff').css('display', 'block');
+			$('#idExpandText').addClass('nav-text-off');
+			// кнопка постоянная ссылка нет доступа
+			$('#idPermalinkOn').css('display', 'none');
+			$('#idPermalinkOff').css('display', 'block');
+			$('#idPermalinkText').addClass('nav-text-off');
+			// кнопка email нет доступа
+			$('#idFeedBackOn').css('display', 'none');
+			$('#idFeedBackOff').css('display', 'block');
+			$('#idFeedBackText').addClass('nav-text-off');
+			// кнопка печать нет доступа
+			$('#idPrinterOn').css('display', 'none');
+			$('#idPrinterOff').css('display', 'block');
+			$('#idPrinterText').addClass('nav-text-off');
+		});
+	};
+	// события кнопки закрытия вкладки ключевые слова
+	if ('ul.tabs li#idIndexTab img' != null) {
+		// наведение курсора
+		$('ul.tabs li#idIndexTab img').mouseover(function () {
+			$('ul.tabs li#idIndexTab img').css('cursor', 'pointer');
+			$('ul.tabs li#idIndexTab img').css('display', 'block');
+			$('ul.tabs li#idIndexTab img').attr('src', 'image/closetabon.png');
+		});
+		$('ul.tabs li#idIndexTab img').mouseout(function () {
+			$('ul.tabs li#idIndexTab img').css('cursor', 'default');
+			$('ul.tabs li#idIndexTab img').css('display', 'none');
+			$('ul.tabs li#idIndexTab img').attr('src', 'image/closetaboff.png');
+		});
+		// событие клик
+		$('ul.tabs li#idIndexTab img').on('click', function () {
+			// ссылки во вкладках
+			$('#idTopicTabLink').addClass('current');
+			$('#idIndexTabLink').removeClass('current');
+			$('#idSearchTabLink').removeClass('current');
+			// вкладки
+			$('#idTopicTab').css('display', 'list-item');
+			$('#idIndexTab').css('display', 'none');
+			// $('#idSearchTab').css('display', 'none');
+			// контент-текст
+			$('#idContentBox').css('display', 'block');
+			$('#idIndexBox').css('display', 'none');
+			$('#idSearchBox').css('display', 'none');
+			// кнопка на панели инструментов
+			// кнопка открепить - нет доступа
+			$('#idUndocTabOn').css('display', 'none');
+			$('#idUndocTabOff').css('display', 'block');
+			$('#idUndocTabText').addClass('nav-text-off');
+			// кнопка новая вкладка доступна
+			$('#idNewTabOn').css('display', 'block');
+			$('#idNewTabOff').css('display', 'none');
+			$('#idNewTabText').removeClass('nav-text-off');
+			// кнопка развернуть/свернуть доступна
+			$('#idExpandOn').css('display', 'block');
+			$('#idExpandOff').css('display', 'none');
+			$('#idExpandText').removeClass('nav-text-off');
+			// кнопка постоянная ссылка доступна
+			$('#idPermalinkOn').css('display', 'block');
+			$('#idPermalinkOff').css('display', 'none');
+			$('#idPermalinkText').removeClass('nav-text-off');
+			// кнопка email доступна
+			$('#idFeedBackOn').css('display', 'block');
+			$('#idFeedBackOff').css('display', 'none');
+			$('#idFeedBackText').removeClass('nav-text-off');
+			// кнопка печать доступна
+			$('#idPrinterOn').css('display', 'block');
+			$('#idPrinterOff').css('display', 'none');
+			$('#idPrinterText').removeClass('nav-text-off');
+		});
+	};
+	// события вкладки поиск
+	if ('#idSearchTabLink' != null) {
+		// наведение курсора
+		$('#idSearchTabLink').mouseover(function () {
+			$('ul.tabs li#idSearchTab img').css('display', 'block');
+			$('ul.tabs a#idSearchTabLink span').addClass('hover');
+		});
+		$('#idSearchTabLink').mouseout(function () {
+			$('ul.tabs li#idSearchTab img').css('display', 'none');
+			$('ul.tabs a#idSearchTabLink span').removeClass('hover');
+		});
+		// событие клик
+		$('#idSearchTabLink').on('click', function () {
+			// ссылки во вкладках
+			$('#idSearchTabLink').addClass('current');
+			$('#idTopicTabLink').removeClass('current');
+			$('#idIndexTabLink').removeClass('current');
+			// контент-текст
+			$('#idSearchBox').css('display', 'block');
+			$('#idContentBox').css('display', 'none');
+			$('#idIndexBox').css('display', 'none');
+			// кнопки на панели инструментов
+			// кнопка открепить доступна
+			$('#idUndocTabOn').css('display', 'block');
+			$('#idUndocTabOff').css('display', 'none');
+			$('#idUndocTabText').removeClass('nav-text-off');
+			// кнопка новая вкладка нет доступа
+			$('#idNewTabOn').css('display', 'none');
+			$('#idNewTabOff').css('display', 'block');
+			$('#idNewTabText').addClass('nav-text-off');
+			// кнопка развернуть/свернуть нет доступа
+			$('#idExpandOn').css('display', 'none');
+			$('#idExpandOff').css('display', 'block');
+			$('#idExpandText').addClass('nav-text-off');
+			// кнопка постоянная ссылка нет доступа
+			$('#idPermalinkOn').css('display', 'none');
+			$('#idPermalinkOff').css('display', 'block');
+			$('#idPermalinkText').addClass('nav-text-off');
+			// кнопка email нет доступа
+			$('#idFeedBackOn').css('display', 'none');
+			$('#idFeedBackOff').css('display', 'block');
+			$('#idFeedBackText').addClass('nav-text-off');
+			// кнопка печать нет доступа
+			$('#idPrinterOn').css('display', 'none');
+			$('#idPrinterOff').css('display', 'block');
+			$('#idPrinterText').addClass('nav-text-off');
+		});
+	};
+	// события кнопки закрытия вкладки поиск
+	if ('ul.tabs li#idSearchTab img' != null) {
+		// наведение курсора
+		$('ul.tabs li#idSearchTab img').mouseover(function () {
+			$('ul.tabs li#idSearchTab img').css('cursor', 'pointer');
+			$('ul.tabs li#idSearchTab img').css('display', 'block');
+			$('ul.tabs li#idSearchTab img').attr('src', 'image/closetabon.png');
+		});
+		$('ul.tabs li#idSearchTab img').mouseout(function () {
+			$('ul.tabs li#idSearchTab img').css('cursor', 'default');
+			$('ul.tabs li#idSearchTab img').css('display', 'none');
+			$('ul.tabs li#idSearchTab img').attr('src', 'image/closetaboff.png');
+		});
+		// событие клик
+		$('ul.tabs li#idSearchTab img').on('click', function () {
+			// ссылки во вкладках
+			$('#idTopicTabLink').addClass('current');
+			$('#idIndexTabLink').removeClass('current');
+			$('#idSearchTabLink').removeClass('current');
+			// вкладки
+			$('#idTopicTab').css('display', 'list-item');
+			// $('#idIndexTab').css('display', 'none');
+			$('#idSearchTab').css('display', 'none');
+			// контент-текст
+			$('#idContentBox').css('display', 'block');
+			$('#idIndexBox').css('display', 'none');
+			$('#idSearchBox').css('display', 'none');
+			// кнопка на панели инструментов
+			// кнопка открепить - нет доступа
+			$('#idUndocTabOn').css('display', 'none');
+			$('#idUndocTabOff').css('display', 'block');
+			$('#idUndocTabText').addClass('nav-text-off');
+			// кнопка новая вкладка доступна
+			$('#idNewTabOn').css('display', 'block');
+			$('#idNewTabOff').css('display', 'none');
+			$('#idNewTabText').removeClass('nav-text-off');
+			// кнопка развернуть/свернуть доступна
+			$('#idExpandOn').css('display', 'block');
+			$('#idExpandOff').css('display', 'none');
+			$('#idExpandText').removeClass('nav-text-off');
+			// кнопка постоянная ссылка доступна
+			$('#idPermalinkOn').css('display', 'block');
+			$('#idPermalinkOff').css('display', 'none');
+			$('#idPermalinkText').removeClass('nav-text-off');
+			// кнопка email доступна
+			$('#idFeedBackOn').css('display', 'block');
+			$('#idFeedBackOff').css('display', 'none');
+			$('#idFeedBackText').removeClass('nav-text-off');
+			// кнопка печать доступна
+			$('#idPrinterOn').css('display', 'block');
+			$('#idPrinterOff').css('display', 'none');
+			$('#idPrinterText').removeClass('nav-text-off');
+		});
+	};
+}
+
 // Элементы панели инструментов - файл index.html
 
 // кнопка Быстрый поиск
-function remoteSearch() {
+function quickSearch() {
 	alert(`(i) Кнопка «Быстрый поиск» на панели пока что в разработке`);
 }
 // кнопка Обзор
 function topicsPane() {
-	alert(`(i) Кнопка «Обзор» на панели пока что в разработке`);
+	// alert(`(i) Кнопка «Обзор» на панели пока что в разработке`);
+	// вкладки
+	$('#idTopicTab').css('display', 'list-item');
+	// $('#idIndexTab').css('display', 'list-item');
+	// $('#idSearchTab').css('display', 'list-item');
+	// ссылки во вкладках
+	$('#idTopicTabLink').addClass('current');
+	$('#idIndexTabLink').removeClass('current');
+	$('#idSearchTabLink').removeClass('current');
+	// контент-текст
+	$('#idContentBox').css('display', 'block');
+	$('#idIndexBox').css('display', 'none');
+	$('#idSearchBox').css('display', 'none');
+	// кнопки на панели инструментов
+	// кнопка открепить нет доступа
+	$('#idUndocTabOn').css('display', 'none');
+	$('#idUndocTabOff').css('display', 'block');
+	$('#idUndocTabText').addClass('nav-text-off');
+	// кнопка новая вкладка доступна
+	$('#idNewTabOn').css('display', 'block');
+	$('#idNewTabOff').css('display', 'none');
+	$('#idNewTabText').removeClass('nav-text-off');
+	// кнопка развернуть/свернуть доступна
+	$('#idExpandOn').css('display', 'block');
+	$('#idExpandOff').css('display', 'none');
+	$('#idExpandText').removeClass('nav-text-off');
+	// кнопка постоянная ссылка доступна
+	$('#idPermalinkOn').css('display', 'block');
+	$('#idPermalinkOff').css('display', 'none');
+	$('#idPermalinkText').removeClass('nav-text-off');
+	// кнопка email доступна
+	$('#idFeedBackOn').css('display', 'block');
+	$('#idFeedBackOff').css('display', 'none');
+	$('#idFeedBackText').removeClass('nav-text-off');
+	// кнопка печать доступна
+	$('#idPrinterOn').css('display', 'block');
+	$('#idPrinterOff').css('display', 'none');
+	$('#idPrinterText').removeClass('nav-text-off');
 }
 // кнопка Ключевые слова
 function indexPane() {
-	alert(`(i) Кнопка «Ключевые слова» на панели пока что в разработке`);
+	// alert(`(i) Кнопка «Ключевые слова» на панели пока что в разработке`);
+	// вкладки
+	$('#idIndexTab').css('display', 'list-item');
+	// $('#idTopicTab').css('display', 'list-item');
+	// $('#idSearchTab').css('display', 'list-item');
+	// ссылки во вкладках
+	$('#idIndexTabLink').addClass('current');
+	$('#idTopicTabLink').removeClass('current');
+	$('#idSearchTabLink').removeClass('current');
+	// контент-текст
+	$('#idIndexBox').css('display', 'block');
+	$('#idContentBox').css('display', 'none');
+	$('#idSearchBox').css('display', 'none');
+	// кнопки на панели инструментов
+	// кнопка открепить доступна
+	$('#idUndocTabOn').css('display', 'block');
+	$('#idUndocTabOff').css('display', 'none');
+	$('#idUndocTabText').removeClass('nav-text-off');
+	// кнопка новая вкладка нет доступа
+	$('#idNewTabOn').css('display', 'none');
+	$('#idNewTabOff').css('display', 'block');
+	$('#idNewTabText').addClass('nav-text-off');
+	// кнопка развернуть/свернуть нет доступа
+	$('#idExpandOn').css('display', 'none');
+	$('#idExpandOff').css('display', 'block');
+	$('#idExpandText').addClass('nav-text-off');
+	// кнопка постоянная ссылка нет доступа
+	$('#idPermalinkOn').css('display', 'none');
+	$('#idPermalinkOff').css('display', 'block');
+	$('#idPermalinkText').addClass('nav-text-off');
+	// кнопка email нет доступа
+	$('#idFeedBackOn').css('display', 'none');
+	$('#idFeedBackOff').css('display', 'block');
+	$('#idFeedBackText').addClass('nav-text-off');
+	// кнопка печать нет доступа
+	$('#idPrinterOn').css('display', 'none');
+	$('#idPrinterOff').css('display', 'block');
+	$('#idPrinterText').addClass('nav-text-off');
 }
 // кнопка Поиск
 function searchPane() {
-	alert(`(i) Кнопка «Поиск» на панели пока что в разработке`);
+	// alert(`(i) Кнопка «Поиск» на панели пока что в разработке`);
+	// вкладки
+	$('#idSearchTab').css('display', 'list-item');
+	// $('#idTopicTab').css('display', 'list-item');
+	// $('#idIndexTab').css('display', 'list-item');
+	// ссылки во вкладках
+	$('#idSearchTabLink').addClass('current');
+	$('#idTopicTabLink').removeClass('current');
+	$('#idIndexTabLink').removeClass('current');
+	// контент-текст
+	$('#idSearchBox').css('display', 'block');
+	$('#idContentBox').css('display', 'none');
+	$('#idIndexBox').css('display', 'none');
+	// кнопки на панели инструментов
+	// кнопка открепить доступна
+	$('#idUndocTabOn').css('display', 'block');
+	$('#idUndocTabOff').css('display', 'none');
+	$('#idUndocTabText').removeClass('nav-text-off');
+	// кнопка новая вкладка нет доступа
+	$('#idNewTabOn').css('display', 'none');
+	$('#idNewTabOff').css('display', 'block');
+	$('#idNewTabText').addClass('nav-text-off');
+	// кнопка развернуть/свернуть нет доступа
+	$('#idExpandOn').css('display', 'none');
+	$('#idExpandOff').css('display', 'block');
+	$('#idExpandText').addClass('nav-text-off');
+	// кнопка постоянная ссылка нет доступа
+	$('#idPermalinkOn').css('display', 'none');
+	$('#idPermalinkOff').css('display', 'block');
+	$('#idPermalinkText').addClass('nav-text-off');
+	// кнопка email нет доступа
+	$('#idFeedBackOn').css('display', 'none');
+	$('#idFeedBackOff').css('display', 'block');
+	$('#idFeedBackText').addClass('nav-text-off');
+	// кнопка печать нет доступа
+	$('#idPrinterOn').css('display', 'none');
+	$('#idPrinterOff').css('display', 'block');
+	$('#idPrinterText').addClass('nav-text-off');
 }
 // кнопка Открепить
 function undockTab() {
@@ -76,12 +447,18 @@ function pageNext(hrefString) {
 	alert(`(i) Кнопка «Вперед» на панели пока что в разработке`);
 }
 
-// ****************************************************
-// Элементы боковой панели навигации - файл navigationPane.htm
+// **************************************************************
+// Элементы боковой панели навигации - файл navigation_pane.htm
 
-function NavShowHide() {
+// данная функция указана как скрипт в теле блока div боковой панели навигации
+function writeTOC() {
+	// ??? надо искать что за функция и какова ее функция
+	alert(`(i) Функция writeTOC пока что в разработке`);
+}
+// скрыть/показать боковую панель навигации
+function NavShowHide () {
 	// alert(`(i) Пока что в разработке`);
-	$("div#idNavBox").toggleClass("nav-box-show nav-box-hide");
+	$("div#idNavBox").toggleClass("nav-box-right nav-box-left");
 	if ($("div#idDragDivider").css('cursor') == 'col-resize') {
 		$("div#idDragDivider").css('cursor', 'default');
 	}
@@ -90,13 +467,9 @@ function NavShowHide() {
 	}
 	$("div#idTopicPane").toggleClass("topic-pane-right topic-pane-left");
 }
-// данная функция указана как скрипт в теле блока div боковой панели навигации
-function writeTOC() {
-	alert(`(i) Функция writeTOC пока что в разработке`);
-}
 // Отображение текущего оглавления и скрытие другого
 function toggleList() {
-	// ondblclick="return dblclicked(this);" из файла navigationPane.html стр.56
+	// ondblclick="return dblclicked(this);" из файла navigation_pane.html стр.56
 
 // let elemChildrens = document.querySelector("ul").children;
 // if (elemChildrens != null) {
@@ -129,14 +502,13 @@ function topicTab() {
 function keywordsTab() {
 	// WebHelp.activePage ='index'; // строка из index.html (240)
 	// alert(`(i) Функция перейти на вкладку «Ключевые слова» пока что в разработке`);
-
 	let elemTab = document.getElementById('idIndexTab');
 	elemTab.activePage = 'index';
 }
 
 function searchTab() {
 	// WebHelp.activePage='search'; // строка из index.html (246)
-	alert(`(i) Функция перейти на вкладку «Поиск» пока что в разработке`);
+	// alert(`(i) Функция перейти на вкладку «Поиск» пока что в разработке`);
 	let elemTab = document.getElementById('idSearchTab');
 	elemTab.activePage = 'search';
 }
@@ -144,7 +516,7 @@ function searchTab() {
 // *******************************************
 // см.файл comments.js
 function showComments() {
-	// строка из файла esdbssGlavbyx.htm (87)
+	// строка из файла esd_bss_glavbyx.htm (87)
 	alert(`(i) Функция покать комментарии пока что в разработке`);
 }
 
@@ -157,9 +529,9 @@ function manualVersion() {
 	{
 		// let features = 'toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=yes,width=900,height=700';
 		// let features = 'left=100,top=100,width=350,height=250,menubar=false,toolbar=false,location=false,resizabie=no,scrollbars=yes,status=false';
-		let features = 'width=350,height=300,left='+((screen.width-500)/2)+',top='+((screen.height-500)/2)+',menubar=false,toolbar=false,location=false,resizabie=no,scrollbars=yes,status=false';
+		let features = 'width=350,height=350,left='+((screen.width-500)/2)+',top='+((screen.height-500)/2)+',menubar=false,toolbar=false,location=false,resizabie=no,scrollbars=yes,status=false';
 		// window.open("","","width=250,height=250"); /* пример открытия пустого окна */
-		window.open('manualVersion.htm', "", features);
+		window.open('manual_version.htm', "", features);
 	}
 }
 // ****************************************************

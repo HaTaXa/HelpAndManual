@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Страница справочника</title>
+	<title>Help&Manual</title>
 	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 
 	<!-- подключение скриптов js, jQuery -->
@@ -53,7 +53,7 @@
 						<td class="toolbar-search">
 							<div id="idQuickSearch" class="search-text-on">
 								<input id="idInputSearch" type="text" name="inputSearch" autocapitalize="off" autocorrect="off" title="Быстрый поиск" placeholder="Введите текст">
-								<span id="idNavIconQuickSearch" onclick="remoteSearch()">
+								<span id="idNavIconQuickSearch" onclick="quickSearch()">
 									<img id="idQuickSearchOn" class="nav-icon" src="image/search.png" title="Поиск разделов справки" alt="Поиск разделов справки">
 									<img id="idQuickSearchOff" src="image/searchoff.png">
 								</span>
@@ -61,7 +61,7 @@
 								<span class="nav-text-on">Быстрый поиск</span>
 							</div>
 						</td>
-						<!-- кнопки на панеле слева -->
+						<!-- кнопки на панеле инструментов -->
 						<td class="toolbar-left">
 							<div class="nav-icon-box-left">
 								<span id="idNavIconTopic" onclick="topicsPane()" title="Выберите вкладку главная тема">
@@ -135,7 +135,7 @@
 							<div id="idFeedBackTool" class="nav-icon-box-right">
 								<a id="idNavIconFeedBack" href="mailto:user231082@gmail.com">
 									<!-- в img было: style="position: relative; z-index: 100; display: inline;" -->
-									<img id="idFeedBackOn" class="nav-icon" src="image/emailon.png" title="Техподдержка" alt="Техподдержка" onmouseover="this.src='image/support.gif'" onmouseout="this.src='image/emailon.png'">
+									<img id="idFeedBackOn" class="nav-icon" src="image/emailon.png" title="Техподдержка" alt="ТехПоддержка" onmouseover="this.src='image/support.gif'" onmouseout="this.src='image/emailon.png'">
 								</a>
 								<img id="idFeedBackOff" src="image/emailoff.png" style="display: none;">
 								<!-- <br> -->
@@ -152,7 +152,7 @@
 							</div>
 							<!-- кнопка Домой -->
 							<div class="nav-icon-box-right">
-								<a id="idNavIconHome" class="nav-cache" href="esdbssGlavbyx.htm" target="hmcontent" onclick="pageHome(this.href)">
+								<a id="idNavIconHome" class="nav-cache" href="esd_bss_glavbyx.htm" target="hmcontent" onclick="pageHome(this.href)">
 									<img class="nav-icon" src="image/home.png" title="Домашняя страница" alt="Домашняя страница">
 								</a>
 								<!-- <br> -->
@@ -160,7 +160,7 @@
 							</div>
 							<!-- кнопка Назад -->
 							<div class="nav-icon-box-right">
-								<a id="idNavIconPrevious" class="nav-cache" href="esdbssGlavbyx.html" target="hmcontent" onclick="pagePrevious(this.href)">
+								<a id="idNavIconPrevious" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pagePrevious(this.href)">
 									<img class="nav-icon" src="image/arrow_Previous.png" title="На предыдущую страницу" alt="На предыдущую страницу">
 								</a>
 								<!-- <br> -->
@@ -168,7 +168,7 @@
 							</div>
 							<!-- кнопка Вперед -->
 							<div class="nav-icon-box-right">
-								<a id="idNavIconNext" class="nav-cache" href="esdbssGlavbyx.html" target="hmcontent" onclick="pageNext(this.href)">
+								<a id="idNavIconNext" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pageNext(this.href)">
 									<img class="nav-icon" src="image/arrow_Next.png" title="На следующую страницу" alt="На следующую страницу">
 								</a>
 								<!-- <br> -->
@@ -183,7 +183,7 @@
 		<!-- для idNavBox стили прописаны в styles.css
 			style="width: 275px; margin-top: 12px; top: 41px; left: 0px;"
 			style="width: 275px; margin-top: 12px; top: 41px; left: -270px;" -->
-		<div id="idNavBox" class="nav-box-up nav-box-show">
+		<div id="idNavBox" class="nav-box-up nav-box-right">
 			<!--  -->
 			<div id="idDragDivider" style="cursor: col-resize;"></div>
 			<div id="idNavHandle">
@@ -195,7 +195,7 @@
 			<div id="idNavBorder">
 				<!-- (i) скрипт расположен в фале hmwebhelp.js -->
 				<!-- <script type="text/javascript">WebHelp.writeTOC();</script> -->
-				<iframe id="hmnavigation" name="hmnavigation" class="scroll-pane" src="navigationPane.htm" title="Панель Навигация"></iframe>
+				<iframe id="hmnavigation" name="hmnavigation" class="scroll-pane" src="navigation_pane.htm" title="Панель Навигация"></iframe>
 			</div>
 		</div>
 		<!-- Контентная часть -->
@@ -212,7 +212,7 @@
 						<img id="idTabEndRight" class="tab-player" src="image/tabendright.png" title="Конец панели вкладок" alt="Конец панели вкладок">
 					</div>
 				</div>
-				<!--  -->
+				<!-- меню вкладок -->
 				<div id="idTabsMenuBox">
 					<div id="idTabsMenu" class="idMenu">
 						<ul id="idTabsList">
@@ -228,46 +228,47 @@
 						</ul>
 					</div>
 				</div>
-				<!--  -->
+				<!-- Вкладки топика -->
 				<div id="idTabsWindow">
 					<div id="idTabsLider" style="width: 272px;">
 						<ul id="idTopicTabs" class="tabs">
 							<li id="idTopicTab" class="topic-tab" ondblclick="alert(`Нельзя открепить вкладку «Главная»`)" onclick="topicTab();" tabnum="0">
 								<a id="idTopicTabLink" class="current" href="#topictablink" data="ЕСД БСС «Главбух»" title="ЕСД БСС «Главбух»">
-									<span class="">ЕСД БСС «Главбух»</span>
+									<span>ЕСД БСС «Главбух»</span>
 								</a>
 							</li>
 							<li id="idIndexTab" class="topic-tab" onclick="keywordsTab();" hpage="index" tabnum="1">
 								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку">
-								<a id="idIndexTabLink" href="#indextablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку указатель" class="">
-									<span class="">Ключевые слова</span>
+								<a id="idIndexTabLink" href="#indextablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку указатель">
+									<span>Ключевые слова</span>
 								</a>
 							</li>
 							<li id="idSearchTab" class="topic-tab" onclick="searchTab();" hpage="search" tabnum="2" style="display: list-item;">
-								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку" style="display: none; cursor: pointer;">
-								<a id="idSearchTabLink" href="#searchtablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Поиск»" class="" style="display: block;">
-									<span class="">Поиск</span>
+								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку">
+								<a id="idSearchTabLink" href="#searchtablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Поиск»">
+									<span>Поиск</span>
 								</a>
 							</li>
 						</ul>
 					</div>
 				</div>
 			</div>
-			<!-- страница "Контент-Текст" -->
+			<!-- страницы топика: контент-текста, ключевые слова, поиск -->
 			<div id="idTopicBox">
+				<!-- страница "Контент-Текст" -->
 				<div id="idContentBox" style="display: block;">
 					<!-- (i) скрипт расположен в фале hmwebhelp.js -->
 					<!-- <script type="text/javascript">WebHelp.writeTopic();</script> -->
-					<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esdbssGlavbyx.htm" title="Контент-Текст"></iframe>
+					<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esd_bss_glavbyx.htm" title="Контент-Текст"></iframe>
 				</div>
-			</div>
-			<!-- страница "ключевые слова" -->
-			<div id="idIndexBox" style="display: none;">
-				<iframe id="idFrameIndex" name="frameIndex" class="scroll-pane" src="keywords.htm" title="Ключевые слова"></iframe>
-			</div>
-			<!-- страница "Поиск" -->
-			<div id="idSearchBox" style="display: none;">
-				<iframe id="idFrameSearch" name="frameSearch" class="scroll-pane" src="search.htm" title="Поиск"></iframe>
+				<!-- страница "ключевые слова" -->
+				<div id="idIndexBox" style="display: none;">
+					<iframe id="idFrameIndex" name="frameIndex" class="scroll-pane" src="keywords.htm" title="Ключевые слова"></iframe>
+				</div>
+				<!-- страница "Поиск" -->
+				<div id="idSearchBox" style="display: none;">
+					<iframe id="idFrameSearch" name="frameSearch" class="scroll-pane" src="search.htm" title="Поиск"></iframe>
+				</div>
 			</div>
 		</div>
 	</div>
