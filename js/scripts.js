@@ -262,7 +262,7 @@ window.onload = function () {
 
 // кнопка Быстрый поиск
 function quickSearch() {
-	alert(`(i) Кнопка «Быстрый поиск» на панели пока что в разработке`);
+	alert(`(i) Кнопка «Быстрый поиск» на панели пока что в разработке.`);
 }
 // кнопка Обзор
 function topicsPane() {
@@ -389,12 +389,12 @@ function searchPane() {
 }
 // кнопка Открепить
 function undockTab() {
-	alert(`(i) Кнопка «Открепить» на панели пока что в разработке`);
+	alert(`(i) Кнопка «Открепить» на панели пока что в разработке.`);
 	// unpinTab();
 }
 // кнопка Новая вкладка
 function newTab() {
-	alert(`(i) Кнопка «Новая вкладка» на панели пока что в разработке`);
+	alert(`(i) Кнопка «Новая вкладка» на панели пока что в разработке.`);
 }
 // кнопка Показать/Скрыть
 function bannerShowHide() {
@@ -424,36 +424,42 @@ function bannerShowHide() {
 }
 // кнопка Развернуть/Свернуть
 function textHiddenExpand() {
-	alert(`(i) Кнопка «Развернуть/Свернуть» на панели пока что в разработке`);
+	alert(`(i) Кнопка «Развернуть/Свернуть» на панели пока что в разработке.\n` + `Кнопка должна сворачивать/разворачивать все скрытые элементы в тексте контента текущего топика.`);
 }
 // кнопка Постоянная ссылка
 function setPermalink() {
-	alert(`(i) Кнопка «Постоянная ссылка» на панели пока что в разработке`);
+	alert(`(i) Кнопка «Постоянная ссылка» на панели пока что в разработке.\n` + `Кнопка выводит окно с сылкой на текущую тему для добавления ее в закладки браузера.`);
 }
 // кнопка Печать
 function printTopic() {
-	alert(`(i) Кнопка «Печать» на панели пока что в разработке`);
+	alert(`(i) Кнопка «Печать» на панели пока что в разработке.`);
 }
 // кнопка Домой
 function pageHome(hrefString) {
-	alert(`(i) Кнопка «Домой» на панели пока что в разработке`);
+	let elemPageHome = document.getElementById('idNavIconHome');
+	elemPageHome.activePage = elemPageHome.getAttribute('hrefString');
+	alert(`(i) Кнопка «Домой» на панели пока что в разработке.\n` + `Как это реализовывается я пока НЕ знаю.\n` + `Ссылка должна переходить на страницу текущей главы, раздела...`);
 }
 // кнопка Назад
 function pagePrevious(hrefString) {
-	alert(`(i) Кнопка «Назад» на панели пока что в разработке`);
+	let elemPagePrevious = document.getElementById('idNavIconPrevious');
+	elemPagePrevious.activePage = elemPagePrevious.getAttribute('hrefString');
+	alert(`(i) Кнопка «Назад» на панели пока что в разработке.\n` + `Как это реализовывается я пока не знаю.`);
 }
 // кнопка Вперед
 function pageNext(hrefString) {
-	alert(`(i) Кнопка «Вперед» на панели пока что в разработке`);
+	let elemPageNext = document.getElementById('idNavIconNext');
+	elemPageNext.activePage = elemPageNext.getAttribute('hrefString');
+	alert(`(i) Кнопка «Вперед» на панели пока что в разработке.\n` + `Как это реализовывается я пока не знаю.`);
 }
 
 // **************************************************************
-// Элементы боковой панели навигации - файл navigation_pane.htm
+// Элементы боковой панели навигации - файл navigation.htm
 
 // данная функция указана как скрипт в теле блока div боковой панели навигации
 function writeTOC() {
 	// ??? надо искать что за функция и какова ее функция
-	alert(`(i) Функция writeTOC пока что в разработке`);
+	alert(`(i) Функция writeTOC пока что в разработке.`);
 }
 // скрыть/показать боковую панель навигации
 function NavShowHide () {
@@ -469,7 +475,7 @@ function NavShowHide () {
 }
 // Отображение текущего оглавления и скрытие другого
 function toggleList() {
-	// ondblclick="return dblclicked(this);" из файла navigation_pane.html стр.56
+	// ondblclick="return dblclicked(this);" из файла navigation.html стр.56
 
 // let elemChildrens = document.querySelector("ul").children;
 // if (elemChildrens != null) {
@@ -481,7 +487,7 @@ function toggleList() {
 // }
 	$("ul").toggleClass("image-expand image-collapse");
 	// $("a").toggleClass("list-hide list-show");
-	alert(`(i) Функция отображения текущего оглавления и скрытие другого, пока что в разработке`);
+	alert(`(i) Функция отображения текущего оглавления и скрытие другого, пока что в разработке.`);
 }
 
 // *************************************************
@@ -489,26 +495,26 @@ function toggleList() {
 
 function unpinTab() {
 	// WebHelp.undockTab() // строка из index.html
-	alert(`(i) Функция открепить вкладку, пока что в разработке`);
+	alert(`(i) Функция открепить вкладку, пока что в разработке.`);
 }
 
 function topicTab() {
 	// WebHelp.activePage = WebHelp.currentPage; // строка из index.html (235)
-	// alert(`(i) Функция перейти на вкладку «Текущая вкладка» пока что в разработке`);
+	// alert(`(i) Функция перейти на вкладку «Текущая вкладка» пока что в разработке.`);
 	let elemTab = document.getElementById('idTopicTab');
 	elemTab.activePage = elemTab.currentPage;
 }
 
 function keywordsTab() {
 	// WebHelp.activePage ='index'; // строка из index.html (240)
-	// alert(`(i) Функция перейти на вкладку «Ключевые слова» пока что в разработке`);
+	// alert(`(i) Функция перейти на вкладку «Ключевые слова» пока что в разработке.`);
 	let elemTab = document.getElementById('idIndexTab');
 	elemTab.activePage = 'index';
 }
 
 function searchTab() {
 	// WebHelp.activePage='search'; // строка из index.html (246)
-	// alert(`(i) Функция перейти на вкладку «Поиск» пока что в разработке`);
+	// alert(`(i) Функция перейти на вкладку «Поиск» пока что в разработке.`);
 	let elemTab = document.getElementById('idSearchTab');
 	elemTab.activePage = 'search';
 }
@@ -517,7 +523,7 @@ function searchTab() {
 // см.файл comments.js
 function showComments() {
 	// строка из файла esd_bss_glavbyx.htm (87)
-	alert(`(i) Функция покать комментарии пока что в разработке`);
+	alert(`(i) Функция покать комментарии пока что в разработке.`);
 }
 
 // function writeCommentLink(params) {}

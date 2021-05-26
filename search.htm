@@ -5,14 +5,68 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Поиск</title>
+	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+	<meta name="robots" content="index, follow">
 
+	<!-- <script type="text/javascript" src="js/jquery.js"></script> -->
+	<!-- <script type="text/javascript" src="js/jquery.tools.min.js"></script> -->
 
+	<!-- <link type="text/css" href="css/default.css" rel="stylesheet"> -->
+	<!-- <link id="tabscheme" type="text/css" href="css/hm_topic.css" rel="stylesheet"> -->
+	<link rel="stylesheet" href="css/topic.css"> <!-- вместо ффйла hm_topic.css -->
+	<link rel="stylesheet" href="css/search.css"> <!-- Было прописано внутри тега хед файла hmftsearch.htm -->
 
+	<!-- <script src="js/index.js"></script> -->
+	<!-- <script src="js/search.js"></script> --> <!-- Было прописано внутри тега хед файла hmftsearch.htm -->
+
+	<!--[if IE 9]>
+	<link id="iesvgcss" rel="stylesheet" type="text/css" href="js/hm_webhelp_svg.css" />
+	<![endif]-->
 </head>
 <body>
-	Здесь будет поисковая страница
 
+	<ul id="idTopicTabs" class="tabs">
+		<li id="idSearchTab" class="topic-tab">
+			<a id="idSearchTabLink" class="current" href="#"><span>Поиск</span></a>
+		</li>
+	</ul>
+	<div id="idBox">
+		<div id="idInnerBox">
+			<p class="submit">Введите одно или несколько ключевых слов для поиска ('*' и '?' подстановочные символы поддерживаются):</p>
+			<!-- This is where the search form and results will appear -->
+			<div id="idLoadingMsg" align="center" style="display: none;">
+				<img src="image/cicon_loadindex_ani.gif" style="border: none" alt="Loading..." />
+			</div>
+			<!-- <script type="text/javascript" src="js/settings.js" charset="UTF-8"></script> -->
+			<!-- <script type="text/javascript" src="js/zoom_search.js"></script> -->
+			<!-- скрипт zoom_search.js прописывает следующие скрипты в текст страницы -->
+			<!-- <script language="JavaScript" src="js/zoom_index.js" charset="UTF-8"></script> -->
+			<!-- <script language="JavaScript" src="js/zoom_pageinfo.js" charset="UTF-8"></script> -->
+			<!-- <meta http-equiv="content-type" content="text/html; charset=UTF-8"> -->
+			<!-- скрипт создает форму поиска -->
+			<!-- <script type="text/javascript">ZoomSearch();</script> -->
 
+			<form id="idFormSearch" class="zoom_searchform" action="search.htm" method="get">
+				<input id="zoom_searchbox" class="zoom_searchbox" type="text" name="zoom_query" value="" autocorrect="off" autocapitalize="off" placeholder="Введите текст поиска" title="Введите одно или несколько ключевых слов для поиска ('*' и '?' подстановочные символы поддерживаются)" autocomplete="on"> <!-- size="70" -->
+				<input class="zoom_button" type="submit" value="Поиск" title="Горячая клавиша «Enter»">
+				<p class="zoom_results_per_page">Результаты на странице:
+					<select name="zoom_per_page">
+						<option selected="selected">10</option>
+						<option>20</option>
+						<option>50</option>
+						<option>100</option>
+					</select>
+				</p>
+				<p class="zoom_match">Соответствовать:
+					<input type="radio" name="zoom_and" value="0">любому из слов поиска
+					<input type="radio" name="zoom_and" value="1" checked="checked">всем словам поиска
+				</p>
+				<input type="hidden" name="zoom_sort" value="0">
+			</form>
+			<p id="dummy">&nbsp;&nbsp;&nbsp;</p>
+			<noscript><p>У Вас должен быть включен JavaScript для использования WebHelp поиск</p></noscript>
+		</div><!-- idInnerBox -->
+	</div><!-- idBox -->
 
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->

@@ -1,9 +1,9 @@
 document.write(
-	'<script language="JavaScript" src="zoom_index.js" charset="' +
+	'<script language="JavaScript" src="js/zoom_index.js" charset="' +
 		Charset + '"></script>'
 );
 document.write(
-	'<script language="JavaScript" src="zoom_pageinfo.js" charset="' +
+	'<script language="JavaScript" src="js/zoom_pageinfo.js" charset="' +
 		Charset + '"></script>'
 );
 document.write(
@@ -876,7 +876,7 @@ function ZoomShowSearchButton() {
 }
 function ZoomShowResultsPerPage() {
 	document.writeln(
-		'<span class="zoom_results_per_page">' + STR_FORM_RESULTS_PER_PAGE + "\n"
+		'<p class="zoom_results_per_page">' + STR_FORM_RESULTS_PER_PAGE + "\n"
 	);
 	document.writeln('<select name="zoom_per_page">');
 	for (i = 0; i < PerPageOptions.length; i++) {
@@ -886,7 +886,7 @@ function ZoomShowResultsPerPage() {
 		}
 		document.writeln(">" + PerPageOptions[i] + "</option>");
 	}
-	document.writeln("</select></span>");
+	document.writeln("</select></p>");
 }
 function ZoomShowCategories() {
 	if (UseCats) {
@@ -1032,7 +1032,7 @@ function ZoomShowMetaFields() {
 	}
 }
 function ZoomShowMatchOptions() {
-	document.writeln('<span class="zoom_match">' + STR_FORM_MATCH + " ");
+	document.writeln('<p class="zoom_match">' + STR_FORM_MATCH + " ");
 	if (andq == 0) {
 		document.writeln(
 			'<input type="radio" name="zoom_and" value="0" checked="checked" />' +
@@ -1052,7 +1052,7 @@ function ZoomShowMatchOptions() {
 				STR_FORM_ALL_SEARCH_WORDS
 		);
 	}
-	document.writeln("<br /></span>");
+	document.writeln("></p>");
 }
 function ZoomShowFormEnd() {
 	document.writeln(
@@ -1832,7 +1832,7 @@ function ZoomShowSearchTime() {
 	}
 }
 function ZoomSearch() {
-	var a = document.getElementById("loadingmsg");
+	var a = document.getElementById("idLoadingMsg");
 	if (a) {
 		a.style.display = "None";
 	}

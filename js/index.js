@@ -29,7 +29,7 @@ var hmnavpages = {
 	toc: "hmcontent.htm",
 	tocWidth: 275,
 	idx: "hmkwindex.htm",
-	sch: "hmftsearch.htm",
+	sch: "search.htm",
 	top: "index.html",
 	def: "esd_bss_glavbyx.htm",
 	query: window.location.search.substring(1).replace(/:/g,""),

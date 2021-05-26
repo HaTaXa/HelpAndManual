@@ -26,6 +26,15 @@
 	z-index: 100;
 }
 
+.footer p, a {
+	color: #737373;
+}
+
+.footer p:hover,
+.footer a:hover {
+	color: #fff;
+}
+
 .footer-left {
 	width: 100%;
 	text-align: left;
@@ -88,7 +97,7 @@ p.footer,
 	text-indent: 0;
 } */
 p.footer a {
-	border-bottom: 1px dotted #666;
+	border-bottom: 1px dotted #737373;
 	text-decoration: underline;
 }
 p.footer a:visited {
