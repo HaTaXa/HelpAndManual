@@ -6,12 +6,130 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 	<title>Стандарт НПА БСС «Главбух»</title>
+	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+
+	<!-- подключение стилей -->
+	<!-- <link type="text/css" href="css/default.css" rel="stylesheet"> -->
+	<!-- в проекте файла xcp_style.css не было -->
+	<!-- <link type="text/css" rel="stylesheet" href="css/xcommentpro/xcp_style.css"> -->
+	<link id="tabscheme" type="text/css" href="css/topic.css" rel="stylesheet"> <!-- вместо файла hm_topic.css -->
+	<!-- <link id="tabscheme" type="text/css" href="css/hm_topic.css" rel="stylesheet"> -->
+	<link type="text/css" href="css/footer.css" rel="stylesheet"> <!-- вместо файла hm_footer.css -->
+	<!-- <link type="text/css" href="css/hm_footer.css" rel="stylesheet"> -->
+
+	<!-- [if IE 9]>
+	<link id="iesvgcss" rel="stylesheet" type="text/css" href="svg.css" />
+<![endif] -->
+
+	<!-- подключение скриптов js, jQuery -->
+	<!-- <script src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
+	<script type="text/javascript" src="js/jquery.scrollTo-min.js"></script> -->
+	<!-- (i) Взято из хедера файла, на кот.делается переадресация с главной стр.index.html -->
+	<script src="js/esd_bss_glavbyx.js"></script>
+	<!--  -->
+	<!-- <script type="text/javascript" src="js/comments.js"></script>
+	<script type="text/javascript" src="js/commentsx.js"></script>
+	<script type="text/javascript" src="js/helpman_settings.js"></script>
+	<script type="text/javascript" src="js/helpman_topicinit.js"></script>
+	<script type="text/javascript" src="js/hmtopic.js"></script>
+	<script type="text/javascript" src="js/hmpopups.js"></script> -->
+
+	<!-- ??? похоже на какую то переадресацию на др.стр. -->
+	<!-- <script type="text/javascript">
+		HMSyncTOC("index.html", "standart_npa_bss_glavbyx.htm");
+	</script> -->
+
+	<!-- <script type="text/javascript" src="js/highlight.js"></script> -->
+
+	<!-- <script type="text/javascript">
+		$(document).ready(function(){highlight();});
+	</script> -->
+
+	<!-- ??? при загрузке автоматом создается ссылка на файл undocked.css, см.скрипт hmtopic.js
+		(i) я так понимаю это для случаев, когда срабатывает открепление топика от основной вкладки
+	-->
+
 </head>
 <body>
-
-	Страничка в разработке.
-
-
+	<ul id="idTopicTabs" class="tabs">
+		<li id="idIndexTab" class="topic-tab">
+			<a href="#" id="idIndexTabLink" class="current">
+				<span>Стандарт НПА БСС «Главбух»</span>
+			</a>
+		</li>
+	</ul>
+	<div id="idBox">
+		<div id="idHeader">
+			<div id="idHeaderContents">
+				<p id="idBreadCrumbs">
+					<span class="sync-toc">
+							<a rel="nofollow" class="sync-toc-link" href="index.html?standart_npa_bss_glavbyx.htm" target="_top">&lt;&lt;&nbsp;Просмотреть оглавление&nbsp;&gt;&gt;</a>
+					</span>
+					<span class="sync-toc-off">Навигация:&nbsp;</span>
+					<span class="sync-toc-off"><a href="standart_npa_bss_glavbyx.htm" target="hmcontent">Стандарт НПА БСС «Главбух»</a></span>
+				</p>
+				<h1 class="heading1">Стандарт НПА БСС «Главбух»</h1>
+			</div> <!-- idHeaderContents -->
+			<div id="idAtocIcon" class="nav-divs">
+				<img id="idAtocLink" class="nav-icon" src="image/contents_off.png" title="На этой странице содержание записей отсутствует" alt="На этой странице содержание записей отсутствует">
+				<br>
+				<span>Содержание</span>
+			</div>
+		</div> <!-- idHeader end -->
+		<!-- Меню содержания -->
+		<div id="idAutoTocWrapper" class="topic-menu"></div>
+		<!-- Контент-текст -->
+		<div id="idContent">
+			<div id="idUnclicker"></div>
+			<!-- см.функцию в файле comments.js -->
+			<!-- <script type="text/javascript">writeCommentLink("1")</script> -->
+			<!-- Comment Links - комментарии -->
+			<div class="links-comment">
+				<p id="idCommentLink1" class="comment-para">
+					<a id="idCommentToggle1" class="comment-link" title="Просмотр и добавление комментариев" href="javascript:void(0);" onclick="showComments();return false;">Комментарии (<span class="comments">0</span>)
+					</a>
+				</p>
+			</div>
+			<!-- Дальше начинается контент текста -->
+			<p>
+				Эта и другие странички пока что в разработке.
+			</p>
+			<!-- Footer content - футер в текстовом контенте -->
+			<div id="idFooterContents">
+				<p>
+				База нормативно-правовых актов<br>
+				Для служебного пользования<br>
+				Производственный отдел<br>
+				<br>
+				<b>Официальный сайт</b>:&nbsp;<a href="http://www.1gl.ru/" target="_blank" title="БСС «Система Главбух»" alt="БСС «Система Главбух»"><i>БСС «Система Главбух»</i></a>
+				<br>
+				<b>E-mail</b>:&nbsp;<a href="mailto:region@action-media.ru" title="ООО «Актион-диджитал»" alt="ООО «Актион-диджитал»"><i>region@action-media.ru</i></a>
+				<br><br>
+				&copy;&nbsp;2007–2011 ООО «<a href="https://www.action-mcfr.ru/" target="_blank">Актион-диджитал</a>»
+				</p>
+			</div> <!-- idFooterContents end -->
+		</div> <!-- idContent end -->
+	</div> <!-- idBox end -->
+	<!-- General Footer - футер для всего топика -->
+	<div class="footer">
+		<div id="idFooterLeft" class="footer-left">
+			<p>
+				ООО «Актион-диджитал»<br>
+				127015, г. Москва,<br>
+				Новодмитровская улица, 5а, стр. 8
+			</p>
+		</div>
+		<div id="idFooterCenter" class="footer-center">
+			<p></p>
+		</div>
+		<div id="idFooterRight" class="footer-right">
+			<p>
+				Коммерческая тайна<br>
+				Для служебного пользования
+			</p>
+		</div>
+	</div> <!-- General Footer -->
 
 
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->

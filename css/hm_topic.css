@@ -17,8 +17,8 @@ a.scriptlink:hover {color: blue;}
 a.inline-toggle {color: green; font-weight: bold; font-style: italic; text-decoration: none;}
 a.inline-toggle:active {color: green; font-weight: bold; font-style: italic; text-decoration: underline;}
 a.inline-toggle:visited {color: #000; font-weight: normal; font-style: normal; text-decoration: none;}
-a.inline-toggle:hover {color: blue; font-weight: bold; font-style: italic; text-decoration: underline;}
-a.dropdown-toggle {color: red; font-weight: bold; font-style: italic; text-decoration: none;}
+a.inline-toggle:hover {color: green; font-weight: bold; font-style: italic; text-decoration: underline;}
+a.dropdown-toggle {color: #000; font-weight: bold; font-style: italic; text-decoration: none;}
 a.dropdown-toggle:active {color: red; font-weight: bold; font-style: italic; text-decoration: underline;}
 a.dropdown-toggle:visited {color: #000; font-weight: normal; font-style: normal; text-decoration: none;}
 a.dropdown-toggle:hover {color: blue; font-weight: bold; font-style: italic; text-decoration: underline;}

@@ -464,14 +464,22 @@ function writeTOC() {
 // скрыть/показать боковую панель навигации
 function NavShowHide () {
 	// alert(`(i) Пока что в разработке`);
-	$("div#idNavBox").toggleClass("nav-box-right nav-box-left");
+	$('div#idNavBox').toggleClass("nav-box-right nav-box-left");
+	$('div#idTopicPane').toggleClass("topic-pane-right topic-pane-left");
+	// img на кнопке
+	if ($('div#idNavBox').hasClass('nav-box-left')) {
+		$('img#idNavShowHide').attr('src', 'image/nav_open.png');
+	}
+	else if ($('div#idNavBox').hasClass('nav-box-right')) {
+		$('img#idNavShowHide').attr('src', 'image/nav_close.png');
+	};
+	// вертикальный разделитель
 	if ($("div#idDragDivider").css('cursor') == 'col-resize') {
 		$("div#idDragDivider").css('cursor', 'default');
 	}
-	else if ($("div#idDragDivider").css('cursor') == 'default') {
-		$("div#idDragDivider").css('cursor', 'col-resize');
-	}
-	$("div#idTopicPane").toggleClass("topic-pane-right topic-pane-left");
+	else if ($('div#idDragDivider').css('cursor') == 'default') {
+		$('div#idDragDivider').css('cursor', 'col-resize');
+	};
 }
 // Отображение текущего оглавления и скрытие другого
 function toggleList() {

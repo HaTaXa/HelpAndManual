@@ -1,39 +1,3 @@
-/* No header topics */
-
-/* Breadcrumb trail */
-p#idBreadCrumbs {
-font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
-	padding: 4px 0 1px 2px;
-	margin: 0;
-	font-size: 8pt;
-	color: #fff;
-}
-
-p#idBreadCrumbs a {color: #fff; text-decoration: none;}
-p#idBreadCrumbs a:visited {color: #fff;}
-p#idBreadCrumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
-
-/* Search hightlight color */
-span.highlight {background-color: #ffff40;}
-
-div#commentsWrapper {
-	display: none;
-	visibility: visible;
-}
-
-/* **************************************** */
-
-/* В тексте контента */
-.p-Heading1 {
-	text-align: left;
-	text-indent: 18px;
-	margin: 6px 0px 6px 0px;
-}
-
-.f-Heading1 {
-	color: #ffffff;
-}
-
 /* Hyperlink colors and behaviors */
 a.topiclink {
 	color: blue;
@@ -43,7 +7,7 @@ a.topiclink:visited {
 	color: blue;
 }
 a.topiclink:hover {
-	color: red;
+	color: darkblue;
 }
 a.weblink {
 	color: blue;
@@ -63,7 +27,7 @@ a.popuplink:visited {
 	color: blue;
 }
 a.popuplink:hover {
-	color: blue;
+	color: red;
 }
 a.filelink {
 	color: blue;
@@ -98,13 +62,13 @@ a.inline-toggle:active {
 	text-decoration: underline;
 }
 a.inline-toggle:visited {
-	color: #000;
+	color: lightgreen;
 	font-weight: normal;
 	font-style: normal;
 	text-decoration: none;
 }
 a.inline-toggle:hover {
-	color: blue;
+	color: darkgreen;
 	font-weight: bold;
 	font-style: italic;
 	text-decoration: underline;
@@ -133,46 +97,23 @@ a.dropdown-toggle:hover {
 	font-style: italic;
 	text-decoration: underline;
 }
-
-/* Link to display entire user interface when topic is opened on its own */
-.sync-toc {
-	display: none;
-}
-
-/* Footer defined in HM_TOPICFOOTER.html */
-div.topicfooter {
-	width: 100%;
-	margin: 20px auto 0 auto;
-	padding: 5px 0 10px 0;
-	border-style: solid;
-	border-width: 1px 0 0 0;
-	border-color: silver;
-}
-p.topicfooter {
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
-	font-size: 0.7em;
-	color: #737373;
-	text-align: center;
-	width: 100%;
-	padding-top: 5px;
-	text-indent: 0px;
-}
-p.topicfooter a {
-	color: #737373;
-	border-bottom: 1px dotted #666;
+a.comment-link {
+	font-size: 10pt;
+	font-family: "Arial";
+	font-style: normal;
+	font-weight: bold;
+	color: blue;
 	text-decoration: none;
 }
-p.topicfooter a:visited {
-	color: #737373;
+a.comment-link:visited {
+	color: blue;
 }
-p.topicfooter a:hover {
+a.comment-link:hover {
 	text-decoration: underline;
-	color: #262626;
-	border-color: #262626;
-	text-decoration: none;
 }
 
 /* General Background */
+
 body,
 html {
 	background-color: #fff;
@@ -186,13 +127,12 @@ html {
 
 div#idHeader {
 	position: fixed;
+	left: 0; right: 0;
 	top: 0;
-	left: 0;
-	right: 0;
-	width: 100%;
+	/* width: 100%; */
 	height: 70px;
 	/* padding: 5px 0 5px 0; */
-	overflow-y: hidden;
+	overflow-y: auto;
 	overflow-x: hidden;
 	/* background-color: #fff; */
 	background-image: url("../image/bg-top.png");
@@ -201,14 +141,112 @@ div#idHeader {
 	z-index: 100;
 }
 
+/* В хедере контента */
+div#idHeaderContents {
+	margin-right: 50px;
+	text-align: left;
+	text-indent: 18px;
+	color: #737373;
+}
+.heading1 {
+	margin: 9px 0px 9px 0px;
+	font-size: 14pt;
+	font-weight: bold;
+}
+div#idHeaderContents h1:hover,
+div#idHeaderContents p:hover,
+div#idHeaderContents span:hover,
+div#idHeaderContents a:hover {
+	color: #fff;
+}
+
+/* No header topics */
+
+/* Breadcrumb trail */
+p#idBreadCrumbs {
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	padding: 4px 0 1px 2px;
+	margin: 4px 0 2px 0;
+	font-size: 8pt;
+	/* color: #737373; */
+	text-indent: 18px;
+}
+p#idBreadCrumbs a {text-decoration: none;}
+p#idBreadCrumbs a:visited {color: #737373; text-decoration: none;}
+p#idBreadCrumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
+
+/* Link to display entire user interface when topic is opened on its own */
+.sync-toc {
+	display: none;
+}
+
+.sync-toc,
+.sync-toc-off,
+.sync-toc-on {
+	font-weight: bold;
+}
+
+/* Comment Links - комментарии */
+
+div.links-comment {
+	position: absolute;
+	left: 0; right: 0; top: 0;
+	padding: 2px 4px 2px 4px;
+	border-style: solid;
+	border-width: 0 0 1px 0;
+	border-color: silver;
+}
+
+/* Search hightlight color */
+span.highlight {background-color: #ffff40;}
+
+div#commentsWrapper {
+	display: none;
+	visibility: visible;
+}
+
+/* Контент-текст */
 div#idContent {
 	position: absolute;
-	/* top: 35px; right: 0; bottom: 2px; left: 0; */
 	left: 0; right: 0;
 	top: 70px; bottom: 70px;
-	padding: 5px;
+	padding: 10px 5px 5px 5px;
 	overflow: auto;
 	z-index: 99;
+}
+
+/* Footer defined in HM_TOPICFOOTER.html */
+div#idFooterContents {
+	left: 0; right: 0;
+	/* bottom: 0; */
+	padding: 5px 0 5px 0;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	border-color: silver;
+}
+div#idFooterContents p {
+	padding: 0 0 5px 0;
+	/* font-family: Verdana, sans-serif; */
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	/* font-size: 9pt; */
+	font-size: 0.7em;
+	/* color: #737373; */
+	text-align: center;
+	text-indent: 0px;
+}
+div#idFooterContents a {
+	color: #737373;
+	border-bottom: 1px dotted #666;
+	text-decoration: none;
+}
+div#idFooterContents a:visited {
+	color: #737373;
+}
+div#idFooterContents a:hover {
+	text-decoration: underline;
+	color: blue;
+	border-color: #262626;
+	text-decoration: none;
 }
 
 /* root element for tabs */
@@ -292,11 +330,33 @@ p.autoTOC {
 	background-color: #f6f6f6;
 }
 div#idAtocIcon {
+	display: block;
 	position: absolute;
-	top: 5px;
-	right: 20px;
-	display: none;
+	top: 8px;
+	right: 6px;
+	/* display: none; */
 }
+div#idAtocIcon,
+div#idAtocIcon span {
+	font-family: Tahoma, Verdana;
+	font-size: 9px;
+	font-weight: normal;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	text-indent: 0;
+	line-height: 90%;
+	color: #999;
+}
+div#idAtocIcon,
+div#idAtocIcon span,
+img#idAtocLink {
+	z-index: 999;
+}
+div#idAtocIcon span:hover {
+	color: #fff;
+}
+
 div#idUnclicker {
 	position: fixed;
 	top: 0;
@@ -308,22 +368,7 @@ div#idUnclicker {
 	background-image: url("../image/spacer.gif");
 	z-index: 998;
 }
-div#idAtocIcon,
-div#idAtocIcon span {
-	font-family: Tahoma, Verdana;
-	font-size: 9px;
-	font-weight: normal;
-	padding: 0;
-	margin: 0;
-	text-align: center;
-	line-height: 90%;
-	color: #999;
-}
-div#idAtocIcon,
-div#idAtocIcon span,
-img#idAtocLink {
-	z-index: 999;
-}
+
 img.menuicon {
 	display: inline-block;
 	vertical-align: middle;
@@ -331,16 +376,14 @@ img.menuicon {
 	margin: 0;
 	margin-top: -1px;
 }
-div#idHeaderContents {
-	margin-right: 50px;
-}
+
 div#nojsheadercontents {
 	margin-top: -10px;
 	padding-bottom: 12px;
 	display: none;
 }
 
-img.navicon {
+img.nav-icon {
 	margin: 0;
 	padding: 1px 1px 0 2px;
 	border-radius: 5px;
@@ -348,7 +391,7 @@ img.navicon {
 	border-width: 1px;
 	border-style: solid;
 }
-img.naviconH {
+img.nav-icon-H {
 	border-color: #777;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -380,20 +423,6 @@ p#commentLink2 {
 	margin: 5px 0;
 }
 
-a.comment-link {
-	font-size: 10pt;
-	font-family: "Arial";
-	font-style: normal;
-	font-weight: bold;
-	color: blue;
-	text-decoration: none;
-}
-a.comment-link:visited {
-	color: blue;
-}
-a.comment-link:hover {
-	text-decoration: underline;
-}
 span.comments {
 	color: red;
 }
@@ -535,7 +564,7 @@ span#sbuttontext {
 	p#idBreadCrumbs,
 	div#idAtocIcon,
 	div#menuIcon,
-	div.topicfooter {
+	div#idFooterContents {
 		display: none !important;
 	}
 	html,
