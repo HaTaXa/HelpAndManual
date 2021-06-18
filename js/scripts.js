@@ -418,9 +418,9 @@ function bannerShowHide() {
 	else if ($("div#idToolbar").hasClass('banner-toolbar')) {
 		$("div#idToolbar").removeClass('banner-toolbar').addClass('compact-toolbar');
 	}
-	$("div#idToolbar").toggleClass("toolbar-up toolbar-down");
-	$("div#idNavBox").toggleClass("nav-box-up nav-box-down");
-	$("div#idTopicPane").toggleClass("topic-pane-up topic-pane-down");
+	// $("div#idToolbar").toggleClass("toolbar-up toolbar-down"); // не используется
+	$("div#idNavBox").toggleClass("nav-box-down");
+	$("div#idTopicPane").toggleClass("topic-pane-down");
 }
 // кнопка Развернуть/Свернуть
 function textHiddenExpand() {
@@ -484,19 +484,62 @@ function NavShowHide () {
 // Отображение текущего оглавления и скрытие другого
 function toggleList() {
 	// ondblclick="return dblclicked(this);" из файла navigation.html стр.56
+	let elems = document.querySelectorAll('ul');
+	// let ul = document.querySelector('ul'); // 'это не текущая ul, на кот.кликнули, это первый yfqltyysq селектор ul на странице.
+	// console.log(ul.id);
+	// let ul = document.querySelectorAll('ul > li:first-child');
+	// когда кликаем 1-ю ul везде должны быть "+", кроме нее и ее первый ребенок ul должна отобразиться
+	// $(ul).on('click', function () {
+		// for (let elem of elems) {
+		for (let i = 0; i < elems.length; i++) {
+			if (elems[i].id == "idToc") {
+				console.log('display, block: ' + elem[i].id);
+				// $(elems[i]).addClass('image-collapse').removeClass('image-expand');
+				$(elems[i]).css('display', 'block');
+				$(elems[i]).toggleClass("image-expand image-collapse");
+				//
+				// $(elem.querySelector('ul')).css('display', 'block');
+				// $(elem.querySelector('ul')).toggleClass("image-expand image-collapse");
+				// console.log(elem.querySelector('ul'));
+			}
+			else {
+				console.log('display, none: ' + elems[i].id);
+				$(elems[i]).css('display', 'none');
+				$(elems[i]).toggleClass("image-expand image-collapse");
+			};
+		};
+	// });
 
-// let elemChildrens = document.querySelector("ul").children;
-// if (elemChildrens != null) {
-// 	for (let i = 0, child; child = elemChildrens[i]; i++) {
-// 		// elemChildrens - коллекция детей списка
-// 		// child - последовательно, каждый из элементов elemChildrens
-// 		alert(child.getAttribute('id'));
-// 	}
-// }
-	$("ul").toggleClass("image-expand image-collapse");
-	// $("a").toggleClass("list-hide list-show");
-	alert(`(i) Функция отображения текущего оглавления и скрытие другого, пока что в разработке.`);
-}
+	// else {
+	// 	console.log(`ul != idToc`);
+	// 	$('ul#idToc').addClass('image-collapse').removeClass('image-expand');
+	// 	$(ul).css('display', 'block'); // текущей ul раскрываем
+	// 	$(ul).addClass('image-collapse').removeClass('image-expand');
+	// };
+
+	// $(".dropdown > ul li").each(function(){
+	// 	let txt = $(this).text();
+	// 	console.log(txt);
+	// });
+
+	// let elemChildrens = document.querySelector("ul").children;
+	// if (elemChildrens != null) {
+	// 	for (let i = 0, child; child = elemChildrens[i]; i++) {
+	// 		// elemChildrens - коллекция детей списка
+	// 		// child - последовательно, каждый из элементов elemChildrens
+	// 		alert(child.getAttribute('id'));
+	// 	}
+	// }
+
+	// $("ul#ul1").toggleClass("image-expand image-collapse");
+	// // $("a").toggleClass("list-hide list-show");
+	// // alert(`(i) Функция отображения текущего оглавления и скрытие другого, пока что в разработке.`);
+	// $('ul#idToc').css('display', 'block');
+	// $('li#idToc_li').css('display', 'block');
+
+	// $('ul#ul1').css('display', 'block');
+	// // $('li#ul1').css('display', 'block');
+};
 
 // *************************************************
 // Элементы вкладок топика - файл index.html
@@ -537,7 +580,8 @@ function showComments() {
 // function writeCommentLink(params) {}
 
 // *************************************************
-// Элементы в топике контента - файл index.html
+// Элементы в топике контент-текста - файл index.html
+
 // Версия редакций инструкций - открытие в новом окне браузера
 function manualVersion() {
 	{

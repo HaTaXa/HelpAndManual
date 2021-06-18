@@ -1,0 +1,37 @@
+/*
+Цвет и поведение гиперссылок
+Hyperlink colors and behaviors
+ */
+
+a.topiclink {color: blue; text-decoration: underline;}
+a.topiclink:visited {color: blue;}
+a.topiclink:hover {color: blue; }
+a.weblink {color: blue; text-decoration: underline;}
+a.weblink:visited {color: blue;}
+a.weblink:hover {color: blue; }
+a.popuplink {color: blue; text-decoration: underline;}
+a.popuplink:visited {color: blue;}
+a.popuplink:hover {color: red; }
+a.filelink {color: blue; text-decoration: underline;}
+a.filelink:visited {color: blue;}
+a.filelink:hover {color: blue; }
+a.scriptlink{color: blue; text-decoration: underline;}
+a.scriptlink:visited {color: blue;}
+a.scriptlink:hover {color: blue;}
+a.inline-toggle {color: green; font-weight: bold; font-style: italic; text-decoration: none;}
+a.inline-toggle:active {color: green; font-weight: bold; font-style: italic; text-decoration: underline;}
+a.inline-toggle:visited {color: lightgreen; font-weight: normal; font-style: normal; text-decoration: none;}
+a.inline-toggle:hover {color: darkgreen; font-weight: bold; font-style: italic; text-decoration: underline;}
+a.dropdown-toggle {color: red; font-weight: bold; font-style: italic; text-decoration: none;}
+a.dropdown-toggle:active {color: red; font-weight: bold; font-style: italic; text-decoration: underline;}
+a.dropdown-toggle:visited {color: rgb(243, 60, 60); font-weight: normal; font-style: normal; text-decoration: none;}
+a.dropdown-toggle:hover {color: darkred; font-weight: bold; font-style: italic; text-decoration: underline;}
+a.comment-link {color: blue; font-size: 10pt; font-family: "Arial"; font-style: normal; font-weight: bold; text-decoration: none;}
+a.comment-link:visited {color: blue;}
+a.comment-link:hover {text-decoration: underline;}
+
+/*
+Ссылка для отображения всего пользовательского интерфейса, когда тема открыта сама по себе
+Link to display entire user interface when topic is opened on its own
+ */
+.sync-toc { display: none;}

@@ -19,6 +19,7 @@
 	<link rel="stylesheet" href="css/styles.css"> <!-- вместо файла hm_webhelp.css -->
 	<!-- <link id="colorscheme" rel="stylesheet" type="text/css" href="hm_webhelp.css"> -->
 	<link rel="stylesheet" href="css/index.css"> <!-- Взято из: расположено в теге "<head>" основного файла index.html -->
+	<link rel="stylesheet" href="css/linksstyle.css"> <!-- стилизация ссылок -->
 
 	<!-- еще скрипты js, jquery -->
 	<!-- <script type="text/javascript" src="js/helpman_settings.js"></script>
@@ -38,14 +39,15 @@
 <body>
 	<div id="idContainer" class="container">
 		<!-- Баннер на официальный сайт компании -->
-		<div id="idBanner" style="display: none;">
-			<a href="http://www.1gl.ru" title="БСС «Система Главбух» официальный сайт" target="_blank">
-				<div><img src="image/gb-banner.gif" alt="БСС «Главбух»"></div>
-				<p>www.1gl.ru</p>
+		<div id="idBanner" class="banner">
+			<a class="banner" href="http://www.1gl.ru" title="БСС «Система Главбух» официальный сайт" target="_blank">
+				<div class="banner">
+					<p class="banner">www.1gl.ru</p>
+				</div>
 			</a>
 		</div>
-		<!-- Панель инструментов -->
-		<div id="idToolbar" class="compact-toolbar toolbar-up"> <!-- style="min-width: 850px;" -->
+		<!-- Панель инструментов. Переключение классов toolbar-up/toolbar-down отключено -->
+		<div id="idToolbar" class="compact-toolbar"> <!-- style="min-width: 850px;" -->
 			<table id="idToolbarTable">
 				<tbody>
 					<tr>
@@ -183,7 +185,7 @@
 		<!-- для idNavBox стили прописаны в styles.css
 			style="width: 275px; margin-top: 12px; top: 41px; left: 0px;"
 			style="width: 275px; margin-top: 12px; top: 41px; left: -270px;" -->
-		<div id="idNavBox" class="nav-box-up nav-box-right">
+		<div id="idNavBox" class="nav-box-right">
 			<!--  -->
 			<div id="idDragDivider" style="cursor: col-resize;"></div>
 			<div id="idNavHandle">
@@ -201,7 +203,7 @@
 		<!-- Контентная часть -->
 		<!-- (i) idTopicPane стиль прописан в styles.css
 			для style="left: 292px;margin-top: 8px;top: 67px;" -->
-		<div id="idTopicPane" class="topic-pane-up topic-pane-right">
+		<div id="idTopicPane" class="topic-pane-right">
 			<div id="idTabControls">
 				<div id="idTabsCtab">
 					<div id="idTabsCtabRight">
