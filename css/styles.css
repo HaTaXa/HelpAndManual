@@ -63,10 +63,6 @@ div#idTopicBox, /* контент */
 	box-shadow: 2px 2px 2px #3f3f3f;
 }
 /* Инструменты панели инструментов */
-span#idNavIconTopic {
-	top: 0;
-}
-
 img.nav-icon,
 img.nav-icon-H,
 img#idQuickSearchOff,
@@ -91,8 +87,6 @@ img#idFeedBackOn,
 img#idPrinterOn {
 	position: absolute;
 	top: 12px;
-	/* display: flex;
-	flex-direction: column; */
 	margin: 0;
 	padding: 2px 4px 2px 4px;
 	border-width: 1px;
@@ -371,7 +365,7 @@ a.banner {
 
 p.banner {
 	position: relative;
-	top: 94px; /* или bottom: -94px; */
+	top: 80px; /* или bottom: -80px; */
 }
 /* по умолчанию контейнер скрытый */
 #idBanner {
@@ -413,7 +407,7 @@ div#idTopicBox, /* контент */
 	border-radius: 5px;
 }
 
-table, td, tr, img, p {
+table, td, tr {
 	margin: 0;
 	padding: 0;
 	vertical-align: bottom;
@@ -428,7 +422,7 @@ table#idToolbarTable {
 td.toolbar-left {text-align: left;} /* vertical-align: bottom; */
 td.toolbar-right {text-align: right;} /* vertical-align: bottom; */
 td.toolbar-center {text-align: center; margin: 0 auto;} /* vertical-align: bottom; */
-td.toolbar-search {text-align: left; width: 185px;} /* vertical-align: bottom; */
+td.toolbar-search {text-align: left; width: 186px;} /* vertical-align: bottom; */
 
 div#idQuickSearch,
 div.nav-icon-box-left,
@@ -446,13 +440,14 @@ div.nav-icon-box-right {
 	text-align: center;
 	white-space: nowrap;
 	text-transform: capitalize;
-	line-height: 1em;
+	/* line-height: 1em; */
+	text-indent: 0;
 }
 
 /* Quick search box */
 div#idQuickSearch {
 	font-weight: bold;
-	min-width: 200px;
+	/* min-width: 200px; */
 	/* vertical-align: bottom; */
 }
 input#idInputSearch {
@@ -506,8 +501,6 @@ div#idNavBox.nav-box-right {
 	left: 0;
 	top: 60px;
 	bottom: 0;
-	display: flex;
-	flex-direction: column;
 	padding: 2px 2px 2px 5px;
 }
 
@@ -562,8 +555,6 @@ div#idTopicPane {
 	position: absolute;
 	left: 0; right: 0px;
 	top: 76px; bottom: 0px;
-	display: flex;
-	flex-direction: column;
 	margin-top: 4px;
 }
 
@@ -952,35 +943,89 @@ div#permalink textarea {
 	box-shadow: 5px 5px 5px #888;
 }
 
+/* Portrait tablets and medium desktops - Портретные планшеты и средние настольные компьютеры */
+@media(min-width: 992px) and (max-width: 1199px) {
+}
+
 @media(max-width: 834px) {
-	table, td, tr, img, p {
-		vertical-align: inherit; /* (i) Наследует значение родителя */
-	}
-	/* #idQuickSearchOn,
-	#idQuickSearchOff {
-		top: 16px;
+	/* table, td, tr, img, p {
+		vertical-align: inherit; (i) Наследует значение родителя
 	} */
 	/* .toolbar-search, */
 	span.nav-text-off,
 	span.nav-text-on {
 		display: none;
 	}
+
+	img.nav-icon,
+	img.nav-icon-H,
+	img#idQuickSearchOff,
+	img#idQuickSearchOn,
+	img#idTopicOff,
+	img#idTopicOn,
+	img#idIndexOff,
+	img#idIndexOn,
+	img#idSearchOff,
+	img#idSearchOn,
+	img#idUndocTabOff,
+	img#idUndocTabOn,
+	img#idNewTabOff,
+	img#idNewTabOn,
+	img#idShowHideOff,
+	img#idShowHideOn,
+	img#idExpandOff,
+	img#idExpandOn,
+	img#idPermalinkOff,
+	img#idPermalinkOn,
+	img#idFeedBackOff,
+	img#idFeedBackOn,
+	img#idPrinterOff,
+	img#idPrinterOn,
+	div.nav-icon-box-left,
+	div.nav-icon-box-right {
+		top: 20px;
+		margin: 0 20px 0 0;
+	}
+}
+
+/* Portrait tablets and small desktops - Портретные планшеты и небольшие настольные компьютеры */
+@media(min-width: 768px) and (max-width: 991px) {
+}
+/* Landscape phones and portrait tablets - Альбомные телефоны и планшеты с портретом */
+@media(max-width: 767px) {
 }
 
 @media(max-width: 510px) {
-	.toolbar-search {
-		display: none;
+	td.toolbar-search {
+		/* display: none; */
+		width: 126px;
 	}
+	input#idInputSearch {
+		width: 100px;
+	}
+	/* div#idTopicPane.topic-pane-right, */
 	div#idNavBox.nav-box-right {
 		width: auto;
 		position: relative;
-		top: 0;
-		right: 0;
-		height: 300px;
+		left: 0; right: 0; top: 0;
+		height: 400px;
 		/* z-index: 1; */
 	}
 	div#idTopicPane.topic-pane-right {
-		left: 0;
-		top: 386px;
+		width: auto;
+		height: 440px;
+		position: sticky; /* прикрепляет к низу */
+		/* position: relative; */
+		/* left: 0; top: 0; */
+		margin-top: 20px;
+	}
+}
+/* Landscape phones and smaller - Ландшафтные телефоны и меньшие */
+@media(max-width: 480px) {
+}
+
+@media(max-width: 320px) {
+	.toolbar-search {
+		display: none;
 	}
 }

@@ -26,6 +26,9 @@ div#idHeader {
 	border-bottom: 1px solid silver;
 	z-index: 100;
 }
+div#idHeader:hover {
+	cursor: default;
+}
 
 /* В хедере контента */
 div#idHeaderContents {

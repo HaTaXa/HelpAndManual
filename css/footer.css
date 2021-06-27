@@ -35,6 +35,10 @@
 	color: #fff;
 }
 
+.footer p:hover {
+	cursor: default;
+}
+
 .footer-left {
 	width: 100%;
 	text-align: left;
