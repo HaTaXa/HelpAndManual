@@ -75,8 +75,7 @@ div#idTocHeader {
 
 div#idTocBody {
 	position: absolute;
-/* ??? (i) не знаю для чего, но используется при внедрении боковой панели навигации */
-	background-image: url("../image/spacer.gif");
+	background-image: url("../image/spacer.gif"); /* ??? не понятно для чего */
 	top: 83px;
 	left: 7px;
 	right: 0;

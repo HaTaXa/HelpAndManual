@@ -5,41 +5,42 @@ protrude over the edges of rounded corners
 выступают за края закругленных углов
 */
 
-ul.tabs a,
-ul.tabs a.current,
-div#idTabsCtab,
-div#idToolbar,
-img.nav-icon-H,
-div#idNavBox,
-div#idNavBorder {
+.tabs a,
+.tabs a.current,
+.toolbar-banner,
+.toolbar-compact,
+.nav-icon-H,
+.nav-pane,
+.nav-box {
 	filter: none;
 	-ms-filter: none;
 }
 
-ul.tabs a {
-	background-image: url(../image/taboff_gradient.svg);
+.tabs a {
+	background-image: url(../image/gradient_taboff.svg);
 	background-size: 100% 100%;
 	background-repeat: repeat-x;
 	background-position: 0 0;
 }
 
-div#idToolbar,
-ul.tabs a.current,
-div#idTabsCtab {
-	background-image: url(../image/toolbar_gradient.svg);
+.toolbar-banner,
+.toolbar-compact,
+.tabs a.current,
+.tabs-c-tab {
+	background-image: url(../image/gradient_toolbar.svg);
 	background-size: 100% 100%;
 	background-repeat: repeat-x;
 	background-position: 0 0;
 }
 
-div#idNavBorder {
-	background-image: url(../image/navborder_gradient.svg);
+.nav-box {
+	background-image: url(../image/gradient_navborder.svg);
 	background-size: 100% 100%;
 	background-repeat: repeat-x;
 	background-position: 0 0;
 }
-div#idNavBox {
-	background-image: url(../image/navbox_gradient.svg);
+.nav-pane {
+	background-image: url(../image/gradient_navpane.svg);
 	background-size: 100% 100%;
 	background-repeat: repeat-x;
 	background-position: 0 0;
