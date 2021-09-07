@@ -1,4 +1,5 @@
-// дожидаемся полной загрузки страницы, (i) но проверка на null все равно получается нужна, (?) не пойму тогда для чего onload?
+// Дожидаемся полной загрузки страницы, (i) но проверка на null все равно получается нужна, (?) не пойму тогда для чего onload?
+
 window.onload = function () {
 	// Инициализация переменных
 	// topictablink = document.getElementById('idTopicTab');
@@ -504,7 +505,7 @@ function NavShowHide () {
 		}
 	}
 }
-// Отображение текущего оглавления и скрытие другого
+// Отображение выбранного пункта оглавления и скрытие других пунктов
 function toggleList() {
 	// ondblclick="return dblclicked(this);" из файла navigation.html стр.56
 	let elems = document.querySelectorAll('ul');
