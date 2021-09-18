@@ -508,31 +508,42 @@ function NavShowHide () {
 // Отображение выбранного пункта оглавления и скрытие других пунктов
 function toggleList() {
 	// ondblclick="return dblclicked(this);" из файла navigation.html стр.56
-	let elems = document.querySelectorAll('ul');
-	// let ul = document.querySelector('ul'); // 'это не текущая ul, на кот.кликнули, это первый yfqltyysq селектор ul на странице.
-	// console.log(ul.id);
-	// let ul = document.querySelectorAll('ul > li:first-child');
-	// когда кликаем 1-ю ul везде должны быть "+", кроме нее и ее первый ребенок ul должна отобразиться
-	// $(ul).on('click', function () {
-		// for (let elem of elems) {
-		for (let i = 0; i < elems.length; i++) {
-			if (elems[i].id == "idToc") {
-				console.log('display, block: ' + elem[i].id);
-				// $(elems[i]).addClass('image-collapse').removeClass('image-expand');
-				$(elems[i]).css('display', 'block');
-				$(elems[i]).toggleClass("image-expand image-collapse");
-				//
-				// $(elem.querySelector('ul')).css('display', 'block');
-				// $(elem.querySelector('ul')).toggleClass("image-expand image-collapse");
-				// console.log(elem.querySelector('ul'));
-			}
-			else {
-				console.log('display, none: ' + elems[i].id);
-				$(elems[i]).css('display', 'none');
-				$(elems[i]).toggleClass("image-expand image-collapse");
-			};
-		};
-	// });
+	let elem = document.querySelector('ul');
+	console.log(elem);
+	// $(elem).toggleClass("image-expand image-collapse");
+	// if ($(elem).css('display', 'none')) {
+	// 	$(elem).css('display', 'block');
+	// }
+	// else if ($(elem).css('display', 'block')) {
+	// 	$(elem).css('display', 'none');
+	// }
+
+
+	// let elems = document.querySelectorAll('ul');
+	// // let ul = document.querySelector('ul'); // 'это не текущая ul, на кот.кликнули, это первый найденный селектор ul на странице.
+	// // console.log(ul.id);
+	// // let ul = document.querySelectorAll('ul > li:first-child');
+	// // когда кликаем 1-ю ul везде должны быть "+", кроме нее и ее первый ребенок ul должна отобразиться
+	// // $(ul).on('click', function () {
+	// 	// for (let elem of elems) {
+	// 	for (let i = 0; i < elems.length; i++) {
+	// 		if (elems[i].id == "idToc") {
+	// 			console.log('display, block: ' + elem[i].id);
+	// 			// $(elems[i]).addClass('image-collapse').removeClass('image-expand');
+	// 			$(elems[i]).css('display', 'block');
+	// 			$(elems[i]).toggleClass("image-expand image-collapse");
+	// 			//
+	// 			// $(elem.querySelector('ul')).css('display', 'block');
+	// 			// $(elem.querySelector('ul')).toggleClass("image-expand image-collapse");
+	// 			// console.log(elem.querySelector('ul'));
+	// 		}
+	// 		else {
+	// 			console.log('display, none: ' + elems[i].id);
+	// 			$(elems[i]).css('display', 'none');
+	// 			$(elems[i]).toggleClass("image-expand image-collapse");
+	// 		};
+	// 	};
+	// // });
 
 	// else {
 	// 	console.log(`ul != idToc`);

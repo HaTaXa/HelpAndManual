@@ -1,4 +1,4 @@
-// Было прописано внутри тега хед файла hmftsearch.htm
+// (i) Было прописано внутри тега хед файла hmftsearch.htm
 
 /*! Full-text search init functions for HM Premium Pack Version 2.71
 Copyright (c) 2008-2015 by Tim Green

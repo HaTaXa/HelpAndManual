@@ -1,9 +1,9 @@
-/* General Background */
-
+/* ! General Background */
+/* (i) Общий фон */
 body, html {
 	background-color: #fff;
 	overflow: hidden;
-	text-indent: 1.5em; /* отступ первой строки */
+	text-indent: 1.5em; /* ~ отступ первой строки */
 }
 html {
 	overflow-y: auto;
@@ -24,11 +24,8 @@ div#idHeader {
 	border-bottom: 1px solid silver;
 	z-index: 100;
 }
-div#idHeader:hover {
-	cursor: default;
-}
+div#idHeader:hover {cursor: default;}
 
-/* В хедере контента */
 div#idHeaderContents {
 	margin-right: 50px;
 	text-align: left;
@@ -45,9 +42,11 @@ div#idHeaderContents p:hover,
 div#idHeaderContents span:hover,
 div#idHeaderContents a:hover {color: #fff;}
 
-/* No header topics */
+/* ! No header topics */
+/* (i) Нет тем заголовка */
 
-/* Breadcrumb trail */
+/* ! Breadcrumb trail */
+/* (i) След из хлебных крошек */
 p#idBreadCrumbs {
 	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
 	padding: 4px 0 1px 2px;
@@ -60,10 +59,9 @@ p#idBreadCrumbs a {text-decoration: none;}
 p#idBreadCrumbs a:visited {color: #737373; text-decoration: none;}
 p#idBreadCrumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
 
-/* Link to display entire user interface when topic is opened on its own */
-.sync-toc {
-	display: none;
-}
+/* ! Link to display entire user interface when topic is opened on its own */
+/* (i) Ссылка для отображения всего пользовательского интерфейса при самостоятельном открытии темы */
+.sync-toc {display: none;}
 
 .sync-toc,
 .sync-toc-off,
@@ -71,8 +69,8 @@ p#idBreadCrumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
 	font-weight: bold;
 }
 
-/* Comment Links - комментарии */
-
+/* ! Comment Links */
+/* (i) Комментарии */
 div.links-comment {
 	position: absolute;
 	left: 0; right: 0; top: 0;
@@ -82,7 +80,8 @@ div.links-comment {
 	border-color: silver;
 }
 
-/* Search hightlight color */
+/* ! Search hightlight color */
+/* (i) Цвет выделения при поиске */
 span.highlight {background-color: #ffff40;}
 
 div#commentsWrapper {
@@ -90,7 +89,7 @@ div#commentsWrapper {
 	visibility: visible;
 }
 
-/* Контент-текст */
+/* ! Контент-текст */
 div#idContent {
 	position: absolute;
 	left: 0; right: 0;
@@ -100,7 +99,8 @@ div#idContent {
 	z-index: 99;
 }
 
-/* Footer defined in HM_TOPICFOOTER.html */
+/* ! Topic Content Footer. The footer defined in the topic content */
+/* (i) Нижний колонтитул, определенный в контенте топика */
 div#idFooterContents {
 	left: 0; right: 0;
 	/* bottom: 0; */
@@ -124,9 +124,7 @@ div#idFooterContents a {
 	border-bottom: 1px dotted #666;
 	text-decoration: none;
 }
-div#idFooterContents a:visited {
-	color: #737373;
-}
+div#idFooterContents a:visited {color: #737373;}
 div#idFooterContents a:hover {
 	text-decoration: underline;
 	color: blue;
@@ -134,12 +132,94 @@ div#idFooterContents a:hover {
 	text-decoration: none;
 }
 
-/* root element for tabs */
-ul.tabs {
-	display: none;
+/* ! Topic Footer. Not to be confused with the footer in the topic content */
+/* (i) Нижний колонтитул топика. Не путать с нижним колонтитулом в контенте топика */
+/* p.footer a {
+	border-bottom: 1px dotted #737373;
+	text-decoration: underline;
+}
+p.footer a:visited {text-decoration: underline;}
+
+p.footer a:hover {
+	text-decoration: underline; */
+
+	/* color: #262626; */
+	/* border-color: #262626; */
+
+	/* color: #fff;
+	border-color: #fff;
+	text-decoration: none;
+} */
+
+.footer {
+	position: absolute;
+	left: 0; right: 0; bottom: 0;
+	height: 70px;
+	margin: 0;
+	padding: 0;
+	display: flex;
+	flex-flow: row nowrap; /* ~ Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
+	border-bottom: 1px solid silver;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	background-color: transparent;
+	background-image: url("../image/bg-bottom.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	color: #fff;
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-size: 0.7em;
+	text-indent: 0px; /* отступ первой строки */
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	border-color: silver;
+	/* z-index: 100; */
 }
 
-/* Sortable Tables */
+.footer-left,
+.footer-center,
+.footer-right {
+	margin: 0;
+	padding: 0 4px;
+	flex: 1 1 auto;
+	align-items: center; /* ~ Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
+	align-content: center; /* (i) либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
+
+	display: flex;
+	flex-flow: row nowrap;
+}
+
+.footer-left {
+	text-align: left;
+	justify-content: flex-start; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+}
+
+.footer-center {
+	text-align: center;
+	justify-content: center; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+}
+
+.footer-right {
+	text-align: right;
+	justify-content: flex-end; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+}
+
+.footer p, a {
+	margin-block: auto;
+	color: #737373;
+}
+
+.footer a:hover,
+.footer p:hover {color: #fff;}
+
+.footer p:hover {cursor: default;}
+
+/* ! root element for tabs */
+/* (i) Корневой элемент для вкладок */
+ul.tabs {display: none;}
+
+/* ! Sortable Tables - Сортируемые Таблицы */
+
 table a.sortheader img {
 	border: 0;
 	outline: none;
@@ -157,15 +237,12 @@ a.sortheader:hover {
 	color: black;
 	text-decoration: none;
 }
-a.sortheader {
-	outline: none;
-}
+a.sortheader {outline: none;}
 
-/* Components of the Topic AutoTOC Window. These are the dead defaults.
-A number of settings will be reset by the script */
-
+/* ! Components of the Topic AutoTOC Window. These are the dead defaults. A number of settings will be reset by the script */
+/* (i) Компоненты автоматического окна темы. Это мертвые дефолты. Ряд настроек будет сброшен сценарием */
 #idAutoTocWrapper {
-	display: none;
+	/* display: none; */
 	z-index: 1000;
 	white-space: nowrap;
 	padding: 0;
@@ -235,12 +312,9 @@ div#idAtocIcon span {
 }
 div#idAtocIcon,
 div#idAtocIcon span,
-img#idAtocLink {
-	z-index: 999;
-}
-div#idAtocIcon span:hover {
-	color: #fff;
-}
+img#idAtocLink {z-index: 999;}
+
+div#idAtocIcon span:hover {color: #fff;}
 
 div#idUnclicker {
 	position: fixed;
@@ -265,7 +339,7 @@ img.menuicon {
 div#nojsheadercontents {
 	margin-top: -10px;
 	padding-bottom: 12px;
-	display: none;
+	/* display: none; */
 }
 
 img.nav-icon {
@@ -297,8 +371,8 @@ img.nav-icon-H {
 	cursor: pointer;
 }
 
-/* IntenseDebate and Disqus comments */
-
+/* ! IntenseDebate and Disqus comments */
+/* (i) Интенсивное обсуждение и комментарии, вызывающие беспокойство */
 p#idCommentLink1 {
 	text-align: right;
 	margin: 0 auto;
@@ -308,14 +382,12 @@ p#commentLink2 {
 	margin: 5px 0;
 }
 
-span.comments {
-	color: red;
-}
+span.comments {color: red;}
 
 div#commentsWrapper {
 	position: fixed;
 	display: block;
-	visibility: hidden; /* Must have full size on start, otherwise Disqus won't initialize in Internet Explorer */
+	visibility: hidden; /* (i) Must have full size on start, otherwise Disqus won't initialize in Internet Explorer - При запуске должен быть полный размер, иначе Disqus не будет инициализироваться в Internet Explorer */
 	top: 5px;
 	right: 40px;
 	bottom: 20px;
@@ -354,8 +426,8 @@ img#livePrintIcon {
 	margin-bottom: -3px;
 }
 
-/* Styles for social sharing bar */
-
+/* ! Styles for social sharing bar */
+/* (i) Стили для панели социального обмена */
 div#xunclicker {
 	display: none;
 	position: absolute;
@@ -395,12 +467,12 @@ ul.social-buttons li {
 	padding: 5px;
 }
 
-/* G+1 can't be hidden without this */
-div.googleplusone-button iframe {
-	display: none;
-}
+/* ! G+1 can't be hidden without this */
+/* (i) G+1 не может быть скрыт без этого */
+div.googleplusone-button iframe {display: none;}
 
-/* Twitter button width hack and frame hide */
+/* ! Twitter button width hack and frame hide */
+/* (i) Ширина кнопки Twitter взломать и скрыть рамку */
 div.twitter-button iframe {
 	width: 80px !important;
 	display: none;
@@ -420,6 +492,7 @@ div#mailthisbutton {
 	background-image: -webkit-linear-gradient(bottom, #d4d4d2 7%, #edf0f0 54%);
 	background-image: -ms-linear-gradient(bottom, #d4d4d2 7%, #edf0f0 54%);
 }
+
 a.sbutton {
 	display: inline-block;
 	color: #666;
@@ -431,9 +504,7 @@ a.sbutton {
 	overflow: visible;
 	padding-top: 2px;
 }
-a:hover.sbutton {
-	color: #000;
-}
+a:hover.sbutton {color: #000;}
 
 span#sbuttontext {
 	display: inline-block;
@@ -444,18 +515,16 @@ span#sbuttontext {
 	font-size: 11px;
 }
 
-/* Styles for what goes to the printer */
+/* ! Styles for what goes to the printer */
+/* (i) Стили для того, что отправляется на принтер */
 @media print {
 	p#idBreadCrumbs,
 	div#idAtocIcon,
 	div#menuIcon,
-	div#idFooterContents {
-		display: none !important;
-	}
-	html,
-	body {
-		overflow: hidden !important;
-	}
+	div#idFooterContents {display: none !important;}
+
+	html, body {overflow: hidden !important;}
+
 	div#idHeader,
 	div#idContent {
 		position: static !important;
@@ -463,10 +532,8 @@ span#sbuttontext {
 		height: auto !important;
 		border-width: 0px !important;
 	}
-	img.menuicon {
-		display: none !important;
-	}
-	button#livePrintButton {
-		display: none !important;
-	}
+
+	img.menuicon {display: none !important;}
+
+	button#livePrintButton {display: none !important;}
 }

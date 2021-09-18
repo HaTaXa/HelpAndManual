@@ -1,3 +1,38 @@
+/* ! Topic Content Footer. The footer defined in the topic content */
+/* (i) Нижний колонтитул, определенный в контенте топика */
+div#idFooterContents {
+	left: 0; right: 0;
+	/* bottom: 0; */
+	padding: 5px 0 5px 0;
+	border-style: solid;
+	border-width: 1px 0 0 0;
+	border-color: silver;
+}
+div#idFooterContents p {
+	padding: 0 0 5px 0;
+	/* font-family: Verdana, sans-serif; */
+	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	/* font-size: 9pt; */
+	font-size: 0.7em;
+	/* color: #737373; */
+	text-align: center;
+	text-indent: 0px;
+}
+div#idFooterContents a {
+	color: #737373;
+	border-bottom: 1px dotted #666;
+	text-decoration: none;
+}
+div#idFooterContents a:visited {color: #737373;}
+div#idFooterContents a:hover {
+	text-decoration: underline;
+	color: blue;
+	border-color: #262626;
+	text-decoration: none;
+}
+
+/* ! Нижний колонтитул в навигационной панели и в топике */
+/* (i) Не путать с нижним колонтитулом в контенте топика */
 /* p.footer a {
 	border-bottom: 1px dotted #737373;
 	text-decoration: underline;
@@ -22,7 +57,7 @@ p.footer a:hover {
 	margin: 0;
 	padding: 0;
 	display: flex;
-	flex-flow: row nowrap; /* (i) Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
+	flex-flow: row nowrap; /* ~ Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
 	border-bottom: 1px solid silver;
 	overflow-y: hidden;
 	overflow-x: hidden;
@@ -33,7 +68,7 @@ p.footer a:hover {
 	color: #fff;
 	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
 	font-size: 0.7em;
-	text-indent: 0px; /* отступ первой строки */
+	text-indent: 0px; /* ~ отступ первой строки */
 	border-style: solid;
 	border-width: 1px 0 0 0;
 	border-color: silver;
@@ -46,8 +81,8 @@ p.footer a:hover {
 	margin: 0;
 	padding: 0 4px;
 	flex: 1 1 auto;
-	align-items: center; /* (i) Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
-	align-content: center; /* (!!!) либо align-items: center. (i) Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
+	align-items: center; /* ~ Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
+	align-content: center; /* (i) либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
 
 	display: flex;
 	flex-flow: row nowrap;
@@ -55,20 +90,23 @@ p.footer a:hover {
 
 .footer-left {
 	text-align: left;
-	justify-content: flex-start; /* (i) После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+	justify-content: flex-start; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
 .footer-center {
 	text-align: center;
-	justify-content: center; /* (i) После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+	justify-content: center; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
 .footer-right {
 	text-align: right;
-	justify-content: flex-end; /* (i) После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+	justify-content: flex-end; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
-.footer p, a {color: #737373;}
+.footer p, a {
+	margin-block: auto;
+	color: #737373;
+}
 
 .footer a:hover,
 .footer p:hover {color: #fff;}

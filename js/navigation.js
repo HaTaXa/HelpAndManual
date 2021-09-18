@@ -1,5 +1,5 @@
 /*
-Взято из файла hmcontent.htm, скрипты прописаны внутри страницы в хедере
+(i) Взято из файла hmcontent.htm, скрипты прописаны внутри страницы в хедере
 */
 
 /*! Table of contents init functions for HM Premium Pack Version 2.71 Copyright (c) 2008-2015 by Tim Green All rights reserved. */

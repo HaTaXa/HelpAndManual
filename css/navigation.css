@@ -1,5 +1,5 @@
 /*
-Взято из файла hmcontent.htm, стили были прописаны в хеде
+(i) Взято из файла hmcontent.htm, стили были прописаны в хеде
 */
 
 body, html {
@@ -7,147 +7,22 @@ body, html {
 	overflow: auto;
 	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
 }
-/* General links */
+/* ! General links */
 a {
 	color: #ffffff;
 	text-decoration: none;
 }
-a:visited {
-	color: #ffffff;
-}
+a:visited {color: #ffffff;}
 a:hover {
 	color: #ffffff;
 	text-decoration: underline;
 }
-a:focus {
-	outline: #707070 dashed thin;
-}
+a:focus {outline: #707070 dashed thin;}
 
-/* TOC LIST CSS */
-#idToc {
-	margin: 0;
-	padding: 0;
-} /* General margin of the TOC (root entry) */
-
-#idToc li {
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-	background-position: left center;
-	vertical-align: bottom;
-} /* Vertical spacing between TOC items */
-
-/* для каждого последнего потомка li в ul */
-/* #idToc li:last-child {
-	padding: 0 0 3px 0;
-} */
-
-li#idToc_li2,
-li#idToc_li3 {
-	padding: 4px 0 4px 0;
-}
-
-#idToc ul {
-	margin: 2px 0 0 0;
-	padding: 0;
-	vertical-align: bottom;
-} /* Indentation per level (negative value) */
-
-.image-expand {
-	background: url(../image/tgl_expand.gif) no-repeat;
-}
-.image-collapse {
-	background: url(../image/tgl_collapse.gif) no-repeat;
-}
-
-.list-show {
-	display: block;
-}
-.list-hide {
-	display: none;
-}
-
-/* TOC LIST CSS */
 div#idTocHeader {
 	position: absolute;
-	top: 0; left: 10px; right: 18px;
+	top: 0; left: 5px; right: 5px;
 	overflow: hidden;
-}
-
-div#idTocBody {
-	position: absolute;
-	background-image: url("../image/spacer.gif"); /* ??? не понятно для чего */
-	top: 83px;
-	left: 7px;
-	right: 0;
-	bottom: 150px;
-	overflow-y: auto;
-	border-style: solid;
-	border-color: #3f3f3f;
-	border-width: 1px 0 1px 0;
-	padding-top: 7px;
-	padding-bottom: 7px;
-	margin-right: 2px;
-}
-
-div#tree {
-	overflow-y: hidden;
-}
-
-div#idTocFooter {
-	position: absolute;
-	bottom: 0;
-	left: 8px;
-	right: 8px;
-	background-color: transparent;
-	overflow: hidden;
-}
-
-div#idTocFooter p {
-	font-size: 0.7em;
-	text-align: center;
-	margin: 5px auto;
-	padding: 4px 0 4px 0;
-	text-indent: 0;
-	color: #737373;
-}
-
-div#idTocFooter p:hover {
-	cursor: default;
-	color: #fff;
-}
-
-div#idTocFooter a {
-	color: #737373;
-}
-
-div#idTocFooter a:hover {
-	color: #fff;
-}
-
-.hr {
-	border-style: solid;
-	border-color: #3f3f3f;
-	border-width: 1px 0 1px 0;
-}
-
-img#idFeedBackOn:hover {
-	position: fixed; /* устраняем смещение всплывающей картинки */
-/* Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
-	transform: translate (-50%, -80%);
-	-moz-transform: translate(-50%, -80%); /* Для Firefox */
-	-ms-transform: translate(-50%, -80%); /* Для IE */
-	-webkit-transform: translate(-50%, -80%); /* Для Safari, Chrome, iOS */
-	-o-transform: translate(-50%, -80%); /* Для Opera */
-	margin: 0;
-	padding: 2px 4px 2px 4px;
-	border-color: #fff;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	font-weight: normal; /* насыщенность шрифта */
-	z-index: 100;
 }
 
 .nav-title {
@@ -173,15 +48,59 @@ img#idFeedBackOn:hover {
 	color: #ffffff;
 	text-decoration: none;
 }
-.no-js-title a:visited {
-	color: black;
+.no-js-title a:visited {color: black;}
+.no-js-title a:hover {text-decoration: underline;}
+
+div#idTocBody {
+	position: absolute;
+	background-image: url("../image/spacer.gif"); /* ??? не понятно для чего */
+	top: 70px;
+	left: 7px;
+	right: 0;
+	bottom: 150px;
+	overflow-y: auto;
+	border-style: solid;
+	border-color: #3f3f3f;
+	border-width: 1px 0 1px 0;
+	padding-top: 7px;
+	padding-bottom: 7px;
+	margin-right: 2px;
 }
-.no-js-title a:hover {
-	text-decoration: underline;
-}
-li.heading1 {
-	background-position: 1px 1px !important;
-}
+
+/* ! TOC LIST CSS */
+#idToc {
+	margin: 0;
+	padding: 0;
+} /* ! General margin of the TOC (root entry) */
+
+#idToc li {
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+	background-position: left center;
+	vertical-align: bottom;
+} /* ! Vertical spacing between TOC items */
+
+/* для каждого последнего потомка li в ul */
+/* #idToc li:last-child {
+	padding: 0 0 3px 0;
+} */
+
+li#idToc_li2,
+li#idToc_li3 {padding: 4px 0 4px 0;}
+
+#idToc ul {
+	margin: 2px 0 0 0;
+	padding: 0;
+	vertical-align: bottom;
+} /* ! Indentation per level (negative value) */
+
+.image-expand {background: url(../image/tgl_expand.gif) no-repeat;}
+.image-collapse {background: url(../image/tgl_collapse.gif) no-repeat;}
+
+.list-show {display: block;}
+.list-hide {display: none;}
+
+li.heading1 {background-position: 1px 1px !important;}
 .heading1 {
 	font-family: Arial, Helvetica;
 	font-weight: normal;
@@ -204,62 +123,7 @@ li.heading1 {
 	color: silver;
 	text-decoration: none;
 }
-/* .heading3 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading4 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading5 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading6 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading7 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading8 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading9 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-.heading10 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-} */
+
 .hilight1 {
 	font-family: Arial, Helvetica;
 	font-weight: normal;
@@ -284,65 +148,56 @@ li.heading1 {
 	background: #dedede;
 	text-decoration: none;
 }
-/* .hilight3 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
+
+div#tree {overflow-y: hidden;} /* ??? id нигде не найден */
+
+div#idTocFooter {
+	position: absolute;
+	bottom: 0;
+	left: 8px;
+	right: 8px;
+	background-color: transparent;
+	overflow: hidden;
 }
-.hilight4 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
+
+div#idTocFooter p {
+	font-size: 0.7em;
+	text-align: center;
+	margin: 5px auto;
+	padding: 4px 0 4px 0;
+	text-indent: 0;
+	color: #737373;
 }
-.hilight5 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
+
+div#idTocFooter p:hover {
+	cursor: default;
+	color: #fff;
 }
-.hilight6 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
+
+div#idTocFooter a {color: #737373;}
+
+div#idTocFooter a:hover {color: #fff;}
+
+.hr {
+	border-style: solid;
+	border-color: #3f3f3f;
+	border-width: 1px 0 1px 0;
 }
-.hilight7 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
+
+img#idFeedBackOn:hover {
+	position: fixed; /* ~ устраняем смещение всплывающей картинки */
+	transform: translate (-50%, -80%); /* (x, y) *//* (i) Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
+	-moz-transform: translate(-50%, -80%); /* ~ Firefox */
+	-ms-transform: translate(-50%, -80%); /* ~ IE */
+	-webkit-transform: translate(-50%, -80%); /* ~ Safari, Chrome, iOS */
+	-o-transform: translate(-50%, -80%); /* ~ Opera */
+	margin: 0;
+	padding: 2px 4px 2px 4px;
+	border-color: #fff;
+	border-width: 1px;
+	border-style: solid;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	font-weight: normal; /* ~ насыщенность шрифта */
 }
-.hilight8 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
-}.hilight9 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
-}.hilight10 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
-} */

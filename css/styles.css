@@ -396,17 +396,16 @@ img#social_off {border-color: transparent;}
 }
 
 img#idFeedBackOn:hover {
-	/* position: fixed; */ /* устраняем смещение всплывающей картинки */
+	/* position: fixed; */ /* ~ устраняем смещение всплывающей картинки */
 	/* left: 50%; */
 	/* top: 50%; */
-	/* Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
-	/* transform: translate(-80%, -5%); */ /* (x, y) */
+	/* transform: translate(-80%, -5%); *//* (x, y) *//* (i) Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
 	transform: translateX(-80%);
-	-moz-transform: translateX(-80%); /* Firefox */
-	-ms-transform: translateX(-80%); /* IE */
-	-webkit-transform: translateX(-80%); /* Safari, Chrome, iOS */
-	-o-transform: translateX(-80%); /* Opera */
-	z-index: 200;
+	-moz-transform: translateX(-80%); /* ~ Firefox */
+	-ms-transform: translateX(-80%); /* ~ IE */
+	-webkit-transform: translateX(-80%); /* ~ Safari, Chrome, iOS */
+	-o-transform: translateX(-80%); /* ~ Opera */
+	z-index: 100;
 }
 
 .nav-text-off,
@@ -559,7 +558,6 @@ iframe#hmnavigation {
 	height: 18px;
 	padding: 0;
 	text-align: center;
-	z-index: 200;
 }
 .nav-handle:hover {top: 12px;}
 
@@ -602,7 +600,6 @@ iframe#hmnavigation {
 	font-family: Tahoma, Verdana, Arial, sans-serif, Helvetica;
 	font-size: 11px;
 	font-weight: normal;
-	z-index: 201;
 }
 .tabs-c-tab:hover {top: 12px;}
 
@@ -611,7 +608,6 @@ iframe#hmnavigation {
 	top: 0; right: 0; left: 0; bottom: 0;
 	margin-left: 4px;
 	border: 0px solid black;
-	z-index: 202;
 }
 
 .tab-player-H,
@@ -623,7 +619,6 @@ iframe#hmnavigation {
 	-webkit-border-radius: 4px;
 	-moz-border-radius: 4px;
 	border-radius: 4px;
-	z-index: 200;
 }
 
 .tab-player {border: 1px solid transparent;}
@@ -656,18 +651,21 @@ iframe#hmnavigation {
 .tabs-menu-box {
 	position: absolute;
 	top: 29px; left: 10px;
-	z-index: 202;
 }
 
+.tabs-menu-box,
 ul.subnav,
 .tabs-menu {
 	clear: both;
 	padding: 3px;
 	border-width: 1px;
 	border-style: solid;
-	z-index: 202;
 	display: none;
 }
+
+.tabs-c-tab-right,
+ul.subnav,
+.tabs-menu {z-index: 101;}
 /* Цвет фона, тени и углы выпадающей вкладки списка меню */
 .tabs-menu {
 	-moz-box-shadow: 2px 2px 2px #999;
@@ -734,8 +732,14 @@ ul.subnav,
 	padding: 0;
 	list-style:none;
 	font-family: 'Lucida Grande', 'Trebuchet MS', Arial, Verdana, sans-serif;
-	z-index: 199;
 }
+
+.nav-handle,
+.tabs-c-tab,
+.tabs-menu-box,
+.tab-player-H,
+.tab-player,
+.tabs {z-index: 100;}
 /* Одиночная вкладка */
 .topic-tab {
 	position: relative;
