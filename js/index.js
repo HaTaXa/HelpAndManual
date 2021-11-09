@@ -1,16 +1,14 @@
-/*
-(i) Взято из хедера файла, на кот.делается переадресация с главной стр.index.html
-*/
+// (i) Взято из хедера файла, на кот.делается переадресация с главной стр.index.html
 
-// General topic variables
+// ! General topic variables
 var tVars = {
 	hmHelpPage: "index.html",
-	nextP: "standart_npa_bss_glavbyx.htm",
+	nextP: "standart_npa_bss_glavbyx.html",
 	prevP: "",
-	currP: "esd_bss_glavbyx.htm",
+	currP: "esd_bss_glavbyx.html",
 	descr: "",
 	keys: "HaTaXa",
-	defP: "esd_bss_glavbyx.htm",
+	defP: "esd_bss_glavbyx.html",
 	mailUrl: "",
 	mailUrlQuery: "",
 	projectTitle: "ЕСД БСС «Главбух»",
@@ -36,11 +34,11 @@ var tVars = {
 	printButton: "Печать",
 	printButtonTip: "Распечатать текущую тему"
 }
-// Popup configuration
+// ! Popup configuration
 var hmpBShadow = true;
 var hmPopSmallDim = 500;
 var hmPopKillVideo = true;
-// AutoTOC variables
+// ! AutoTOC variables
 var hmatocvars = {
 	atoc_show: true,
 	atoc_title: "Содержание",
@@ -57,7 +55,7 @@ var hmatocvars = {
 	atoc_hovercolor: "#000",
 	atoc_hoverbgcolor: "#e0e0e0"
 }
-// Sortable tables
+// ! Sortable tables
 var sortVars = {
 	europeandate: false,
 	germanNumbers: false,

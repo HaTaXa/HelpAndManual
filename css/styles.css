@@ -1,11 +1,13 @@
 ﻿/* (i) Технические настройки находятся в основной части таблицы стилей */
-
+/*
+(i) Символ «*» - универсальный селектор, совпадает с именем любого типа элемента. Соответствует любому отдельному элементу в дереве док.
+! Унивесальный селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
+*/
+* {margin: 0; padding: 0;} /* - перебить CSS свойства, которые браузеры устанавливают по умолчанию для некоторых тегов, например, тегу гиперссылки <a> синий цвет текста и подчёркивание, тегу body они задают поля (padding) и тд.и т.п. */
 html, body {
 	position: absolute;
 	top: 0; left: 0; right: 0; bottom: 0;
 	height: 100%;
-	margin: 0;
-	padding: 0;
 }
 
 body {
@@ -13,15 +15,15 @@ body {
 	background-image: url(../image/bg_body.jpeg);
 	overflow: hidden;
 }
-/* Избавление от общих контуров выбора */
+/* *Избавление от общих контуров выбора */
 a, a:active, * :focus {
 	outline: 0;
 	-moz-outline-style: none;
 	outline-style: none;
 }
-/* Стили полей "Постоянная ссылка" */
+/* *Стили полей "Постоянная ссылка" */
 .popups {
-	/* display: none; */ /* временно закомментировано */
+	/* display: none; *//* - временно закомментировано */
 	position: absolute;
 	top: 0; bottom: 0; left: 0; right: 0;
 	background-image: url("../image/spacer.gif"); /* ??? не понятно для чего */
@@ -63,7 +65,7 @@ div#permalink {
 	visibility: hidden;
 }
 
-div#permalink tr#offlinemessage{
+div#permalink tr#offlinemessage {
 	display: none;
 	font-family: Arial, sans-serif, Helvetica;
 	font-size: 12px;
@@ -78,7 +80,7 @@ div#permalink textarea {
 	font-size: 11px;
 	font-weight: bold;
 }
-/* Для изображения лайтбокса, открытого на главной странице */
+/* - Для изображения лайтбокса, открытого на главной странице */
 /* ??? не понятно где */
 #hmlightbox {
 	border: none;
@@ -88,18 +90,18 @@ div#permalink textarea {
 	font-weight: bold;
 	color: #777;
 	box-shadow: 5px 5px 5px #888;
-} /* Стили полей "Постоянная ссылка" */
+} /* *Стили полей "Постоянная ссылка" */
 
-/* Компоненты главной страницы контейнера */
+/* *Компоненты главной страницы контейнера */
 
 .container {
 	position: absolute;
 	left: 0; right: 0; top: 0; bottom: 0;
 }
 
-/* Фреймворк главной страницы */
+/* ! Фреймворк главной страницы */
 
-/* Баннер */
+/* *Баннер */
 .banner {
 	width: 100%;
 	height: 120px;
@@ -114,8 +116,8 @@ div#permalink textarea {
 	/* border-width: 0 0 1px 0;
 	border-style: solid;
 	border-color: rgb(0, 0, 0); */
-	align-items: center; /* (!!!) либо align-content: center. (i) Расположение вдоль поперечной оси на текущей линии. */
-	/* align-content: center; */ /* (!!!) либо align-items: center. (i) Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
+	align-items: center; /* (i) либо align-content: center. Расположение вдоль поперечной оси на текущей линии. */
+	/* align-content: center; */ /* (i) либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
 	background-color: #fff;
 	/* background-color: #3f3f3f; */
 	/* background-image: linear-gradient(180deg, #241e1e 0%,#504e4e 50%,#faf4f4 100%); */
@@ -127,25 +129,23 @@ div#permalink textarea {
 .banner a {text-decoration: none;}
 
 .banner div {
-	width: 527px; /* ширина div по ширине background-image */
+	width: 527px; /* - ширина div по ширине background-image */
 	/* height: 100%; */
-	margin: auto; /* выравниеваем div по ширине по центру */
-
+	margin: auto; /* - выравниеваем div по ширине по центру */
 	display: flex;
 	flex-flow: row wrap; /* (i) Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
 	align-items: flex-start; /* (i) Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
 	justify-content: center; /* (i) После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
-
 	background-image: url(../image/gb-banner.gif);
 	background-repeat: no-repeat;
 }
 
 .banner span {
 	/* position: relative; */
-	top: 90px; /* или bottom: -90px; */
+	top: 90px; /* - или bottom: -90px; */
 	background-color: transparent;
 }
-/* Заголовок меню банера */
+/* ! Заголовок меню банера */
 /* ??? не понятно где */
 .topnav {
 	border-color: #000000;
@@ -155,8 +155,8 @@ div#permalink textarea {
 	-webkit-border-radius: 5px 0 0 0;
 	-moz-border-radius: 5px 0 0 0;
 }
-/* Цвет заголовка банера выпадающего меню */
-/* Названия меню */
+/* *Цвет заголовка банера выпадающего меню */
+/* ! Названия меню */
 .topnav li a:hover,
 .topnav li a:visited,
 .topnav li a {
@@ -166,15 +166,15 @@ div#permalink textarea {
 }
 .topnav li a:hover,
 .topnav li ul.subnav li a:hover {text-decoration: underline;}
-/* Пункты меню */
+/* ! Пункты меню */
 .subnav li a {color: silver;}
-/* Граница и фон меню */
+/* *Граница и фон меню */
 .topnav li ul.subnav {
 	background: #3f3f3f;
 	border-color: #000000;
 	border-width: 0px 1px 1px 1px;
 }
-/* Тени меню и изогнутые углы */
+/* *Тени меню и изогнутые углы */
 .subnav {
 	-moz-box-shadow: 2px 2px 2px #999;
 	-webkit-box-shadow: 2px 2px 2px #999;
@@ -183,9 +183,7 @@ div#permalink textarea {
 	-moz-border-radius: 0px 0px 4px 4px;
 	border-radius: 0px 0px 4px 4px;
 }
-
-/* Панель инструментов */
-
+/* ! Панель инструментов */
 img#button_off, /* ??? че за кнопки не пойму */
 img#social_off {border-color: transparent;}
 /* ??? нигде не фигурирует */
@@ -202,24 +200,24 @@ img#social_off {border-color: transparent;}
 .toolbar-compact {
 	position: relative;
 	/* left: 4px; right: 4px; */
-	/* width: 100%; */ /* иначе div выходит за рамки видимости экрана */
+	/* width: 100%; */ /* - иначе div выходит за рамки видимости экрана */
 	height: 50px;
 	padding: 0px 4px 0px 4px;
 	display: flex;
 	flex: 1 1 300px;
 	flex-flow: row wrap; /* (i) Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
 }
-/* Фон и границы панели инструментов и других компонентов */
+/* *Фон и границы панели инструментов и других компонентов */
 .banner,
 .nav-pane,
 .tabs-menu,
 .topic-box,
-.toolbar-table, /* ??? где используется */
+.toolbar-table, /* ??? нигде не фигурирует */
 .toolbar-banner, /* (i) класс создается вместо ".toolbar-compact" и наоборот при нажатии на кнопку Показать/Скрыть */
 .toolbar-compact {border-color: #000000;}
 
-/* Backgrounds */
-.toolbar-table, /* ??? где используется */
+/* *Backgrounds */
+.toolbar-table, /* ??? нигде не фигурирует */
 .toolbar-banner,
 .toolbar-compact {
 	background-color: #3f3f3f;
@@ -229,7 +227,7 @@ img#social_off {border-color: transparent;}
 	background: -o-linear-gradient(top,rgb(241,241,241) 3%,rgb(63,63,63) 30%);
 	border-width: 1px;
 }
-/* Shadows - тень */
+/* *Shadows - тень */
 .nav-pane,
 .topic-box,
 .toolbar-banner {
@@ -250,7 +248,7 @@ img#social_off {border-color: transparent;}
 }
 
 .toolbar-search {
-	order: 1; /* порядок появления в flex-контейнере */
+	order: 1; /* (i) порядок появления в flex-контейнере */
 	/* flex-grow: 0; */ /* (i) Растягивание flex-элемента при необходимости. */
 	/* flex-shrink: 1; */ /* (i) Способность гибкого элемента сжиматься при необходимости. */
 	/* flex-basis: 203px; */ /* (i) Размер элемента по умолчанию ПЕРЕД распределением оставшегося пространства. */
@@ -258,21 +256,21 @@ img#social_off {border-color: transparent;}
 }
 
 .toolbar-left {
-	order: 2; /* порядок появления в flex-контейнере */
+	order: 2; /* (i) порядок появления в flex-контейнере */
 	flex: 1 1 auto; /* (i) Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis. */
-	justify-content: flex-start; /* выравнивание вдоль главной оси. (i) Не для всех браузеров */
+	justify-content: flex-start; /* (i) выравнивание вдоль главной оси. Не для всех браузеров */
 }
 
 .toolbar-center {
-	order: 3; /* порядок появления в flex-контейнере */
+	order: 3; /* (i) порядок появления в flex-контейнере */
 	flex: 1 1 auto; /* (i) Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis. */
-	justify-content: center; /* выравнивание вдоль главной оси. (i) Не для всех браузеров */
+	justify-content: center; /* (i) выравнивание вдоль главной оси. Не для всех браузеров */
 }
 
 .toolbar-right {
-	order: 4; /* порядок появления в контейнере flex */
+	order: 4; /* (i) порядок появления в контейнере flex */
 	flex: 1 1 auto; /* (i) Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis. */
-	justify-content: flex-end; /* выравнивание вдоль главной оси. (i) Не для всех браузеров */
+	justify-content: flex-end; /* (i) выравнивание вдоль главной оси. Не для всех браузеров */
 }
 
 .toolbar-box {
@@ -280,16 +278,15 @@ img#social_off {border-color: transparent;}
 	padding: 2px 1px 2px 1px;
 	display: flex;
 	flex-flow: row wrap; /* (i) Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
-	justify-content: center; /* выравнивание вдоль главной оси. (i) Не для всех браузеров */
-	/* align-items: center; */ /* (!!!) либо align-content: center. (i) Расположение вдоль поперечной оси на текущей линии. */
-	align-content: center; /* (!!!) либо align-items: center. (i) Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
+	justify-content: center; /* (i) выравнивание вдоль главной оси. Не для всех браузеров */
+	/* align-items: center; */ /* (i) либо align-content: center. Расположение вдоль поперечной оси на текущей линии. */
+	align-content: center; /* (i) либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
 	line-height: 1em;
-
 	font-family: Tahoma, Verdana, Arial, sans-serif, Helvetica;
 	font-size: 9px;
 	font-weight: normal;
 }
-/* Quick search box */
+/* *Quick search box */
 .toolbar-box-search {
 	/* flex-grow: 1; */ /* (i) Растягивание flex-элемента при необходимости. */
 	/* flex-shrink: 1; */ /* (i) Способность гибкого элемента сжиматься при необходимости. */
@@ -303,7 +300,7 @@ img#social_off {border-color: transparent;}
 	/* flex-basis: auto; */ /* (i) Размер элемента по умолчанию ПЕРЕД распределением оставшегося пространства. */
 	flex: 1 1 auto; /* (i) Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis */
 
-	/* float: left; */ /* выравнивание по левому краю, а все остальные элементы обтекают по правой стороне */
+	/* float: left; */ /* (i) выравнивание по левому краю, а все остальные элементы обтекают по правой стороне */
 	border-color: #fff;
 	border-style: solid;
 	border-radius: 8px 0 0 8px;
@@ -336,7 +333,7 @@ img#social_off {border-color: transparent;}
 	/* flex-basis: 100%; */ /* (i) Размер элемента по умолчанию ПЕРЕД распределением оставшегося пространства. */
 	flex: 1 1 100%; /* (i) Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis */
 	font-weight: bold;
-} /* Quick search box */
+} /* *Quick search box */
 
 .toolbar-box-left,
 .toolbar-box-center,
@@ -347,26 +344,21 @@ img#social_off {border-color: transparent;}
 	flex: 0 1 auto; /* (i) Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis */
 }
 
-/* Для всех компонентов: и ссылок, и иконок */
+/* *Для всех компонентов: и ссылок, и иконок */
 .nav-icon,
 .nav-icon-H,
 .toolbar-box-search img,
 .toolbar-box-right a {top: 0;}
-/* Перенос слов */
 .text-wrapping {
 	min-width: min-content;
 	max-width: max-content;
-}
+}/* - Перенос слов */
 
-.toolbar-box-left span.text-wrapping {/* width: 35px; */ /* width: min-content; */}
-.toolbar-box-right span.text-wrapping {/* width: 50px; */ /* width: min-content; */}
-/* .toolbar-box-right img, */
-.toolbar-box-right a {
-	left: 3px; /* или отступом */ /* text-indent: 3px; */ /* или */ /* left: inherit; */ /* (?) не понятно почему только так получается выровнить иконки внутри ссылки */
-}
-.toolbar-box-right img {
-	/* left: 3px; */ /* или отступом */ /* text-indent: 3px; */ /* или */ /* left: inherit; */ /* (?) не понятно почему только так получается выровнить иконки внутри ссылки */
-}
+.toolbar-box-left span.text-wrapping {/* width: 35px; *//* width: min-content; */}
+.toolbar-box-right span.text-wrapping {/* width: 50px; *//* width: min-content; */}
+/* // .toolbar-box-right img, */
+.toolbar-box-right a {left: 3px; /* - или отступом *//* text-indent: 3px; *//* или *//* left: inherit; *//* ??? не понятно почему только так получается выровнить иконки внутри ссылки */}
+.toolbar-box-right img {/* left: 3px; *//* - или отступом *//* text-indent: 3px; *//* или *//* left: inherit; *//* ??? не понятно почему только так получается выровнить иконки внутри ссылки */}
 
 .nav-icon,
 .nav-icon-H {
@@ -392,19 +384,20 @@ img#social_off {border-color: transparent;}
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	font-weight: normal; /* насыщенность шрифта */
+	font-weight: normal; /* - насыщенность шрифта */
 }
-
-img#idFeedBackOn:hover {
-	/* position: fixed; */ /* ~ устраняем смещение всплывающей картинки */
+/* (i) id="idFeedBackOn" во всем проекте прописан в 2-х местах: 1) в нап.инструментов и 2) в пан.нав. */
+#idFeedBackOn:hover {
+	/* position: absolute; *//* (i) не выводит изображение на передний план, поэтому использ.fixed */
+	/* position: fixed; *//* - устраняем смещение всплывающей картинки */
 	/* left: 50%; */
 	/* top: 50%; */
 	/* transform: translate(-80%, -5%); *//* (x, y) *//* (i) Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
 	transform: translateX(-80%);
-	-moz-transform: translateX(-80%); /* ~ Firefox */
-	-ms-transform: translateX(-80%); /* ~ IE */
-	-webkit-transform: translateX(-80%); /* ~ Safari, Chrome, iOS */
-	-o-transform: translateX(-80%); /* ~ Opera */
+	-moz-transform: translateX(-80%); /* - Firefox */
+	-ms-transform: translateX(-80%); /* - IE */
+	-webkit-transform: translateX(-80%); /* - Safari, Chrome, iOS */
+	-o-transform: translateX(-80%); /* - Opera */
 	z-index: 100;
 }
 
@@ -418,16 +411,16 @@ img#idFeedBackOn:hover {
 	text-indent: 0;
 	text-align: center;
 	text-transform: capitalize;
-	white-space: normal; /* текст в окне браузера выводится как обычно, переносы строк устанавливаются автоматически. (i) Разбивает строки, чтобы заполнить строчные боксы */
+	white-space: normal; /* (i) текст в окне браузера выводится как обычно, переносы строк устанавливаются автоматически. Разбивает строки, чтобы заполнить строчные боксы */
 	overflow-wrap: break-word;
 	word-wrap: break-word;
-	word-break: normal; /* чтобы игнорировались черточки */
+	word-break: normal; /* - чтобы игнорировались "черточки" */
 	word-spacing: normal;
 	-moz-hyphens: auto;
 	-ms-hyphens: auto;
-	hyphens: auto; /* чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
 }
-/* Цвет подписи кнопок на панели инструментов */
+/* *Цвет подписи кнопок на панели инструментов */
 .toolbar-box-search span {color: #f1f1f1;}
 .nav-text-on {color: #dedede;}
 .nav-text-off {color: #a1a1a1;}
@@ -449,15 +442,13 @@ img#idFeedBackOn:hover {
 	margin: 0 4px 4px 4px;
 	border-top-style: none;
 }
-
-/* Левая часть - панель навигации */
-
+/* ! Левая часть - панель навигации */
 /*
 (i) Символ «*» - универсальный селектор, совпадает с именем любого типа элемента. Соответствует любому отдельному элементу в дереве док.
-Унивес.селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
-Обычно используют так: «* {margin: 0; padding: 0;}», чтобы перебить CSS свойства, которые браузеры устанавливают по умолчанию для некоторых тегов, например, тегу гиперссылки <a> синий цвет текста и подчёркивание, тегу body они задают поля (padding) и тд.
+! Унивес.селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
+* Обычно используют так: «* {margin: 0; padding: 0;}», чтобы перебить CSS свойства, которые браузеры устанавливают по умолчанию для некоторых тегов, например, тегу гиперссылки <a> синий цвет текста и подчёркивание, тегу body они задают поля (padding) и тд.и т.п.
 */
-/* Предотвращение выбора инструментов */
+/* ! Предотвращение выбора инструментов */
 .nav-pane *, .tab-controls * {
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -483,7 +474,7 @@ img#idFeedBackOn:hover {
 	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
 	border-width: 1px;
 }
-/* Боковой разделитель между боковой панелью навигации и текстовым топиком */
+/* ! Боковой разделитель между боковой панелью навигации и текстовым топиком */
 .splitter-right {
 	position: absolute;
 	right: 0; top: 0; bottom: 0px;
@@ -491,7 +482,7 @@ img#idFeedBackOn:hover {
 	cursor: col-resize;
 	z-index: 100;
 }
-/* Нижний разделитель между боковой панелью навигации и текстовым топиком */
+/* ! Нижний разделитель между боковой панелью навигации и текстовым топиком */
 .splitter-bottom {
 	position: absolute;
 	left: 0; right: 0; bottom: 0px;
@@ -527,9 +518,7 @@ iframe#hmnavigation {
 	border: 0;
 	scroll-behavior: auto;
 }
-
-/* Правая часть - панель тема */
-
+/* ! Правая часть - панель тема */
 .topic-pane {
 	position: absolute;
 	left: 314px; right: 0px; bottom: 0px;
@@ -542,15 +531,15 @@ iframe#hmnavigation {
 .topic-pane-banner-show {top: 174px;}
 .topic-pane-extend,
 .topic-pane-expand {left: 0;}
-
-/* Компоненты вкладок */
+/* ! Компоненты вкладок */
 .tab-controls {
 	position: absolute;
 	left: 0; right: 0; top: 0;
 	height: 32px;
 	background-color: transparent;
+	z-index: 1;
 }
-/* Элемент кнопка скрыть/показать панель навигации */
+/* ! Элемент кнопка скрыть/показать панель навигации */
 .nav-handle {
 	position: absolute;
 	left: 10px; top: 10px;
@@ -622,8 +611,7 @@ iframe#hmnavigation {
 }
 
 .tab-player {border: 1px solid transparent;}
-/* Выделение вкладки инструменты при снятии наведения курсора */
-.tab-player-H {
+.tab-player-H { /* - Выделение вкладки инструменты при снятии наведения курсора */
 	cursor: pointer;
 	background-color: #fff;
 	border: 1px solid #999;
@@ -647,7 +635,7 @@ iframe#hmnavigation {
 	right: 7px;
 	display: none;
 }
-/* Настройки для меню вкладок и меню баннеров */
+/* ! Настройки для меню вкладок и меню баннеров */
 .tabs-menu-box {
 	position: absolute;
 	top: 29px; left: 10px;
@@ -666,7 +654,7 @@ ul.subnav,
 .tabs-c-tab-right,
 ul.subnav,
 .tabs-menu {z-index: 101;}
-/* Цвет фона, тени и углы выпадающей вкладки списка меню */
+/* ! Цвет фона, тени и углы выпадающей вкладки списка меню */
 .tabs-menu {
 	-moz-box-shadow: 2px 2px 2px #999;
 	-webkit-box-shadow: 2px 2px 2px #999;
@@ -678,7 +666,7 @@ ul.subnav,
 	border-radius: 0px 0px 4px 4px;
 	border-top-color: #3f3f3f;
 }
-/* Список компонентов меню раскрывающихся вкладок */
+/* ! Список компонентов меню раскрывающихся вкладок */
 .tabs-list {
 	list-style:none;
 	margin:0 !important;
@@ -693,7 +681,7 @@ ul.subnav,
 	list-style-image:none !important;
 	white-space: nowrap;
 }
-/* Выпадающие вкладки списка элементов меню */
+/* ! Выпадающие вкладки списка элементов меню */
 .tabs-list li a {
 	text-decoration: none;
 	color: silver;
@@ -705,7 +693,7 @@ ul.subnav,
 	color: white;
 	text-decoration: underline;
 }
-/* Вкладки панели тем - топиков */
+/* ! Вкладки панели тем - топиков */
 .tabs-window {
 	position: absolute;
 	left: 80px; right: 10px;
@@ -721,7 +709,7 @@ ul.subnav,
 	/* height: 100%; */
 	border-bottom: 0;
 }
-/* Вкладки */
+/* ! Вкладки */
 .tabs {
 	position: absolute;
 	left: 0px; top: 0px; bottom: 0;
@@ -740,7 +728,7 @@ ul.subnav,
 .tab-player-H,
 .tab-player,
 .tabs {z-index: 100;}
-/* Одиночная вкладка */
+/* ! Одиночная вкладка */
 .topic-tab {
 	position: relative;
 	top: 0;
@@ -757,7 +745,7 @@ ul.subnav,
 .topic-tab:hover {height: 20px;}
 .topic-tab-current:hover,
 .topic-tab-current {top: 10px;}
-/* Не текущие вкладки */
+/* ! Не текущие вкладки */
 .nav-handle,
 .topic-tab {
 	background-color: #6e6e6e;
@@ -766,7 +754,7 @@ ul.subnav,
 	background: -webkit-linear-gradient(top, #f1f1f1 3%, #888888 20%);
 	background: -o-linear-gradient(top,rgb(255,255,255) 3%,rgb(136,136,136) 20%);
 }
-/* Текущая вкладка */
+/* ! Текущая вкладка */
 .nav-handle:hover,
 .tabs-c-tab,
 .topic-tab-current {
@@ -776,7 +764,7 @@ ul.subnav,
 	background: -webkit-linear-gradient(top, #f1f1f1 3%, #3f3f3f 20%);
 	background: -o-linear-gradient(top,rgb(255,255,255) 3%,rgb(63,63,63) 20%);
 }
-/* Границы и затенение вкладок */
+/* *Границы и затенение вкладок */
 .nav-handle,
 .tabs-c-tab,
 .topic-tab-current,
@@ -801,7 +789,7 @@ ul.subnav,
 	text-align: center;
 	text-decoration: none;
 }
-/* Текущая вкладка */
+/* ! Текущая вкладка */
 .topic-tab-current a {
 	top: 3px; /* (i) для .topic-tab a:hover см.в коде js событие наведение курсора на ссылку вкладки, т.к.стиль становится наибольшим приоритетным по сравнению с отдельными классами */
 	cursor: default;
@@ -815,13 +803,13 @@ ul.subnav,
 	display: block;
 	/* line-height: 28px; */
 }
-/* Цвет текста вкладок */
-/* Не текущие вкладки */
+/* *Цвет текста вкладок */
+/* ! Не текущие вкладки */
 .topic-tab span {color: #dedede;}
 .topic-tab span:hover {color: #fff;}
-/* Текущая вкладка */
+/* ! Текущая вкладка */
 .topic-tab-current span {color: #737373;}
-/* Мини-кнопка закрытия вкладки */
+/* ! Мини-кнопка закрытия вкладки */
 .close-tab {
 	position: absolute;
 	right: 2px; top: 2px;
@@ -830,9 +818,7 @@ ul.subnav,
 	z-index: 203;
 	display: none;
 }
-
-/* Содержимое контейнеров */
-
+/* ! Содержимое контейнеров */
 .topic-box {
 	position: absolute;
 	top: 25px; right: 0; bottom: 0; left: 0;
@@ -841,31 +827,29 @@ ul.subnav,
 	border-radius: 5px;
 }
 
-.new-tab-box, /* ??? не понятно где */
+.new-tab-box, /* (?) // ??? предположительно класс создается кодом js */
 .search-box,
 .index-box,
 .content-box {
 	position: absolute;
-	top: 2px; right: 2px; bottom: 1px; left: 3px;
-	display: block;
+	left: 2px; right: 2px; top: 0; bottom: 0;
+	/* display: block; */
 }
 
 .content-box,
-.topic-box {background-color: #ffffff;}
-
-/* ??? не понятно для чего */
+.topic-box {background-color: #fff;}
+/* (?) // ??? не понятно где и для чего */
 .interface {
 	font-family: Verdana, Arial, sans-serif, Helvetica;
 	font-size: 8pt;
 	font-weight: bold;
 }
-
-/* Изначальное скрытие всех панелей */
-/* ??? не понятно где находятся */
+/* ! Изначальное скрытие всех панелей */
+/* (?) // ??? не понятно для каких панелей предусмотрен данный класс */
 .panes .pane {/* display: none; */}
-
-/* Выпадающие меню в заголовке баннера */
-/* ??? не понятно где находятся */
+/* ! Выпадающее меню в заголовке баннера
+*Видимо оно не было загружено в скине, т.к.некоторые опции были платными
+- // XXX: скорее всего эта часть не понадобится */
 ul.topnav {
 	position: absolute;
 	bottom: 0px; right: 0;
@@ -919,51 +903,41 @@ html ul.topnav li ul.subnav li a {
 	font-weight: normal;
 }
 
-/*** МЕДИА ЗАПРОСЫ ***/
+/* ! // FIX: МЕДИА ЗАПРОСЫ */
 
-/* Portrait tablets and medium desktops - Портретные планшеты и средние настольные компьютеры */
-
-/* диапазон от 992px до 1199px */
+/* // TODO: Portrait tablets and medium desktops - Портретные планшеты и средние настольные компьютеры */
+/* *диапазон от 992px до 1199px */
 @media (min-width: 992px) and (max-width: 1199px) {}
-
-/* диапазон < 960px */
+/* *диапазон < 960px */
 @media screen and (max-width: 960px) {}
-
-/* диапазон < 827px */
+/* *диапазон < 827px */
 @media screen and (max-width: 827px) {
 	.toolbar-box-left span.text-wrapping,
 	.toolbar-box-right span.text-wrapping {width: min-content;}
 }
-
-/* Portrait tablets and small desktops - Портретные планшеты и небольшие настольные компьютеры */
-
-/* диапазон от 768px до 991px */
+/* // TODO: Portrait tablets and small desktops - Портретные планшеты и небольшие настольные компьютеры */
+/* *диапазон от 768px до 991px */
 @media (min-width: 768px) and (max-width: 991px) {}
-
-/* Landscape phones and portrait tablets - Альбомные телефоны и планшеты с портретом */
-
-/* диапазон < 767px */
-@media screen and (max-width: 767px) {
-	.toolbar-box-center span {/* width: 48px; */ width: min-content;}
-}
-
-/* диапазон > 699px */
-@media screen and (min-width: 699px) {
-	.splitter-bottom {display: none;}
-}
-
-/* диапазон < 699px */
+/* // TODO: Landscape phones and portrait tablets - Альбомные телефоны и планшеты с портретом */
+/* *диапазон < 767px */
+@media screen and (max-width: 767px) {.toolbar-box-center span {/* width: 48px; */ width: min-content;}}
+/* *диапазон < 726px */
+/* BUG: граница, когда вкладка Поиск контент-топика начинает уходить за пределы видимости экрана */
+@media screen and (max-width: 726px) {}
+/* *диапазон > 699px */
+@media screen and (min-width: 699px) {.splitter-bottom {display: none;}}
+/* *диапазон < 699px */
 @media screen and (max-width: 699px) {
 	.toolbar-banner,
 	.toolbar-compact {height: 100px;}
-	/* убираем тень */
+	/* - убираем тень */
 	.nav-pane,
 	.topic-box,
 	.toolbar-banner {
 		-moz-box-shadow: 0 0 0;
 		-webkit-box-shadow: none;
 		box-shadow: none;
-	}
+	} /* - убираем тень */
 
 	.toolbar-search {
 		flex: 1 1 100%;
@@ -973,9 +947,7 @@ html ul.topnav li ul.subnav li a {
 	.toolbar-box-search {align-content: flex-end;}
 	.toolbar-box-left,
 	.toolbar-box-center,
-	.toolbar-box-right {
-		/* top: -2px; */ /* или */ bottom: 2px;
-	}
+	.toolbar-box-right {/* top: -2px; *//* или */ bottom: 2px;}
 	.toolbar-box-search span {
 		position: absolute;
 		display: block;
@@ -998,27 +970,21 @@ html ul.topnav li ul.subnav li a {
 
 	.topic-pane {left: 0; top: 466px;}
 	.topic-pane-banner-show {top: 580px;}
-	.topic-pane-expand {top: 106px;} /* без нав.пан.банер закрыт */
-	.topic-pane-extend {top: 220px;} /* без нав.пан.банер открыт */
+	.topic-pane-expand {top: 106px;} /* - без пан.нав.банер закрыт */
+	.topic-pane-extend {top: 220px;} /* - без пан.нав.банер открыт */
 }
-
-/* диапазон < 630px */
+/* *диапазон < 630px */
 @media screen and (max-width: 630px) {}
-
-/* диапазон < 624px */
+/* *диапазон < 624px */
 @media screen and (max-width: 624px) {
 	.toolbar-box-search span {top: 12px;}
 	.toolbar-box-left span.text-wrapping,
 	.toolbar-box-right span.text-wrapping {width: min-content;}
 	.toolbar-box-center span {width: auto;}
 }
-
-/* диапазон < 564px */
-@media screen and (max-width: 564px) {
-	.toolbar-box-center span {/* width: 48px; */ width: min-content;}
-}
-
-/* диапазон < 496px */
+/* *диапазон < 564px */
+@media screen and (max-width: 564px) {.toolbar-box-center span {/* width: 48px; */ width: min-content;}}
+/* *диапазон < 496px */
 @media screen and (max-width: 496px) {
 	.toolbar-banner,
 	.toolbar-compact {height: 150px;}
@@ -1027,8 +993,8 @@ html ul.topnav li ul.subnav li a {
 	.toolbar-center {order: 4;}
 	.toolbar-left, .toolbar-right {
 		justify-content: space-around;
-		/* justify-content: space-between; */
-		/* justify-content: space-evenly; */
+		/* xxx justify-content: space-between; */
+		/* xxx justify-content: space-evenly; */
 	}
 
 	.toolbar-box-search span {top: 18px;}
@@ -1040,20 +1006,16 @@ html ul.topnav li ul.subnav li a {
 
 	.topic-pane {top: 516px;}
 }
-
-/* Landscape phones and smaller - Ландшафтные телефоны и меньшие */
-
-/* диапазон < 480px */
+/* // TODO: Landscape phones and smaller - Ландшафтные телефоны и меньшие */
+/* *диапазон < 480px */
 @media screen and (max-width: 480px) {}
-
-/* диапазон < 457px */
+/* *диапазон < 457px */
 @media screen and (max-width: 457px) {
 	.toolbar-box-search span {top: 14px;}
 	.toolbar-box-left span.text-wrapping,
 	.toolbar-box-right span.text-wrapping {width: min-content;}
 }
-
-/* диапазон < 397px */
+/* *диапазон < 397px */
 @media screen and (max-width: 397px) {
 	.toolbar-banner,
 	.toolbar-compact {height: 200px;}
@@ -1069,11 +1031,9 @@ html ul.topnav li ul.subnav li a {
 
 	.topic-pane {top: 566px;}
 }
-
-/* диапазон < 320px */
+/* *диапазон < 320px */
 @media screen and (max-width: 320px) {}
-
-/* диапазон < 226px */
+/* *диапазон < 226px */
 @media screen and (max-width: 226px) {
 	.toolbar-box-search span {top: 14px;}
 	.toolbar-box-left span.text-wrapping {width: min-content;}

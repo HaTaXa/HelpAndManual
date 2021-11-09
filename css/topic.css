@@ -1,85 +1,173 @@
-/* ! General Background */
-/* (i) Общий фон */
+/* (i) General Background */
+
+/* (i) Символ «*» - универсальный селектор, совпадает с именем любого типа элемента. Соответствует любому отдельному элементу в дереве док.
+! Унивесальный селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
+*/
+* {margin: 0; padding: 0;} /* - перебить CSS свойства, которые браузеры устанавливают по умолчанию для некоторых тегов, например, тегу гиперссылки <a> синий цвет текста и подчёркивание, тегу body они задают поля (padding) и тд.и т.п. */
 body, html {
 	background-color: #fff;
 	overflow: hidden;
-	text-indent: 1.5em; /* ~ отступ первой строки */
+	text-indent: 1.5em; /* - отступ первой строки */
 }
 html {
-	overflow-y: auto;
-	overflow-x: auto;
+	overflow: auto;
+	scroll-behavior: smooth; /* плавная прокрутка */
+}
+/* ! // FIX: Scrollbars */
+*,
+html * /* - если нужен общий стиль, его следует применять к тегу html, а не к body */
+{
+	scrollbar-width: thin;
+	scrollbar-color: gray #3f3f3f;
+}
+*::-webkit-scrollbar,
+html *::-webkit-scrollbar {
+	width: 10px;
+	/* height: 8px; */ /* (i) работать не будет-для всех браузеров высота scrollbara=высоте его элемента*/
+}
+/* *Варианты по умолчанию для элементов на странице */
+/* - вариант-1 */
+/* *::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+	background: #3f3f3f;
+	border-radius: 100px;
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+	background-color: silver;
+	border: 1px solid #3f3f3f;
+	border-radius: 100px;
+} */
+/* - вариант-2 */
+/* *::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+	border: 1px solid #3f3f3f;
+	border-radius: 100px;
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+	border: 5px solid #3f3f3f;
+	border-radius: 100px;
+} */
+/* - вариант-3 */
+*::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+	background: #3f3f3f;
+	border: 4px solid #fff;
+	border-radius: 100px;
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+	border: 4px solid #3f3f3f;
+	border-radius: 100px;
+}
+/* - вариант-4 */
+/* *::-webkit-scrollbar-track,
+html *::-webkit-scrollbar-track {
+	border: 4px solid #3f3f3f;
+	border-radius: 100px;
+}
+*::-webkit-scrollbar-thumb,
+html *::-webkit-scrollbar-thumb {
+	background: #3f3f3f;
+	border: 4px solid #fff;
+	border-radius: 100px;
+} */
+.topic-title-scrolling::-webkit-scrollbar {width: 2px;}
+.topic-title-scrolling::-webkit-scrollbar-track {
+	border: 1px solid gray;
+	border-radius: 10px;
+}
+.topic-title-scrolling::-webkit-scrollbar-thumb {
+	background-color: gray;
+	/* border: 2px solid #3f3f3f; */
+	border: 4px solid maroon;
+	border-radius: 10px;
+}
+/* Scrollbars the end */
+p {
+	direction: ltr; /* (i) // ??? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 
-div#idHeader {
-	position: fixed;
+.topic-header {
+	position: absolute;
 	left: 0; right: 0; top: 0;
 	/* width: 100%; */
-	height: 70px;
+	height: 69px;
 	/* padding: 5px 0 5px 0; */
-	overflow-y: auto;
-	overflow-x: hidden;
 	/* background-color: #fff; */
 	background-image: url("../image/bg-top.png");
 	background-size: 100% 100%;
 	border-bottom: 1px solid silver;
 	z-index: 100;
 }
-div#idHeader:hover {cursor: default;}
+.topic-header:hover {cursor: default;}
 
-div#idHeaderContents {
-	margin-right: 50px;
-	text-align: left;
-	text-indent: 18px;
+.header-content {
+	height: 100%;
+	margin: 0 60px 0 1px;
+	display: flex;
+	flex: 1 1 300px;
+	flex-direction: column;
+	flex-wrap: nowrap;
+	align-items: flex-start;
+	justify-content: space-around;
 	color: #737373;
 }
-.heading1 {
-	margin: 9px 0px 9px 0px;
-	font-size: 14pt;
-	font-weight: bold;
-}
-div#idHeaderContents h1:hover,
-div#idHeaderContents p:hover,
-div#idHeaderContents span:hover,
-div#idHeaderContents a:hover {color: #fff;}
-
-/* ! No header topics */
-/* (i) Нет тем заголовка */
+.header-content p:hover,
+.header-content span:hover,
+.header-content a:hover {color: #fff;}
 
 /* ! Breadcrumb trail */
 /* (i) След из хлебных крошек */
-p#idBreadCrumbs {
+.bread-crumbs {
+	margin: 4px 1px 1px 1px;
+	/* padding: 0 0 1px 2px; */
 	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
-	padding: 4px 0 1px 2px;
-	margin: 4px 0 2px 0;
-	font-size: 8pt;
+	/* font-size: 10px; */
+	font-size: 0.6em;
+	text-indent: 0.5em;
 	/* color: #737373; */
-	text-indent: 18px;
 }
-p#idBreadCrumbs a {text-decoration: none;}
-p#idBreadCrumbs a:visited {color: #737373; text-decoration: none;}
-p#idBreadCrumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
-
+.bread-crumbs a {text-decoration: none;}
+.bread-crumbs a:visited {color: #737373; text-decoration: none;}
+.bread-crumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
 /* ! Link to display entire user interface when topic is opened on its own */
 /* (i) Ссылка для отображения всего пользовательского интерфейса при самостоятельном открытии темы */
 .sync-toc {display: none;}
-
 .sync-toc,
 .sync-toc-off,
-.sync-toc-on {
-	font-weight: bold;
-}
+.sync-toc-on {font-weight: bold;}
 
+.title {
+	min-height: 18px;
+	margin: 1px;
+	padding: 0 0 0 2px;
+	/* font-size: 18px; */
+	font-size: 1.1em;
+	font-weight: bold;
+	text-indent: 0.5em;
+	line-height: 100%;
+	overflow-x: hidden;
+	overflow-y: auto;
+	scroll-behavior: smooth; /* плавная прокрутка */
+	direction: rtl; /* (i) // ??? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+}
+/* ! Контент-текст */
+.topic-content {
+	position: absolute;
+	left: 0; right: 0;
+	top: 70px; bottom: 70px;
+	overflow: auto;
+	z-index: 99;
+}
 /* ! Comment Links */
 /* (i) Комментарии */
-div.links-comment {
+.links-comment {
 	position: absolute;
 	left: 0; right: 0; top: 0;
 	padding: 2px 4px 2px 4px;
-	border-style: solid;
-	border-width: 0 0 1px 0;
-	border-color: silver;
 }
-
 /* ! Search hightlight color */
 /* (i) Цвет выделения при поиске */
 span.highlight {background-color: #ffff40;}
@@ -88,20 +176,22 @@ div#commentsWrapper {
 	display: none;
 	visibility: visible;
 }
-
-/* ! Контент-текст */
-div#idContent {
+/* ! Topic Content Text */
+/* (i) Текст Содержания темы */
+.content-text {
 	position: absolute;
-	left: 0; right: 0;
-	top: 70px; bottom: 70px;
-	padding: 10px 5px 5px 5px;
-	overflow: auto;
-	z-index: 99;
+	left: 0; right: 0; top: 22px;
+	margin: 2px;
+	padding: 1px;
+	/* border-width: 1px 0 1px 0; */
+	/* border-style: solid; */
+	/* border-color: silver; */
+	border-top: 1px solid silver;
+	/* border-bottom: 1px solid silver; */
 }
-
 /* ! Topic Content Footer. The footer defined in the topic content */
 /* (i) Нижний колонтитул, определенный в контенте топика */
-div#idFooterContents {
+.content-footer {
 	left: 0; right: 0;
 	/* bottom: 0; */
 	padding: 5px 0 5px 0;
@@ -109,7 +199,7 @@ div#idFooterContents {
 	border-width: 1px 0 0 0;
 	border-color: silver;
 }
-div#idFooterContents p {
+.content-footer p {
 	padding: 0 0 5px 0;
 	/* font-family: Verdana, sans-serif; */
 	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
@@ -119,21 +209,21 @@ div#idFooterContents p {
 	text-align: center;
 	text-indent: 0px;
 }
-div#idFooterContents a {
+.content-footer a {
 	color: #737373;
 	border-bottom: 1px dotted #666;
 	text-decoration: none;
 }
-div#idFooterContents a:visited {color: #737373;}
-div#idFooterContents a:hover {
+.content-footer a:visited {color: #737373;}
+.content-footer a:hover {
 	text-decoration: underline;
 	color: blue;
 	border-color: #262626;
 	text-decoration: none;
 }
-
 /* ! Topic Footer. Not to be confused with the footer in the topic content */
 /* (i) Нижний колонтитул топика. Не путать с нижним колонтитулом в контенте топика */
+/* ??? не понятно для какого именно футера */
 /* p.footer a {
 	border-bottom: 1px dotted #737373;
 	text-decoration: underline;
@@ -151,15 +241,14 @@ p.footer a:hover {
 	text-decoration: none;
 } */
 
-.footer {
+.topic-footer {
 	position: absolute;
 	left: 0; right: 0; bottom: 0;
-	height: 70px;
+	height: 69px;
 	margin: 0;
 	padding: 0;
 	display: flex;
-	flex-flow: row nowrap; /* ~ Сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
-	border-bottom: 1px solid silver;
+	flex-flow: row nowrap; /* - сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
 	overflow-y: hidden;
 	overflow-x: hidden;
 	background-color: transparent;
@@ -169,57 +258,54 @@ p.footer a:hover {
 	color: #fff;
 	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
 	font-size: 0.7em;
-	text-indent: 0px; /* отступ первой строки */
-	border-style: solid;
-	border-width: 1px 0 0 0;
-	border-color: silver;
-	/* z-index: 100; */
+	text-indent: 0px; /* - отступ первой строки */
+	border-top: 1px solid silver;
+	/* xxx z-index: 100; */
 }
 
-.footer-left,
-.footer-center,
-.footer-right {
+.topic-footer-left,
+.topic-footer-center,
+.topic-footer-right {
 	margin: 0;
 	padding: 0 4px;
 	flex: 1 1 auto;
-	align-items: center; /* ~ Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
+	align-items: center; /* - Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
 	align-content: center; /* (i) либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
 
 	display: flex;
 	flex-flow: row nowrap;
 }
 
-.footer-left {
+.topic-footer-left {
 	text-align: left;
-	justify-content: flex-start; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+	justify-content: flex-start; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
-.footer-center {
+.topic-footer-center {
 	text-align: center;
-	justify-content: center; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+	justify-content: center; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
-.footer-right {
+.topic-footer-right {
 	text-align: right;
-	justify-content: flex-end; /* ~ После применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
+	justify-content: flex-end; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
-.footer p, a {
+.topic-footer p, a {
 	margin-block: auto;
 	color: #737373;
 }
 
-.footer a:hover,
-.footer p:hover {color: #fff;}
+.topic-footer a:hover,
+.topic-footer p:hover {color: #fff;}
 
-.footer p:hover {cursor: default;}
-
+.topic-footer p:hover {cursor: default;}
 /* ! root element for tabs */
 /* (i) Корневой элемент для вкладок */
-ul.tabs {display: none;}
-
-/* ! Sortable Tables - Сортируемые Таблицы */
-
+/* * // ??? не понятно что за корневой элемент и какова его функция */
+ul.tabs {/* display: none; */}
+/* ! Sortable Tables */
+/* (i) Сортируемые Таблицы */
 table a.sortheader img {
 	border: 0;
 	outline: none;
@@ -238,10 +324,9 @@ a.sortheader:hover {
 	text-decoration: none;
 }
 a.sortheader {outline: none;}
-
 /* ! Components of the Topic AutoTOC Window. These are the dead defaults. A number of settings will be reset by the script */
 /* (i) Компоненты автоматического окна темы. Это мертвые дефолты. Ряд настроек будет сброшен сценарием */
-#idAutoTocWrapper {
+.topic-menu {
 	/* display: none; */
 	z-index: 1000;
 	white-space: nowrap;
@@ -278,28 +363,26 @@ p.autoTOC {
 	line-height: 100%;
 }
 
-#idAutoTocWrapper ul {
+.topic-menu ul {
 	list-style: none;
 	margin: 0;
 	padding: 0;
 	text-indent: 0;
 }
 
-#idAutoTocWrapper ul li {
+.topic-menu ul li {
 	padding: 3px;
 	cursor: pointer;
 	border-bottom: 1px solid silver;
 	background-color: #f6f6f6;
 }
-div#idAtocIcon {
-	display: block;
+.nav-divs {
 	position: absolute;
-	top: 8px;
-	right: 6px;
+	right: 4px; top: 4px;
 	/* display: none; */
 }
-div#idAtocIcon,
-div#idAtocIcon span {
+.nav-divs,
+.nav-divs span {
 	font-family: Tahoma, Verdana;
 	font-size: 9px;
 	font-weight: normal;
@@ -310,11 +393,11 @@ div#idAtocIcon span {
 	line-height: 90%;
 	color: #999;
 }
-div#idAtocIcon,
-div#idAtocIcon span,
-img#idAtocLink {z-index: 999;}
+.nav-divs,
+.nav-divs span,
+.nav-icon {/* z-index: 999; */}
 
-div#idAtocIcon span:hover {color: #fff;}
+.nav-divs span:hover {color: #fff;}
 
 div#idUnclicker {
 	position: fixed;
@@ -324,7 +407,7 @@ div#idUnclicker {
 	bottom: 0;
 	display: none;
 	background: transparent;
-	background-image: url("../image/spacer.gif");
+	background-image: url("../image/spacer.gif"); /* ???: не понятно для чего */
 	z-index: 998;
 }
 
@@ -342,7 +425,7 @@ div#nojsheadercontents {
 	/* display: none; */
 }
 
-img.nav-icon {
+.nav-icon {
 	margin: 0;
 	padding: 1px 1px 0 2px;
 	border-radius: 5px;
@@ -350,7 +433,7 @@ img.nav-icon {
 	border-width: 1px;
 	border-style: solid;
 }
-img.nav-icon-H {
+.nav-icon-H {
 	border-color: #777;
 	-moz-border-radius: 3px;
 	-webkit-border-radius: 3px;
@@ -370,19 +453,18 @@ img.nav-icon-H {
 	-ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#abdef7)";
 	cursor: pointer;
 }
-
 /* ! IntenseDebate and Disqus comments */
 /* (i) Интенсивное обсуждение и комментарии, вызывающие беспокойство */
-p#idCommentLink1 {
+.comment-link1 {
 	text-align: right;
 	margin: 0 auto;
 }
-p#commentLink2 {
+.comment-link2 {
 	text-align: right;
 	margin: 5px 0;
 }
 
-span.comments {color: red;}
+.comments {color: red;}
 
 div#commentsWrapper {
 	position: fixed;
@@ -425,7 +507,6 @@ img#livePrintIcon {
 	border: 0;
 	margin-bottom: -3px;
 }
-
 /* ! Styles for social sharing bar */
 /* (i) Стили для панели социального обмена */
 div#xunclicker {
@@ -435,7 +516,7 @@ div#xunclicker {
 	bottom: 0;
 	left: 0;
 	right: 0;
-	background-image: url("../image/spacer.gif");
+	background-image: url("../image/spacer.gif"); /* ???: не понятно для чего */
 	z-index: 998;
 }
 
@@ -466,11 +547,9 @@ ul.social-buttons li {
 	float: right;
 	padding: 5px;
 }
-
 /* ! G+1 can't be hidden without this */
 /* (i) G+1 не может быть скрыт без этого */
 div.googleplusone-button iframe {display: none;}
-
 /* ! Twitter button width hack and frame hide */
 /* (i) Ширина кнопки Twitter взломать и скрыть рамку */
 div.twitter-button iframe {
@@ -514,26 +593,25 @@ span#sbuttontext {
 	font-weight: bold;
 	font-size: 11px;
 }
-
 /* ! Styles for what goes to the printer */
 /* (i) Стили для того, что отправляется на принтер */
 @media print {
-	p#idBreadCrumbs,
-	div#idAtocIcon,
+	.bread-crumbs,
+	.nav-divs,
 	div#menuIcon,
-	div#idFooterContents {display: none !important;}
+	.content-footer {display: none; /* !important; */}
 
-	html, body {overflow: hidden !important;}
+	html, body {overflow: hidden; /* !important; */}
 
-	div#idHeader,
-	div#idContent {
-		position: static !important;
-		overflow: hidden !important;
-		height: auto !important;
-		border-width: 0px !important;
+	.topic-header,
+	.topic-content {
+		position: static; /* !important; */
+		overflow: hidden; /* !important; */
+		height: auto; /* !important; */
+		border-width: 0px; /* !important; */
 	}
 
-	img.menuicon {display: none !important;}
+	img.menuicon {display: none; /* !important; */}
 
-	button#livePrintButton {display: none !important;}
+	button#livePrintButton {display: none; /* !important; */}
 }

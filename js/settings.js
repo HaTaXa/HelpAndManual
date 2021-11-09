@@ -1,4 +1,5 @@
-/* Project settings */
+// (i) Project settings - Параметры проекта
+
 var hmAnimate = true;
 var hmPopupSticky = true;
 var hmImageLightbox = true;

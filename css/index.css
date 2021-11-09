@@ -1,4 +1,4 @@
-/* Взято из: расположено в теге "<head>" основного файла index.html */
+/* (i) Взято из: расположено в теге "<head>" основного файла index.html */
 
 .pixelParallel-panel[data-v-54cb82b4] {
 	position: fixed;
@@ -41,9 +41,7 @@
 	overflow: hidden;
 	position: relative;
 }
-.pixelParallel-panel-dragging .pixelParallel-panel-inner[data-v-54cb82b4] {
-	pointer-events: none;
-}
+.pixelParallel-panel-dragging .pixelParallel-panel-inner[data-v-54cb82b4] {pointer-events: none;}
 .pixelParallel-panel-minimized[data-v-54cb82b4] {
 	width: 112px;
 	height: 50px;
@@ -55,11 +53,9 @@
 		bottom: 0;
 		width: 320px;
 	}
-	.pixelParallel-panel-minimized[data-v-54cb82b4] {
-		width: 112px;
-	}
+	.pixelParallel-panel-minimized[data-v-54cb82b4] {width: 112px;}
 }
-/* ************************************************************ */
+/* ******************************************************************** */
 .pixelParallel-overlay {
 	position: absolute;
 	left: 0;
@@ -69,10 +65,8 @@
 	white-space: nowrap;
 	display: none;
 }
-.pixelParallel-overlay-enabled {
-	display: block;
-}
-/* ************************************************************ */
+.pixelParallel-overlay-enabled {display: block;}
+/* ******************************************************************** */
 .pixelParallel-image-outer {
 	visibility: hidden;
 	position: absolute;
@@ -106,27 +100,17 @@
 	border: 1px dashed #333;
 }
 .pixelParallel-image-inner img:not([src]),
-.pixelParallel-image-inner img[src=""] {
-	visibility: hidden;
-}
-.pixelParallel-image-enabled {
-	visibility: visible;
-}
-.pixelParallel-image-difference {
-	mix-blend-mode: difference;
-}
-.pixelParallel-image-difference img {
-	opacity: 1 !important;
-}
+.pixelParallel-image-inner img[src=""] {visibility: hidden;}
+.pixelParallel-image-enabled {visibility: visible;}
+.pixelParallel-image-difference {mix-blend-mode: difference;}
+.pixelParallel-image-difference img {opacity: 1 !important;}
 .pixelParallel-image-locked,
-.pixelParallel-image-no-image {
-	pointer-events: none;
-}
+.pixelParallel-image-no-image {pointer-events: none;}
 .pixelParallel-image-locked .pixelParallel-image-inner img {
 	top: 0;
 	border: 0 none;
 }
-/* ************************************************************ */
+/* ******************************************************************** */
 .pixelParallel-grids {
 	position: relative;
 	z-index: 2147483646;
@@ -171,10 +155,8 @@
 	opacity: 0.5;
 }
 .pixelParallel-grid-horizontal-enabled,
-.pixelParallel-grid-vertical-enabled {
-	visibility: visible;
-}
-/* ************************************************************ */
+.pixelParallel-grid-vertical-enabled {visibility: visible;}
+/* ******************************************************************** */
 .pixelParallel-rulers {
 	position: relative;
 	z-index: 2147483646;
@@ -209,10 +191,8 @@
 	cursor: col-resize;
 }
 .pixelParallel-rulers-enabled .pixelParallel-ruler-x,
-.pixelParallel-rulers-enabled .pixelParallel-ruler-y {
-	display: block;
-}
-/* ************************************************************ */
+.pixelParallel-rulers-enabled .pixelParallel-ruler-y {display: block;}
+/* ******************************************************************** */
 @font-face {
 	font-weight: 400;
 	font-style: normal;

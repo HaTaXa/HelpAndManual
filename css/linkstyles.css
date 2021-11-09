@@ -1,7 +1,4 @@
-/*
-Цвет и поведение гиперссылок
-Hyperlink colors and behaviors
- */
+/* (i) Hyperlink colors and behaviors - Цвет и поведение гиперссылок */
 
 a.topiclink {color: blue; text-decoration: underline;}
 a.topiclink:visited {color: blue;}
@@ -30,8 +27,5 @@ a.comment-link {color: blue; font-size: 10pt; font-family: "Arial"; font-style: 
 a.comment-link:visited {color: blue;}
 a.comment-link:hover {text-decoration: underline;}
 
-/*
-Ссылка для отображения всего пользовательского интерфейса, когда тема открыта сама по себе
-Link to display entire user interface when topic is opened on its own
- */
-.sync-toc { display: none;}
+/* (i) Link to display entire user interface when topic is opened on its own - Ссылка для отображения всего пользовательского интерфейса, когда тема открыта сама по себе */
+.sync-toc {display: none;}

@@ -23,7 +23,7 @@
 </head>
 <body>
 
-	<ul id="idTopicTabs" class="tabs">
+	<ul id="idTopicTabs" class="tabs"> <!-- (?) // ??? не понятно для чего -->
 		<li id="idSearchTab" class="topic-tab topic-tab-current">
 			<a id="idSearchTabLink" href="#"><span>Поиск</span></a>
 		</li>
@@ -35,6 +35,7 @@
 			<div id="idLoadingMsg" align="center" style="display: none;">
 				<img src="image/cicon_loadindex_ani.gif" style="border: none" alt="Loading..." />
 			</div>
+
 			<!-- <script type="text/javascript" src="js/settings.js" charset="UTF-8"></script> -->
 			<!-- <script type="text/javascript" src="js/zoom_search.js"></script> -->
 			<!-- скрипт zoom_search.js прописывает следующие скрипты в текст страницы -->
@@ -44,7 +45,7 @@
 			<!-- скрипт создает форму поиска -->
 			<!-- <script type="text/javascript">ZoomSearch();</script> -->
 
-			<form id="idFormSearch" class="zoom_searchform" action="search.htm" method="get">
+			<form id="idFormSearch" class="zoom_searchform" action="search.html" method="get">
 				<input id="zoom_searchbox" class="zoom_searchbox" type="text" name="zoom_query" value="" autocorrect="off" autocapitalize="off" placeholder="Введите текст поиска" title="Введите одно или несколько ключевых слов для поиска ('*' и '?' подстановочные символы поддерживаются)" autocomplete="on"> <!-- size="70" -->
 				<input class="zoom_button" type="submit" value="Поиск" title="Горячая клавиша «Enter»">
 				<p class="zoom_results_per_page">Результаты на странице:

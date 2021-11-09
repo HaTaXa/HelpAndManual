@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Версия ЕСД БСС «Главбух»</title>
+	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+
+	<style type="text/css">
+		/* * {margin: 0; padding: 0;} */
+		/* ! // FIX: Scrollbars */
+		*,
+		html * /* - если нужен общий стиль, его следует применять к тегу html, а не к body */
+		{
+			scrollbar-width: thin;
+			scrollbar-color: gray #3f3f3f;
+		}
+		*::-webkit-scrollbar,
+		html *::-webkit-scrollbar {
+			width: 10px;
+			/* height: 8px; */ /* (i) работать не будет-для всех браузеров высота scrollbara=высоте его элемента*/
+		}
+		/* - вариант-2 */
+		/* *::-webkit-scrollbar-track,
+		html *::-webkit-scrollbar-track {
+			border: 1px solid #3f3f3f;
+			border-radius: 100px;
+		}
+		*::-webkit-scrollbar-thumb,
+		html *::-webkit-scrollbar-thumb {
+			border: 5px solid #3f3f3f;
+			border-radius: 100px;
+		} */
+		/* - вариант-4 */
+		*::-webkit-scrollbar-track,
+		html *::-webkit-scrollbar-track {
+			border: 4px solid #3f3f3f;
+			border-radius: 100px;
+		}
+
+		*::-webkit-scrollbar-thumb,
+		html *::-webkit-scrollbar-thumb {
+			background: #3f3f3f;
+			border: 4px solid #fff;
+			border-radius: 100px;
+		}/* Scrollbars the end */
+
+		body {
+			/* background: #3f3f3f; */
+			background: #fff;
+		}
+		p {
+			text-align: center;
+			text-indent: 0px;
+		}
+		.footer, .header {overflow: hidden;}
+		.header {
+			position: absolute;
+			left: 0;
+			top: 0;
+			right: 0;
+			background: url(image/bg-top.png) no-repeat;
+			background-size: 100% 100%;
+			font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+			font-size: 0.7em;
+		}
+		.footer p,
+		.header p {cursor: default;}
+		.footer a,
+		.footer p,
+		.header p {color: #737373;}
+		.footer a:hover,
+		.footer p:hover a,
+		.footer p:hover,
+		.header p:hover {color: #fff;}
+		.body {
+			position: absolute;
+			left: 0;
+			top: 48px;
+			right: 0;
+			bottom: 88px;
+			overflow: auto;
+			scroll-behavior: smooth; /* плавная прокрутка */
+			border-width: 1px 0 1px 0;
+			border-style: solid;
+			font-size: 12pt;
+		}
+		.footer {
+			position: absolute;
+			left: 0;
+			right: 0;
+			bottom: 0;
+			background: url(image/bg-bottom.png) no-repeat;
+			background-size: 100% 100%;
+			font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+			font-size: 0.7em;
+		}
+		.footer a {text-decoration: none;}
+		.footer a:hover {text-decoration: underline dotted;}
+
+		.courier-new {font-family: 'Courier New', Courier, monospace;}
+		.hr {
+			width: 100px;
+			border-width: 1px 0 0 0;
+			border-style: solid;
+			border-color: #3f3f3f;
+		}
+	</style>
+</head>
+<!-- ! Контент текста -->
+<body>
+	<div class="header">
+		<p>ЕСД БСС «Главбух»<br>
+			<b>Версия:&nbsp;
+				<span style="text-decoration: underline dotted">
+					v.1.0
+				</span>
+			</b>
+		</p>
+	</div>
+	<div class="body">
+		<p>
+			База нормативно-правовых актов<br>
+			Для служебного пользования<br>
+			Производственный отдел
+		</p>
+		<p>
+			<b>Официальный сайт</b>:&nbsp;<br>
+			<a href="http://www.1gl.ru/" target="_blank" title="БСС «Система Главбух»" alt="БСС «Система Главбух»"><i>БСС «Система Главбух»</i></a><br>
+			<b>E-mail</b>:&nbsp;<a href="mailto:region@action-media.ru" title="ООО «Актион-диджитал»" alt="ООО «Актион-диджитал»"><i>region@action-media.ru</i></a><br>
+		</p>
+		<p>
+			&copy;&nbsp;2007–2011 ООО «Актион-диджитал»
+		</p>
+		<hr class="hr">
+		<p>Далее об изменениях в новой версии - <br>
+			More about the changes in the new version:</p>
+		<p>
+			Lorem ipsum dolor sit amet consectetur adipisicing elit. Delectus ab, quia dolore laudantium ad tenetur quibusdam incidunt magnam porro at excepturi dicta amet nostrum alias temporibus. Sit maxime unde distinctio.
+			Atque, placeat. Aliquam totam aut nam, aperiam quod reprehenderit sint iure placeat optio libero blanditiis earum eos magni ut? Aliquid, repellat aspernatur eius tenetur incidunt molestias laudantium aliquam maiores obcaecati?
+			Enim ad dolor asperiores architecto quos soluta harum. Ullam deserunt itaque labore enim neque. Odit molestias accusamus quos deleniti laborum repudiandae, et at doloribus debitis praesentium laudantium delectus facere quia.
+			Amet error commodi voluptates molestiae numquam unde sapiente eveniet impedit vero, molestias assumenda delectus quidem culpa vel harum dolor consequatur eos. Quod quis sequi, incidunt placeat necessitatibus aut amet molestias.
+			Numquam temporibus magnam, distinctio impedit laborum nisi officiis repellendus officia mollitia cum dolorem nobis maxime perspiciatis optio reiciendis aspernatur! Repudiandae tempore perferendis odio omnis dolorem iste totam ea ab quidem!
+		</p>
+		<hr class="hr">
+	</div>
+	<div class="footer">
+		<p><b>Разработчик и автор инструкций</b>:<br>
+			<span class="courier-new">
+				<i>Солянина<br>Натал<u>И</u>я Владиславовна</i>
+			</span>
+		</p>
+		<p>
+			&copy;&nbsp;«<a class="a" href="https://hataxa.github.io/HelpAndManual/" target="_blank">HaTaXa</a>» 2021
+		</p>
+	</div>
+</body>
+</html>

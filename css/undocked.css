@@ -1,11 +1,10 @@
-/* General Background */
-body,
-html {
+/* (i) General Background */
+
+body, html {
 	background-color: #f1f1f1;
 	overflow: hidden;
 }
-
-/* General Layout */
+/* ~ General Layout */
 div#idHeader {
 	top: 29px;
 	left: 8px;
@@ -14,9 +13,7 @@ div#idHeader {
 	padding-left: 10px;
 	width: auto;
 }
-div#idAtocIcon {
-	right: 5px;
-}
+div#idAtocIcon {right: 5px;}
 
 div#idBox {
 	position: absolute;
@@ -47,8 +44,7 @@ div#idContent {
 	overflow-y: scroll;
 	overflow-x: auto;
 }
-
-/* root element for tabs  */
+/* ~ root element for tabs - корневой элемент для вкладок */
 ul.tabs {
 	display: block;
 	list-style: none;
@@ -62,8 +58,7 @@ ul.tabs {
 	z-index: 800;
 	font-family: "Lucida Grande", "bitstream vera sans", "trebuchet ms", sans-serif, verdana;
 }
-
-/* single tab */
+/* ~ single tab - одиночная вкладка */
 ul.tabs li {
 	float: left;
 	text-indent: 0;
@@ -71,8 +66,7 @@ ul.tabs li {
 	margin: 0 !important;
 	list-style-image: none !important;
 }
-
-/* Undocked tab */
+/* ~ undocked tab - отстыкованная вкладка */
 ul.tabs a {
 	font-size: 13px;
 	display: block;

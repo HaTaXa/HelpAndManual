@@ -1,10 +1,7 @@
-/* Turn off background gradients for IE 9 because they
-protrude over the edges of rounded corners
-
-Отключить фоновые градиенты для IE 9, так как они
-выступают за края закругленных углов
+/*
+(i) Turn off background gradients for IE 9 because they protrude over the edges of rounded corners
+(i) Отключить фоновые градиенты для IE 9, так как они выступают за края закругленных углов
 */
-
 .tabs a,
 .tabs a.current,
 .toolbar-banner,

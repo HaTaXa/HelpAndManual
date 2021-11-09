@@ -1,4 +1,4 @@
-/* Было в хеде файла hmkwindex.htm */
+/* (i) Было в хеде файла hmkwindex.htm */
 
 html, body {
 	overflow: hidden;
@@ -30,12 +30,12 @@ label {cursor: pointer;}
 .nojstitle a {color: black; text-decoration: none;}
 .nojstitle a:visited {color: black;}
 .nojstitle a:hover {text-decoration: underline;}
-#idx {margin: 0; padding: 0;} /* div tag that wraps the keyword index */
-#idx a {color: #000; text-decoration: none; outline: none;} /* all links in index appear as text */
+#idx {margin: 0; padding: 0;} /* ~ div tag that wraps the keyword index - тег div, который обертывает индекс ключевых слов */
+#idx a {color: #000; text-decoration: none; outline: none;} /* ~ all links in index appear as text - все ссылки в индексе отображаются в виде текста */
 #idx a:visited {color: #000;}
 #idx a:hover {color: #000; text-decoration: underline;}
 
-#idx p {margin: 2px;} /* keywords and secondary keywords */
+#idx p {margin: 2px;} /* ~ keywords and secondary keywords - ключевые слова и вторичные ключевые слова */
 #idx p.idxkeyword2 {margin-left: 20px} /* indentation for secondary keywords */
 .idxsection {font-family: Arial,Helvetica; font-weight: normal; font-size: 14pt; color: #000000; text-decoration: none; margin-top: 15px; margin-bottom: 5px;}
 .idxkeyword {font-family: Arial,Helvetica; font-weight: normal; font-size: 11pt; color: #000000; text-decoration: none;}

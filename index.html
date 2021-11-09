@@ -6,21 +6,18 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Help&Manual</title>
 	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
-
-	<!-- ~ подключение скриптов js, jQuery -->
+	<meta name="robots" content="index, follow"/> <!-- ??? -->
+	<meta name="description" content="Демонстрация вэб-сайта">
+	<meta name="keywords" content="help, manual, HelpAndManual">
+	<!-- ! подключение скриптов js, jQuery -->
 	<!-- <script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> -->
-
-	<meta name="robots" content="index, follow"/> <!-- ??? -->
-	<meta name="description" content="&nbsp;"> <!-- ??? -->
-
-	<!-- ~ подключение стилей -->
+	<!-- ! подключение стилей -->
 	<link rel="stylesheet" href="css/styles.css"> <!-- (i) вместо файла hm_webhelp.css -->
 	<link rel="stylesheet" href="css/index.css"> <!-- (i) взято из: расположено в теге "<head>" основного файла index.html -->
 	<link rel="stylesheet" href="css/linkstyles.css"> <!-- (i) стилизация ссылок -->
-
-	<!-- ~ еще скрипты js, jquery -->
+	<!-- ! еще скрипты js, jquery -->
 	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- (i) вместо файла helpman_settings.js -->
 	<!-- <script type="text/javascript" src="js/helpman_navigation.js"></script> -->
 	<!-- <script type="text/javascript" src="js/hmwebhelp.js"></script> -->
@@ -37,7 +34,7 @@
 </head>
 <body>
 	<div id="idContainer" class="container">
-		<!-- Баннер на официальный сайт компании -->
+		<!-- ! Баннер на официальный сайт компании -->
 		<div id="idBanner" class="banner" style="display: none;">
 			<a class="banner" href="http://www.1gl.ru" title="БСС «Система Главбух» официальный сайт" target="_blank">
 				<div class="banner">
@@ -45,83 +42,91 @@
 				</div>
 			</a>
 		</div>
-		<!-- Панель инструментов. (i) Переключение классов toolbar-up/toolbar-down отключено -->
+		<!-- ! Панель инструментов -->
 		<div id="idToolbar" class="toolbar-compact">
-			<!-- поле быстрый поиск -->
+			<!-- - // FIX: поле быстрый поиск -->
 			<div class="toolbar-search">
 				<div id="idQuickSearch" class="toolbar-box toolbar-box-search">
 					<input id="idInputSearch" type="text" name="inputSearch" autocapitalize="off" autocorrect="off" title="Быстрый поиск" placeholder="Введите текст">
-					<!-- <span id="idNavIconQuickSearch" onclick="quickSearch()"> -->
+					<!-- // <span id="idNavIconQuickSearch" onclick="quickSearch()"> -->
 						<img id="idQuickSearchOn" class="nav-icon" src="image/search.png" onclick="quickSearch()" title="Поиск разделов справки" alt="Поиск разделов справки">
 						<img id="idQuickSearchOff" class="nav-icon-H" src="image/searchoff.png">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<span class="nav-text-on">Быстрый поиск</span>
 				</div>
 			</div>
-			<!-- кнопки на панеле инструментов -->
+			<!-- ! Кнопки на панеле инструментов -->
+			<!-- *кнопки на панеле слева -->
 			<div class="toolbar-left">
-				<!-- левая часть блока кнопок -->
+				<!-- - // FIX: кнопка Обзор -->
 				<div class="toolbar-box toolbar-box-left">
-					<!-- <span id="idNavIconTopic" onclick="topicsPane()"> -->
+					<!-- // <span id="idNavIconTopic" onclick="topicsPane()"> -->
 						<img id="idTopicOn" class="nav-icon" src="image/browse.png" onclick="topicsPane()" title="Вкладка «Главная тема»" alt="Вкладка «Главная тема»">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<span id="idTopicText" class="nav-text-on">Обзор</span>
 				</div>
+				<!-- - // FIX: кнопка Слова -->
 				<div class="toolbar-box toolbar-box-left">
-					<!-- <span id="idNavIconIndex" onclick="indexPane()"> -->
+					<!-- // <span id="idNavIconIndex" onclick="indexPane()"> -->
 						<img id="idIndexOn" class="nav-icon" src="image/index.png" onclick="indexPane()" title="Ключевые слова" alt="Ключевые слова">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<img id="idIndexOff" class="nav-icon-H" src="image/index_off.png">
 					<span id="idIndexText" class="nav-text-on">Слова</span>
 				</div>
+				<!-- - // FIX: кнопка Поиск -->
 				<div class="toolbar-box toolbar-box-left">
-					<!-- <span id="idNavIconSearch" onclick="searchPane()"> -->
+					<!-- // <span id="idNavIconSearch" onclick="searchPane()"> -->
 						<img id="idSearchOn" class="nav-icon" src="image/search.png" onclick="searchPane()" title="Поиск разделов справки" alt="Поиск разделов справки">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<img id="idSearchOff" class="nav-icon-H" src="image/searchoff.png">
 					<span id="idSearchText" class="nav-text-on">Поиск</span>
 				</div>
+				<!-- - // FIX: кнопка Открепить -->
 				<div id="idUndocTabTool" class="toolbar-box toolbar-box-left">
-					<!-- <span id="idNavIconUndocTab" onclick="undockTab()"> -->
+					<!-- // <span id="idNavIconUndocTab" onclick="undockTab()"> -->
 						<img id="idUndocTabOn" class="nav-icon-H" src="image/tabundock.png" onclick="undockTab()" title="Открепить текущую вкладку" alt="Открепить текущую вкладку">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<img id="idUndocTabOff" class="nav-icon" src="image/tabundock_off.png" title="(i) Нельзя открепить вкладку «Главная». Создайте новую вкладку и нажмите кнопку «Открепить»">
 					<span id="idUndocTabText" class="nav-text-on nav-text-off">Открепить</span>
 				</div>
+				<!-- - // FIX: кнопка Новая вкладка -->
 				<div id="idNewTabTool" class="toolbar-box toolbar-box-left">
-					<!-- <span id="idNavIconNewTab" onclick="newTab()"> -->
+					<!-- // <span id="idNavIconNewTab" onclick="newTab()"> -->
 						<img id="idNewTabOn" class="nav-icon" src="image/tabnew.png" onclick="newTab()" title="Открыть актуальную тему в новой вкладке" alt="Открыть актуальную тему в новой вкладке">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<img id="idNewTabOff" class="nav-icon-H" src="image/tabnew_off.png" title="Выберите главную вкладку, чтобы активировать эту функцию" alt="Выберите главную вкладку, чтобы активировать эту функцию">
 					<span id="idNewTabText" class="nav-text-on text-wrapping">Новая вкладка</span>
 				</div>
 			</div>
-			<!-- 2 кнопки на панеле в центре: показать/скрыть и развернуть/свернуть -->
+			<!-- *кнопки на панеле в центре -->
 			<div class="toolbar-center">
+				<!-- - // FIX: кнопка Показать/скрыть сайт компании -->
 				<div class="toolbar-box toolbar-box-center">
-					<!-- <span id="idNavIconShowHide" onclick="bannerShowHide()"> -->
+					<!-- // <span id="idNavIconShowHide" onclick="bannerShowHide()"> -->
 						<img id="idShowHideOn" class="nav-icon" src="image/gb.gif" onclick="bannerShowHide()" title="Показать/Скрыть официальный сайт компании" alt="Показать/Скрыть официальный сайт компании">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<span class="nav-text-on">Показать/Скрыть</span>
 				</div>
+				<!-- - // FIX: кнопка Развернуть/свернуть скрытый текст -->
 				<div class="toolbar-box toolbar-box-center">
-					<!-- <span id="idNavIconExpand" onclick="textHiddenExpand()"> -->
+					<!-- // <span id="idNavIconExpand" onclick="textHiddenExpand()"> -->
 						<img id="idExpandOn" class="nav-icon" src="image/expandon.png" onclick="textHiddenExpand()" title="Развернуть/Свернуть скрытый текст в текущей теме" alt="Развернуть/Свернуть скрытый текст в текущей теме">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<img id="idExpandOff" class="nav-icon-H" src="image/expandoff.png">
 					<span id="idExpandText" class="nav-text-on">Развернуть/Свернуть</span>
 				</div>
 			</div>
-			<!-- кнопки на панеле справа -->
+			<!-- *кнопки на панеле справа -->
 			<div class="toolbar-right">
+				<!-- - // FIX: кнопка Постоянная ссылка -->
 				<div id="idPermalinkTool" class="toolbar-box toolbar-box-right">
-					<!-- <span id="idNavIconPermalink" onclick="setPermalink(hmnavpages.top)"> -->
+					<!-- // <span id="idNavIconPermalink" onclick="setPermalink(hmnavpages.top)"> -->
 						<img id="idPermalinkOn" class="nav-icon" src="image/permalink.png" onclick="setPermalink(hmnavpages.top)" title="Скопировать постоянную ссылку" alt="Скопировать постоянную ссылку">
-					<!-- </span> -->
+					<!-- // </span> -->
 					<img id="idPermalinkOff" class="nav-icon-H" src="image/permalinkoff.png">
 					<span id="idPermalinkText" class="nav-text-on text-wrapping">Постоянная ссылка</span>
 				</div>
-				<!-- кнопка email -->
+				<!-- - // FIX: кнопка Email -->
 				<div id="idFeedBackTool" class="toolbar-box toolbar-box-right">
 					<a id="idNavIconFeedBack" href="mailto:user231082@gmail.com">
 						<img id="idFeedBackOn" class="nav-icon" src="image/emailon.png" title="ТехПоддержка" alt="ТехПоддержка" onmouseover="this.src='image/support.gif'" onmouseout="this.src='image/emailon.png'">
@@ -129,7 +134,7 @@
 					<img id="idFeedBackOff" class="nav-icon-H" src="image/emailoff.png">
 					<span id="idFeedBackText" class="nav-text-on">E-mail</span>
 				</div>
-				<!-- Печать -->
+				<!-- - // FIX: кнопка Печать -->
 				<div id="idPrintTool" class="toolbar-box toolbar-box-right">
 					<a id="idNavIconPrinter" href="javascript: void(0);" onclick="printTopic(activePage)">
 						<img id="idPrinterOn" class="nav-icon" src="image/printer.png" title="Распечатать текущую тему" alt="Распечатать текущую тему">
@@ -137,21 +142,21 @@
 					<img id="idPrinterOff" class="nav-icon-H" src="image/printer_off.png">
 					<span id="idPrinterText" class="nav-text-on">Печать</span>
 				</div>
-				<!-- кнопка Домой -->
+				<!-- - // FIX: кнопка Домой -->
 				<div class="toolbar-box toolbar-box-right">
-					<a id="idNavIconHome" class="nav-cache" href="esd_bss_glavbyx.htm" target="hmcontent" onclick="pageHome(this.href)">
+					<a id="idNavIconHome" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pageHome(this.href)">
 						<img class="nav-icon" src="image/home.png" title="Домашняя страница" alt="Домашняя страница">
 					</a>
 					<span class="nav-text-on">Домой</span>
 				</div>
-				<!-- кнопка Назад -->
+				<!-- - // FIX: кнопка Назад -->
 				<div class="toolbar-box toolbar-box-right">
 					<a id="idNavIconPrevious" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pagePrevious(this.href)">
 						<img class="nav-icon" src="image/arrow_previous.png" title="На предыдущую страницу" alt="На предыдущую страницу">
 					</a>
 					<span class="nav-text-on">Назад</span>
 				</div>
-				<!-- кнопка Вперед -->
+				<!-- - // FIX: кнопка Вперед -->
 				<div class="toolbar-box toolbar-box-right">
 					<a id="idNavIconNext" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pageNext(this.href)">
 						<img class="nav-icon" src="image/arrow_next.png" title="На следующую страницу" alt="На следующую страницу">
@@ -160,27 +165,30 @@
 				</div>
 			</div>
 		</div>
-		<!-- Левая часть - панель навигации -->
+		<!-- ! //FIX: Левая часть - панель навигации -->
 		<div id="idNavPane" class="nav-pane">
-			<!-- #document - панель навигации -->
+			<!-- - фрейм нав.пан. -->
+			<!-- XXX #document - панель навигации -->
 			<div id="idNavBox" class="nav-box">
 				<!-- (i) скрипт расположен в фале hmwebhelp.js -->
-				<!-- <script type="text/javascript">WebHelp.writeTOC();</script> -->
-				<iframe id="hmnavigation" name="hmnavigation" class="scroll-pane" src="navigation.htm" title="Панель Навигация"></iframe>
+				<!-- // <script type="text/javascript">WebHelp.writeTOC();</script> -->
+				<iframe id="hmnavigation" name="hmnavigation" class="scroll-pane" src="navigation.html" title="Панель Навигация"></iframe>
 			</div>
-			<!-- Боковой разделитель -->
+			<!-- - боковой разделитель -->
 			<div id="idSplitterRight" class="splitter-right" title="Разширить/Сузить панель навигации"></div>
-			<!-- Нижний разделитель -->
+			<!-- - нижний разделитель -->
 			<div id="idSplitterBottom" class="splitter-bottom" title="Опустить/Поднять панель навигации"></div>
 		</div>
-		<!-- Правая часть - панель тема -->
+		<!-- ! //FIX: Правая часть - панель тема (топиков) -->
 		<div id="idTopicPane" class="topic-pane">
 			<div id="idTabControls" class="tab-controls">
+				<!-- *кнопка Скрыть/покать пан.нав. -->
 				<div id="idNavHandle" class="nav-handle">
 					<a href="javascript: void(0)" onclick="NavShowHide()">
 						<img id="idNavShowHide" src="image/nav_hide.png" title="Скрыть/Показать панель навигации" alt="Скрыть/Показать панель навигации" style="border: 0;">
 					</a>
 				</div>
+				<!-- *кнопки переключения между вкладками -->
 				<div id="idTabsCtab" class="tabs-c-tab">
 					<div id="idTabsCtabRight" class="tabs-c-tab-right">
 						<img id="idTabEndLeft" class="tab-player tab-end-left" src="image/tabendleft.png" title="Начало панели вкладок" alt="Начало панели вкладок">
@@ -190,7 +198,7 @@
 						<img id="idTabEndRight" class="tab-player tab-end-right" src="image/tabendright.png" title="Конец панели вкладок" alt="Конец панели вкладок">
 					</div>
 				</div>
-				<!-- Меню вкладок -->
+				<!-- *меню вкладок -->
 				<div id="idTabsMenuBox" class="tabs-menu-box">
 					<div id="idTabsMenu" class="tabs-menu">
 						<ul id="idTabsList" class="tabs-list">
@@ -206,21 +214,24 @@
 						</ul>
 					</div>
 				</div>
-				<!-- Вкладки топика -->
+				<!-- * //FIX: Вкладки топика -->
 				<div id="idTabsWindow" class="tabs-window">
 					<div id="idTabsLider" class="tabs-lider">
 						<ul id="idTopicTabs" class="tabs">
+							<!-- - вкладка тема -->
 							<li id="idTopicTab" class="topic-tab" ondblclick="alert(`(i) Нельзя открепить вкладку «Главная».\n` + `Создайте новую вкладку и нажмите кнопку «Открепить».`)" onclick="topicTab();" tabnum="0">
 								<a id="idTopicTabLink" href="#topictablink" data="ЕСД БСС «Главбух»" title="ЕСД БСС «Главбух»">
 									<span>ЕСД БСС «Главбух»</span>
 								</a>
 							</li>
+							<!-- - вкладка ключевые слова -->
 							<li id="idIndexTab" class="topic-tab" onclick="keywordsTab();" hpage="index" tabnum="1">
 								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку" onmouseover="this.src='image/closetabon.png'" onmouseout="this.src='image/closetaboff.png'">
 								<a id="idIndexTabLink" href="#indextablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Ключевые слова»">
 									<span>Ключевые слова</span>
 								</a>
 							</li>
+							<!-- - вкладка поиск -->
 							<li id="idSearchTab" class="topic-tab" onclick="searchTab();" hpage="search" tabnum="2" style="display: list-item;">
 								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку" onmouseover="this.src='image/closetabon.png'" onmouseout="this.src='image/closetaboff.png'">
 								<a id="idSearchTabLink" href="#searchtablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Поиск»">
@@ -231,19 +242,19 @@
 					</div>
 				</div>
 			</div>
-			<!-- страницы топика: контент-текста, ключевые слова, поиск -->
+			<!-- * //FIX: Страницы топика: контент тема, ключевые слова, поиск -->
 			<div id="idTopicBox" class="topic-box">
-				<!-- страница "Контент-Текст" -->
+				<!-- - страница "Контент Тема" -->
 				<div id="idContentBox" class="content-box">
-					<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esd_bss_glavbyx.htm" title="Контент-Текст"></iframe>
+					<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esd_bss_glavbyx.html" title="Контент Тема"></iframe>
 				</div>
-				<!-- страница "Ключевые слова" -->
+				<!-- - страница "Ключевые слова" -->
 				<div id="idIndexBox" class="index-box" style="display: none;">
-					<iframe id="idFrameIndex" name="frameIndex" class="scroll-pane" src="keywords.htm" title="Ключевые слова"></iframe>
+					<iframe id="idFrameIndex" name="frameIndex" class="scroll-pane" src="keywords.html" title="Ключевые слова"></iframe>
 				</div>
-				<!-- страница "Поиск" -->
+				<!-- - страница "Поиск" -->
 				<div id="idSearchBox" class="search-box" style="display: none;">
-					<iframe id="idFrameSearch" name="frameSearch" class="scroll-pane" src="search.htm" title="Поиск"></iframe>
+					<iframe id="idFrameSearch" name="frameSearch" class="scroll-pane" src="search.html" title="Поиск"></iframe>
 				</div>
 			</div>
 		</div>

@@ -4,24 +4,23 @@
 Copyright (c) 2008-2015 by Tim Green
 All rights reserved. */
 
-// Make form resize function accessible from outside
+// ~ Make form resize function accessible from outside - Сделать функцию изменения размера формы доступной извне
 var resizeForm;
 
-$(document).ready(function() { /* ??? почему ругается на эту строку */
-		/* $(function() { */
-
-	/* var browserOK = (function() {
-		if (!(document.all && !window.opera)) return true;
-		var rv = -1;
-		var ua = navigator.userAgent;
-		var re = new RegExp("Trident\/([0-9]{1,}[\.0-9]{0,})");
-		if (re.exec(ua) != null) {
-			rv = parseFloat(RegExp.$1);
-		}
-		var ie = /msie 9|msie 10/gi.test(ua);
-		return (ie && (rv >= 4));
-	})(); */
-	// Keep width of input form matched to pane width
+$(document).ready(function() { // ??? почему ругается на эту строку
+	// $(function() {
+		// var browserOK = (function() {
+		// 	if (!(document.all && !window.opera)) return true;
+		// 	var rv = -1;
+		// 	var ua = navigator.userAgent;
+		// 	var re = new RegExp("Trident\/([0-9]{1,}[\.0-9]{0,})");
+		// 	if (re.exec(ua) != null) {
+		// 		rv = parseFloat(RegExp.$1);
+		// 	}
+		// 	var ie = /msie 9|msie 10/gi.test(ua);
+		// 	return (ie && (rv >= 4));
+	// })();
+	// ~ Keep width of input form matched to pane width - Поддержка ширины формы ввода в соответствии с шириной панели
 	resizeForm = function(){
 		// if (!browserOK) return;
 		if (parent.window || (parent.window.TabSlider && parent.window.TabSlider.currentTab != 2)) return;
@@ -38,7 +37,7 @@ $(document).ready(function() { /* ??? почему ругается на эту 
 		}
 	}
 
-	// Check for parent and reload UI if no parent
+	// ~ Check for parent and reload UI if no parent - Проверка наличия родителя и перезагрузка пользовательского интерфейса, если родителя нет
 	try {
 	var Parent = parent.WebHelp ? parent : window.opener.WebHelp ? window.opener : false;
 	} catch(err) {
