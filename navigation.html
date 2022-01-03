@@ -14,8 +14,8 @@
 	<script type="text/javascript" language="Javascript" src="js/jquery.tools.min.js"></script>
 	<script type="text/javascript" language="Javascript" src="js/jquery.scrollTo-min.js"></script> -->
 	<!-- ! подключение стилей -->
-	<!-- <link rel="stylesheet" href="css/styles.css"> --> <!-- (i) вместо файла hm_webhelp.css -->
-	<link rel="stylesheet" href="css/navigation.css"> <!-- (i) взято из файла hmcontent.htm, было прописано внутри страницы в хеда -->
+	<!-- <link rel="stylesheet" href="css/styles.css"> --> <!-- 'вместо файла hm_webhelp.css -->
+	<link rel="stylesheet" href="css/navigation.css"> <!-- 'взято из файла hmcontent.htm, было прописано внутри страницы в хеда -->
 
 <!--[if lte IE 8]>
 	<style type="text/css">
@@ -28,9 +28,9 @@
 <![endif]-->
 
 	<!-- ! еще скрипты js, jquery + см.внизу -->
-	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- (i) вместо файла helpman_settings.js -->
+	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- 'вместо файла helpman_settings.js -->
 	<!-- <script type="text/javascript" src="js/helpman_navigation.js"></script> -->
-	<!-- ! если требуется, чтобы все оглавление было развернутым -->
+	<!-- 'если требуется, чтобы все оглавление было развернутым -->
 	<!-- <script type="text/javascript">
 		window.onload = function() {listExpand();}
 	</script> -->
@@ -39,11 +39,12 @@
 	<div id="idTocHeader" class="toc-header">
 		<div id="idTocTools" class="toc-tools">
 			<div class="tree-view">
+				<!-- *idTreeView-checkbox переключение режимов древовидного списка -->
 				<input type="checkbox" id="idTreeView" checked="checked"/>
-				<div id="idTreeViewTooltip" class="tree-view-tooltip" tree-view-tooltip-default="Режим «По умолчанию» (переключатель): (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления" tree-view-tooltip-current="Режим «Текущий пункт» (переключатель): (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления">
+				<div id="idTreeViewTooltip" class="tree-view-tooltip" tree-view-tooltip-default="Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления" tree-view-tooltip-current="Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления">
 					<label for="idTreeView"></label>
 				</div>
-				<!-- * Классический вариант -->
+				<!-- *Классический вариант -->
 				<!-- <label for="idTreeViewListDefault" title="Режим «По умолчанию» (переключатель): (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления">
 					<input id="idTreeViewListDefault" type="radio" name="treeview" value="0">Default
 				</label>
@@ -51,10 +52,12 @@
 					<input id="idTreeViewListCurrent" type="radio" name="treeview" value="1" checked="checked">Current
 				</label> -->
 			</div>
+			<!-- *idTocListMenuToggle-checkbox Развернуть/Свернуть все оглавление -->
 			<div id="idTocListMenuToggle" class="toc-list-menu-toggle">
 				<input type="checkbox" id="idTocListMenuSwitch">
 				<label for="idTocListMenuSwitch" toc-list-menu-tooltip-expand="Развернуть все оглавление" toc-list-menu-tooltip-collapse="Свернуть все оглавление">
-					<img class="nav-list-menu" src="image/togglemenu.png" onclick="return allListExpandCollapse(event);">
+					<div id="idNavIcon" class="nav-icon" onclick="return allListExpandCollapse(event);"></div>
+					<!-- <img class="nav-icon" src="image/menu.png" onclick="return allListExpandCollapse(event);"> -->
 				</label>
 			</div>
 		</div>
@@ -64,7 +67,7 @@
 		<div id="idTocSubtitle" class="toc-subtitle">
 			<p class="nav-subtitle">База нормативно-правовых актов - Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam iste nesciunt sed, nemo laboriosam quam quisquam delectus neque at blanditiis libero rem nisi, perferendis temporibus eos ad illo, ipsa ipsam.</p>
 		</div>
-		<!-- ???: не разобралась для каких ситуаций действует данный скрипт -->
+		<!-- (?) не разобралась для каких ситуаций действует данный скрипт -->
 		<!-- <div>
 			<span id="idOperaBug" style="display: none">Opera Bug</span>
 			<p class="no-js-title" style="display: none;">
@@ -332,12 +335,12 @@
 				</a>
 			</li>
 		</ul> <!-- idToc-ul then end -->
-		<!-- ??? Скрипт подгружает иконки, только не могу найти где именно и в каком месте? -->
+		<!-- (?) Скрипт подгружает иконки, только не могу найти где именно и в каком месте? -->
 		<!-- <script type="text/javascript">
 			loadicons("toc_topic.png", "tgl_collapse.gif", "tgl_expand.gif");
 		</script> -->
 	</div>
-	<!-- ! Нижний колонтитул -->
+	<!-- (!) idTocFooter-Нижний колонтитул -->
 	<div id="idTocFooter" class="toc-footer">
 		<p>Разработчик и автор инструкций:<br>
 			<a href="https://hataxa.github.io/HelpAndManual/" target="_blank"><i>Солянина<br> Натал<u>И</u>я Владиславовна</i></a>

@@ -5,7 +5,7 @@
 .tabs a,
 .tabs a.current,
 .toolbar-banner,
-.toolbar-compact,
+.toolbar,
 .nav-icon-H,
 .nav-pane,
 .nav-box {
@@ -21,7 +21,7 @@
 }
 
 .toolbar-banner,
-.toolbar-compact,
+.toolbar,
 .tabs a.current,
 .tabs-c-tab {
 	background-image: url(../image/gradient_toolbar.svg);

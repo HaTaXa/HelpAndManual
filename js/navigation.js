@@ -2,20 +2,19 @@
 // $(document).ready(function () { // - jq
 // 	// window.onload = function () { // - jQuery. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готова
 // 	// // $(window).load(function () { // - jq
-// 		// (i) Отображение выбранного пункта оглавления и скрытие других пунктов
+// 		// i Отображение выбранного пункта оглавления и скрытие других пунктов
 // 		// if ('li' != null) {
 // 			// *событие 2-ой клик для ul
-
 // 			// $('li').click(function (e) {
-// 			$("ul").dblclick(function() { // (i) задаем функцию при двойном клике на элементе
+// 			$("ul").dblclick(function() { // - задаем функцию при двойном клике на элементе
 // 				// let parentId = $(e).parent().attr('id');
 // 				// // let parentId = $(`li`).parent().attr('id');
 // 				// console.log(`parentId: ${parentId}`);
 // 				$('ul').toggleClass("icon-expand icon-collapse");
 
-// 				// e.preventDefault(); // (i) отмена действия браузера по умолчанию
-// 				// return false; // (i) эквивалентная запись отмены действия браузера по умолчанию
-// 				// e.preventDefault ? e.preventDefault() : (e.returnValue = false) // (i) сокращенная кроссбраузерная запись остановки события
+// 				// e.preventDefault(); // - отмена действия браузера по умолчанию
+// 				// return false; // - эквивалентная запись отмены действия браузера по умолчанию
+// 				// e.preventDefault ? e.preventDefault() : (e.returnValue = false) // - сокращенная кроссбраузерная запись остановки события
 
 // 				// let stepList = $('.icon-collapse');// Ищем все элементы, получаем список элементов
 // 				// 	stepList.each(function() {// Проходим по каждому элементу циклом
@@ -170,10 +169,10 @@
 // 		nshResize(true);
 // 	});
 
-// 	tocScroller(parent.hmnavpages.def); // - Scroll down to default topic or URL-targeted topic - Прокрутите вниз до темы по умолчанию или темы, ориентированной на URL-адрес
+// 	tocScroller(parent.hmnavpages.def); // - Scroll down to default topic or URL-targeted topic - Прокрутить вниз до темы по умолчанию или темы, ориентированной на URL-адрес
 // });
 // ******************************************
-// BUG: браузер ругается на небезопасность политики одинакового происхождения
+// BUG: i браузер ругается на небезопасность политики одинакового происхождения
 // // let parentScope = parent.hmNavigationFrame;
 // let thisID = node.id;
 
@@ -186,7 +185,9 @@
 // 	if (initialtocstate != "expandall")
 // 		parent.hmAddCss(document, "#idToc li ul { display: none }");
 // }
-// (i) --> взято из файла helpman_navigation.js
+/*
+(!) hmNavigationFrame
+i взято из файла helpman_navigation.js */
 // function hmNavigationFrame() {
 // 	let actFrames = new Array(
 // 		window.frames["hmnavigation"],
@@ -197,11 +198,12 @@
 // 	}
 // 	return self;
 // }
+// (!) hmNodeDblclicked
 // function hmNodeDblclicked(node) {
 // 	thisID = node.id;
 // 	toggle("ul" + thisID.substring(1, thisID.length));
-// }
-// (i) <-- взято из файла helpman_navigation.js
+// }// i взято из файла helpman_navigation.js
+// (!) loadicons
 // function loadicons() {
 // 	let icons = new Array();
 // 	for (i = 0; i < arguments.length; i++) {
@@ -209,24 +211,27 @@
 // 		icons[i].src = arguments[i];
 // 	}
 // }
+// (!) loadtoc
 // function loadtoc() {
 // 	if (parentScope) parent.loadstate(document.getElementById("idToc"));
 // 	else loadstate(document.getElementById("idToc"));
 // }
+// (!) savetoc
 // function savetoc() {
 // 	if (parentScope) parent.savestate(document.getElementById("idToc"));
 // 	else savestate(document.getElementById("idToc"));
 // }
+// (!) clicked
 // function clicked(node, event) {
 // 	deselect();
 // 	if (parentScope) parent.hmNodeClicked(node, event);
 // 	else hmNodeClicked(node, event);
 // }
-// ! // FIX: function listExpand. Развернуть все оглавление
+// (!) listExpand-развернуть все оглавление
 function listExpand () {
-	// let ulFirstLevel = document.querySelector('ul:first-child'); // (i) ul самый 1-ый родитель - предок всех потомков
-	// let list = document.querySelectorAll('ul:not(:first-child)'); // (i) ul все предки, кроме 1-го
-	let list = document.querySelectorAll('ul'); // (i) ul все предки
+	// let ulFirstLevel = document.querySelector('ul:first-child'); // - ul самый 1-ый родитель - предок всех потомков
+	// let list = document.querySelectorAll('ul:not(:first-child)'); // - ul все предки, кроме 1-го
+	let list = document.querySelectorAll('ul'); // - ul все предки
 	for (let ul of list) {
 		if (ul.hasAttribute("class")) {
 			if (ul.classList.contains('icon-expand')) {
@@ -237,9 +242,9 @@ function listExpand () {
 		if (ul.style.display == "none") { ul.removeAttribute('style'); }
 	}
 }
-// ! // FIX: function listCollapse. Свернуть все оглавление
+// (!) listCollapse-свернуть все оглавление
 function listCollapse () {
-	let list = document.querySelectorAll('ul'); // (i) ul все предки
+	let list = document.querySelectorAll('ul'); // - ul все предки
 	for (let ul of list) {
 		if (ul.hasAttribute("class")) {
 			if (ul.classList.contains('icon-collapse')) {
@@ -252,49 +257,47 @@ function listCollapse () {
 		}
 	}
 }
-// ! // FIX: function allListExpandCollapse. Переключатель развернуть/свернуть все оглавление
+// (!) allListExpandCollapse-переключатель развернуть/свернуть все оглавление
 function allListExpandCollapse (event) {
-	let inputMenuListSwitch = document.getElementById('idTocListMenuSwitch');
-	if (inputMenuListSwitch.checked) {
+	let inputNavListSwitch = document.getElementById('idTocListMenuSwitch');
+
+	if (inputNavListSwitch.checked) {
 		listCollapse(); // Свернуть все оглавление
+		// $('.nav-icon').attr('src', 'image/nav-pane-expand.png'); // jq
+		// document.querySelector('.nav-icon').setAttribute('src', 'image/nav-pane-expand.png'); // js
 	} else {
 		listExpand(); // Развернуть все оглавление
+		// $('.nav-icon').attr('src', 'image/nav-pane-collapse.png'); // jq
+		// document.querySelector('.nav-icon').setAttribute('src', 'image/nav-pane-collapse.png'); // js
 	}
-	// (i) 1-ый вариант, когда не было checkbox
-	// let firstLevel = document.querySelector('ul:first-child');
-	// if (firstLevel.classList.contains('icon-expand')) {
-	// 	listExpand();
-	// 	$(event.target).attr('title', 'Свернуть все оглавление');
-	// } else {
-	// 	if (firstLevel.classList.contains('icon-collapse')) {
-	// 		listCollapse();
-	// 		$(event.target).attr('title', 'Развернуть все оглавление');
-	// 	}
-	// }
+	if ($('#idNavIcon').hasClass('nav-icon')) {
+		$('#idNavIcon').toggleClass('nav-icon nav-icon-toggle');
+	}
 }
 /*
-! // FIX: function treeviewListDefault. Опция древовидный вид списка в режиме "По умолчанию" (переключатель): (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
-*jq/jQuery
-*/
+(!) treeviewListDefault-опция древовидный вид списка в режиме "По умолчанию":
+i в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
+*jq/jQuery */
 function treeviewListDefault (event) {
-	if (event.target.tagName != 'SPAN') return; // (i) короткая запись if, если кликнули вне тега span
+	if (event.target.tagName != "SPAN") return; // 'короткая запись if, если кликнули вне тега span
 	// console.log(event);
 	// console.log(`event.target.id: ${event.target.id}`);
 	// ! Предки - родительские узлы элементов:
-	// let ulParents = $(event.target).parents('ul'); // (i) все родительские узлы по селектору, вложенные по цепочке вверх
-	let ulParent = $(event.target).parents().eq(2); // (i) текущий узел предка - ul, на кот.кликнули
+	// let ulParents = $(event.target).parents('ul'); // - все родительские узлы по селектору, вложенные по цепочке вверх
+	let ulParent = $(event.target).parents().eq(2); // - текущий узел предка - ul, на кот.кликнули
 	// ! Потомки - дети:
-	// let ulChildren = $(event.target).parents('li').eq(0).children(); // (i) все узлы потомков по селектору предка li, внутри кот.находятся: а-шка и вложенные ul-ки
-	// let ulChildren = $(event.target).parents('li').children('ul'); // (i) узлы потомков по селектору по цепочке вверх
-	// (i) узлы потомков по селектору:
+	// let ulChildren = $(event.target).parents('li').eq(0).children(); // - все узлы потомков по селектору предка li, внутри кот.находятся: а-шка и вложенные ul-ки
+	// let ulChildren = $(event.target).parents('li').children('ul'); // - узлы потомков по селектору по цепочке вверх
+	// ! Узлы потомков по селектору:
 	// let ulChildren = $(event.target).parents('li').eq(0).children('ul'); // - вариант 1. Смотрим потомков через селектор li предка
 	let ulChildren = $(event.target).parents().eq(1).children('ul'); // - вариант 2
 	// let ulChildren = $(ulParent[0]).children('li').children('ul'); // - вариант 3
 	// ! Потомки текущего потомка - вложенность цепочки во внутрь
 	let ulChildrensChildren = $(ulChildren).children('ul');
 
-	if (ulChildren.length == 0) return; // (i) короткая запись if, если нет вложенных детей
-	if ($(ulParent).attr('class')) { // - если есть атрибут "класс" меняем иконку «+/-» текущего предка и отображаем/скрываем: потомков и потомков от потомков
+	if (ulChildren.length == 0) return; // 'короткая запись if, если нет вложенных детей
+	// *если есть атрибут "класс" меняем иконку «+/-» текущего предка и отображаем/скрываем: потомков и потомков от потомков
+	if (($(ulParent).attr('class') !== false) || (typeof ($(ulParent).attr('class')) !== "undefined")) {
 		if ($(ulParent).hasClass('icon-expand')) {
 			for (let i = 0; i < ulChildren.length; i++) {
 				if ($(ulChildren[i]).css(`display`) == "none") {
@@ -342,38 +345,42 @@ function treeviewListDefault (event) {
 		}
 	}
 }
-// ! // FIX: function treeviewListCurrent. Опция древовидный вид списка в режиме "Текущий пункт" (переключатель): (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
+/*
+(!) treeviewListCurrent-опция древовидный вид списка в режиме "Текущий пункт":
+i в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления */
 function treeviewListCurrent (event) {
-	if (event.target.tagName != 'SPAN') return; // (i) короткая запись if, если кликнули вне тега span
+	if (event.target.tagName != "SPAN") return; // 'короткая запись if, если кликнули вне тега span
 	// ! Предки - родительские узлы элементов:
-	// xxx let ulAllParents = document.querySelectorAll('ul'); // (i) ul узлы всех предков
-	let ulParents = $(event.target).parents('ul'); // (i) все родительские узлы по селектору, вложенные по цепочке вверх
-	let ulParent = $(event.target).parents().eq(2); // (i) текущий узел предка - ul, на кот.кликнули
+	// x let ulAllParents = document.querySelectorAll('ul'); // - ul узлы всех предков
+	let ulParents = $(event.target).parents('ul'); // - все родительские узлы по селектору, вложенные по цепочке вверх
+	let ulParent = $(event.target).parents().eq(2); // - текущий узел предка - ul, на кот.кликнули
 	// ! Потомки - дети:
-	// let ulChildren = $(event.target).parents('li').eq(0).children(); // (i) все узлы потомков по селектору предка li, внутри кот.находятся: а-шка и вложенные ul-ки
-	// let ulChildren = $(event.target).parents('li').children('ul'); // (i) все узлы потомков по селектору по цепочке вверх
-	// (i) узлы потомков по селектору:
+	// let ulChildren = $(event.target).parents('li').eq(0).children(); // - все узлы потомков по селектору предка li, внутри кот.находятся: а-шка и вложенные ul-ки
+	// let ulChildren = $(event.target).parents('li').children('ul'); // - все узлы потомков по селектору по цепочке вверх
+	// ! Узлы потомков по селектору:
 	// let ulChildren = $(event.target).parents('li').eq(0).children('ul'); // - вариант 1. Смотрим потомков через селектор li предка
 	let ulChildren = $(event.target).parents().eq(1).children('ul'); // - вариант 2
-	if (ulChildren.length == 0) { // (i) если вложенных детей ul нет, проверяем наличие ul среди детей li текущего предка
+	if (ulChildren.length == 0) { // - если вложенных детей ul нет, проверяем наличие ul среди детей li текущего предка
 		ulChildren = $(ulParent).children('ul');
-		// XXX let ulChildrensChildren = $(ulChildren).children().children('ul'); // в противном случае вернет "0" вместо "undefined"
+		// X let ulChildrensChildren = $(ulChildren).children().children('ul'); // в противном случае вернет "0" вместо "undefined"
 	}
 	// ! Потомки текущего потомка - вложенность цепочки во внутрь
 	let ulChildrensChildren = $(ulChildren).children('ul'); // в противном случае вернет "0" вместо "undefined"
-	// ! Соседи:
-	// (i) набор всех соседних узлов (тех, которые имеют того же родителя что и текущий) по селектору, вложенных по цепочке вверх
-	let ulSiblings = $(event.target).parents('ul').siblings('ul'); // в противном случае вернет "0" вместо "undefined"
-	// (i) запоминаем имя текущего класса предка для переключения возможности скрыть/показать текущий пункт списка оглавления
+	/*
+	! Соседи:
+	i набор всех соседних узлов (тех, которые имеют того же родителя что и текущий) по селектору, вложенных по цепочке вверх */
+	let ulSiblings = $(event.target).parents('ul').siblings('ul'); // - в противном случае вернет "0" вместо "undefined"
+	// *запоминаем имя текущего класса предка для переключения возможности скрыть/показать текущий пункт списка оглавления
 	let className;
 	for (let i = 0; i < ulParent[0].classList.length; i++) {
 		if ((ulParent[0].classList[i] == "icon-expand") || (ulParent[0].classList[i] == "icon-collapse")) {
 			className = ulParent[0].classList[i];
 			break;
 		}
-	}// (i) запоминаем имя текущего класса предка для переключения возможности скрыть/показать текущий пункт списка оглавления
+	}
+	// запоминаем имя текущего класса предка для переключения возможности скрыть/показать текущий пункт списка оглавления
 	listCollapse(); // - сворачиваем все оглавление
-	// ! Отображаем все соседние узлы, вложенные по цепочке вверх
+	// *Отображаем все соседние узлы, вложенные по цепочке вверх
 	if (ulSiblings.length > 0) {
 		for (let i = 0; i < ulSiblings.length; i++) {
 			if ($(ulSiblings[i]).css(`display`) == "none") {
@@ -381,7 +388,7 @@ function treeviewListCurrent (event) {
 			}
 		}
 	}
-	// ! Отображаем всех потомков текущего потомка
+	// *Отображаем всех потомков текущего потомка
 	if (ulChildrensChildren.length > 0) {
 		for (let i = 0; i < ulChildrensChildren.length; i++) {
 			if ($(ulChildrensChildren[i]).css(`display`) == "none") {
@@ -389,7 +396,7 @@ function treeviewListCurrent (event) {
 			}
 		}
 	}
-	// ! Отображаем/скрываем всех потомков
+	// *Отображаем/скрываем всех потомков
 	if (ulChildren.length > 0) {
 		if (className == "icon-collapse") {
 			for (let i = 0; i < ulChildren.length; i++) {
@@ -405,7 +412,7 @@ function treeviewListCurrent (event) {
 			}
 		}
 	}
-	// ! Отображаем все родительские узлы, вложенные по цепочке вверх с учетом текущего родителя, для кот.предусмотрена возможность скрывать/отображать список
+	// *Отображаем все родительские узлы, вложенные по цепочке вверх с учетом текущего родителя, для кот.предусмотрена возможность скрывать/отображать список
 	for (let i = 0; i < ulParents.length; i++) {
 		if ($(ulParents[i]).css(`display`) == "none") {
 			$(ulParents[i]).removeAttr('style');
@@ -433,9 +440,9 @@ function treeviewListCurrent (event) {
 		}
 	}
 }
-// ! // FIX: function clicked. Скрыть/Показать раздел/подраздел оглавления в пан.нав.
+// (!) clicked-Скрыть/Показать раздел/подраздел оглавления в пан.нав.
 function clicked (event) {
-	if (event.target.tagName != 'SPAN') return; // (i) короткая запись if, если кликнули вне тега span
+	if (event.target.tagName != "SPAN") return; // 'короткая запись if, если кликнули вне тега span
 	let inputCheckboxNode = document.getElementById('idTreeView');
 	if ((typeof(inputCheckboxNode) !== "undefined") && (typeof(inputCheckboxNode) === "object") && inputCheckboxNode !== null) {
 		if (inputCheckboxNode.checked) {
@@ -446,7 +453,7 @@ function clicked (event) {
 			return;
 		}
 	} else {
-		if (event.target.tagName != 'INPUT') return; // (i) короткая запись if, если кликнули вне тега input
+		if (event.target.tagName != "INPUT") return; // 'короткая запись if, если кликнули вне тега input
 		let inputRadioNodes = document.getElementsByTagName('INPUT');
 		if (inputRadioNodes.length > 0) {
 			for (let r = 0; r < inputRadioNodes.length; r++) {
@@ -472,14 +479,17 @@ function clicked (event) {
 		}
 	}
 }
+// (!) dblclicked
 // function dblclicked (node) {
 // 	if (parentScope) parent.hmNodeDblclicked(node);
 // 	else hmNodeDblclicked(node);
 // }
+// (!) deselect
 // function deselect() {
 // 	if (window.getSelection) window.getSelection().removeAllRanges();
 // 	else if (document.selection) document.selection.empty();
 // }
+// (!) loadtoc & savetoc
 // $(document).ready(function () {
 // 	loadtoc();
 // 	$(window).onunload = savetoc;

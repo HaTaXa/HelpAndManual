@@ -6,19 +6,19 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Help&Manual</title>
 	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
-	<meta name="robots" content="index, follow"/> <!-- ??? -->
+	<meta name="robots" content="index, follow"/>
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="help, manual, HelpAndManual">
+	<meta name="keywords" content="HelpManual, HelpAndManual, help, manual">
 	<!-- ! подключение скриптов js, jQuery -->
 	<!-- <script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="js/jquery.easing.1.3.js"></script> -->
 	<!-- ! подключение стилей -->
-	<link rel="stylesheet" href="css/styles.css"> <!-- (i) вместо файла hm_webhelp.css -->
-	<link rel="stylesheet" href="css/index.css"> <!-- (i) взято из: расположено в теге "<head>" основного файла index.html -->
-	<link rel="stylesheet" href="css/linkstyles.css"> <!-- (i) стилизация ссылок -->
+	<link rel="stylesheet" href="css/styles.css"> <!-- 'вместо файла hm_webhelp.css -->
+	<link rel="stylesheet" href="css/index.css"> <!-- 'взято из: расположено в теге "<head>" основного файла index.html -->
+	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 	<!-- ! еще скрипты js, jquery -->
-	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- (i) вместо файла helpman_settings.js -->
+	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- 'вместо файла helpman_settings.js -->
 	<!-- <script type="text/javascript" src="js/helpman_navigation.js"></script> -->
 	<!-- <script type="text/javascript" src="js/hmwebhelp.js"></script> -->
 	<!-- <script type="text/javascript" src="js/hmcontextids.js"></script> -->
@@ -27,213 +27,226 @@
 	<link id="iesvgcss" rel="stylesheet" type="text/css" href="css/svg.css" />
 	<![endif] -->
 	<!-- [if lte IE 8]>
-	<style type="text/css">.toolbar-compact, .toolbar-banner {background-image: url("image/gb-banner.gif");}
+	<style type="text/css">.toolbar, .toolbar-banner {background-image: url("image/gb-banner.gif");}
 	topic-tab-current, div#idTabsCtab {background-image: url("image/gb-banner.gif");}
 	</style>
 	<![endif] -->
 </head>
 <body>
 	<div id="idContainer" class="container">
-		<!-- ! Баннер на официальный сайт компании -->
+		<!-- (!) idBanner-Баннер на официальный сайт компании -->
 		<div id="idBanner" class="banner" style="display: none;">
-			<a class="banner" href="http://www.1gl.ru" title="БСС «Система Главбух» официальный сайт" target="_blank">
-				<div class="banner">
-					<span class="banner">www.1gl.ru</span>
+			<a href="http://www.1gl.ru" target="_blank" title="БСС «Система Главбух» официальный сайт" alt="БСС «Система Главбух» официальный сайт">
+				<div>
+					<span>www.1gl.ru</span>
 				</div>
 			</a>
 		</div>
-		<!-- ! Панель инструментов -->
-		<div id="idToolbar" class="toolbar-compact">
-			<!-- - // FIX: поле быстрый поиск -->
+		<!-- (!) idToolbar-Панель инструментов -->
+		<div id="idToolbar" class="toolbar">
+			<!-- (!)*toolbar-search - быстрый поиск -->
 			<div class="toolbar-search">
 				<div id="idQuickSearch" class="toolbar-box toolbar-box-search">
-					<input id="idInputSearch" type="text" name="inputSearch" autocapitalize="off" autocorrect="off" title="Быстрый поиск" placeholder="Введите текст">
-					<!-- // <span id="idNavIconQuickSearch" onclick="quickSearch()"> -->
-						<img id="idQuickSearchOn" class="nav-icon" src="image/search.png" onclick="quickSearch()" title="Поиск разделов справки" alt="Поиск разделов справки">
-						<img id="idQuickSearchOff" class="nav-icon-H" src="image/searchoff.png">
-					<!-- // </span> -->
+					<!-- (!) idToolbarNavShowHide-checkbox Cкрыть/Показать панель навигации -->
+					<label for="idToolbarNavShowHide">
+						<input type="checkbox" name="ToolbarNavShowHide" id="idToolbarNavShowHide" checked="checked">
+						<div id="idToolbarNavPane" class="toolbar-nav-pane" onclick="setNavPaneShowHide()" title="Скрыть/Показать панель навигации">
+							<div class="nav-icon-navigation"></div>
+						</div>
+						<!-- <img id="idToolbarNavPane" class="nav-icon-navigation" src="image/nav-pane.svg" onclick="setNavPaneShowHide()" title="Скрыть/Показать панель навигации"> -->
+						<!-- <span class="nav-text-on text-wrapping">Скрыть/Показать</span> -->
+					</label>
+					<!-- (!) idInputSearch-поле быстрый поиск -->
+					<input type="text" name="InputSearch" id="idInputSearch" autocapitalize="off" autocorrect="off" title="Быстрый поиск" placeholder="Введите текст">
+				<!-- // <span id="idNavIconQuickSearch" onclick="quickSearch()"> -->
+					<img id="idQuickSearchOn" class="nav-icon-search" src="image/search.png" onclick="quickSearch()" title="Поиск разделов справки">
+					<img id="idQuickSearchOff" class="nav-icon-search-H" src="image/searchoff.png">
+				<!-- // </span> -->
 					<span class="nav-text-on">Быстрый поиск</span>
 				</div>
 			</div>
-			<!-- ! Кнопки на панеле инструментов -->
-			<!-- *кнопки на панеле слева -->
+			<!-- 'Кнопки на панеле инструментов -->
+			<!-- *toolbar-left - кнопки на панеле слева -->
 			<div class="toolbar-left">
-				<!-- - // FIX: кнопка Обзор -->
+				<!-- (!) - кнопка Обзор -->
 				<div class="toolbar-box toolbar-box-left">
 					<!-- // <span id="idNavIconTopic" onclick="topicsPane()"> -->
-						<img id="idTopicOn" class="nav-icon" src="image/browse.png" onclick="topicsPane()" title="Вкладка «Главная тема»" alt="Вкладка «Главная тема»">
+						<img id="idTopicOn" class="nav-icon" src="image/browse.png" onclick="topicsPane()" title="Вкладка «Главная тема»">
 					<!-- // </span> -->
 					<span id="idTopicText" class="nav-text-on">Обзор</span>
 				</div>
-				<!-- - // FIX: кнопка Слова -->
+				<!-- (!) - кнопка Слова -->
 				<div class="toolbar-box toolbar-box-left">
 					<!-- // <span id="idNavIconIndex" onclick="indexPane()"> -->
-						<img id="idIndexOn" class="nav-icon" src="image/index.png" onclick="indexPane()" title="Ключевые слова" alt="Ключевые слова">
+						<img id="idIndexOn" class="nav-icon" src="image/index.png" onclick="indexPane()" title="Ключевые слова">
 					<!-- // </span> -->
 					<img id="idIndexOff" class="nav-icon-H" src="image/index_off.png">
 					<span id="idIndexText" class="nav-text-on">Слова</span>
 				</div>
-				<!-- - // FIX: кнопка Поиск -->
+				<!-- (!) - кнопка Поиск -->
 				<div class="toolbar-box toolbar-box-left">
 					<!-- // <span id="idNavIconSearch" onclick="searchPane()"> -->
-						<img id="idSearchOn" class="nav-icon" src="image/search.png" onclick="searchPane()" title="Поиск разделов справки" alt="Поиск разделов справки">
+						<img id="idSearchOn" class="nav-icon" src="image/search.png" onclick="searchPane()" title="Поиск разделов справки">
 					<!-- // </span> -->
 					<img id="idSearchOff" class="nav-icon-H" src="image/searchoff.png">
 					<span id="idSearchText" class="nav-text-on">Поиск</span>
 				</div>
-				<!-- - // FIX: кнопка Открепить -->
+				<!-- (!) - кнопка Открепить -->
 				<div id="idUndocTabTool" class="toolbar-box toolbar-box-left">
 					<!-- // <span id="idNavIconUndocTab" onclick="undockTab()"> -->
-						<img id="idUndocTabOn" class="nav-icon-H" src="image/tabundock.png" onclick="undockTab()" title="Открепить текущую вкладку" alt="Открепить текущую вкладку">
+						<img id="idUndocTabOn" class="nav-icon-H" src="image/tabundock.png" onclick="undockTab()" title="Открепить текущую вкладку">
 					<!-- // </span> -->
 					<img id="idUndocTabOff" class="nav-icon" src="image/tabundock_off.png" title="(i) Нельзя открепить вкладку «Главная». Создайте новую вкладку и нажмите кнопку «Открепить»">
-					<span id="idUndocTabText" class="nav-text-on nav-text-off">Открепить</span>
+					<span id="idUndocTabText" class="nav-text-off">Открепить</span>
 				</div>
-				<!-- - // FIX: кнопка Новая вкладка -->
+				<!-- (!) - кнопка Новая вкладка -->
 				<div id="idNewTabTool" class="toolbar-box toolbar-box-left">
 					<!-- // <span id="idNavIconNewTab" onclick="newTab()"> -->
-						<img id="idNewTabOn" class="nav-icon" src="image/tabnew.png" onclick="newTab()" title="Открыть актуальную тему в новой вкладке" alt="Открыть актуальную тему в новой вкладке">
+						<img id="idNewTabOn" class="nav-icon" src="image/tabnew.png" onclick="newTab()" title="Открыть актуальную тему в новой вкладке">
 					<!-- // </span> -->
-					<img id="idNewTabOff" class="nav-icon-H" src="image/tabnew_off.png" title="Выберите главную вкладку, чтобы активировать эту функцию" alt="Выберите главную вкладку, чтобы активировать эту функцию">
+					<img id="idNewTabOff" class="nav-icon-H" src="image/tabnew_off.png" title="Выберите главную вкладку, чтобы активировать эту функцию">
 					<span id="idNewTabText" class="nav-text-on text-wrapping">Новая вкладка</span>
 				</div>
 			</div>
-			<!-- *кнопки на панеле в центре -->
+			<!-- *toolbar-center - кнопки на панеле в центре -->
 			<div class="toolbar-center">
-				<!-- - // FIX: кнопка Показать/скрыть сайт компании -->
+				<!-- (!) - idBannerShowHide-checkbox Показать/скрыть сайт компании -->
 				<div class="toolbar-box toolbar-box-center">
-					<!-- // <span id="idNavIconShowHide" onclick="bannerShowHide()"> -->
-						<img id="idShowHideOn" class="nav-icon" src="image/gb.gif" onclick="bannerShowHide()" title="Показать/Скрыть официальный сайт компании" alt="Показать/Скрыть официальный сайт компании">
-					<!-- // </span> -->
-					<span class="nav-text-on">Показать/Скрыть</span>
+					<label for="idBannerShowHide">
+						<input type="checkbox" name="BannerShowHide" id="idBannerShowHide">
+						<img id="idWebShowHide" class="nav-icon" src="image/gb.gif" onclick="bannerShowHide();" title="Показать/Скрыть официальный сайт компании" alt="БСС «Система Главбух»">
+						<span class="nav-text-on text-wrapping">Показать/Скрыть</span>
+					</label>
 				</div>
-				<!-- - // FIX: кнопка Развернуть/свернуть скрытый текст -->
+				<!-- (!) - idTextExpandCollapse-checkbox Развернуть/свернуть скрытый текст -->
 				<div class="toolbar-box toolbar-box-center">
-					<!-- // <span id="idNavIconExpand" onclick="textHiddenExpand()"> -->
-						<img id="idExpandOn" class="nav-icon" src="image/expandon.png" onclick="textHiddenExpand()" title="Развернуть/Свернуть скрытый текст в текущей теме" alt="Развернуть/Свернуть скрытый текст в текущей теме">
-					<!-- // </span> -->
-					<img id="idExpandOff" class="nav-icon-H" src="image/expandoff.png">
-					<span id="idExpandText" class="nav-text-on">Развернуть/Свернуть</span>
+					<label for="idTextExpandCollapse">
+						<input type="checkbox" name="TextExpandCollapse" id="idTextExpandCollapse">
+						<img id="idExpandOn" class="nav-icon" src="image/expandon.png" onclick="textExpandCollapse()" title="Развернуть/Свернуть скрытый текст в текущей теме">
+						<img id="idExpandOff" class="nav-icon-H" src="image/expandoff.png">
+						<span id="idExpandText" class="nav-text-on text-wrapping">Развернуть/Свернуть</span>
+					</label>
 				</div>
 			</div>
-			<!-- *кнопки на панеле справа -->
+			<!-- *toolbar-right - кнопки на панеле справа -->
 			<div class="toolbar-right">
-				<!-- - // FIX: кнопка Постоянная ссылка -->
+				<!-- (!) - кнопка Постоянная ссылка -->
 				<div id="idPermalinkTool" class="toolbar-box toolbar-box-right">
 					<!-- // <span id="idNavIconPermalink" onclick="setPermalink(hmnavpages.top)"> -->
-						<img id="idPermalinkOn" class="nav-icon" src="image/permalink.png" onclick="setPermalink(hmnavpages.top)" title="Скопировать постоянную ссылку" alt="Скопировать постоянную ссылку">
+						<img id="idPermalinkOn" class="nav-icon" src="image/permalink.png" onclick="permanentLink(hmnavpages.top)" title="Скопировать постоянную ссылку">
 					<!-- // </span> -->
 					<img id="idPermalinkOff" class="nav-icon-H" src="image/permalinkoff.png">
 					<span id="idPermalinkText" class="nav-text-on text-wrapping">Постоянная ссылка</span>
 				</div>
-				<!-- - // FIX: кнопка Email -->
+				<!-- (!) - кнопка Email -->
 				<div id="idFeedBackTool" class="toolbar-box toolbar-box-right">
 					<a id="idNavIconFeedBack" href="mailto:user231082@gmail.com">
-						<img id="idFeedBackOn" class="nav-icon" src="image/emailon.png" title="ТехПоддержка" alt="ТехПоддержка" onmouseover="this.src='image/support.gif'" onmouseout="this.src='image/emailon.png'">
+						<img id="idFeedBackOn" class="nav-icon" src="image/emailon.png" title="ТехПоддержка" onmouseover="this.src='image/support.gif'" onmouseout="this.src='image/emailon.png'">
 					</a>
 					<img id="idFeedBackOff" class="nav-icon-H" src="image/emailoff.png">
 					<span id="idFeedBackText" class="nav-text-on">E-mail</span>
 				</div>
-				<!-- - // FIX: кнопка Печать -->
+				<!-- (!) - кнопка Печать -->
 				<div id="idPrintTool" class="toolbar-box toolbar-box-right">
 					<a id="idNavIconPrinter" href="javascript: void(0);" onclick="printTopic(activePage)">
-						<img id="idPrinterOn" class="nav-icon" src="image/printer.png" title="Распечатать текущую тему" alt="Распечатать текущую тему">
+						<img id="idPrinterOn" class="nav-icon" src="image/printer.png" title="Распечатать текущую тему">
 					</a>
 					<img id="idPrinterOff" class="nav-icon-H" src="image/printer_off.png">
 					<span id="idPrinterText" class="nav-text-on">Печать</span>
 				</div>
-				<!-- - // FIX: кнопка Домой -->
+				<!-- (!) - кнопка Домой -->
 				<div class="toolbar-box toolbar-box-right">
 					<a id="idNavIconHome" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pageHome(this.href)">
-						<img class="nav-icon" src="image/home.png" title="Домашняя страница" alt="Домашняя страница">
+						<img class="nav-icon" src="image/home.png" title="Домашняя страница">
 					</a>
 					<span class="nav-text-on">Домой</span>
 				</div>
-				<!-- - // FIX: кнопка Назад -->
+				<!-- (!) - кнопка Назад -->
 				<div class="toolbar-box toolbar-box-right">
 					<a id="idNavIconPrevious" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pagePrevious(this.href)">
-						<img class="nav-icon" src="image/arrow_previous.png" title="На предыдущую страницу" alt="На предыдущую страницу">
+						<img class="nav-icon" src="image/arrow_previous.png" title="На предыдущую страницу">
 					</a>
 					<span class="nav-text-on">Назад</span>
 				</div>
-				<!-- - // FIX: кнопка Вперед -->
+				<!-- (!) - кнопка Вперед -->
 				<div class="toolbar-box toolbar-box-right">
 					<a id="idNavIconNext" class="nav-cache" href="esd_bss_glavbyx.html" target="hmcontent" onclick="pageNext(this.href)">
-						<img class="nav-icon" src="image/arrow_next.png" title="На следующую страницу" alt="На следующую страницу">
+						<img class="nav-icon" src="image/arrow_next.png" title="На следующую страницу">
 					</a>
 					<span class="nav-text-on">Вперед</span>
 				</div>
 			</div>
 		</div>
-		<!-- ! //FIX: Левая часть - панель навигации -->
+		<!-- (!) idNavPane-Панель навигации -->
 		<div id="idNavPane" class="nav-pane">
-			<!-- - фрейм нав.пан. -->
-			<!-- XXX #document - панель навигации -->
+			<!-- 'фрейм нав.пан. -->
+			<!-- X ? #document-панель навигации -->
 			<div id="idNavBox" class="nav-box">
-				<!-- (i) скрипт расположен в фале hmwebhelp.js -->
+				<!-- (i)*см.скрипт в фале hmwebhelp.js -->
 				<!-- // <script type="text/javascript">WebHelp.writeTOC();</script> -->
 				<iframe id="hmnavigation" name="hmnavigation" class="scroll-pane" src="navigation.html" title="Панель Навигация"></iframe>
 			</div>
-			<!-- - боковой разделитель -->
+			<!-- 'боковой разделитель -->
 			<div id="idSplitterRight" class="splitter-right" title="Разширить/Сузить панель навигации"></div>
-			<!-- - нижний разделитель -->
+			<!-- 'нижний разделитель -->
 			<div id="idSplitterBottom" class="splitter-bottom" title="Опустить/Поднять панель навигации"></div>
 		</div>
-		<!-- ! //FIX: Правая часть - панель тема (топиков) -->
+		<!-- (!) idTopicPane-Панель тема (топиков) -->
 		<div id="idTopicPane" class="topic-pane">
-			<div id="idTabControls" class="tab-controls">
-				<!-- *кнопка Скрыть/покать пан.нав. -->
+			<div id="idTopicControls" class="topic-controls">
+				<!-- (!)*idNavHandle-checkbox Скрыть/Покать пан.нав. -->
 				<div id="idNavHandle" class="nav-handle">
-					<a href="javascript: void(0)" onclick="NavShowHide()">
-						<img id="idNavShowHide" src="image/nav_hide.png" title="Скрыть/Показать панель навигации" alt="Скрыть/Показать панель навигации" style="border: 0;">
-					</a>
+					<label for="idTopicPaneNavShowHide">
+						<input type="checkbox" name="TopicPaneNavShowHide" id="idTopicPaneNavShowHide" checked="checked">
+						<img id="idTopicPaneNavShowHideIcon" class="nav-handle-icon navhandle-navpane-show" src="image/nav_hide.png" onclick="setNavPaneShowHide()" title="Скрыть/Показать панель навигации">
+					</label>
 				</div>
-				<!-- *кнопки переключения между вкладками -->
+				<!-- (!)*idTabsCtab-кнопки переключения между вкладками -->
 				<div id="idTabsCtab" class="tabs-c-tab">
 					<div id="idTabsCtabRight" class="tabs-c-tab-right">
-						<img id="idTabEndLeft" class="tab-player tab-end-left" src="image/tabendleft.png" title="Начало панели вкладок" alt="Начало панели вкладок">
-						<img id="idTabLeft" class="tab-player tab-left" src="image/tableft.png" title="Предыдущая вкладка" alt="Предыдущая вкладка">
-						<img id="idToggleMenuTab" class="tab-player toggle-menu-tab" src="image/tabs_menu.png" title="Меню вкладок" alt="Меню вкладок">
-						<img id="idTabRight" class="tab-player tab-right" src="image/tabright.png" title="Следующая вкладка" alt="Следующая вкладка">
-						<img id="idTabEndRight" class="tab-player tab-end-right" src="image/tabendright.png" title="Конец панели вкладок" alt="Конец панели вкладок">
+						<img id="idTabFirst" class="tab-player" src="image/tab-first.png" onclick="tabNavigation(event)" title="Первая вкладка">
+						<img id="idTabPrevious" class="tab-player" src="image/tab-previous.png" onclick="tabNavigation(event)" title="Предыдущая вкладка">
+						<img id="idToggleMenuTab" class="tab-player" src="image/tabs_menu.png" onclick="tabsMenu()" title="Меню вкладок">
+						<img id="idTabNext" class="tab-player" src="image/tab-next.png" onclick="tabNavigation(event)" title="Следующая вкладка">
+						<img id="idTabLast" class="tab-player" src="image/tab-last.png" onclick="tabNavigation(event)" title="Последняя вкладка">
 					</div>
 				</div>
-				<!-- *меню вкладок -->
-				<div id="idTabsMenuBox" class="tabs-menu-box">
+				<!-- (!)*idTabsMenuBox-меню вкладок -->
+				<div id="idTabsMenuBox" class="tabs-menu-box" style="display: none;">
 					<div id="idTabsMenu" class="tabs-menu">
 						<ul id="idTabsList" class="tabs-list">
 							<li>
-								<a id="idTabList0" href="#" onclick="TabSlider.goToTab(0, true)" style="font-weight: bold;">Актуальная Тема:&nbsp;ЕСД БСС «Главбух»</a>
+								<a id="idTabList0" href="#" onclick="goToTab(0, true)" style="font-weight: bold;">Актуальная Тема:&nbsp;ЕСД БСС «Главбух»</a>
 							</li>
 							<li>
-								<a id="idTabList1" href="#" onclick="TabSlider.goToTab(1, true)" style="font-weight: normal;">Ключевые слова</a>
+								<a id="idTabList1" href="#" onclick="goToTab(1, true)" style="font-weight: normal;">Ключевые слова</a>
 							</li>
 							<li>
-								<a id="idTabList2" href="#" onclick="TabSlider.goToTab(2, true)" style="font-weight: normal;">Поиск</a>
+								<a id="idTabList2" href="#" onclick="goToTab(2, true)" style="font-weight: normal;">Поиск</a>
 							</li>
 						</ul>
 					</div>
 				</div>
-				<!-- * //FIX: Вкладки топика -->
+				<!-- (!)*idTabsWindow-вкладки топика -->
 				<div id="idTabsWindow" class="tabs-window">
 					<div id="idTabsLider" class="tabs-lider">
 						<ul id="idTopicTabs" class="tabs">
-							<!-- - вкладка тема -->
-							<li id="idTopicTab" class="topic-tab" ondblclick="alert(`(i) Нельзя открепить вкладку «Главная».\n` + `Создайте новую вкладку и нажмите кнопку «Открепить».`)" onclick="topicTab();" tabnum="0">
+							<!-- (!) idTopicTab-вкладка "Тема" -->
+							<li id="idTopicTab" class="topic-tab" ondblclick="alert(`(i) Нельзя открепить вкладку «Главная».\n` + `Создайте новую вкладку и нажмите кнопку «Открепить».`)" onclick="topicTab()" tabnum="0">
 								<a id="idTopicTabLink" href="#topictablink" data="ЕСД БСС «Главбух»" title="ЕСД БСС «Главбух»">
 									<span>ЕСД БСС «Главбух»</span>
 								</a>
 							</li>
-							<!-- - вкладка ключевые слова -->
-							<li id="idIndexTab" class="topic-tab" onclick="keywordsTab();" hpage="index" tabnum="1">
-								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку" onmouseover="this.src='image/closetabon.png'" onmouseout="this.src='image/closetaboff.png'">
+							<!-- (!) idIndexTab-вкладка "Ключевые слова" -->
+							<li id="idIndexTab" class="topic-tab" onclick="keywordsTab()" hpage="index" tabnum="1">
+								<img class="close-tab" src="image/closetaboff.png" title="Закрыть эту вкладку" onmouseover="this.src='image/closetabon.png'" onmouseout="this.src='image/closetaboff.png'">
 								<a id="idIndexTabLink" href="#indextablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Ключевые слова»">
 									<span>Ключевые слова</span>
 								</a>
 							</li>
-							<!-- - вкладка поиск -->
-							<li id="idSearchTab" class="topic-tab" onclick="searchTab();" hpage="search" tabnum="2" style="display: list-item;">
-								<img class="close-tab" src="image/closetaboff.png" alt="Закрыть эту вкладку" title="Закрыть эту вкладку" onmouseover="this.src='image/closetabon.png'" onmouseout="this.src='image/closetaboff.png'">
+							<!-- (!) idSearchTab-вкладка "Поиск" -->
+							<li id="idSearchTab" class="topic-tab" onclick="searchTab()" hpage="search" tabnum="2">
+								<img class="close-tab" src="image/closetaboff.png" title="Закрыть эту вкладку" onmouseover="this.src='image/closetabon.png'" onmouseout="this.src='image/closetaboff.png'">
 								<a id="idSearchTabLink" href="#searchtablink" ondblclick="unpinTab();" title="Дважды щелкните, чтобы открепить вкладку «Поиск»">
 									<span>Поиск</span>
 								</a>
@@ -242,17 +255,17 @@
 					</div>
 				</div>
 			</div>
-			<!-- * //FIX: Страницы топика: контент тема, ключевые слова, поиск -->
-			<div id="idTopicBox" class="topic-box">
-				<!-- - страница "Контент Тема" -->
-				<div id="idContentBox" class="content-box">
+			<!-- (!)*idContentBox-Страницы топика: контент тема, ключевые слова, поиск -->
+			<div id="idContentBox" class="content-box">
+				<!-- (!) idTopicBox-стр."Контент Тема" -->
+				<div id="idTopicBox" class="topic-box">
 					<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esd_bss_glavbyx.html" title="Контент Тема"></iframe>
 				</div>
-				<!-- - страница "Ключевые слова" -->
+				<!-- (!) idIndexBox-стр."Ключевые слова" -->
 				<div id="idIndexBox" class="index-box" style="display: none;">
 					<iframe id="idFrameIndex" name="frameIndex" class="scroll-pane" src="keywords.html" title="Ключевые слова"></iframe>
 				</div>
-				<!-- - страница "Поиск" -->
+				<!-- (!) idSearchBox-стр."Поиск" -->
 				<div id="idSearchBox" class="search-box" style="display: none;">
 					<iframe id="idFrameSearch" name="frameSearch" class="scroll-pane" src="search.html" title="Поиск"></iframe>
 				</div>

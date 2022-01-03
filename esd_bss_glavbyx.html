@@ -7,12 +7,12 @@
 	<title>ЕСД БСС «Главбух»</title>
 	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="help, manual, HelpAndManual">
+	<meta name="keywords" content="helpmanual, helpandmanual, help, manual">
 	<!-- ! подключение стилей -->
-	<!-- <link type="text/css" rel="stylesheet" href="css/xcommentpro/xcp_style.css"> --> <!-- ??? в проекте файла xcp_style.css не найдено -->
-	<link id="tabscheme" type="text/css" href="css/topic.css" rel="stylesheet"> <!-- (i) вместо файла hm_topic.css -->
-	<!-- // <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- (i) вместо файла hm_footer.css -->
-	<link rel="stylesheet" href="css/linkstyles.css"> <!-- (i) стилизация ссылок -->
+	<!-- <link type="text/css" rel="stylesheet" href="css/xcommentpro/xcp_style.css"> --> <!-- (?) в проекте файла xcp_style.css не найдено -->
+	<link id="tabscheme" type="text/css" href="css/topic.css" rel="stylesheet"> <!-- 'вместо файла hm_topic.css -->
+	<!-- // <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо файла hm_footer.css -->
+	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 
 	<!-- [if IE 9]>
 	<link id="iesvgcss" rel="stylesheet" type="text/css" href="svg.css" />
@@ -22,15 +22,15 @@
 	<!-- <script src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/jquery.tools.min.js"></script>
 	<script type="text/javascript" src="js/jquery.scrollTo-min.js"></script> -->
-	<script src="js/index.js"></script> <!-- (i) взято из хедера файла, на кот.делается переадресация с главной стр.index.html -->
+	<script src="js/index.js"></script> <!-- 'взято из хедера файла, на кот.делается переадресация с главной стр.index.html -->
 	<!-- <script type="text/javascript" src="js/comments.js"></script> -->
 	<!-- <script type="text/javascript" src="js/commentsx.js"></script> -->
-	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- (i) вместо файла helpman_settings.js -->
+	<!-- <script type="text/javascript" src="js/settings.js"></script> --> <!-- 'вместо файла helpman_settings.js -->
 	<!-- <script type="text/javascript" src="js/helpman_topicinit.js"></script> -->
 	<!-- <script type="text/javascript" src="js/hmtopic.js"></script> -->
 	<!-- <script type="text/javascript" src="js/hmpopups.js"></script> -->
 
-	<!-- ??? похоже на переадресацию c одной на др.стр. -->
+	<!-- (?) похоже на переадресацию c одной на др.стр. -->
 	<!-- <script type="text/javascript">
 		HMSyncTOC("index.html", "esd_bss_glavbyx.html");
 	</script> -->
@@ -41,8 +41,8 @@
 		$(document).ready(function(){highlight();});
 	</script> -->
 
-	<!-- ??? при загрузке автоматом создается ссылка на файл undocked.css, см.скрипт hmtopic.js
-		(i) я так понимаю это для случаев, когда срабатывает открепление топика от основной вкладки
+	<!-- (?) при загрузке автоматом создается ссылка на файл undocked.css, см.скрипт hmtopic.js
+		'я так понимаю это для случаев, когда срабатывает открепление топика от основной вкладки
 	-->
 
 </head>
@@ -71,26 +71,26 @@
 				</div>
 			</div> <!-- idHeaderContent the end -->
 			<div id="idAtocIcon" class="nav-divs">
-				<img id="idAtocLink" class="nav-icon" src="image/contents_off.png" title="На этой странице содержание записей отсутствует" alt="На этой странице содержание записей отсутствует">
+				<img id="idAtocLink" class="nav-icon" src="image/contents_off.png" title="На этой странице содержание записей отсутствует">
 				<br>
 				<span>Содержание</span>
 			</div>
 		</div> <!-- idTopicHeader the end -->
-		<!-- * Меню содержания -->
+		<!-- *Меню содержания -->
 		<div id="idAutoTocWrapper" class="topic-menu"></div>
-		<!-- * Контент-текст -->
+		<!-- *Контент-текст -->
 		<div id="idTopicContent" class="topic-content">
 			<div id="idUnclicker"></div>
-			<!-- ~ см.функцию в файле comments.js -->
+			<!-- ! см.функцию в файле comments.js -->
 			<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
-			<!-- * Comment Links - комментарии -->
+			<!-- *Comment Links - комментарии -->
 			<div class="links-comment">
 				<p id="idCommentLink1" class="comment-para comment-link1">
 					<a id="idCommentToggle1" class="comment-link" title="Просмотр и добавление комментариев" href="javascript:void(0);" onclick="showComments();return false;">Комментарии (<span class="comments">0</span>)
 					</a>
 				</p>
 			</div> <!-- links-comment the end -->
-			<!-- * Дальше начинается текст контента -->
+			<!-- *Дальше начинается текст контента -->
 			<div id="idContentText" class="content-text">
 				<p>
 					ЕСД БСС «Главбух» – Единая система документации бухгалтерской справочной системы «Главбух», сокращенно – ЕСД.
@@ -116,7 +116,7 @@
 						<img src="image/help.gif" title="Для связи с нами">
 					</a>
 				</p>
-				<!-- * Footer content в контент тексте -->
+				<!-- *Footer content в контент тексте -->
 				<div id="idContentFooter" class="content-footer">
 					<p>
 					База нормативно-правовых актов<br>
@@ -133,7 +133,7 @@
 			</div> <!-- idContentText the end -->
 		</div> <!-- idTopicContent the end -->
 	</div> <!-- idBox the end -->
-	<!-- * General Footer для всего топика -->
+	<!-- *General Footer для всего топика -->
 	<div class="topic-footer">
 		<div id="idTopicFooterLeft" class="topic-footer-left">
 			<p>

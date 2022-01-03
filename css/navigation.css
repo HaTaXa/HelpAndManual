@@ -1,6 +1,6 @@
 /*
 (i) Символ «*» - универсальный селектор, совпадает с именем любого типа элемента. Соответствует любому отдельному элементу в дереве док.
-! Унивесальный селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
+*Унивесальный селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
 */
 * {margin: 0; padding: 0;} /* - перебить CSS свойства, которые браузеры устанавливают по умолчанию для некоторых тегов, например, тегу гиперссылки <a> синий цвет текста и подчёркивание, тегу body они задают поля (padding) и тд.и т.п. */
 /* (i) Взято из файла hmcontent.htm, стили были прописаны в хеде */
@@ -14,7 +14,7 @@ body, html {
 	overflow: hidden auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
 }
-/* ! // FIX: Scrollbars */
+/* (!) Scrollbars */
 *,
 html * /* - если нужен общий стиль, его следует применять к тегу html, а не к body */
 {
@@ -23,11 +23,12 @@ html * /* - если нужен общий стиль, его следует п�
 }
 *::-webkit-scrollbar,
 html *::-webkit-scrollbar {
+	/* top: 0; *//* bottom: 0; *//**работать не будет-для всех браузеров высота scrollbara = высоте его элемента */
 	width: 2px;
-	/* height: 8px; */ /* (i) работать не будет-для всех браузеров высота scrollbara=высоте его элемента*/
+	height: 8px;
 }
-/* *Варианты по умолчанию для элементов на странице */
-/* - вариант-1 */
+/**Варианты по умолчанию для элементов на странице */
+/* 'вариант-1 */
 /* *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	background: #3f3f3f;
@@ -39,7 +40,7 @@ html *::-webkit-scrollbar-thumb {
 	border: 1px solid #3f3f3f;
 	border-radius: 100px;
 } */
-/* - вариант-2 */
+/* 'вариант-2 */
 /* *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	border: 1px solid #3f3f3f;
@@ -50,7 +51,7 @@ html *::-webkit-scrollbar-thumb {
 	border: 5px solid #3f3f3f;
 	border-radius: 100px;
 } */
-/* - вариант-3 */
+/* 'вариант-3 */
 /* *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	background: #3f3f3f;
@@ -62,7 +63,7 @@ html *::-webkit-scrollbar-thumb {
 	border: 4px solid #3f3f3f;
 	border-radius: 100px;
 } */
-/* - вариант-4 */
+/* 'вариант-4 */
 /* *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	border: 4px solid #3f3f3f;
@@ -74,7 +75,7 @@ html *::-webkit-scrollbar-thumb {
 	border: 4px solid #fff;
 	border-radius: 100px;
 } */
-/* - Вариант-5 */
+/* 'Вариант-5 */
 *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	/* background: #737373; */
@@ -104,7 +105,7 @@ a:hover {
 p {
 	/* margin-block: 0.5em; */
 	cursor: default;
-	direction: ltr; /* (i) // ??? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 
 ul, li {
@@ -116,8 +117,8 @@ ul, li {
 	padding-block: 0;
 	padding-inline: 0;
 }
-/* (i) дополнительное небольшое смещение раздела/подраздела пункта оглавления */
-/* XXX ul.offset {
+/* X i дополнительное небольшое смещение раздела/подраздела пункта оглавления */
+/* ul.offset {
 	// background-position: 6px 2px;
 	// padding: 0 0 0 20px;
 } */
@@ -136,7 +137,7 @@ ul, li {
 .toc-tools {
 	width: 100%;
 	height: 20px;
-	flex: 1 1 auto; /* (i) flex-basis - auto означает, что размер flex-элементов рассчитывается с использованием либо элемента width, либо элемента height (в зависимости от того, определяется ли макет на основе строк или столбцов) */
+	flex: 1 1 auto; /* i flex-basis - auto означает, что размер flex-элементов рассчитывается с использованием либо элемента width, либо элемента height (в зависимости от того, определяется ли макет на основе строк или столбцов) */
 	display: flex;
 	flex-flow: column nowrap;
 	align-items: center;
@@ -161,44 +162,44 @@ ul, li {
 	margin: 1px;
 	cursor: pointer;
 }
-/* *Классический вариант */
+/**Классический вариант */
 [for="idTreeViewListDefault"]:hover,
 [for="idTreeViewListCurrent"]:hover {color: #fff;}
-/* *Классический вариант */
-/* ! //FIX: checkbox-Опция древовидный вид списка оглавления, режим: "По умолчанию" и "Текущий пункт" */
-/* (i) // TODO: см.тут: http://shpargalkablog.ru/2013/08/checked.html */
+/**Классический вариант */
+/* (!) checkbox - Опция древовидный вид списка оглавления, режим: "По умолчанию" и "Текущий пункт"
+см.тут: http://shpargalkablog.ru/2013/08/checked.html */
 #idTocListMenuSwitch,
-#idTreeView {display: none;} /* - скрываем видимость квадратика checkbox */
+#idTreeView {display: none;} /* - скрываем видимость "квадратика" checkbox */
 /* .tree-view-tooltip:hover { */
-	/* transition: 0.5s; */ /** //FIXIT: *с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно */
+	/* transition: 0.5s; *//**с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно */
 /* } */
 [for="idTocListMenuSwitch"]:hover,
 .tree-view-tooltip:hover {height: 24px;} /* - для наведения курсора на подсказку */
 #idTreeView:checked~.tree-view-tooltip:hover:before,
 .tree-view-tooltip:hover:before {
 	position: absolute;
-	/* left: 200px; */ /** общая ширина, если вертикально */
-	top: 0; /** общая высота, если горизонтально */
+	/* left: 200px; *//**общая ширина, если вертикально */
+	top: 0; /**общая высота, если горизонтально */
 	width: 50px;
 	height: 50px;
-	content: ""; /** // FIXIT: *без этого псевдоэлемент не сработает */
+	content: ""; /**без этого псевдоэлемент не сработает */
 	background: url("../image/info.png") no-repeat;
 	z-index: 2;
 }
 .tree-view-tooltip:hover:before {
-	left: 176px; /** если горизонтально */
-	/* top: 110px; */ /** если вертикально */
+	left: 176px; /**если горизонтально */
+	/* top: 110px; *//**если вертикально */
 }
 #idTreeView:checked~.tree-view-tooltip:hover:before {
-	left: 216px; /** если горизонтально */
-	/* top: 130px; */ /** если вертикально */
+	left: 216px; /**если горизонтально */
+	/* top: 130px; *//**если вертикально */
 }
 #idTreeView:checked~.tree-view-tooltip:hover:after,
 .tree-view-tooltip:hover:after {
 	position: relative;
-	/* left: 104px; *//* top: 0; *//** общая ширина и высота, если вертикально */
-	top: 24px; /** если горизонтально */
-	width: 160px; /** если горизонтально */
+	/* left: 104px; *//* top: 0; *//**общая ширина и высота, если вертикально */
+	top: 24px; /**если горизонтально */
+	width: 160px; /**если горизонтально */
 	padding: 2px;
 	display: inline-block;
 	text-align: center;
@@ -212,10 +213,12 @@ ul, li {
 .tree-view-tooltip:hover:after {
 	left: 20px;
 	content: attr(tree-view-tooltip-default);
+	/* content: "Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления"; */
 }
 #idTreeView:checked~.tree-view-tooltip:hover:after {
 	left: 60px;
 	content: attr(tree-view-tooltip-current);
+	/* content: "Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления"; */
 }
 /* (i) Селекторы атрибутов позволяют обратиться к тегам, имеющим необходимый атрибут или даже конкретное его значение */
 [for="idTreeView"] {
@@ -225,65 +228,63 @@ ul, li {
 	text-shadow: 0 1px rgba(0, 0, 0, .5);
 	text-align: center;
 }
-[for="idTreeView"]:before, [for="idTreeView"]:after {
+[for="idTreeView"]:after,
+[for="idTreeView"]:before {
 	/* width: auto; */
 	min-width: 46px;
 	padding: 2px 2px;
 	display: inline-block;
 }
+/* (i) Тильда ( ~ ) между селекторами - обобщённый смежный селектор действует точно также как и обычные смежные селекторы (обозначение: + ), за исключением того, что свойства применяются не только к первому соседу ниже, а ко всем заданным соседям ниже. */
+#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:after,
 [for="idTreeView"]:before {
-	content: "Default";
-	border-radius: 100px 0 0 100px;
 	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
 	color: rgba(255,255,255,.42);
+}
+[for="idTreeView"]:before {
+	content: "Default";
+	border-radius: 100px 0 0 100px;
+}
+#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:before,
+[for="idTreeView"]:after {
+	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.3));
+	box-shadow: inset 0 1px 1px 0 rgba(255,255,255,.2), 0 1px 2px 0 rgba(0,0,0,.5);
+	color: #737373;
 }
 [for="idTreeView"]:after {
 	content: "Current";
 	border-radius: 0 100px 100px 0;
-	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.3));
-	box-shadow: inset 0 1px 1px 0 rgba(255,255,255,.2), 0 1px 2px 0 rgba(0,0,0,.5);
-	color: #737373;
-}
-/* (i) Тильда ( ~ ) между селекторами - обобщённый смежный селектор действует точно также как и обычные смежные селекторы (обзначение: + ), за исключением того, что свойства применяются не только к первому соседу ниже, а ко всем заданным соседям ниже. */
-#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:before {
-	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.3));
-	box-shadow: inset 0 1px 1px 0 rgba(255,255,255,.2), 0 1px 2px 0 rgba(0,0,0,.5);
-	color: #737373;
-}
-#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:after {
-	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
-	color: rgba(255,255,255,.42);
 }
 [for="idTreeView"]:hover:before {color: #fff;}
 [for="idTreeView"]:hover:after {color: rgba(255,255,255,.42);}
 #idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:hover:before {color: rgba(255,255,255,.42);}
 #idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:hover:after {color: #fff;}
 /* checkbox-переключатель, см.тут: http://shpargalkablog.ru/2013/08/checked.html */
-/* ! //FIX: checkbox-Развернуть/свернуть все оглавление */
-.nav-list-menu,
+/* i checkbox - Развернуть/свернуть все оглавление */
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle:hover,
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle,
+.nav-icon-toggle:hover,
+.nav-icon-toggle,
+.nav-icon,
 [for="idTocListMenuSwitch"],
 .toc-list-menu-toggle {
 	position: absolute;
 	right: 0; top: 0;
-	margin: 1px;
-	cursor: pointer;
-}
-[for="idTocListMenuSwitch"],
-.toc-list-menu-toggle {
 	width: 16px;
 	height: 16px;
+	margin: 1px;
+	cursor: pointer;
 }
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover,
 [for="idTocListMenuSwitch"]:hover {color: #fff;}
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:before,
 [for="idTocListMenuSwitch"]:hover:before {
 	position: absolute;
-	right: 96px; top: 0; /* *без наведения курсора на подсказку */
+	right: 96px; top: 0; /**без наведения курсора на подсказку */
 	width: 35px;
 	height: 35px;
-	content: ""; /** // FIXIT: *без этого псевдоэлемент не сработает */
+	content: ""; /**без этого псевдоэлемент не сработает */
 	background: url("../image/info.png") no-repeat;
 	background-size: 35px 35px;
 	z-index: 2;
@@ -291,7 +292,7 @@ ul, li {
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after,
 [for="idTocListMenuSwitch"]:hover:after {
 	position: relative;
-	right: 90px; top: 24px; /* *без наведения курсора на подсказку */
+	right: 90px; top: 24px; /**без наведения курсора на подсказку */
 	width: 100px;
 	height: auto;
 	padding: 2px;
@@ -314,6 +315,31 @@ ul, li {
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
 }
 
+.nav-icon {
+	content: "";
+	background: url(../image/menu.png) no-repeat;
+}
+.nav-icon:hover {
+	content: "";
+	background: url(../image/nav-pane-expand-white.png) no-repeat;
+}
+.nav-icon-toggle {
+	content: "";
+	background: url(../image/nav-pane-expand.png) no-repeat;
+}
+.nav-icon-toggle:hover {
+	content: "";
+	background: url(../image/nav-pane-expand-white.png) no-repeat;
+}
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle {
+	content: "";
+	background: url(../image/nav-pane-collapse.png) no-repeat;
+}
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle:hover {
+	content: "";
+	background: url(../image/nav-pane-collapse-white.png) no-repeat;
+}
+
 .toc-title,
 .toc-subtitle {
 	width: 100%;
@@ -322,7 +348,7 @@ ul, li {
 	padding: 1px 1px 1px 2px;
 	overflow-y: auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
-	direction: rtl; /* (i) // ??? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 .toc-title::-webkit-scrollbar-thumb,
 .toc-subtitle::-webkit-scrollbar-thumb {
@@ -375,7 +401,7 @@ ul, li {
 .no-js-title a:hover {text-decoration: underline;}
 
 .toc-body {
-	background-image: url("../image/spacer.gif"); /* ??? не понятно для чего */
+	background-image: url("../image/spacer.gif"); /* (?) не понятно для чего */
 	position: absolute;
 	left: 0; right: 0;
 	top: 116px; bottom: 120px;
@@ -388,19 +414,19 @@ ul, li {
 	border-width: thin; /* border-width: 1px 0 1px 0; */
 }
 
-/* ! TOC LIST CSS */
+/* (!) TOC LIST CSS */
 .toc {
 	position: absolute;
 	left: 0; right: 0;
 	top: 0; /* bottom: 0; */
 	margin: 2px;
-} /* ! General margin of the TOC (root entry) - Общее поле оглавления (корневая запись) */
+} /**General margin of the TOC (root entry) - Общее поле оглавления (корневая запись) */
 
 .toc ul {
 	margin: 0 0 0 -16px;
-} /* ! Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
+} /* 'Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
 
-.toc ul, /* (i) для каждого потомка ul */
+.toc ul, /**для каждого потомка ul */
 .toc {padding: 0 0 0 16px;}
 
 /* .icon-expand::before {content: "+";} *//* - если не использовать иконки +/- */
@@ -418,9 +444,9 @@ ul, li {
 	margin: 1px 0 1px 0;
 	padding: 0 0 0 20px;
 	/* cursor: pointer; */
-} /* ! Vertical spacing between TOC items - Расстояние по вертикали между пунктами оглавления */
+} /**Vertical spacing between TOC items - Расстояние по вертикали между пунктами оглавления */
 
-.toc-main-icon { /* ! главный значок оглавления */
+.toc-main-icon { /* - главный значок оглавления */
 	background: url(../image/tgl_gb0.png) no-repeat;
 	background-position: 1px 1px;
 }
@@ -507,7 +533,7 @@ ul, li {
 	text-decoration: none;
 }
 
-div#tree {overflow-y: hidden;} /* ??? id нигде не найден */
+div#tree {overflow-y: hidden;} /* (?) id нигде не найден */
 
 .toc-footer {
 	position: absolute;
@@ -532,11 +558,15 @@ div#tree {overflow-y: hidden;} /* ??? id нигде не найден */
 	border-color: #3f3f3f;
 	border-width: 1px 0 1px 0;
 }
-/* (i) id="idFeedBackOn" во всем проекте прописан в 2-х местах: 1) в нап.инструментов и 2) в пан.нав. */
+/* (i)"idFeedBackOn"
+*во всем проекте прописан в 2-х местах:
+- 1) в нап.инструментов и
+- 2) в пан.нав. */
 .feed-back-on:hover {
-	/* position: absolute; *//* (i) не выводит изображение на передний план, поэтому использ.fixed */
+	/* position: absolute; *//* 'не выводит изображение на передний план, поэтому использ.fixed */
 	position: fixed; /* - устраняем смещение всплывающей картинки */
-	transform: translate (-50%, -80%); /* (x, y) *//* (i) Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
+	transform: translate (-50%, -80%); /* - (x, y)
+	*Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
 	-moz-transform: translate(-50%, -80%); /* - Firefox */
 	-ms-transform: translate(-50%, -80%); /* - IE */
 	-webkit-transform: translate(-50%, -80%); /* - Safari, Chrome, iOS */
@@ -549,5 +579,20 @@ div#tree {overflow-y: hidden;} /* ??? id нигде не найден */
 	border-radius: 5px;
 	-moz-border-radius: 5px;
 	-webkit-border-radius: 5px;
-	font-weight: normal; /* - насыщенность шрифта */
+	font-weight: normal; /* 'насыщенность шрифта */
 }
+/* (!) МЕДИА ЗАПРОСЫ */
+/**диапазон < 256px */
+@media screen and (max-width: 256px) {.toc-body {bottom: 130px;}}
+/**диапазон < 217px */
+@media screen and (max-width: 217px) {.toc-body {bottom: 142px;}}
+/**диапазон < 162px */
+@media screen and (max-width: 162px) {.toc-body {bottom: 156px;}}
+/**диапазон < 140px */
+@media screen and (max-width: 140px) {.toc-body {bottom: 170px;}}
+/**диапазон < 132px */
+@media screen and (max-width: 132px) {.toc-body {bottom: 182px;}}
+/**диапазон < 129px */
+@media screen and (max-width: 129px) {.toc-body {bottom: 196px;}}
+/**диапазон < 123px */
+@media screen and (max-width: 123px) {.toc-body {bottom: 208px;}}
