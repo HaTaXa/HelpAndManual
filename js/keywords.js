@@ -1,13 +1,13 @@
 // (i) HM WebHelp Configuration Variables - Конфигурации переменных
 
-// ! Layout control variables - Компоновка переменных управления
+// (!) Layout control variables - Компоновка переменных управления
 var hmLayout = {
-	// ~ Show/hide speed for banner header
+	// - Show/hide speed for banner header
 	bannerSpeed: 250
-	// ~ Permalink option in toolbar
+	// - Permalink option in toolbar
 	// permalink: true
 }
-// ! Permalink function
+// (!) Permalink function
 var hmpldata = {
 	show: true,
 	auto: true,
@@ -22,7 +22,7 @@ var hmpldata = {
 	copied: "Постоянная ссылка скопирована в буфер обмена:",
 	title: "Постоянная ссылка"
 }
-// ! Navigation pages
+// (!) Navigation pages
 var hmnavpages = {
 	toc: "hmcontent.htm",
 	tocWidth: 275,
@@ -44,12 +44,12 @@ var hmnavpages = {
 	mainWindowName: "",
 	isEWriter: false
 }
-// ! Mobile device redirects
+// (!) Mobile device redirects
 var mobRe = {
 	smart: "",
 	ipad: ""
 }
-// ! General messages
+// (!) General messages
 var hminfo = {
 	tabopen: "Эта тема уже открыта в дополнительной вкладке!",
 	tabclose: "Закрыть эту вкладку",
@@ -59,10 +59,10 @@ var hminfo = {
 	shownav: "Показать содержимое панели",
 	currtopic: "Актуальная Тема"
 }
-// ! Feedback addresses
+// (!) Feedback addresses
 var hmfb = {
 	mailrecipient: "user231082@gmail.com",
 	simplerecipient: "solanina@yandex.ru"
 }
 
-lastSearch = ""; // ! Storage variable for last search arg - Переменная памяти для последнего поиска
+lastSearch = ""; // (!) Storage variable for last search arg - Переменная памяти для последнего поиска

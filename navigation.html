@@ -32,7 +32,7 @@
 	<!-- <script type="text/javascript" src="js/helpman_navigation.js"></script> -->
 	<!-- 'если требуется, чтобы все оглавление было развернутым -->
 	<!-- <script type="text/javascript">
-		window.onload = function() {listExpand();}
+		window.onload = function() {setListExpand();}
 	</script> -->
 </head>
 <body>
@@ -41,9 +41,11 @@
 			<div class="tree-view">
 				<!-- *idTreeView-checkbox переключение режимов древовидного списка -->
 				<input type="checkbox" id="idTreeView" checked="checked"/>
-				<div id="idTreeViewTooltip" class="tree-view-tooltip" tree-view-tooltip-default="Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления" tree-view-tooltip-current="Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления">
-					<label for="idTreeView"></label>
-				</div>
+				<label for="idTreeView">
+					<div id="idTreeViewTooltip" class="treeview-tooltip" treeview-tooltip-default="Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления" treeview-tooltip-current="Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления">
+						<div class="treeview-tooltip-triangle"></div>
+					</div>
+				</label>
 				<!-- *Классический вариант -->
 				<!-- <label for="idTreeViewListDefault" title="Режим «По умолчанию» (переключатель): (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления">
 					<input id="idTreeViewListDefault" type="radio" name="treeview" value="0">Default
@@ -53,11 +55,12 @@
 				</label> -->
 			</div>
 			<!-- *idTocListMenuToggle-checkbox Развернуть/Свернуть все оглавление -->
-			<div id="idTocListMenuToggle" class="toc-list-menu-toggle">
+			<div id="idTocListMenuToggle" class="toclist-menu-toggle">
 				<input type="checkbox" id="idTocListMenuSwitch">
-				<label for="idTocListMenuSwitch" toc-list-menu-tooltip-expand="Развернуть все оглавление" toc-list-menu-tooltip-collapse="Свернуть все оглавление">
-					<div id="idNavIcon" class="nav-icon" onclick="return allListExpandCollapse(event);"></div>
-					<!-- <img class="nav-icon" src="image/menu.png" onclick="return allListExpandCollapse(event);"> -->
+				<label for="idTocListMenuSwitch" toclistmenu-tooltip-expand="Развернуть все оглавление" toclistmenu-tooltip-collapse="Свернуть все оглавление">
+					<div class="toclistmenu-tooltip-triangle"></div>
+					<div id="idNavIcon" class="nav-icon"></div>
+					<!-- <img class="nav-icon" src="image/menu.png" onclick="return setListExpandCollapse(event);"> -->
 				</label>
 			</div>
 		</div>
@@ -68,14 +71,14 @@
 			<p class="nav-subtitle">База нормативно-правовых актов - Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam iste nesciunt sed, nemo laboriosam quam quisquam delectus neque at blanditiis libero rem nisi, perferendis temporibus eos ad illo, ipsa ipsam.</p>
 		</div>
 		<!-- (?) не разобралась для каких ситуаций действует данный скрипт -->
-		<!-- <div>
+	<!-- <div>
 			<span id="idOperaBug" style="display: none">Opera Bug</span>
 			<p class="no-js-title" style="display: none;">
 				<b>Содержание</b> | <a href="keywords.html" target="_self">Слова</a>
 			</p>
 		</div> -->
 	</div>
-	<div id="idTocBody" class="toc-body" onclick="return clicked(event);">
+	<div id="idTocBody" class="toc-body">
 		<ul id="idToc-ul" class="toc icon-expand">
 			<li id="idToc-li" class="toc-list toc-main-icon heading1" data-bg="tgl_collapse.gif; tgl_expand.gif">
 				<a id="idToc-a" class="heading1" href="esd_bss_glavbyx.html" target="hmcontent">
@@ -334,11 +337,7 @@
 					<span id="idToc-s2" class="heading1">БСС «Главбух» официальный сайт</span>
 				</a>
 			</li>
-		</ul> <!-- idToc-ul then end -->
-		<!-- (?) Скрипт подгружает иконки, только не могу найти где именно и в каком месте? -->
-		<!-- <script type="text/javascript">
-			loadicons("toc_topic.png", "tgl_collapse.gif", "tgl_expand.gif");
-		</script> -->
+		</ul> <!-- idToc-ul the end -->
 	</div>
 	<!-- (!) idTocFooter-Нижний колонтитул -->
 	<div id="idTocFooter" class="toc-footer">
@@ -354,7 +353,7 @@
 			<a href="https://hataxa.github.io/HelpAndManual/" target="_blank">Официальный сайт</a>,&nbsp;
 			<a href="mailto:user231082@gmail.com">Электронная почта</a>
 		</p>
-		<p>&copy;&nbsp;«<a href="https://hataxa.github.io/HelpAndManual/" target="_blank">HaTaXa</a>» 2021</p>
+		<p>&copy;&nbsp;«<a href="https://hataxa.github.io/HelpAndManual/" target="_blank">HaTaXa</a>» 2021-2022</p>
 	</div> <!-- idTocFooter the end -->
 
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
@@ -368,7 +367,7 @@
 	<!-- ссылка на jquery CDN: минимизированный -->
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 	<!-- ************************************************************ -->
-	<script type="text/javascript" src="js/navigation.js"></script> <!-- (i) взято из файла hmcontent.htm, было прописано внутри страницы в хедере -->
+	<script type="text/javascript" src="js/navigation.js"></script> <!-- i взято из файла hmcontent.htm, было прописано внутри страницы в хедере -->
 	<script src="js/scripts.js" async></script>
 </body>
 </html>

@@ -21,21 +21,26 @@ a, a:active, * :focus {
 	-moz-outline-style: none;
 	outline-style: none; /**В отличие от линии, задаваемой через border, линия через outline отображается вокруг элемента, не влияя на ширину блока или его положение */
 }
-/**Стили полей "Постоянная ссылка" */
+/**Компоненты главной страницы контейнера */
+/* (!).popups-вплывающее окно "Постоянная ссылка" */
 .popups {
-	/* display: none; *//* - временно закомментировано */
 	position: absolute;
-	top: 0; bottom: 0; left: 0; right: 0;
-	background-image: url("../image/spacer.gif"); /* (?) не понятно для чего */
+	right: 10px; top: 60px;
+	width: 400px;
+	height: 90px;
+	display: flex;
+	flex: 1 1 auto;
+	flex-flow: row wrap;
+	align-items: center;
+	justify-content: space-between;
+	overflow: auto;
 	z-index: 200;
+	/* z-index: 900; */
 }
 .popups {
-	/* visibility: hidden; */
-	position: absolute;
-	width: auto;
-	margin: 0;
-	padding: 0 7px 7px 0;
-	overflow: auto;
+	zoom: 1;
+	background-color:#fdfcdc;
+	background-image: url("../image/spacer.gif"); /* (?) не понятно для чего */
 	border-width: 2px;
 	border-style: solid;
 	border-bottom-color: #333333;
@@ -48,56 +53,59 @@ a, a:active, * :focus {
 	-moz-box-shadow: 2px 2px 3px #969696;
 	-webkit-box-shadow: 2px 2px 3px #969696;
 	box-shadow: 2px 2px 3px #969696;
-	background-color: #fff; zoom: 1;
 	filter: progid: DXImageTransform.Microsoft.Shadow(color = #969696, Direction = 135, Strength = 3);
-	z-index: 900;
 }
-
-div#permalink {
-	position: absolute;
-	top: 70px;
-	right: 30px;
-	width: auto;
-	padding-top: 3px;
-	background-color:#fdfcdc;
-	overflow: hidden;
-	z-index: 1100;
-	visibility: hidden;
-}
-
-div#permalink tr#offlinemessage {
-	display: none;
-	font-family: Arial, sans-serif, Helvetica;
-	font-size: 12px;
-}
-
-div#permalink textarea {
+/* (!).permalink */
+.permalink {
 	position: relative;
-	width: 250px;
-	top: 3px; bottom: 3px; left: 3px; right: 3px;
+	width: 100%;
+	height: auto;
+	padding: 2px;
+	display: flex;
+	flex: 1 1 auto;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	overflow: hidden auto;
+	/* z-index: 1100; */
+}
+
+.permalink input {cursor: pointer;}
+
+.permalink span {
+	font-family: Arial, sans-serif, Helvetica;
+	font-size: 0.7em;
+	text-align: center;
+	cursor: default;
+}
+
+.permalink textarea {
+	position: relative;
+	width: 100%;
+	height: 60px;
+	flex: 2 1 auto;
 	text-align: center;
 	font-family: Verdana, Tahoma, Arial, sans-serif;
-	font-size: 11px;
+	font-size: 0.7em;
 	font-weight: bold;
+	overflow: hidden auto;
 }
 /* - Для изображения лайтбокса, открытого на главной странице
-(?) не понятно где */
+(?) не понятно где он находится */
 #hmlightbox { /* Стили полей "Постоянная ссылка" */
-	border: none;
 	padding: 8px;
 	background: #FFF;
+	border: none;
 	font-size: 110%;
 	font-weight: bold;
 	color: #777;
 	box-shadow: 5px 5px 5px #888;
 }
-/**Компоненты главной страницы контейнера */
+/**Фреймворк главной страницы */
 .container {
 	position: absolute;
 	left: 0; right: 0; top: 0; bottom: 0;
 }
-/* ! Фреймворк главной страницы
-(!).banner-баннер */
+/* (!).banner-баннер */
 .banner {
 	position: relative;
 	left: 0; right: 0; top: 0;
@@ -425,8 +433,7 @@ img#social_off {border-color: transparent;}
 	-webkit-border-radius: 5px;
 	font-weight: normal; /* - насыщенность шрифта */
 }
-/* (i)"idFeedBackOn"
-*во всем проекте прописан в 2-х местах:
+/* (i) idFeedBackOn-во всем проекте прописан в 2-х местах:
 - 1) в нап.инструментов и
 - 2) в пан.нав. */
 #idFeedBackOn:hover {
@@ -461,6 +468,7 @@ img#social_off {border-color: transparent;}
 	-moz-hyphens: auto;
 	-ms-hyphens: auto;
 	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+	cursor: default;
 }
 /**Цвет подписи кнопок на панели инструментов */
 .toolbar-box-search span {color: #f1f1f1;}
@@ -482,7 +490,7 @@ img#social_off {border-color: transparent;}
 	left: 0; bottom: 0;
 	width: 300px;
 	/* min-width: 14vw; *//* - вьюпорт, изменение ширины элемента относительно ширины видимой области браузера */
-	padding: 2px 2px 2px 6px;
+	padding: 2px;
 
 	border-width: 1px;
 	background-color: #2a2a2a;
@@ -547,7 +555,7 @@ iframe#hmnavigation {
 (!).topic-pane */
 .topic-pane {
 	position: absolute;
-	left: 314px; right: 0px; bottom: 0px;
+	left: 310px; right: 0px; bottom: 0px;
 	margin-top: 4px;
 }
 .topic-pane-extend,
@@ -582,7 +590,7 @@ iframe#hmnavigation {
 .nav-handle:hover {top: 12px;}
 
 .topic-tab,
-.tabs-c-tab,
+.tabsCtab,
 .nav-handle {
 	margin: 0 4px 0 0;
 	color: #888;
@@ -626,7 +634,7 @@ TODO: *переделать в псевдо не получится, см.спе
 	-ms-transform: rotate(0deg) scale(1, 1);
 	-o-transform: rotate(0deg) scale(1, 1);
 	transform: rotate(0deg) scale(1, 1);
-	will-change: transform; /**св-во will-change заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	will-change: transform; /**св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 }
 .navhandle-navpane-hide {
 	-webkit-transform: rotate(0deg) scale(-1, 1);
@@ -634,14 +642,14 @@ TODO: *переделать в псевдо не получится, см.спе
 	-ms-transform: rotate(0deg) scale(-1, 1);
 	-o-transform: rotate(0deg) scale(-1, 1);
 	transform: rotate(0deg) scale(-1, 1);
-	will-change: transform; /**св-во will-change заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	will-change: transform; /**св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 }
 
-.tabs-c-tab {
+.tabsCtab {
 	position: relative;
 	left: 0; top: 10px;
 	width: 58px;
-	height: 18px;
+	height: 19px;
 	display: flex;
 	flex-flow: row nowrap;
 	flex: 0 0 auto;
@@ -652,9 +660,9 @@ TODO: *переделать в псевдо не получится, см.спе
 	font-size: 11px;
 	font-weight: normal;
 }
-.tabs-c-tab:hover {top: 12px;}
+.tabsCtab:hover {top: 12px;}
 
-.tabs-c-tab-right {
+.tabsCtab-right {
 	position: absolute;
 	left: 0; top: 0;
 	width: 100%;
@@ -704,7 +712,7 @@ ul.subnav,
 	border-style: solid;
 }
 
-.tabs-c-tab-right,
+.tabsCtab-right,
 ul.subnav, /* (?) не понятно к чему */
 .tabs-menu {z-index: 101;}
 /* (!) Цвет фона, тени и углы выпадающей вкладки списка меню */
@@ -781,7 +789,7 @@ ul.subnav, /* (?) не понятно к чему */
 }
 
 .nav-handle,
-.tabs-c-tab,
+.tabsCtab,
 .tabs-menu-box,
 .tab-player-H, /* X скорее всего не понадобится */
 .tab-player,
@@ -814,7 +822,7 @@ ul.subnav, /* (?) не понятно к чему */
 }
 /**Текущая вкладка */
 .nav-handle:hover,
-.tabs-c-tab,
+.tabsCtab,
 .topic-tab-current {
 	background-color: #3f3f3f;
 	background: -moz-linear-gradient(top, #f1f1f1 3%, #3f3f3f 20%);
@@ -824,7 +832,7 @@ ul.subnav, /* (?) не понятно к чему */
 }
 /**Границы и затенение вкладок */
 .nav-handle,
-.tabs-c-tab,
+.tabsCtab,
 .topic-tab-current,
 .topic-tab {
 	border-color: #000000;
@@ -1004,6 +1012,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		100% {top: 56px;}
 	}
 	/**панель навигации */
+	/* X - использовалась в функции animateNavPane */
 	@keyframes navpaneHide {
 		0% {left: 0;}
 		100% {left: -314px;}
@@ -1068,7 +1077,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		top: 458px;
 		z-index: 2;
 	}
-	.topic-pane-banner {top: 573px;}
+	.topic-pane-banner {top: 574px;}
 	.topic-pane-extend {top: 104px;} /* - без пан.нав.банер скрыт */
 	.topic-pane-expand {top: 220px;} /* - без пан.нав.банер раскрыт */
 	/*(!).navhandle-navpane-show-трансформация иконки на кнопке в панеле топика */
@@ -1078,7 +1087,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		-ms-transform: rotate(90deg) scale(1, 1);
 		-o-transform: rotate(90deg) scale(1, 1);
 		transform: rotate(90deg) scale(1, 1);
-		will-change: transform; /**св-во will-change заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+		will-change: transform; /**св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 	}
 	.navhandle-navpane-hide {
 		-webkit-transform: rotate(90deg) scale(-1, 1);
@@ -1086,7 +1095,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		-ms-transform: rotate(90deg) scale(-1, 1);
 		-o-transform: rotate(90deg) scale(-1, 1);
 		transform: rotate(90deg) scale(-1, 1);
-		will-change: transform; /**св-во will-change заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+		will-change: transform; /**св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 	}
 	/* (!) Анимация < 699 */
 	/**баннер */
@@ -1100,31 +1109,32 @@ HACK: 'граница, когда после вкладки Поиск почт�
 	}
 	@keyframes topicpaneBannerShow {
 		0% {top: 458px;}
-		100% {top: 573px;}
+		100% {top: 574px;}
 	}
 	@keyframes topicpaneBannerHide {
-		0% {top: 573px;}
+		0% {top: 574px;}
 		100% {top: 458px;}
 	}
 	/**панель навигации */
+	/* X - использовалась в функции animateNavPane */
 	@keyframes navpaneHide {
 		0% {top: 104px;}
-		100% {top: -250px;} /* = nav-pane height: 350px - toolbar top: 100px */
+		100% {top: -250px;} /* = toolbar top: 100px - nav-pane height: 350px */
 	}
 	@keyframes navpaneShow {
-		0% {top: -250px;} /* = nav-pane height: 350px - toolbar top: 100px */
+		0% {top: -250px;} /* = toolbar top: 100px - nav-pane height: 350px */
 		100% {top: 104px;}
 	}
 	@keyframes navpaneHideBanner {
 		0% {top: 220px;}
-		100% {top: -130px;} /* = nav-pane height: 350px - (toolbar top: 100px + banner height: 120px) */
+		100% {top: -130px;} /* = (toolbar top: 100px + banner height: 120px) - nav-pane height: 350px */
 	}
 	@keyframes navpaneShowBanner {
-		0% {top: -130px;} /* = nav-pane height: 350px - (toolbar top: 100px + banner height: 120px) */
+		0% {top: -130px;} /* = (toolbar top: 100px + banner height: 120px) - nav-pane height: 350px */
 		100% {top: 220px;}
 	}
 	@keyframes topicpaneExpand { /* - без пан.нав.банер раскрыт */
-		0% {top: 573px;}
+		0% {top: 574px;}
 		100% {top: 220px;}
 	}
 	@keyframes topicpaneExtend { /* - без пан.нав.банер скрыт */
@@ -1137,7 +1147,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 	}
 	@keyframes topicpaneNavPaneShowBanner {
 		0% {top: 220px;}
-		100% {top: 573px;}
+		100% {top: 574px;}
 	}
 }
 /**диапазон < 624px */
@@ -1187,6 +1197,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		100% {top: 508px;}
 	}
 	/**панель навигации */
+	/* X - использовалась в функции animateNavPane */
 	@keyframes navpaneHide {
 		0% {top: 154px;}
 		100% {top: -200px;} /* = nav-pane height: 350px - toolbar top: 150px */
@@ -1217,7 +1228,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 	}
 	@keyframes topicpaneNavPaneShowBanner {
 		0% {top: 270px;}
-		100% {top: 573px;}
+		100% {top: 574px;}
 	}
 }
 /* 'Landscape phones and smaller
@@ -1240,6 +1251,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		100% {top: 466px;}
 	}
 	/**панель навигации */
+	/* X - использовалась в функции animateNavPane */
 	@keyframes navpaneHide {
 		0% {top: 154px;}
 		100% {top: -160px;} /* = nav-pane height: 310px - toolbar top: 150px */
@@ -1317,6 +1329,7 @@ HACK: 'граница, когда после вкладки Поиск почт�
 		100% {top: 518px;}
 	}
 	/**панель навигации */
+	/* X - использовалась в функции animateNavPane */
 	@keyframes navpaneHide {
 		0% {top: 204px;}
 		100% {top: -110px;} /* = nav-pane height: 310px - toolbar top: 200px */

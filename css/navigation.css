@@ -153,52 +153,119 @@ ul, li {
 }
 
 [for="idTreeView"],
-.tree-view-tooltip,
 .tree-view {
 	position: absolute;
 	left: 0; top: 0;
 	width: 100px;
 	height: 18px;
 	margin: 1px;
+	display: flex;
 	cursor: pointer;
 }
 /**Классический вариант */
 [for="idTreeViewListDefault"]:hover,
 [for="idTreeViewListCurrent"]:hover {color: #fff;}
 /**Классический вариант */
-/* (!) checkbox - Опция древовидный вид списка оглавления, режим: "По умолчанию" и "Текущий пункт"
-см.тут: http://shpargalkablog.ru/2013/08/checked.html */
+/* checkbox-переключатель, см.тут: http://shpargalkablog.ru/2013/08/checked.html
+(!) checkbox-Опция древовидный вид списка оглавления, режим: "По умолчанию" и/или "Текущий пункт" */
 #idTocListMenuSwitch,
 #idTreeView {display: none;} /* - скрываем видимость "квадратика" checkbox */
-/* .tree-view-tooltip:hover { */
-	/* transition: 0.5s; *//**с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно */
-/* } */
-[for="idTocListMenuSwitch"]:hover,
-.tree-view-tooltip:hover {height: 24px;} /* - для наведения курсора на подсказку */
-#idTreeView:checked~.tree-view-tooltip:hover:before,
-.tree-view-tooltip:hover:before {
+
+[for="idTreeView"]:after,
+[for="idTreeView"]:before {
+	/* width: auto; */
+	min-width: 46px;
+	padding: 2px 2px;
+}
+
+[for="idTreeView"]:before {
+	content: "Default";
+	border-radius: 100px 0 0 100px;
+}
+
+[for="idTreeView"]:after {
+	content: "Current";
+	border-radius: 0 100px 100px 0;
+}
+/* (i) Селекторы атрибутов позволяют обратиться к тегам, имеющим необходимый атрибут или даже конкретное его значение */
+[for="idTreeView"] {
+	border-radius: 100px;
+	background: rgba(0, 0, 0, .1);
+	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .4) inset, 0 1px 1px 0 rgba(255, 255, 255, .1);
+	text-shadow: 0 1px rgba(0, 0, 0, .5);
+	text-align: center;
+}
+/* (i) Тильда ( ~ ) между селекторами - обобщённый смежный селектор действует точно также как и обычные смежные селекторы (обозначение: + ), за исключением того, что свойства применяются не только к первому соседу ниже, а ко всем заданным соседям ниже. */
+#idTreeView:checked~[for="idTreeView"]:after,
+[for="idTreeView"]:before {
+	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
+	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
+	color: rgba(255,255,255,.42);
+}
+
+#idTreeView:checked~[for="idTreeView"]:before,
+[for="idTreeView"]:after {
+	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.3));
+	box-shadow: inset 0 1px 1px 0 rgba(255,255,255,.2), 0 1px 2px 0 rgba(0,0,0,.5);
+	color: #737373;
+}
+
+[for="idTreeView"]:hover:before {color: #fff;}
+[for="idTreeView"]:hover:after {color: rgba(255,255,255,.42);}
+#idTreeView:checked~[for="idTreeView"]:hover:before {color: rgba(255,255,255,.42);}
+#idTreeView:checked~[for="idTreeView"]:hover:after {color: #fff;}
+
+.toclistmenu-tooltip-triangle, /* треугольный уголок подсказки checkbox-Развернуть/свернуть все оглавление */
+.treeview-tooltip-triangle, /* треугольный уголок подсказки */
+.treeview-tooltip { /* подсказка */
+	position: relative;
+	left: 0; top: 0;
+	width: 0;
+	height: 0;
+	background: transparent;
+}
+/* - иконка подсказки */
+#idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:before,
+[for="idTreeView"]:hover>.treeview-tooltip:before {
+	content: ""; /**без этого псевдоэлемент не сработает */
 	position: absolute;
 	/* left: 200px; *//**общая ширина, если вертикально */
 	top: 0; /**общая высота, если горизонтально */
 	width: 50px;
 	height: 50px;
-	content: ""; /**без этого псевдоэлемент не сработает */
 	background: url("../image/info.png") no-repeat;
 	z-index: 2;
 }
-.tree-view-tooltip:hover:before {
-	left: 176px; /**если горизонтально */
+
+[for="idTreeView"]:hover>.treeview-tooltip:before {
+	left: 100px; /**если горизонтально */
 	/* top: 110px; *//**если вертикально */
 }
-#idTreeView:checked~.tree-view-tooltip:hover:before {
-	left: 216px; /**если горизонтально */
+
+#idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:before {
+	left: 150px; /**если горизонтально */
 	/* top: 130px; *//**если вертикально */
 }
-#idTreeView:checked~.tree-view-tooltip:hover:after,
-.tree-view-tooltip:hover:after {
+/* - треугольный уголок подсказки */
+#idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip>div:before,
+[for="idTreeView"]:hover>.treeview-tooltip>div:before {
+	content: "";
+	position: absolute;
+	top: 22px;
+	/* border-left: 0px solid transparent; */
+	border-right: 30px solid transparent;
+	/* border-top: 0px solid transparent; */
+	border-bottom: 18px solid rgba(171,222,247,.6);
+}
+
+[for="idTreeView"]:hover>.treeview-tooltip>div:before {left: -23px;}
+#idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip>div:before {left: 23px;}
+/* - текст подсказки */
+#idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:after,
+[for="idTreeView"]:hover>.treeview-tooltip:after {
 	position: relative;
 	/* left: 104px; *//* top: 0; *//**общая ширина и высота, если вертикально */
-	top: 24px; /**если горизонтально */
+	top: 40px; /**если горизонтально */
 	width: 160px; /**если горизонтально */
 	padding: 2px;
 	display: inline-block;
@@ -210,65 +277,40 @@ ul, li {
 	border: 1px solid rgba(171,222,247,.6);
 	z-index: 1;
 }
-.tree-view-tooltip:hover:after {
-	left: 20px;
-	content: attr(tree-view-tooltip-default);
-	/* content: "Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления"; */
+/* content: "Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления"; */
+[for="idTreeView"]:hover>.treeview-tooltip:after {
+	left: -50px;
+	content: attr(treeview-tooltip-default);
 }
-#idTreeView:checked~.tree-view-tooltip:hover:after {
-	left: 60px;
-	content: attr(tree-view-tooltip-current);
-	/* content: "Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления"; */
+/* content: "Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления"; */
+/* #idTreeView:checked~[for="idTreeView"]:hover>div:after, */
+#idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:after {
+	left: 0;
+	content: attr(treeview-tooltip-current);
 }
-/* (i) Селекторы атрибутов позволяют обратиться к тегам, имеющим необходимый атрибут или даже конкретное его значение */
-[for="idTreeView"] {
-	border-radius: 100px;
-	background: rgba(0, 0, 0, .1);
-	box-shadow: 0 1px 2px 0 rgba(0, 0, 0, .4) inset, 0 1px 1px 0 rgba(255, 255, 255, .1);
-	text-shadow: 0 1px rgba(0, 0, 0, .5);
-	text-align: center;
+/**анимация подсказки */
+#idTreeView:checked~[for="idTreeView"]>div,
+[for="idTreeView"]>div {
+	opacity: 0;
+	transform: translateY(.7em) scale(.3);
+	transform-origin: center bottom;
 }
-[for="idTreeView"]:after,
-[for="idTreeView"]:before {
-	/* width: auto; */
-	min-width: 46px;
-	padding: 2px 2px;
-	display: inline-block;
+
+#idTreeView:checked~[for="idTreeView"]:hover>div,
+[for="idTreeView"]:hover>div {
+	opacity: 1;
+	transition: .6s .4s;
+	transform: translateY(0);
+	z-index: 1;
 }
-/* (i) Тильда ( ~ ) между селекторами - обобщённый смежный селектор действует точно также как и обычные смежные селекторы (обозначение: + ), за исключением того, что свойства применяются не только к первому соседу ниже, а ко всем заданным соседям ниже. */
-#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:after,
-[for="idTreeView"]:before {
-	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
-	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
-	color: rgba(255,255,255,.42);
-}
-[for="idTreeView"]:before {
-	content: "Default";
-	border-radius: 100px 0 0 100px;
-}
-#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:before,
-[for="idTreeView"]:after {
-	background: linear-gradient(rgba(0,0,0,0), rgba(0,0,0,.3));
-	box-shadow: inset 0 1px 1px 0 rgba(255,255,255,.2), 0 1px 2px 0 rgba(0,0,0,.5);
-	color: #737373;
-}
-[for="idTreeView"]:after {
-	content: "Current";
-	border-radius: 0 100px 100px 0;
-}
-[for="idTreeView"]:hover:before {color: #fff;}
-[for="idTreeView"]:hover:after {color: rgba(255,255,255,.42);}
-#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:hover:before {color: rgba(255,255,255,.42);}
-#idTreeView:checked~.tree-view-tooltip [for="idTreeView"]:hover:after {color: #fff;}
-/* checkbox-переключатель, см.тут: http://shpargalkablog.ru/2013/08/checked.html */
-/* i checkbox - Развернуть/свернуть все оглавление */
+/* (!) checkbox-Развернуть/свернуть все оглавление */
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle:hover,
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle,
 .nav-icon-toggle:hover,
 .nav-icon-toggle,
 .nav-icon,
 [for="idTocListMenuSwitch"],
-.toc-list-menu-toggle {
+.toclist-menu-toggle {
 	position: absolute;
 	right: 0; top: 0;
 	width: 16px;
@@ -276,23 +318,37 @@ ul, li {
 	margin: 1px;
 	cursor: pointer;
 }
+
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover,
 [for="idTocListMenuSwitch"]:hover {color: #fff;}
+/* - иконка подсказки */
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:before,
 [for="idTocListMenuSwitch"]:hover:before {
+	content: ""; /**без этого псевдоэлемент не сработает */
 	position: absolute;
-	right: 96px; top: 0; /**без наведения курсора на подсказку */
+	right: 92px; top: 6px; /**без наведения курсора на подсказку */
 	width: 35px;
 	height: 35px;
-	content: ""; /**без этого псевдоэлемент не сработает */
 	background: url("../image/info.png") no-repeat;
 	background-size: 35px 35px;
 	z-index: 2;
 }
+/* - треугольный уголок подсказки */
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover>.toclistmenu-tooltip-triangle:before,
+[for="idTocListMenuSwitch"]:hover>.toclistmenu-tooltip-triangle:before {
+	content: "";
+	position: absolute;
+	right: 0; top: 22px;
+	border-left: 30px solid transparent;
+	/* border-right: 0px solid transparent; */
+	/* border-top: 0px solid transparent; */
+	border-bottom: 10px solid rgba(171,222,247,.6);
+}
+/* - текст подсказки */
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after,
 [for="idTocListMenuSwitch"]:hover:after {
 	position: relative;
-	right: 90px; top: 24px; /**без наведения курсора на подсказку */
+	right: 88px; top: 32px; /**без наведения курсора на подсказку */
 	width: 100px;
 	height: auto;
 	padding: 2px;
@@ -304,17 +360,42 @@ ul, li {
 	border: 1px solid rgba(171,222,247,.6);
 	z-index: 1;
 }
+
 [for="idTocListMenuSwitch"]:hover:after {
-	content: attr(toc-list-menu-tooltip-expand);
+	content: attr(toclistmenu-tooltip-expand);
 }
+
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after {
-	content: attr(toc-list-menu-tooltip-collapse);
+	content: attr(toclistmenu-tooltip-collapse);
 }
+
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:after {
 	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
 }
-
+/* tmp */
+/* (i) анимация подсказки
+! с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
+[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after,
+[for="idTocListMenuSwitch"]:hover:after,
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:before,
+[for="idTocListMenuSwitch"]:hover:before {
+	opacity: 0;
+	transform: translateY(.7em) scale(.3);
+	transform-origin: center bottom;
+}
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
+[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover,
+[for="idTocListMenuSwitch"]:hover {
+	opacity: 1;
+	transition: .6s .4s;
+	transform: translateY(0);
+}
+*/
+/* (!).nav-icon */
 .nav-icon {
 	content: "";
 	background: url(../image/menu.png) no-repeat;
