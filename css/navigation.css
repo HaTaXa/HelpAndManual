@@ -9,12 +9,13 @@ body, html {
 	left: 0; right: 0;
 	top: 0; bottom: 0;
 	background-color: transparent;
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	text-indent: 0;
 	overflow: hidden auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
 }
-/* (!) Scrollbars */
+/* (!) Scrollbars
+*для Mozilla Firefox будет работать пока только общий стиль */
 *,
 html * /* - если нужен общий стиль, его следует применять к тегу html, а не к body */
 {
@@ -91,29 +92,43 @@ html *::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 }
 /* Scrollbars the end */
+body {
+	background-color: #2a2a2a;
+	background: -webkit-linear-gradient(top, #888888, #000000);
+	background: -moz-linear-gradient(top, #888888, #000000);
+	background: -ms-linear-gradient(top, #888888, #000000);
+	background: -o-linear-gradient(top,rgb(136, 136, 136),rgb(0, 0, 0));
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
+	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
+	/**др.вариант, менее контрастный, см.его так же в styles.css
+	background-color: #5e5e5e;
+	background: -webkit-linear-gradient(top, #666666, #222222);
+	background: -moz-linear-gradient(top, #666666, #222222);
+	background: -ms-linear-gradient(top, #666666, #222222);
+	background: -o-linear-gradient(top,rgb(102, 102, 102),rgb(34, 34, 34));
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #222222);
+	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #222222); */
+}
+a, p, span {
+	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+}
 a {
-	color: #737373;
+	color: silver;
 	text-decoration: none;
 }
 a:focus {outline: #707070 dashed thin;}
-a:hover {
-	color: #fff;
-	text-decoration: underline;
-}
+a:hover {text-decoration: underline;}
 /* a:visited {color: #fff;} */
 
 p {
 	/* margin-block: 0.5em; */
 	cursor: default;
-	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 
 ul, li {
 	list-style-type: none;
-	margin: 0;
 	margin-block: 0;
 	margin-inline: 0;
-	padding: 0;
 	padding-block: 0;
 	padding-inline: 0;
 }
@@ -299,7 +314,7 @@ ul, li {
 #idTreeView:checked~[for="idTreeView"]:hover>div,
 [for="idTreeView"]:hover>div {
 	opacity: 1;
-	transition: .6s .4s;
+	transition: .6s .9s;
 	transform: translateY(0);
 	z-index: 1;
 }
@@ -391,7 +406,7 @@ ul, li {
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover,
 [for="idTocListMenuSwitch"]:hover {
 	opacity: 1;
-	transition: .6s .4s;
+	transition: .6s .6s;
 	transform: translateY(0);
 }
 */
@@ -403,6 +418,10 @@ ul, li {
 .nav-icon:hover {
 	content: "";
 	background: url(../image/nav-pane-expand-white.png) no-repeat;
+}
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon:hover {
+	content: "";
+	background: url(../image/nav-pane-collapse-white.png) no-repeat;
 }
 .nav-icon-toggle {
 	content: "";
@@ -429,7 +448,7 @@ ul, li {
 	padding: 1px 1px 1px 2px;
 	overflow-y: auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
-	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 .toc-title::-webkit-scrollbar-thumb,
 .toc-subtitle::-webkit-scrollbar-thumb {
@@ -507,11 +526,14 @@ ul, li {
 	margin: 0 0 0 -16px;
 } /* 'Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
 
-.toc ul, /**для каждого потомка ul */
+.toc ul, /* - для каждого потомка ul */
 .toc {padding: 0 0 0 16px;}
 
 /* .icon-expand::before {content: "+";} *//* - если не использовать иконки +/- */
-.icon-expand {background: url(../image/tgl_expand.gif) no-repeat;}
+.icon-expand {
+	background: url(../image/tgl_expand.gif) no-repeat;
+	/* display: none; */
+}
 /* .icon-collapse::before {content: "-";} *//* - если не использовать иконки +/- */
 .icon-collapse {background: url(../image/tgl_collapse.gif) no-repeat;}
 
@@ -524,7 +546,6 @@ ul, li {
 .toc-list {
 	margin: 1px 0 1px 0;
 	padding: 0 0 0 20px;
-	/* cursor: pointer; */
 } /**Vertical spacing between TOC items - Расстояние по вертикали между пунктами оглавления */
 
 .toc-main-icon { /* - главный значок оглавления */
@@ -570,7 +591,6 @@ ul, li {
 	font-family: Arial, Helvetica;
 	font-weight: normal;
 	font-size: 11pt;
-	color: silver;
 	text-decoration: none;
 }
 .heading2,
@@ -581,37 +601,11 @@ ul, li {
 .heading7,
 .heading8,
 .heading9,
-.heading10 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: silver;
-	text-decoration: none;
-}
-
-.hilight1 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 11pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
-}
-.hilight2,
-.hilight3,
-.hilight4,
-.hilight5,
-.hilight6,
-.hilight7,
-.hilight8,
-.hilight9,
-.hilight10 {
-	font-family: Arial, Helvetica;
-	font-weight: normal;
-	font-size: 10pt;
-	color: #000000;
-	background: #dedede;
-	text-decoration: none;
+.heading10 {font-size: 10pt;}
+/** подсветка текущего топика */
+.hilight {
+	color: #fff;
+	/* background: #dedede; */
 }
 
 div#tree {overflow-y: hidden;} /* (?) id нигде не найден */
@@ -623,10 +617,11 @@ div#tree {overflow-y: hidden;} /* (?) id нигде не найден */
 	background-color: transparent;
 	overflow: hidden;
 }
+.toc-footer a,
 .toc-footer p {
 	margin: 2px;
 	padding: 2px 0;
-	font-size: 0.7em;
+	font-size: 11px;
 	text-align: center;
 	color: #737373;
 }

@@ -11,7 +11,7 @@ div#idFooterContents {
 div#idFooterContents p {
 	padding: 0 0 5px 0;
 	/* font-family: Verdana, sans-serif; */
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	/* font-size: 9pt; */
 	font-size: 0.7em;
 	/* color: #737373; */
@@ -66,7 +66,7 @@ p.footer a:hover {
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	color: #fff;
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	font-size: 0.7em;
 	text-indent: 0px; /* ~ отступ первой строки */
 	border-style: solid;

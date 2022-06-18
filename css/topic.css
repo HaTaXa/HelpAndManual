@@ -86,8 +86,8 @@ html *::-webkit-scrollbar-thumb {
 	border-radius: 10px;
 }
 /* Scrollbars the end */
-p {
-	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+a, p, span {
+	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 
 .topic-header {
@@ -96,11 +96,16 @@ p {
 	/* width: 100%; */
 	height: 69px;
 	/* padding: 5px 0 5px 0; */
-	/* background-color: #fff; */
-	background-image: url("../image/bg-top.png");
-	background-size: 100% 100%;
 	border-bottom: 1px solid silver;
 	z-index: 100;
+}
+.topic-header {
+	background: -webkit-linear-gradient(bottom, rgba(0,0,0, 0.86) 85%,rgba(255,255,255));
+	background: -moz-linear-gradient(bottom, rgba(0,0,0, 0.86) 85%,rgba(255,255,255));
+	background: -ms-linear-gradient(bottom, rgba(0,0,0, 0.86) 85%,rgba(255,255,255));
+	background: -o-linear-gradient(bottom, rgba(0,0,0, 0.86) 85%,rgba(255,255,255));
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #000000);
+	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #000000);
 }
 .topic-header:hover {cursor: default;}
 
@@ -109,16 +114,11 @@ p {
 	height: 100%;
 	margin: 0 60px 0 1px;
 	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
+	flex-flow: column nowrap;
 	align-items: flex-start;
 	justify-content: space-around;
 	color: #737373;
 }
-.header-content p:hover,
-.header-content span:hover,
-.header-content a:hover {color: #fff;}
-
 /* ! Breadcrumb trail
 - След из хлебных крошек */
 .bread-crumbs {
@@ -126,21 +126,30 @@ p {
 	margin: 4px 1px 1px 1px;
 	/* padding: 0 0 1px 2px; */
 	flex: 1 1 auto;
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	/* font-size: 10px; */
 	font-size: 0.6em;
 	text-indent: 0.5em;
-	/* color: #737373; */
 }
-.bread-crumbs a {text-decoration: none;}
-.bread-crumbs a:visited {color: #737373; text-decoration: none;}
-.bread-crumbs a:hover {color: #fff; border-bottom: 1px dotted #fff;}
+/* TODO */
+/* .bread-crumbs:hover {color: #fff;} */
+/* .bread-crumbs span:hover {color: #737373;} */
+
 /* ! Link to display entire user interface when topic is opened on its own
-- Ссылка для отображения всего пользовательского интерфейса при самостоятельном открытии темы */
-.sync-toc {display: none;}
-.sync-toc,
+- Ссылка для отображения всего пользовательского интерфейса при самостоятельном открытии темы
+*данный класс прописан так же в linkstyles.css */
+.sync-toc-on,
 .sync-toc-off,
-.sync-toc-on {font-weight: bold;}
+.sync-toc {font-weight: bold;}
+.sync-toc {display: none;}
+
+.sync-toc-on a:visited,
+.sync-toc-off a:visited,
+.sync-toc-on a,
+.sync-toc-off a {color: #737373; text-decoration: none;}
+
+.sync-toc-on a:hover,
+.sync-toc-off a:hover {color: #fff; border-bottom: 1px dotted #fff;}
 
 .title {
 	width: 100%;
@@ -156,8 +165,9 @@ p {
 	overflow-x: hidden;
 	overflow-y: auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
-	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р", чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
+.title:hover {color: #fff;}
 /* (!).topic-content-Контент-текст */
 .topic-content {
 	position: absolute;
@@ -196,6 +206,38 @@ div#commentsWrapper {
 	border-top: 1px solid silver;
 	/* border-bottom: 1px solid silver; */
 }
+/* (!) Встроенный скрытый контент */
+.toggle-shown,
+.toggle-hidden {/* для поиска по тексту в контенте */}
+.toggle-content {
+	overflow: hidden;
+}
+.toggle-icon {
+	width: auto;
+	height: auto;
+	border: none;
+	font-size: 12pt;
+	font-family: 'Times New Roman', Times, Georgia, serif;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+	cursor: pointer;
+}
+.video-lightbox {
+	position: relative;
+	width: 320px;
+	height: 180px;
+	text-align: center;
+	background: #000;
+	cursor: pointer;
+	overflow: hidden;
+}
+.toggle-bg-yellow {background-color: #ffff99;}
+.toggle-bg-blue {background-color: #ccffff;}
+.toggle-bg-green {background-color: lightgreen;}
+.toggle-bg-peach {background-color: #ffcc99;}
+.toggle-collapse {display: none;}
 /* ! Topic Content Footer. The footer defined in the topic content
 - Нижний колонтитул, определенный в контенте топика
 (!).content-footer */
@@ -210,7 +252,7 @@ div#commentsWrapper {
 .content-footer p {
 	padding: 0 0 5px 0;
 	/* font-family: Verdana, sans-serif; */
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	/* font-size: 9pt; */
 	font-size: 0.7em;
 	/* color: #737373; */
@@ -240,18 +282,21 @@ div#commentsWrapper {
 	padding: 0;
 	display: flex;
 	flex-flow: row nowrap; /* - сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
-	overflow-y: hidden;
-	overflow-x: hidden;
-	background-color: transparent;
-	background-image: url("../image/bg-bottom.png");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	color: #fff;
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	font-size: 0.7em;
 	text-indent: 0px; /* - отступ первой строки */
 	border-top: 1px solid silver;
+	overflow-y: hidden;
+	overflow-x: hidden;
 	/* x z-index: 100; */
+}
+.topic-footer {
+	background: -webkit-linear-gradient(top, rgba(0,0,0, 0.96) 85%,rgba(136,136,136));
+	background: -moz-linear-gradient(top, rgba(0,0,0, 0.96) 85%,rgba(136,136,136));
+	background: -ms-linear-gradient(top, rgba(0,0,0, 0.96) 85%,rgba(136,136,136));
+	background: -o-linear-gradient(top, rgba(0,0,0, 0.96) 85%,rgba(136,136,136));
+	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #000000, endColorstr = #999999);
+	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #000000, endColorstr = #999999);
 }
 
 .topic-footer-left,
@@ -293,9 +338,8 @@ div#commentsWrapper {
 .topic-footer p:hover {cursor: default;}
 /* ! root element for tabs
 - Корневой элемент для вкладок
-(?) не понятно что за корневой элемент и какова его функция
-(!) ul.tabs */
-ul.tabs {/* display: none; */}
+(!) ul.tabs - это дубликат текущей вкладки, единственная и она же текущая вкладка тема топика, по умолчанию скрытая, но отображается, когда вкладка запускается в отдельном окне браузера по кнопке Открепить на пан.инструментов */
+ul.tabs {display: none;}
 /* ! Sortable Tables
 - Сортируемые Таблицы
  X ? скорее всего это не понадобится
@@ -320,7 +364,7 @@ a.sortheader:hover {
 a.sortheader {outline: none;}
 /* ! Components of the Topic AutoTOC Window. These are the dead defaults. A number of settings will be reset by the script
 -Компоненты автоматического окна темы. Это мертвые дефолты. Ряд настроек будет сброшен сценарием
-(!).topic-menu */
+(!).topic-menu - это меню для оглавления контент текста в текущей теме топика */
 .topic-menu {
 	/* display: none; *//* (i) временно закоментировано */
 	z-index: 1000;

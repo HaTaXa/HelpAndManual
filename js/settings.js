@@ -1,5 +1,4 @@
 // (i) Project settings - Параметры проекта
-
 var hmAnimate = true;
 var hmPopupSticky = true;
 var hmImageLightbox = true;
@@ -24,7 +23,7 @@ var agent = navigator.userAgent,
 				break;
 			case "touch":
 				hmBrowser.touchstart = "touchstart";
-					hmBrowser.touchend = "touchend";
+				hmBrowser.touchend = "touchend";
 				break;
 			case "mstouchpoints":
 				hmBrowser.touchstart = "MSPointerDown";

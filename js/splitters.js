@@ -1,4 +1,4 @@
-// ! Инициализация переменных
+// (i) Инициализация переменных
 const navbox = document.getElementById('idNavBox');
 const topicpane = document.getElementById('idTopicPane');
 const splitterRight = document.getElementById('idSplitterRight');
@@ -75,7 +75,7 @@ $(document).ready(function () { // - jq
 		}
 		// console.log(`document.addEventListener('mouseup'):\n e.target.id: ${e.target.id}\n--- the end ---`); // X удалить после теста
 	}, false); // - false - фаза "всплытие"
-}); // Ready end
+}); // ready end
 // (!) getSizesWidth
 function getSizesWidth (event) {
 	// *левая панель

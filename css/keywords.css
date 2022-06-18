@@ -2,7 +2,7 @@
 
 html, body {
 	overflow: hidden;
-	font-family: Verdana, Tahoma, Helvetica, Sans-Serif;
+	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 }
 div#hmidxheader {
 	position: absolute;
