@@ -11,8 +11,7 @@ body, html {
 	background-color: transparent;
 	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	text-indent: 0;
-	overflow: hidden auto;
-	scroll-behavior: smooth; /* плавная прокрутка */
+	overflow: hidden;
 }
 /* (!) Scrollbars
 *для Mozilla Firefox будет работать пока только общий стиль */
@@ -21,6 +20,7 @@ html * /* - если нужен общий стиль, его следует п�
 {
 	scrollbar-width: thin;
 	scrollbar-color: gray #3f3f3f;
+	scroll-behavior: smooth; /* плавная прокрутка */
 }
 *::-webkit-scrollbar,
 html *::-webkit-scrollbar {
@@ -96,21 +96,18 @@ body {
 	background-color: #2a2a2a;
 	background: -webkit-linear-gradient(top, #888888, #000000);
 	background: -moz-linear-gradient(top, #888888, #000000);
-	background: -ms-linear-gradient(top, #888888, #000000);
 	background: -o-linear-gradient(top,rgb(136, 136, 136),rgb(0, 0, 0));
+	background: -ms-linear-gradient(top, #888888, #000000);
 	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
 	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
 	/**др.вариант, менее контрастный, см.его так же в styles.css
 	background-color: #5e5e5e;
 	background: -webkit-linear-gradient(top, #666666, #222222);
 	background: -moz-linear-gradient(top, #666666, #222222);
-	background: -ms-linear-gradient(top, #666666, #222222);
 	background: -o-linear-gradient(top,rgb(102, 102, 102),rgb(34, 34, 34));
+	background: -ms-linear-gradient(top, #666666, #222222);
 	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #222222);
 	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #222222); */
-}
-a, p, span {
-	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 a {
 	color: silver;
@@ -137,6 +134,15 @@ ul, li {
 	// background-position: 6px 2px;
 	// padding: 0 0 0 20px;
 } */
+/**отражаем противоположно самый верхний div, чтобы scrollbar был слевой стороны */
+.reflect {
+	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементам типа "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+}
+/* a, p, span, */
+.reflect * {
+	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементам типа "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
+}
+
 .toc-header {
 	position: absolute;
 	left: 0; right: 0;
@@ -248,7 +254,7 @@ ul, li {
 	top: 0; /**общая высота, если горизонтально */
 	width: 50px;
 	height: 50px;
-	background: url("../image/info.png") no-repeat;
+	background: url("../icon/info.png") no-repeat;
 	z-index: 2;
 }
 
@@ -319,11 +325,11 @@ ul, li {
 	z-index: 1;
 }
 /* (!) checkbox-Развернуть/свернуть все оглавление */
-#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle:hover,
-#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle,
-.nav-icon-toggle:hover,
-.nav-icon-toggle,
-.nav-icon,
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .btn-icon-toggle:hover,
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .btn-icon-toggle,
+.btn-icon-toggle:hover,
+.btn-icon-toggle,
+.btn-icon,
 [for="idTocListMenuSwitch"],
 .toclist-menu-toggle {
 	position: absolute;
@@ -344,7 +350,7 @@ ul, li {
 	right: 92px; top: 6px; /**без наведения курсора на подсказку */
 	width: 35px;
 	height: 35px;
-	background: url("../image/info.png") no-repeat;
+	background: url("../icon/info.png") no-repeat;
 	background-size: 35px 35px;
 	z-index: 2;
 }
@@ -388,10 +394,9 @@ ul, li {
 	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
 }
-/* tmp */
-/* (i) анимация подсказки
-! с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно
-#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
+/* (i) анимация подсказки */
+/* ! с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно */
+/* #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
 [for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after,
 [for="idTocListMenuSwitch"]:hover:after,
@@ -410,34 +415,35 @@ ul, li {
 	transform: translateY(0);
 }
 */
-/* (!).nav-icon */
-.nav-icon {
+/* (!).btn-icon
+(i).btn-icon-имя класса так же присутствует в стилях styles.css и topic.css, но правила разные */
+.btn-icon {
 	content: "";
-	background: url(../image/menu.png) no-repeat;
+	background: url(../icon/menu.png) no-repeat;
 }
-.nav-icon:hover {
+.btn-icon:hover {
 	content: "";
-	background: url(../image/nav-pane-expand-white.png) no-repeat;
+	background: url(../icon/nav-pane-expand-white.png) no-repeat;
 }
-#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon:hover {
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .btn-icon:hover {
 	content: "";
-	background: url(../image/nav-pane-collapse-white.png) no-repeat;
+	background: url(../icon/nav-pane-collapse-white.png) no-repeat;
 }
-.nav-icon-toggle {
+.btn-icon-toggle {
 	content: "";
-	background: url(../image/nav-pane-expand.png) no-repeat;
+	background: url(../icon/nav-pane-expand.png) no-repeat;
 }
-.nav-icon-toggle:hover {
+.btn-icon-toggle:hover {
 	content: "";
-	background: url(../image/nav-pane-expand-white.png) no-repeat;
+	background: url(../icon/nav-pane-expand-white.png) no-repeat;
 }
-#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle {
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .btn-icon-toggle {
 	content: "";
-	background: url(../image/nav-pane-collapse.png) no-repeat;
+	background: url(../icon/nav-pane-collapse.png) no-repeat;
 }
-#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .nav-icon-toggle:hover {
+#idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"] .btn-icon-toggle:hover {
 	content: "";
-	background: url(../image/nav-pane-collapse-white.png) no-repeat;
+	background: url(../icon/nav-pane-collapse-white.png) no-repeat;
 }
 
 .toc-title,
@@ -448,7 +454,6 @@ ul, li {
 	padding: 1px 1px 1px 2px;
 	overflow-y: auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
-	direction: rtl; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементу "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
 .toc-title::-webkit-scrollbar-thumb,
 .toc-subtitle::-webkit-scrollbar-thumb {
@@ -501,83 +506,83 @@ ul, li {
 .no-js-title a:hover {text-decoration: underline;}
 
 .toc-body {
-	background-image: url("../image/spacer.gif"); /* (?) не понятно для чего */
+	background-image: url("../icon/spacer.gif"); /* (?) не понятно для чего */
 	position: absolute;
 	left: 0; right: 0;
 	top: 116px; bottom: 120px;
 	margin: 2px;
 	padding: 2px;
-	overflow-y: auto;
+	overflow: hidden auto;
 	border-style: solid;
 	border-color: #3f3f3f;
 	border-bottom-color: #4f4f4f;
 	border-width: thin; /* border-width: 1px 0 1px 0; */
 }
-
 /* (!) TOC LIST CSS */
+/**General margin of the TOC (root entry) - Общее поле оглавления (корневая запись) */
 .toc {
 	position: absolute;
-	left: 0; right: 0;
-	top: 0; /* bottom: 0; */
+	left: 0; right: 0; top: 0;
 	margin: 2px;
-} /**General margin of the TOC (root entry) - Общее поле оглавления (корневая запись) */
+}
 
 .toc ul {
-	margin: 0 0 0 -16px;
-} /* 'Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
-
-.toc ul, /* - для каждого потомка ul */
-.toc {padding: 0 0 0 16px;}
-
+	margin: 0 0 0 -16px; /* - Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
+}
+.toc,
+.toc ul {
+	padding: 0 0 0 16px;
+} /** для каждого потомка ul */
+/* (i) от классов зависит условие в коде js */
+.icon-expand {background: url(../icon/tgl_expand.gif) no-repeat;}
 /* .icon-expand::before {content: "+";} *//* - если не использовать иконки +/- */
-.icon-expand {
-	background: url(../image/tgl_expand.gif) no-repeat;
-	/* display: none; */
-}
+.icon-collapse {background: url(../icon/tgl_collapse.gif) no-repeat;}
 /* .icon-collapse::before {content: "-";} *//* - если не использовать иконки +/- */
-.icon-collapse {background: url(../image/tgl_collapse.gif) no-repeat;}
-
 .icon-collapse,
-.icon-expand {
-	background-position: 2px 2px;
-	/* cursor: default; */
+.icon-expand {background-position: 2px 2px;}
+/* TODO: сделать иконки с +/- отдельно */
+.nav-icon {
+	position: absolute;
+	left: 0;
+	float: left;
+	/* margin-top: 2px; */
 }
-
+/**Vertical spacing between TOC items - Расстояние по вертикали между пунктами оглавления */
 .toc-list {
 	margin: 1px 0 1px 0;
 	padding: 0 0 0 20px;
-} /**Vertical spacing between TOC items - Расстояние по вертикали между пунктами оглавления */
+}
 
 .toc-main-icon { /* - главный значок оглавления */
-	background: url(../image/tgl_gb0.png) no-repeat;
+	background: url(../icon/tgl_gb0.png) no-repeat;
 	background-position: 1px 1px;
 }
 .icon-email {
-	background: url(../image/toc_emailfile.png) no-repeat;
+	background: url(../icon/toc_emailfile.png) no-repeat;
 	background-position: 2px 0;
 }
 .icon-glavbyx {
-	background: url(../image/gb.gif) no-repeat;
+	background: url(../icon/gb.gif) no-repeat;
 	background-position: 0;
 }
 .icon-book-purple {
-	background: url(../image/toc_bookclosedpurple.png) no-repeat;
+	background: url(../icon/toc_bookclosedpurple.png) no-repeat;
 	background-position: 1px 1px;
 }
 .icon-book-blue {
-	background: url(../image/toc_bookclosedblue.png) no-repeat;
+	background: url(../icon/toc_bookclosedblue.png) no-repeat;
 	background-position: 1px 0;
 }
 .icon-folder {
-	background: url(../image/toc_folderclosed.png) no-repeat;
+	background: url(../icon/toc_folderclosed.png) no-repeat;
 	background-position: 1px -1px;
 }
 .icon-info {
-	background: url(../image/toc_Info_2.png) no-repeat;
+	background: url(../icon/toc_Info_2.png) no-repeat;
 	background-position: 1px 0;
 }
 .icon-topic {
-	background: url(../image/toc_topic.png) no-repeat;
+	background: url(../icon/toc_topic.png) no-repeat;
 	background-position: 1px 0;
 }
 #idToc_li {padding-left: 16px;}
@@ -592,6 +597,7 @@ ul, li {
 	font-weight: normal;
 	font-size: 11pt;
 	text-decoration: none;
+
 }
 .heading2,
 .heading3,
@@ -602,6 +608,23 @@ ul, li {
 .heading8,
 .heading9,
 .heading10 {font-size: 10pt;}
+.heading10,
+.heading9,
+.heading8,
+.heading7,
+.heading6,
+.heading5,
+.heading4,
+.heading3,
+.heading2,
+.heading1 {
+	white-space: normal; /* - текст в окне браузера выводится как обычно, переносы строк устанавливаются автоматически. Разбивает строки, чтобы заполнить строчные боксы */
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: normal; /* - чтобы игнорировались "черточки" - перенос текста */
+	word-spacing: normal;
+	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+}
 /** подсветка текущего топика */
 .hilight {
 	color: #fff;
@@ -636,39 +659,37 @@ div#tree {overflow-y: hidden;} /* (?) id нигде не найден */
 }
 /* (i)"idFeedBackOn"
 *во всем проекте прописан в 2-х местах:
-- 1) в нап.инструментов и
+- 1) в пан.инструментов и
 - 2) в пан.нав. */
 .feed-back-on:hover {
 	/* position: absolute; *//* 'не выводит изображение на передний план, поэтому использ.fixed */
 	position: fixed; /* - устраняем смещение всплывающей картинки */
-	transform: translate (-50%, -80%); /* - (x, y)
-	*Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
-	-moz-transform: translate(-50%, -80%); /* - Firefox */
-	-ms-transform: translate(-50%, -80%); /* - IE */
-	-webkit-transform: translate(-50%, -80%); /* - Safari, Chrome, iOS */
-	-o-transform: translate(-50%, -80%); /* - Opera */
 	margin: 0;
 	padding: 2px 4px 2px 4px;
-	border-color: #fff;
-	border-width: 1px;
-	border-style: solid;
-	border-radius: 5px;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
 	font-weight: normal; /* 'насыщенность шрифта */
+	transform: translate (-50%, -80%); /* - (x, y)
+	*Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
+	-webkit-transform: translate(-50%, -80%); /* - Safari, Chrome, iOS */
+	-moz-transform: translate(-50%, -80%); /* - Firefox */
+	-o-transform: translate(-50%, -80%); /* - Opera */
+	-ms-transform: translate(-50%, -80%); /* - IE */
+	border: 1px solid #fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 /* (!) МЕДИА ЗАПРОСЫ */
-/**диапазон < 256px */
-@media screen and (max-width: 256px) {.toc-body {bottom: 130px;}}
-/**диапазон < 217px */
-@media screen and (max-width: 217px) {.toc-body {bottom: 142px;}}
-/**диапазон < 162px */
-@media screen and (max-width: 162px) {.toc-body {bottom: 156px;}}
-/**диапазон < 140px */
-@media screen and (max-width: 140px) {.toc-body {bottom: 170px;}}
-/**диапазон < 132px */
-@media screen and (max-width: 132px) {.toc-body {bottom: 182px;}}
-/**диапазон < 129px */
-@media screen and (max-width: 129px) {.toc-body {bottom: 196px;}}
-/**диапазон < 123px */
-@media screen and (max-width: 123px) {.toc-body {bottom: 208px;}}
+/**диапазон < 260px */
+@media screen and (max-width: 260px) {.toc-body {bottom: 128px;}}
+/**диапазон < 213px */
+@media screen and (max-width: 213px) {.toc-body {bottom: 140px;}}
+/**диапазон < 161px */
+@media screen and (max-width: 161px) {.toc-body {bottom: 154px;}}
+/**диапазон < 158px */
+@media screen and (max-width: 158px) {.toc-body {bottom: 166px;}}
+/**диапазон < 142px */
+@media screen and (max-width: 142px) {.toc-body {bottom: 180px;}}
+/**диапазон < 134px */
+@media screen and (max-width: 134px) {.toc-body {bottom: 192px;}}
+/**диапазон < 127px */
+@media screen and (max-width: 127px) {.toc-body {bottom: 206px;}}

@@ -1,9 +1,11 @@
 // document.addEventListener("DOMContentLoaded", function () {}, false); // - js. Дожидаемся, когда Объектная модель документа страницы (DOM) будет готова к выполнению кода JavaScript
 // (!) *window
+window.addEventListener('resize', function (e) {
+	resizePanels(); // BUG: нет стабильности положения ширины - панели все время дергаются
+}, false); // - false - фаза "всплытие"
 window.addEventListener("load", function () { // - js. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готово
-	window.onresize = function () {
-		setPositionPanels(document.getElementById('idNavPane'), document.getElementById('idTopicPane'));
-	};
+	// X обработчик события resize прописываем здесь, т.к.заранее не известно когда и как будут/были загружены панели idNavPane & idTopicPane
+	// window.addEventListener('resize', resizePanels);
 	// *обновляем глобальные переменные в variables.js
 	// (i) если вариант 1
 	if (hmpermalink.url !== location.href) { // 'перестраховка
@@ -34,13 +36,13 @@ window.addEventListener("load", function () { // - js. Сработает, ка�
 	// 		document.getElementById('hmnavigation').contentWindow.goToPage(null, hmtopicvars.currP); // - перейти на страницу выполнив обновление глобальных переменных в variables.js
 	// 	}
 	// }
-}, false); // - false - фаза "всплытие"
+}, false); // false - фаза "всплытие"
 // (!) *document
 $(document).ready(function () { // - jq
 	if (document !== null && typeof (document) === "object") {
 		// (!) message
 		window.addEventListener("message", (event) => {
-			// console.log(`--- start ---\n window.addEventListener("message", (event) гл.окно):\n location.origin: ${location.origin}\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // X -
+			// console.log(`window.addEventListener("message", (event) гл.окно), location.origin: ${location.origin}:\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // X -
 			if (event.data.value === "setPushState") {
 				if (location.search === "") {
 					hmpermalink.url = location.href + "?" + event.data.currP;
@@ -49,16 +51,26 @@ $(document).ready(function () { // - jq
 				}
 				window.history.pushState("", "", hmpermalink.url);
 			} else if (event.data.value === "setToolbarButtonsOnOff") {
-					// *обновляем некоторые глобальные переменные в variables.js из hmcontent
-					setUpdateVariables(event.data.hmtopicvars);
-					setToolbarButtonsOnOff(event.data.hmtopicvars.btnExpand);
-					// (i) если вариант 1
-					// *обновляем остальную часть глобальных переменных в variables.js через hmnavigation
-					let msg = {
-						value: location.search === "" ? "setVariables" : "goToPage",
-						currP: hmtopicvars.currP || event.data.hmtopicvars.currP
-					};
-					frames.hmnavigation.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+				// *обновляем некоторые глобальные переменные в variables.js из hmcontent
+				setUpdateVariables(event.data.hmtopicvars);
+				setToolbarButtonsOnOff(event.data.hmtopicvars.btnExpand);
+				// (i) если вариант 1
+				// *обновляем остальную часть глобальных переменных в variables.js через hmnavigation
+				let msg = {
+					value: location.search === "" ? "setVariables" : "goToPage",
+					currP: hmtopicvars.currP || event.data.hmtopicvars.currP
+				};
+				frames.hmnavigation.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+				if (hmtopicvars.msgBox === "enable") {
+					// *возвращаемся обратно в источник hmcontent, передаем значения глобальных переменных из variables.js и создаем информационное сообщение
+					delete msg.currP; // - удаляем св-во в объекте
+					msg.value = "setMsgBox"; // - изменяем значение св-ва в объекте
+					// *создаем/добавляем новое св-во в объекте - 2 способа:
+					msg.msgBox = hmtopicvars.msgBox;
+					msg.msgBtn = hmtopicvars.msgBtn;
+					msg["msgText"] = hmtopicvars.msgText;
+					event.source.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+				}
 			} else if (event.data.value === "setUpdateVariables") {
 				// *обновляем глобальные переменные из hmnavigation
 				if (location.search === "") {
@@ -85,6 +97,13 @@ $(document).ready(function () { // - jq
 					breadCrumbs: hmnavpages.breadCrumbs
 				};
 				frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+			} else if (event.data.value === "msgBtnUpdate") {
+				hmtopicvars.msgBtn = event.data.msgBtn; // - обновляем глобальную переменную в variables.js
+			} else if (event.data.value === "setImageFullScreen") {
+				// 'image full screen - вывод текущего lightbox в гл.окне
+				console.log(`event.data: \n 1) .value: ${event.data.value}\n 2) .clone: ${event.data.clone}\n---\n event.data.clone.classList: ${event.data.clone.classList}\n event.data.clone === null: ${event.data.clone === null}\n typeof(event.data.clone): ${typeof(event.data.clone)}\n event.data.clone === Object(event.data.clone): ${event.data.clone === Object(event.data.clone)}\n (event.data.clone === null && typeof(event.data.clone) === "object"): ${event.data.clone === null && typeof(event.data.clone) === "object"}\n---`); // X -
+				// (i) нельзя передать узел/копию DOM-элемента в другое окно/фрейм, см.спецификацию
+				setImageFullScreen(event.data.clone); // - создать изо.во весь экран
 			} else if (event.data.value === "setShowHideWindow") {
 				// *по нажатию на esc скрываем всплывающие окна permalink/tabsmenubox
 				// for (let i = 0; i < event.data.msg1.length; i++) {
@@ -92,12 +111,12 @@ $(document).ready(function () { // - jq
 				// }
 				event.data.winId.forEach((itemId) => {
 					if (document.getElementById(itemId).style.display !== "none") {
-						if (itemId === "idPermaLink") { permaLinkDefault(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+						if (itemId === "idPermaLink") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 						setShowHideWindow(document.getElementById(itemId), event.data.winHide);
 					}
 				});
 			}
-		}, false); // - false - фаза "всплытие"
+		}, false); // false - фаза "всплытие"
 		// (!) hashchange
 		window.addEventListener("hashchange", () => {
 			// console.log(`window.addEventListener("hashchange", () => {} гл.окно):\n .href: ${window.top.document.location.href}\n .hash: ${window.top.location.hash}\n .hash.length: ${window.top.location.hash.length}`); // X -
@@ -112,42 +131,53 @@ $(document).ready(function () { // - jq
 					// console.log(`window.addEventListener("hashchange", () => {} гл.окно):\n url: ${url}\n .hash: ${window.top.location.hash}\т --- the end ---`); // X -
 				}
 			}
-		}, false); // - false - фаза "всплытие"
+		}, false); // false - фаза "всплытие"
 		// (!) keyup
 		document.addEventListener("keyup", function (event) {
 			if (event.key === "Escape" || event.code === "Escape" || event.keyCode === 27 || event.which === 27) {
+				// console.log(`document.addEventListener("keyup", function (event: ${typeof(event)} / ${event}):\n window.«${window.name}».document.${document.activeElement}\n event:\n 1) event.key: ${event.key}\n event.code: ${event.code}\n event.keyCode: ${event.keyCode}\n event.which: ${event.which}\n 2) typeof(event.target): ${typeof(event.target)}\n event.target: ${event.target})\n Object(event.target): ${Object(event.target)}\n 3) event.target.tagName: ${event.target.tagName}\n event.target.classList: ${event.target.classList}`); // X -
+
 				// (!) закрыть окно "Постоянная ссылка"
 				let permalink = document.getElementById('idPermaLink');
-				if (permalink.style.display !== "none") {
-					permaLinkDefault(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
-					setShowHideWindow(permalink, 'hide');
+				if (permalink !== null && typeof(permalink) !== "undefined" && permalink === Object(permalink)) {
+					if (permalink.style.display !== "none") {
+						clearPermalink(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+						setShowHideWindow(permalink, 'hide');
+					}
 				}
 				// (!) закрыть окно "Меню вкладок"
 				let tabsMenuBox = document.getElementById('idTabsMenuBox');
-				if (tabsMenuBox !== null && typeof (tabsMenuBox) !== "undefined" && typeof (tabsMenuBox) === "object") {
+				if (tabsMenuBox !== null && typeof(tabsMenuBox) !== "undefined" && tabsMenuBox === Object(tabsMenuBox)) {
 					if (tabsMenuBox.style.display !== "none") {
+						// TODO: 'сделать плавно
 						setShowHideWindow(tabsMenuBox, 'hide');
 					}
 				}
 			}
-		}, false); // - false - фаза "всплытие"
+		}, false); // false - фаза "всплытие"
 		// (i)---
-		// (!)*idPermaLink-всплывающее окно "Постоянная ссылка". Используем делегирование событий, прослушивая общий элемент для всех вкладок
-		if (document.getElementById('idPermaLink') !== null && typeof (document.getElementById('idPermaLink')) === "object") {
+		// (!)*idPermaLink-всплывающее окно "Постоянная ссылка". Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
+		if (document.getElementById('idPermaLink') !== null || typeof(document.getElementById('idPermaLink')) !== "undefined" && document.getElementById('idPermaLink') === Object(document.getElementById('idPermaLink'))) {
 			// 'click
 			document.getElementById('idPermaLink').addEventListener("click", function (e) {
-				if (e.target.tagName === "BUTTON") {
+				if (e.target.tagName === "DIV") {
 					// (!) idPermaLinkClose-кнопка закрыть всплывающее окно Постоянная ссылка
 					if (e.target.id === "idPermaLinkClose") {
-						permaLinkDefault(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
-						setShowHideWindow(e.target.parentElement.parentElement, 'hide');
+						let permalink = e.target;
+						while (permalink.id !== "idPermaLink") {
+							permalink = permalink.parentElement;
+							if (permalink.tagName === "BODY") {break;}
+						}
+						if (permalink.id === "idPermaLink") {
+							clearPermalink(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+							setShowHideWindow(permalink, 'hide');
+						}
 					}
 				} else if (e.target.tagName === "INPUT") {
 					// (!) idPermaLinkCopy-кнопка скопировать
 					if (e.target.id === "idPermaLinkCopy") {
 						let textArea = document.getElementById('idTextArea');
-						if (textArea !== null && typeof (textArea) === "object") {
-							// console.log(`document.getElementById('idPermaLink').addEventListener("click", function (e):\n textArea.labels[0].tagName: ${textArea.labels[0].tagName}`); // X -
+						if (textArea !== null && typeof (textArea) === "object" || textArea === Object(textArea)) {
 							if (textArea.value === "") {
 								e.target.value = "Copy failed";
 								textArea.labels[0].innerHTML = hmpermalink.copyError;
@@ -166,7 +196,7 @@ $(document).ready(function () { // - jq
 									textArea.labels[0].classList.add('permalink-error');
 								}
 								setTimeout(() => {
-									e.target.value = hmpermalink.select;
+									e.target.value = "Копировать";
 								}, 2000);
 							}
 						}
@@ -193,36 +223,36 @@ $(document).ready(function () { // - jq
 									textArea.labels[0].classList.add('permalink-error');
 								}
 								setTimeout(() => {
-									e.target.value = hmpermalink.bookmark;
+									e.target.value = "В закладки";
 								}, 2000);
 							}
 						}
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
 		// (i)---
-		// (i)*idToolbar-События на панеле инструментов. Используем делегирование событий, прослушивая общий элемент для всех вкладок
+		// (i)*idToolbar-События на панеле инструментов. Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
 		if (document.getElementById('idToolbar') !== null && typeof (document.getElementById('idToolbar')) === "object") {
 			// (i) mouseover/mouseout-наведение курсора
 			document.getElementById('idToolbar').addEventListener("mouseover", function (e) {
 				if (e.target.tagName === "IMG") {
 					// (!) idFeedBackOn-кнопка e-mail
 					if (e.target.id === "idFeedBackOn") {
-						// e.target.setAttribute('src', 'image/support.gif');
-						e.target.src = "image/support.gif";
+						// e.target.setAttribute('src', 'icon/support.gif');
+						e.target.src = "icon/support.gif";
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			document.getElementById('idToolbar').addEventListener("mouseout", function (e) {
 				if (e.target.tagName === "IMG") {
 					// ! idFeedBackOn-кнопка e-mail
 					if (e.target.id === "idFeedBackOn") {
-						// e.target.setAttribute('src', 'image/emailon.png');
-						e.target.src = "image/emailon.png";
+						// e.target.setAttribute('src', 'icon/emailon.png');
+						e.target.src = "icon/emailon.png";
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			// (i) change
 			document.getElementById('idToolbar').addEventListener("change", function (e) {
 				if (e.target.tagName === "INPUT") {
@@ -233,7 +263,7 @@ $(document).ready(function () { // - jq
 						document.getElementById('idTopicPaneNavShowHide').checked = e.target.checked; // - синхронизируем состояние checked
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			// (i) click
 			document.getElementById('idToolbar').addEventListener("click", function (e) {
 				if (e.target.tagName === "INPUT") {
@@ -246,8 +276,37 @@ $(document).ready(function () { // - jq
 					// (!) idBannerShowHide-кнопка Показать/Скрыть баннер
 					else if (e.target.id === "idBannerShowHide") {
 						setBannerShowHide(!e.target.checked); // - делаем инверсию значения, т.к.на событии click значение e.target.checked уже изменено
+						// *создаем обработчик события, чтобы удалить css св-во "animation" по окончанию воспроизведения анимации, иначе она больше не будет воспроизводиться
+						// 'idBanner
+						let banner = document.getElementById('idBanner');
+						if (banner !== null || typeof(banner) !== "undefined" && typeof(banner) === "object" || banner === Object(banner)) {
+							banner.addEventListener("animationend", (event) => {
+								event.target.style.removeProperty('animation'); // - удаляем css св-во
+							}, false); // false - фаза "всплытие"
+						}
+						// 'idToolbar
+						let toolbar = document.getElementById('idToolbar');
+						if (toolbar !== null || typeof(toolbar) !== "undefined" && typeof(toolbar) === "object" || toolbar === Object(toolbar)) {
+							toolbar.addEventListener("animationend", (event) => {
+								event.target.style.removeProperty('animation'); // - удаляем css св-во
+							}, false); // false - фаза "всплытие"
+						}
+						// 'idNavPane
+						let navpane = document.getElementById('idNavPane');
+						if (navpane !== null || typeof(navpane) !== "undefined" && typeof(navpane) === "object" || navpane === Object(navpane)) {
+							navpane.addEventListener("animationend", (event) => {
+								event.target.style.removeProperty('animation'); // - удаляем css св-во
+							}, false); // false - фаза "всплытие"
+						}
+						// 'idTopicPane
+						let topicpane = document.getElementById('idTopicPane');
+						if (topicpane !== null || typeof(topicpane) !== "undefined" && typeof(topicpane) === "object" || topicpane === Object(topicpane)) {
+							topicpane.addEventListener("animationend", (event) => {
+								event.target.style.removeProperty('animation'); // - удаляем css св-во
+							}, false); // false - фаза "всплытие"
+						}
 					}
-					// (!) idTextExpandCollapse-кнопка Развернуть/Свернуть
+					// (!) idTextExpandCollapse-кнопка Развернуть/Свернуть скрытый контент
 					else if (e.target.id === "idTextExpandCollapse") {
 						if (location.origin === "file://") { // - при локальном использовании
 							// (i) в Firefox не работает
@@ -257,17 +316,7 @@ $(document).ready(function () { // - jq
 							};
 							frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 						} else {
-							let elements = null;
-							if (e.target.checked) {
-								elements = document.getElementById('hmcontent').contentDocument.getElementsByClassName('toggle-hidden');
-							} else {
-								elements = document.getElementById('hmcontent').contentDocument.getElementsByClassName('toggle-shown');
-							}
-							if (elements !== null || typeof (elements) !== "undefined" || typeof (elements) === "object" || elements === Object(elements)) {
-								for (let i = elements.length - 1; i >= 0; i--) {
-									setToggleElement(elements[i]);
-								}
-							}
+							document.getElementById('hmcontent').contentWindow.setToggleElement(null, e.target.checked);
 						}
 					}
 				} else if (e.target.tagName === "IMG") {
@@ -308,12 +357,13 @@ $(document).ready(function () { // - jq
 					// (!) idPermalinkOn-кнопка Постоянная ссылка
 					else if (e.target.id === "idPermalinkOn") {
 						let permalink = document.getElementById('idPermaLink');
-						if (permalink !== null && typeof (permalink) !== "undefined" && typeof (permalink) === "object") {
+						if (permalink !== null || typeof(permalink) !== "undefined" && permalink === Object(permalink)) {
 							if (permalink.style.display === "none") {
 								document.getElementById('idTextArea').innerHTML = hmpermalink.url + window.top.location.hash;
 								// let src = document.getElementById('hmcontent').getAttribute('src');
 								// document.getElementById('idTextArea').innerHTML = window.top.location.origin + window.top.location.pathname + "?" + src + window.top.location.hash;
-							} else { permaLinkDefault(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+
+							} else { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 							setShowHideWindow(permalink);
 						}
 					}
@@ -346,7 +396,7 @@ $(document).ready(function () { // - jq
 						// }, 1000); // 'если вариант 2
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
 		// (i)---
 		// (i)*idTopicPane-События на панеле тема (топика)
@@ -356,13 +406,13 @@ $(document).ready(function () { // - jq
 			document.getElementById('idTopicPaneNavShowHide').addEventListener("change", function (e) {
 				// $('#idToolbarNavShowHide').prop('checked', e.target.checked);
 				document.getElementById('idToolbarNavShowHide').checked = e.target.checked; // - синхронизируем состояние checked
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			// 'click
 			document.getElementById('idTopicPaneNavShowHide').addEventListener("click", function (e) {
 				setNavPaneShowHide(!e.target.checked); // - делаем "инверсию" значения св-ва
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
-		// (!) idTabsCtab-кнопки переключения между вкладками. Используем делегирование событий, прослушивая общий элемент для всех вкладок
+		// (!) idTabsCtab-кнопки переключения между вкладками. Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
 		if (document.getElementById('idTabsCtab') !== null && typeof (document.getElementById('idTabsCtab')) === "object") {
 			// 'click
 			document.getElementById('idTabsCtab').addEventListener("click", function (e) {
@@ -371,6 +421,7 @@ $(document).ready(function () { // - jq
 					if (e.target.id === "idToggleMenuTab") {
 						let tabsMenuBox = document.getElementById('idTabsMenuBox');
 						if (tabsMenuBox !== null && typeof (tabsMenuBox) !== "undefined" && typeof (tabsMenuBox) === "object") {
+							// TODO: 'сделать плавно
 							setShowHideWindow(tabsMenuBox);
 						}
 					}
@@ -379,11 +430,12 @@ $(document).ready(function () { // - jq
 						goToTab(e.target);
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
-		// (!) idTabsMenuBox-меню вкладок. Используем делегирование событий, прослушивая общий элемент для всех вкладок
+		// (!) idTabsMenuBox-меню вкладок. Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
 		if (document.getElementById('idTabsMenuBox') !== null && typeof (document.getElementById('idTabsMenuBox')) === "object") {
 			// 'click
+			// TODO: 'сделать плавно
 			document.getElementById('idTabsMenuBox').addEventListener("click", function (e) {
 				if (e.target.tagName !== "A") return;
 				let tabs = document.getElementById('idTopicTabs');
@@ -393,10 +445,10 @@ $(document).ready(function () { // - jq
 						break;
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
 		// (i) idTabsWindow-вкладки панели Тема топиков
-		// (!) idTopicTabs-События вкладок. Используем делегирование событий, прослушивая общий элемент для всех вкладок
+		// (!) idTopicTabs-События вкладок. Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
 		if (document.getElementById('idTopicTabs') !== null && typeof (document.getElementById('idTopicTabs')) === "object") {
 			// 'mouseover/mouseout-наведение курсора
 			document.getElementById('idTopicTabs').addEventListener("mouseover", function (e) {
@@ -409,13 +461,13 @@ $(document).ready(function () { // - jq
 				} else if (e.target.tagName === "IMG") {
 					$(e.target).siblings('a').css('top', '3px'); // - доп.к стилю .topic-tab a/.topic-tab a:hover
 					e.target.style.display = "block";
-					e.target.src = "image/closetabon.png";
-					// e.target.setAttribute('src', 'image/closetabon.png');
+					e.target.src = "icon/closetabon.png";
+					// e.target.setAttribute('src', 'icon/closetabon.png');
 				} else if (e.target.tagName === "LI") {
 					$(e.target).children('a').css('top', '3px'); // - доп.к стилю .topic-tab a/.topic-tab a:hover
 					$(e.target).children('img').css('display', 'block');
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			// 'mouseout
 			document.getElementById('idTopicTabs').addEventListener("mouseout", function (e) {
 				if (e.target.tagName === "SPAN") {
@@ -427,13 +479,13 @@ $(document).ready(function () { // - jq
 				} else if (e.target.tagName === "IMG") {
 					$(e.target).siblings('a').removeAttr('style'); // - доп.к стилю .topic-tab a/.topic-tab a:hover
 					e.target.removeAttribute('style');
-					e.target.src = "image/closetaboff.png";
-					// e.target.setAttribute('src', 'image/closetaboff.png');
+					e.target.src = "icon/closetaboff.png";
+					// e.target.setAttribute('src', 'icon/closetaboff.png');
 				} else if (e.target.tagName === "LI") {
 					$(e.target).children('a').removeAttr('style'); // - доп.к стилю .topic-tab a/.topic-tab a:hover
 					$(e.target).children('img').removeAttr('style');
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			// 'click
 			document.getElementById('idTopicTabs').addEventListener("click", function (e) {
 				let tab;
@@ -452,7 +504,7 @@ $(document).ready(function () { // - jq
 					if (tab.classList.contains('topic-tab-current')) return;
 				} else if (e.target.tagName === "UL") { return; }
 				setTabShowHide(tab, 'show'); // - показать/скрыть текущую вкладку
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 			// 'dblclick
 			document.getElementById('idTopicTabs').addEventListener("dblclick", function (e) {
 				switch (e.target.tagName) {
@@ -470,11 +522,15 @@ $(document).ready(function () { // - jq
 						break;
 					case 'UL': break;
 					default:
-						console.error(`document.getElementById('idTopicTabs').addEventListener("dblclick", function (${e.target.id}):\n (i) Косяк - на текущей вкладке не учтен тег: «${e.target.tagName}»`);
-						alert(`(i) Косяк - на текущей вкладке не учтен тег: «${e.target.tagName}», см.консоль`);
+						console.error(`document.getElementById('idTopicTabs').addEventListener("dblclick", function (${e.target.id}):\n (!) Косяк - на текущей вкладке не учтен тег: «${e.target.tagName}»`);
+						alert(`(!) Косяк - на текущей вкладке не учтен тег: «${e.target.tagName}», см.консоль`);
 						break;
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
+			// 'animationend-по окончанию анимации удаляем css св-во "animation", иначе она больше не будет воспроизводиться
+			document.getElementById('idTopicTabs').addEventListener("animationend", function (e) {
+				e.target.style.removeProperty('animation'); // - удаляем css св-во
+			}, false); // false - фаза "всплытие"
 		}
 	}
 }); // ready end
@@ -491,32 +547,48 @@ function setAdditionToStyle (elem, valueAddDel) {
 		$(`${elem}`).removeAttr('style'); // -.topic-tab a{}
 	}
 }
-// (!) setPositionPanels-установка позиционирования панелей
-function setPositionPanels (navpane, topicpane) {
-	if (typeof(navpane) === "object" && navpane !== null && typeof(topicpane) === "object" && topicpane !== null) {
-		let navpaneStyles = getComputedStyle(navpane);
-		// let topicpaneStyles = getComputedStyle(topicpane);
-		navpane.style.removeProperty('animation'); // - удаляем css св-во
-		topicpane.style.removeProperty('animation'); // - удаляем css св-во
-		if (window.outerWidth > 699) {
-			// navpane.style.top = null; // удаляем значение св-ва
-			// topicpane.style.top = null; // удаляем значение св-ва
-			navpane.style.removeProperty('top'); // - удаляем css св-во
-			topicpane.style.removeProperty('top'); // - удаляем css св-во
-			if (navpaneStyles.display === "none" || navpaneStyles.visibility === "hidden") { // - нав.пан.скрыта
-				navpane.style.removeProperty('display'); // - удаляем css св-во
-				setSizesWidth(
-					reSizesWidth.navpaneStyleWidth,
-					reSizesWidth.topicpaneStyleLeft,
-					reSizesWidth.topicpaneStyleWidth
-				);
-				if (reSizesWidth.navpaneStyleWidth === 300) {
-					navpane.style.removeProperty('width'); // - удаляем css св-во
-				}
-				navpane.style.left = 0 - (navpane.offsetWidth + parseInt(navpaneStyles.marginRight, 10)) + "px";
-				navpane.style.display = "none";
-				topicpane.style.removeProperty('left'); // - удаляем css св-во
-			} else { // - нав.пан.раскрыта
+// (!) resizePanels-изменение размера панелей
+function resizePanels () {
+	let navpane = document.getElementById('idNavPane');
+	let topicpane = document.getElementById('idTopicPane');
+	if (navpane === null || typeof (navpane) === "undefined" && typeof (navpane) !== "object" || navpane !== Object(navpane)) {
+		console.error(`(!) Косяк: не удалось установить позиционирование панелей:\n function resizePanels (navpane: ${navpane} / ${typeof(navpane)}, topicpane: ${topicpane} / ${typeof(topicpane)}):\n переменная аргумента не определена`);
+		alert(`(!) Косяк: не удалось установить позиционирование панелей - переменная аргумента не определена, см.консоль.`);
+		return;
+	}
+	if (topicpane === null || typeof (topicpane) === "undefined" || typeof (topicpane) !== "object" || topicpane !== Object(topicpane)) {
+		console.error(`(!) Косяк: не удалось установить позиционирование панелей:\n function resizePanels (navpane: ${navpane} / ${typeof(navpane)}, topicpane: ${topicpane} / ${typeof(topicpane)}):\n переменная аргумента не определена`);
+		alert(`(!) Косяк: не удалось установить позиционирование панелей - переменная аргумента не определена, см.консоль.`);
+		return;
+	}
+	let navpaneStyles = getComputedStyle(navpane);
+	// let topicpaneStyles = getComputedStyle(topicpane); // X -
+	navpane.style.removeProperty('animation'); // - удаляем css св-во
+	topicpane.style.removeProperty('animation'); // - удаляем css св-во
+	// *проверяем внутренний размер окна без полос прокрутки
+	if (document.documentElement.clientWidth > 500) {
+		// navpane.style.top = null; // удаляем значение св-ва
+		// topicpane.style.top = null; // удаляем значение св-ва
+		navpane.style.removeProperty('top'); // - удаляем css св-во
+		topicpane.style.removeProperty('top'); // - удаляем css св-во
+		if (navpaneStyles.display === "none" || navpaneStyles.visibility === "hidden") { // - нав.пан.скрыта
+			navpane.style.removeProperty('display'); // - удаляем css св-во
+			setSizesWidth(
+				reSizesWidth.navpaneStyleWidth,
+				reSizesWidth.topicpaneStyleLeft,
+				reSizesWidth.topicpaneStyleWidth
+			);
+			if (reSizesWidth.navpaneStyleWidth === 300) {
+				navpane.style.removeProperty('width'); // - удаляем css св-во
+			}
+			navpane.style.left = 0 - (navpane.offsetWidth + parseInt(navpaneStyles.marginRight, 10)) + "px";
+			navpane.style.display = "none";
+			topicpane.style.removeProperty('left'); // - удаляем css св-во
+		} else { // - нав.пан.раскрыта
+			if (parseInt(navpaneStyles.width, 10) >= document.documentElement.clientWidth) { // - если ширина нав.пан.превышает ширину внутреннего размера окна
+				navpane.style.width = Math.round((document.documentElement.clientWidth / 2) - (parseInt(navpaneStyles.marginLeft, 10) + parseInt(navpaneStyles.marginRight, 10) + parseInt(navpaneStyles.borderLeft, 10) + parseInt(navpaneStyles.borderRight, 10))) + "px";
+				topicpane.style.left = (document.documentElement.clientWidth / 2) + "px";
+			} else {
 				setSizesWidth(
 					reSizesWidth.navpaneStyleWidth,
 					reSizesWidth.topicpaneStyleLeft,
@@ -532,19 +604,19 @@ function setPositionPanels (navpane, topicpane) {
 					topicpane.style.left = reSizesWidth.topicpaneStyleLeft + "px";
 				}
 			}
-		} else if (window.outerWidth < 699) {
-			navpane.style.removeProperty('left'); // - удаляем css св-во
-			navpane.style.removeProperty('width'); // - удаляем css св-во
-			topicpane.style.removeProperty('left'); // - удаляем css св-во
-			if (navpaneStyles.display === "none" || navpaneStyles.visibility === "hidden") {
-				navpane.style.removeProperty('display'); // - удаляем css св-во
-				navpane.style.top = parseInt(navpaneStyles.top, 10) - (navpane.offsetHeight + parseInt(navpaneStyles.marginBottom, 10)) + "px";
-				navpane.style.display = "none";
-			}
+		}
+	} else if (document.documentElement.clientWidth < 501) {
+		navpane.style.removeProperty('left'); // - удаляем css св-во
+		navpane.style.removeProperty('width'); // - удаляем css св-во
+		topicpane.style.removeProperty('left'); // - удаляем css св-во
+		if (navpaneStyles.display === "none" || navpaneStyles.visibility === "hidden") {
+			navpane.style.removeProperty('display'); // - удаляем css св-во
+			navpane.style.top = parseInt(navpaneStyles.top, 10) - (navpane.offsetHeight + parseInt(navpaneStyles.marginBottom, 10)) + "px";
+			navpane.style.display = "none";
 		}
 	}
 }
-// (!) animationNavPane - окно браузера > 699
+// (!) animationNavPane - окно браузера > 500
 function animationNavPane (duration, navpane, topicpane, valueShowHide) {
 	let newPosition = { navpane: null, topicpane: null };
 	let distance = null; // - расстояние
@@ -595,7 +667,7 @@ function animationNavPane (duration, navpane, topicpane, valueShowHide) {
 		}
 	});
 }
-// (!) animationNavPane2 - окно браузера < 699
+// (!) animationNavPane2 - окно браузера < 500
 function animationNavPane2 (duration, navpane, topicpane, valueShowHide) {
 	let newPosition = { navpane: null, topicpane: null };
 	let startPos = null; // - начальная точка движения
@@ -670,68 +742,67 @@ function easeInOutBack (x) {
 	// : (Math.pow(2 * x - 2, 2) * ((c2 + 1) * (x * 2 - 2) + c2) + 2) / 2;
 }
 // X animateNavPane-через CSS, анимация панели навигации
-function animateNavPane (animatedElem, animationName, valueShowHide) {
-	if (animatedElem.id === "idNavPane") {
+// function animateNavPane (elem, animationName, valueShowHide) {
+// 	if (elem.id === "idNavPane") {
+// 		if (valueShowHide === "show") {
+// 			elem.style.removeProperty('display'); // 'отображаем нав.пан.
+// 		}
+// 	}
+// 	// elem.style.animationFillMode = "backwards"; // Элемент сохранит стиль первого ключевого кадра на протяжении периода animation-delay. Первый ключевой кадр определяется значением animation-direction
+// 	elem.style.animation = animationName; // имя @keyframes в файле styles.css
+// 	elem.style.animationDuration = "2s"; // длительность анимации
+// 	elem.style.animationDelay = "0ms"; // время задержки перед стартом анимации
+// 	// elem.style.willChange = "left"; // (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента
+// 	// elem.style.animationFillMode = "both"; // Анимация будет вести себя так, как будто значения forwards и backwards заданы одновременно
+// 	// elem.style.animationFillMode = "forwards"; // По окончании анимации элемент сохранит стили последнего ключевого кадра, который определяется значениями animation-direction и animation-iteration-count
+// 	if (elem.id === "idNavPane") {
+// 		if (valueShowHide === "hide") {
+// 			setTimeout(() => {
+// 				elem.style.display = "none"; // 'скрываем нав.пан.
+// 			}, 2000);
+// 		}
+// 	}
+// }
+// (!) animateBanner-через CSS, анимация баннера
+function animateBanner (elem, animationName, valueShowHide) { // TODO: переделать анимацию через js
+	if (elem.id === "idBanner") {
 		if (valueShowHide === "show") {
-			animatedElem.style.removeProperty('display'); // 'отображаем нав.пан.
-		}
-	}
-	// animatedElem.style.animationFillMode = "backwards"; // Элемент сохранит стиль первого ключевого кадра на протяжении периода animation-delay. Первый ключевой кадр определяется значением animation-direction
-	animatedElem.style.animation = animationName; // имя @keyframes в файле styles.css
-	animatedElem.style.animationDuration = "2s"; // длительность анимации
-	animatedElem.style.animationDelay = "0ms"; // Время задержки перед стартом анимации
-	// animatedElem.style.willChange = "left"; // *св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента
-	// animatedElem.style.animationFillMode = "both"; // Анимация будет вести себя так, как будто значения forwards и backwards заданы одновременно
-	// animatedElem.style.animationFillMode = "forwards"; // По окончании анимации элемент сохранит стили последнего ключевого кадра, который определяется значениями animation-direction и animation-iteration-count
-	if (animatedElem.id === "idNavPane") {
-		if (valueShowHide === "hide") {
-			setTimeout(() => {
-				animatedElem.style.display = "none"; // 'скрываем нав.пан.
-			}, 2000);
-		}
-	}
-}
-// X animateBanner-через CSS, анимация баннера
-function animateBanner (animatedElem, animationName, valueShowHide) {
-	if (animatedElem.id === "idBanner") {
-		if (valueShowHide === "show") {
-			animatedElem.style.removeProperty('display'); // 'отображаем баннер
+			elem.style.removeProperty('display'); // 'отображаем баннер
 		}
 	}
 	// 'временно изм.стиль, чтобы не возникала ошибка при изменении размера окна браузера
 	// let isDisplayNone = false;
-	// if (animatedElem.id === "idNavPane") {
-	// 	if (animatedElem.style.display === "none" || animatedElem.style.visibility === "hidden") {
-	// 		animatedElem.style.removeProperty('display'); // - удаляем css св-во
+	// if (elem.id === "idNavPane") {
+	// 	if (elem.style.display === "none" || elem.style.visibility === "hidden") {
+	// 		elem.style.removeProperty('display'); // - удаляем css св-во
 	// 		isDisplayNone = true;
 	// 	}
 	// } // 'временно изм.стиль, чтобы не возникала ошибка при изменении размера окна браузера
-
-	// animatedElem.style.animationFillMode = "backwards"; // Элемент сохранит стиль первого ключевого кадра на протяжении периода animation-delay. Первый ключевой кадр определяется значением animation-direction
-	animatedElem.style.animation = animationName; // имя @keyframes в файле styles.css
-	animatedElem.style.animationDuration = "1.5s"; // длительность анимации
-	animatedElem.style.animationDelay = "0ms"; // Время задержки перед стартом анимации
-	// animatedElem.style.willChange = "top"; // *св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента
-	// animatedElem.style.animationFillMode = "both"; // Анимация будет вести себя так, как будто значения forwards и backwards заданы одновременно
-	// animatedElem.style.animationFillMode = "forwards"; // По окончании анимации элемент сохранит стили последнего ключевого кадра, который определяется значениями animation-direction и animation-iteration-count
+	// elem.style.animationFillMode = "backwards"; // Элемент сохранит стиль первого ключевого кадра на протяжении периода animation-delay. Первый ключевой кадр определяется значением animation-direction
+	elem.style.animation = animationName; // имя @keyframes в файле styles.css
+	elem.style.animationDuration = "1.5s"; // длительность анимации
+	elem.style.animationDelay = "0ms"; // время задержки перед стартом анимации
+	elem.style.willChange = "top"; // (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента
+	// elem.style.animationFillMode = "both"; // Анимация будет вести себя так, как будто значения forwards и backwards заданы одновременно
+	// elem.style.animationFillMode = "forwards"; // По окончании анимации элемент сохранит стили последнего ключевого кадра, который определяется значениями animation-direction и animation-iteration-count
 
 	// if (isDisplayNone) { // 'возвращаем стиль обратно
-	// 	animatedElem.style.display = "none";
+	// 	elem.style.display = "none";
 	// 	isDisplayNone = false;
 	// } // 'возвращаем стиль обратно
 
-	// if (animatedElem.id === "idNavPane") {
+	// if (elem.id === "idNavPane") {
 	// 	if (valueShowHide === "show") {
-	// 		animatedElem.style.top
+	// 		elem.style.top
 	// 	} else if (valueShowHide === "hide") {
 
 	// 	}
 	// }
 
-	if (animatedElem.id === "idBanner") {
+	if (elem.id === "idBanner") {
 		if (valueShowHide === "hide") {
 			setTimeout(() => {
-				animatedElem.style.display = "none"; // 'скрываем баннер
+				elem.style.display = "none"; // 'скрываем баннер
 			}, 1500);
 		}
 	}
@@ -770,21 +841,21 @@ function setCopyToClipboard (elem) {
 // (i)---
 // (i)*idToolbar-Элементы панели инструментов
 // (!) setNavPaneShowHide-Скрыть/Показать боковую панель навигации
-function setNavPaneShowHide (valueTrueFalse) {
+function setNavPaneShowHide (panelShowHide = true) {
 	let imgNavHandle = document.getElementById('idTopicPaneNavShowHideIcon'); // - трансформации иконки на панели тема топика
 	let navpane = document.getElementById('idNavPane');
 	let topicpane = document.getElementById('idTopicPane');
 	const duration = 2000; // - длительность анимации
 	document.getElementById('idToolbarNavShowHide').disabled = true; // 'делаем кнопку НЕдоступной для нажатия, пока не выполнится анимация
 	// *оба checkbox должны работать синхронно
-	if (valueTrueFalse) { // - нав.пан.раскрыта
+	if (panelShowHide) { // - нав.пан.раскрыта
 		if (document.getElementById('idBanner').style.display == "none") {
-			// *проверка размера внешнего окна браузера
-			if (window.outerWidth > 699) {
+			// *проверяем внутренний размер окна без полос прокрутки
+			if (document.documentElement.clientWidth > 500) {
 				animationNavPane(duration, navpane, topicpane, "hide");
 				// animateNavPane(navpane, "navpaneHide", "hide"); // X не используется
 				// animateNavPane(topicpane, "topicpaneNavPaneHide", "hide"); // X не используется
-			} else if (window.outerWidth < 699) {
+			} else if (document.documentElement.clientWidth < 501) {
 				animationNavPane2(duration, navpane, topicpane, "hide");
 				// animateNavPane(navpane, "navpaneHide", "hide");
 				// animateNavPane(topicpane, "topicpaneExtend", "hide");
@@ -792,12 +863,12 @@ function setNavPaneShowHide (valueTrueFalse) {
 			topicpane.classList.remove('topic-pane-expand');
 			topicpane.classList.add('topic-pane-extend'); // - изм.одну высоту пан.топика на др.
 		} else {
-			// *проверка размера внешнего окна браузера
-			if (window.outerWidth > 699) {
+			// *проверяем внутренний размер окна без полос прокрутки
+			if (document.documentElement.clientWidth > 500) {
 				animationNavPane(duration, navpane, topicpane, "hide");
 				// animateNavPane(navpane, "navpaneHide", "hide"); // X не используется
 				// animateNavPane(topicpane, "topicpaneNavPaneHide", "hide"); // X не используется
-			} else if (window.outerWidth < 699) {
+			} else if (document.documentElement.clientWidth < 501) {
 				animationNavPane2(duration, navpane, topicpane, "hide");
 				// animateNavPane(navpane, "navpaneHideBanner", "hide");
 				// animateNavPane(topicpane, "topicpaneExpand", "hide");
@@ -809,14 +880,14 @@ function setNavPaneShowHide (valueTrueFalse) {
 		imgNavHandle.classList.remove('navhandle-navpane-show');
 		imgNavHandle.classList.add('navhandle-navpane-hide');
 	} else { // - нав.пан.скрыта
-		// *проверка размера внешнего окна браузера
-		if (window.outerWidth > 699) {
+		// *проверяем внутренний размер окна без полос прокрутки
+		if (document.documentElement.clientWidth > 500) {
 			animationNavPane(duration, navpane, topicpane, "show");
 		// 	animateNavPane(navpane, "navpaneShow", "show"); // X не используется
 		// 	animateNavPane(topicpane, "topicpaneNavPaneShow", "show"); // X не используется
-		} else if (window.outerWidth < 699) {
+		} else if (document.documentElement.clientWidth < 501) {
 			animationNavPane2(duration, navpane, topicpane, "show");
-		// 	if (document.getElementById('idBanner').style.display === "none") {
+		// 	if (document.getElementById('idBanner').style.display === "none") { // X не используется
 		// 		animateNavPane(navpane, "navpaneShow", "show");
 		// 		animateNavPane(topicpane, "topicpaneNavPaneShow", "show");
 		// 	} else {
@@ -851,7 +922,7 @@ function setNewTab () {
 }
 // (!) setBannerShowHide-кнопка Показать/Скрыть баннер
 // *js/JavaScript
-function setBannerShowHide (valueTrueFalse) {
+function setBannerShowHide (bannerShowHide = false) {
 	let panels = {
 		banner: document.getElementById('idBanner'),
 		toolbar: document.getElementById('idToolbar'),
@@ -861,7 +932,7 @@ function setBannerShowHide (valueTrueFalse) {
 	let navpaneTop = parseInt(getComputedStyle(panels.navpane).top, 10);
 	// *переключение классов и стилей
 	// panels.banner.style.display == "none" ? panels.banner.style.display = "" : panels.banner.style.display = "none"; // однострочная запись - переключатель toggle через условный тернарный оператор (?:) с тремя операндами в JavaScript
-	if (valueTrueFalse) { // - баннер раскрыт
+	if (bannerShowHide) { // - баннер раскрыт - скрываем его
 		panels.toolbar.classList.replace('toolbar-banner', 'toolbar');
 		if (panels.navpane.classList.contains('nav-pane-banner')) {
 			panels.navpane.classList.remove('nav-pane-banner');
@@ -876,27 +947,27 @@ function setBannerShowHide (valueTrueFalse) {
 			panels.topicpane.classList.remove('topic-pane-expand');
 			panels.topicpane.classList.remove('topic-pane-extend');
 		}
-		// *проверка размера внешнего окна браузера
-		if (window.outerWidth > 699) {
+		// *проверяем внутренний размер окна без полос прокрутки
+		if (document.documentElement.clientWidth > 500) {
 			animateBanner(panels.banner, "bannerHide", "hide");
 			animateBanner(panels.toolbar, "bannerHide", "hide");
 			animateBanner(panels.navpane, "panelBannerHide", "hide");
 			animateBanner(panels.topicpane, "panelBannerHide", "hide");
-		} else if (window.outerWidth < 699) {
+		} else if (document.documentElement.clientWidth < 501) {
 			animateBanner(panels.banner, "bannerHide", "hide");
 			animateBanner(panels.toolbar, "bannerHide", "hide");
 			animateBanner(panels.navpane, "panelBannerHide", "hide");
 			if (panels.navpane.style.display === "none" || panels.navpane.style.visibility === "hidden") {
 				// *корректируем высоту
-				panels.navpane.style.removeProperty('display'); // - удаляем css св-во
+				// panels.navpane.style.removeProperty('display'); // удаляем css св-во // TEST: - если все ок-удалить
 				panels.navpane.style.top = navpaneTop - (panels.banner.offsetHeight - parseInt(getComputedStyle(panels.navpane).marginBottom, 10)) + "px";
-				panels.navpane.style.display = "none";
+				// panels.navpane.style.display = "none"; // TEST: - если все ок-удалить
 				animateBanner(panels.topicpane, "panelBannerHide", "hide");
 			} else {
 				animateBanner(panels.topicpane, "topicpaneBannerHide", "hide");
 			}
 		}
-	} else { // - баннер скрыт
+	} else { // - баннер скрыт - отображаем его
 		panels.toolbar.classList.replace('toolbar', 'toolbar-banner');
 		if (!panels.navpane.classList.contains('nav-pane-banner')) { // - класс отсутствует
 			panels.navpane.classList.add('nav-pane-banner');
@@ -911,21 +982,21 @@ function setBannerShowHide (valueTrueFalse) {
 			panels.topicpane.classList.remove('topic-pane-expand');
 			panels.topicpane.classList.remove('topic-pane-extend');
 		}
-		// *проверка размера внешнего окна браузера
-		if (window.outerWidth > 699) {
+		// *проверяем внутренний размер окна без полос прокрутки
+		if (document.documentElement.clientWidth > 500) {
 			animateBanner(panels.banner, "bannerShow", "show");
 			animateBanner(panels.toolbar, "bannerShow", "show");
 			animateBanner(panels.navpane, "panelBannerShow", "show");
 			animateBanner(panels.topicpane, "panelBannerShow", "show");
-		} else if (window.outerWidth < 699) {
+		} else if (document.documentElement.clientWidth < 501) {
 			animateBanner(panels.banner, "bannerShow", "show");
 			animateBanner(panels.toolbar, "bannerShow", "show");
 			animateBanner(panels.navpane, "panelBannerShow", "show");
 			if (panels.navpane.style.display === "none" || panels.navpane.style.visibility === "hidden") {
 				// *корректируем высоту
-				panels.navpane.style.removeProperty('display'); // - удаляем css св-во
+				// panels.navpane.style.removeProperty('display'); // удаляем css св-во // TEST: - если все ок-удалить
 				panels.navpane.style.top = navpaneTop + (panels.banner.offsetHeight - parseInt(getComputedStyle(panels.navpane).marginBottom, 10)) + "px";
-				panels.navpane.style.display = "none";
+				// panels.navpane.style.display = "none"; // TEST: - если все ок-удалить
 				animateBanner(panels.topicpane, "panelBannerShow", "show");
 			} else {
 				animateBanner(panels.topicpane, "topicpaneBannerShow", "show");
@@ -1078,8 +1149,7 @@ function goToTab (currentTab) {
 
 	if (currentTab.id === "idTabFirst") {
 		if (tabs.children[0].classList.contains('topic-tab-current')) {
-			alert(`Эта вкладка уже активна`);
-			// TODO: - здесь нужен эффект анимации "толчка вправо", т.е.когда все вкладки как бы чуть-чуть дергаются сдвигаясь вправо и сразу же возвращаются обратно на нулевую точку
+			animationOffset(currentTab); // - анимационное смещение
 		} else {
 			for (let i = 0; i < tabs.children.length && i < boxes.children.length; i++) {
 				if (i === 0) {
@@ -1106,7 +1176,7 @@ function goToTab (currentTab) {
 		}
 		if (visibleTabs.length === 1) { // - скрыты все вкладки, кроме 1-ой, т.е.главной
 			if (tabs.children[0].classList.contains('topic-tab-current')) {
-				alert(`Эта вкладка уже активна`);
+				animationOffset(currentTab); // - анимационное смещение
 			} else {
 				tabs.children[0].classList.add('topic-tab-current');
 				boxes.children[0].removeAttribute('style');
@@ -1117,7 +1187,7 @@ function goToTab (currentTab) {
 				for (let i = visibleTabs.length - 1; i >= 0; i--) {
 					if (i === 0) { // - если вкладка 1-ая, т.е.главная
 						if (visibleTabs[i].classList.contains('topic-tab-current')) {
-							alert(`Эта вкладка уже активна`);
+							animationOffset(currentTab); // - анимационное смещение
 						} else {
 							visibleTabs[i].classList.add('topic-tab-current');
 							visibleBoxes[i].removeAttribute('style');
@@ -1138,7 +1208,7 @@ function goToTab (currentTab) {
 				for (let i = 0; i < visibleTabs.length, i < visibleBoxes.length; i++) {
 					if (i === visibleTabs.length - 1) { // - если видимая вкладка последняя
 						if (visibleTabs[i].classList.contains('topic-tab-current')) {
-							alert(`Эта вкладка уже активна`);
+							animationOffset(currentTab); // - анимационное смещение
 						} else {
 							visibleTabs[0].classList.add('topic-tab-current');
 							visibleBoxes[0].removeAttribute('style');
@@ -1157,8 +1227,7 @@ function goToTab (currentTab) {
 				}
 			} else if (currentTab.id === "idTabLast") {
 				if (visibleTabs[visibleTabs.length - 1].classList.contains('topic-tab-current')) { // - если последняя видимая вкладка уже активна
-					alert(`Эта вкладка уже активна`);
-					// TODO: - здесь нужен эффект анимации "толчка влево", т.е.когда все вкладки как бы чуть-чуть дергаются сдвигаясь влево и сразу же возвращаются обратно на нулевую точку
+					animationOffset(currentTab); // - анимационное смещение
 				} else {
 					for (let i = 0; i < visibleTabs.length, i < visibleBoxes.length; i++) {
 						if (i === visibleTabs.length - 1) { // - если видимая вкладка последняя

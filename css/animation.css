@@ -1,0 +1,25 @@
+/* (!) see function animationOffset-анимационное смещение для: 1) вкладок на панели тема топика, 2) слайдера изображений в скрытом контенте */
+@keyframes jumpToLeft {
+	/* from {transform: translateX(0);} */
+	/* to {transform: translateX(-10px);} */
+	from, to {
+		transform: translateX(-10px);
+		-webkit-transform: translateX(-10px);
+		-moz-transform: translateX(-10px);
+		-o-transform: translateX(-10px);
+		-ms-transform: translateX(-10px);
+		/* will-change: transform; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	}
+}
+@keyframes jumpToRight {
+	/* from {transform: translateX(0);} */
+	/* to {transform: translateX(10px);} */
+		from, to {
+		transform: translateX(10px);
+		-webkit-transform: translateX(10px);
+		-moz-transform: translateX(10px);
+		-o-transform: translateX(10px);
+		-ms-transform: translateX(10px);
+		/* will-change: transform; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	}
+}

@@ -1,4 +1,4 @@
-// (i) Инициализация переменных
+// 'Инициализация переменных
 let isCollapse = true; // - переменная для хранения условия в функции setGoToWithOptionDefault // (i) если вариант 1
 // document.addEventListener("DOMContentLoaded", function () { // - js. Дожидаемся, когда Объектная модель документа страницы (DOM) будет готова к выполнению кода JavaScript
 // }, false); // - false - фаза "всплытие"
@@ -57,7 +57,7 @@ $(document).ready(function () { // - jq
 				];
 				elems.forEach(item => {
 					if (item.style.display !== "none") {
-						if (item.id === "idPermaLink") { permaLinkDefault(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+						if (item.id === "idPermaLink") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 						setShowHideWindow(item, 'hide');
 					}
 				});
@@ -131,10 +131,10 @@ function setListExpandCollapse (value) {
 function navigationListToggle (elem) {
 	let idNavIcon = document.getElementById('idNavIcon');
 	setListExpandCollapse(elem.checked); // - true - развернуть/свернуть - false, все оглавление
-	if (idNavIcon.classList.contains('nav-icon')) { // - замена первоначальной иконки на иконки-переключатели
-		idNavIcon.classList.replace('nav-icon', 'nav-icon-toggle');
-		// idNavIcon.classList.remove('nav-icon');
-		// idNavIcon.classList.add('nav-icon-toggle');
+	if (idNavIcon.classList.contains('btn-icon')) { // - замена первоначальной иконки на иконки-переключатели
+		idNavIcon.classList.replace('btn-icon', 'btn-icon-toggle');
+		// idNavIcon.classList.remove('btn-icon');
+		// idNavIcon.classList.add('btn-icon-toggle');
 	}
 }
 // (!) setHighlightsOnElement-установка подсветки на выбранном элементе
@@ -481,6 +481,11 @@ function getPageHome (elem) {
 	}
 	if (e.id === "idToc-ul") {
 		while (e.tagName !== "A") {
+			if (e.tagName === "IMG") { // TODO: перепродумать, если +/- будет отдельной иконкой
+				if (e.nextElementSibling !== null && typeof (e.nextElementSibling) === "object" || e.nextElementSibling === Object(e.nextElementSibling)) {
+					e = e.nextElementSibling;
+				}
+			}
 			e = e.firstElementChild;
 		}
 		return e.getAttribute('href');
@@ -537,6 +542,11 @@ function getPagePrevious (elem) {
 				href = e.getAttribute('href');
 			} else {
 				while (e.tagName !== "A") {
+					if (e.tagName === "IMG") { // TODO: перепродумать, если +/- будет отдельной иконкой
+						if (e.nextElementSibling !== null && typeof(e.nextElementSibling) === "object" || e.nextElementSibling === Object(e.nextElementSibling)) {
+							e = e.nextElementSibling;
+						}
+					}
 					e = e.lastElementChild;
 				}
 				href = e.getAttribute('href');
@@ -571,6 +581,11 @@ function getPageNext (elem) {
 		if (elem.nextElementSibling !== null && typeof (elem.nextElementSibling) === "object") {
 			let e = elem.nextElementSibling;
 			while (e.tagName !== "A") {
+				if (e.tagName === "IMG") { // TODO: перепродумать, если +/- будет отдельной иконкой
+					if (e.nextElementSibling !== null && typeof (e.nextElementSibling) === "object" || e.nextElementSibling === Object(e.nextElementSibling)) {
+						e = e.nextElementSibling;
+					}
+				}
 				e = e.firstElementChild;
 			}
 			href = e.getAttribute('href');
@@ -601,6 +616,11 @@ function getBreadCrumbs (elem) {
 				if (e.hasAttribute('class')) {
 					let eChild = e;
 					while (eChild.tagName !== "SPAN") {
+						if (eChild.tagName === "IMG") { // TODO: перепродумать, если +/- будет отдельной иконкой
+							if (eChild.nextElementSibling !== null && typeof (eChild.nextElementSibling) === "object" || eChild.nextElementSibling === Object(eChild.nextElementSibling)) {
+								eChild = eChild.nextElementSibling;
+							}
+						}
 						if (eChild.tagName === "A") {
 							arr.push(eChild.getAttribute('href'));
 						}
@@ -700,7 +720,7 @@ function setVariables (elem, currP = "") {
 					vrs.hmpermalink
 				); // - обновляем глобальные переменные в variables.js
 				let tab = window.top.document.getElementById('idTopicTab');
-				if (tab !== "" && typeof (tab) !== "undefined" && typeof (tab) === "object") {
+				if (tab !== "" && typeof(tab) !== "undefined" && typeof(tab) === "object") {
 					if (tab.classList.contains('topic-tab-current')) {
 						setToolbarButtonsOnOff(window.top.hmtopicvars.btnExpand);
 					} else {

@@ -4,13 +4,21 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta http-equiv="Expires" content="0"> --> <!-- 'страница всегда будет загружаться с сервера -->
+	<meta name="MobileOptimized" content="width"> <!-- 'ширина страницы в соответствии с размером экрана, аналог device-width -->
+	<meta name="HandheldFriendly" content="true"> <!-- 'оптимизация под мобильные устройства на Palm и Blackberry -->
 	<title>Стандарт НПА БСС «Главбух»</title>
-	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="icon/favicon.ico" type="icon/x-icon">
+	<meta name="author" content="HaTaXa">
+	<meta name="copyright" content="HaTaXa">
+	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
+	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="Стандарт НПА БСС «Главбух»">
+	<meta name="keywords" content="Стандарт НПА БСС «Главбух»,ЕСД БСС «Главбух»">
 	<!-- ! подключение стилей -->
 	<link rel="stylesheet" href="css/topic.css"> <!-- 'вместо hm_topic.css -->
-	<!-- // <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо hm_footer.css -->
+	<link rel="stylesheet" href="css/animation.css">
+	<!-- <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо hm_footer.css -->
 	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 	<!-- ! подключение скриптов см.внизу -->
 
@@ -24,6 +32,7 @@
 
 </head>
 <body>
+	<!-- (!) idTopicTabs -->
 	<ul id="idTopicTabs" class="tabs">
 		<li id="idIndexTab" class="topic-tab topic-tab-current">
 			<a href="#" id="idIndexTabLink">
@@ -31,120 +40,257 @@
 			</a>
 		</li>
 	</ul>
-	<div id="idBox">
+	<div id="idTopicBox" class="topic-box">
+		<!-- (!) idTopicHeader -->
 		<div id="idTopicHeader" class="topic-header">
+			<!-- (!) idHeaderContent -->
 			<div id="idHeaderContent" class="header-content">
-				<div id="idBreadCrumbs" class="bread-crumbs">
-					<span class="sync-toc">
-						<a class="sync-toc-link" rel="nofollow" href="index.html?standartNPAbssGlavbyx.html" target="_top">&lt;&lt;&nbsp;Просмотреть оглавление&nbsp;&gt;&gt;</a>
-					</span>
-					<span class="sync-toc-off">Навигация:&nbsp;</span>
-					<noscript>
-						<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a></span>
-					</noscript>
+				<div id="idNavLinks" class="nav-links">
+					<div id="idAutoToc" class="auto-toc">
+						<img id="idAutoTocIcon" class="btn-icon" src="icon/contents-off.png" title="На этой странице содержание отсутствует">
+						<span class="btn-text">Содержание</span>
+					</div>
+					<p>
+						<span class="sync-toc">&lt;&lt;&nbsp;
+							<a class="sync-toc-link" rel="nofollow" href="index.html?standartNPAbssGlavbyx.html" target="_top">Просмотреть оглавление</a>&nbsp;&gt;&gt;
+						</span>
+						<span class="sync-toc-off">Навигация:&nbsp;</span>
+						<noscript>
+							<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>:</span>
+						</noscript>
+					</p>
 				</div>
-				<div class="title topic-title-scrolling">
+				<div class="title topic-title-scrolling reflect reflect">
 					<p>Стандарт НПА БСС «Главбух»</p>
 				</div>
 			</div> <!-- idHeaderContent the end -->
-			<div id="idAtocIcon" class="nav-divs">
-				<img id="idAtocLink" class="nav-icon" src="image/contents_off.png" title="На этой странице содержание отсутствует">
-				<br>
-				<span>Содержание</span>
-			</div>
 		</div> <!-- idTopicHeader the end -->
-		<!-- *Меню содержания -->
+		<!-- (!) idAutoTocWrapper-Меню содержания -->
 		<div id="idAutoTocWrapper" class="topic-menu"></div>
-		<!-- *Контент-текст -->
+		<!-- (!) idLinksComment-Комментарии
+			*см.функцию в файле comments.js -->
+		<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
+		<div id="idLinksComment" class="links-comment">
+			<p id="idCommentLink1" class="comment-para comment-link1">
+				<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
+			</p>
+		</div> <!-- idLinksComment the end -->
+		<!-- (!) idMsgBox - всплывающее окно сообщения -->
+		<div id="idMsgBox" class="msg-box" style="display: none;">
+			<div id="idMsgContent" class="msg-content" style="display: none;">
+				<div id="idMsgImg" class="msg-info"></div>
+				<div id="idMsgText" class="msg-text"></div>
+			</div>
+			<div id="idMsgBtn" class="msg-btn" title="Скрыть/Показать информационное сообщение"></div>
+		</div> <!-- idMsgBox the end -->
+		<!-- (!) idTopicContent -->
 		<div id="idTopicContent" class="topic-content">
-			<div id="idUnclicker"></div>
-			<!-- ! см.функцию в файле comments.js -->
-			<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
-			<!-- *Comment Links - комментарии -->
-			<div id="idLinksComment" class="links-comment">
-				<p id="idCommentLink1" class="comment-para comment-link1">
-					<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
-				</p>
-			</div> <!-- links-comment the end -->
-			<!-- *Дальше начинается текст контента -->
+			<div id="idUnclicker"></div> <!-- (?) -->
+			<!-- (!) idContentText -->
 			<div id="idContentText" class="content-text">
-				<h1 style="text-align: center;">
-					Текст инструкций принадлежит правообладателю.
+				<h1 class="heading1">
+					Стандарт НПА БСС «Главбух»
 				</h1>
 				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia corporis adipisci consectetur facere voluptates ipsa dolor eum soluta, in rem vel esse. Quo ea quisquam quia harum architecto, quam alias!
+					Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные тексты. Эта несколько назад живет наш взгляд обеспечивает текстами. Рукопись, курсивных первую предупредила дорогу языкового встретил. Океана, точках запятой. Своих, но?
+					Буквенных продолжил безорфографичный великий не собрал, пустился вопроса раз если они рукопись семантика вдали, послушавшись, обеспечивает коварный необходимыми снова парадигматическая текстами проектах текста однажды за деревни пояс последний семь. Путь!
+				</p>
+				<h2 class="heading2">
+					Демонстрация скрытого контента
+				</h2>
+				<p>
+					Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные тексты. Скатился обеспечивает все, путь над то повстречался жаренные дороге текстов прямо они, предупредила взгляд напоивший пунктуация речью гор моей взобравшись?
 				</p>
 				<p>
-					Molestiae neque facere praesentium optio iusto minima. Provident delectus nesciunt recusandae accusamus pariatur aut, labore error numquam aperiam illo placeat suscipit ut consequuntur, veniam, quia eius ea voluptates velit architecto?
+					Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Использовало родного грустный запятых, большого букв но он текст имени до? Переписали обеспечивает, <b><u><i>одиночное изображение</i></u></b> - <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 1</a>, вдали речью своего большой реторический до которое.
+					Буквоград океана вдали предложения своих текста вершину то своего коварный, рукописи на берегу которое рыбными языком дорогу даже свой, имеет, переписали вопроса заголовок выйти осталось точках маленький ты. Сбить, инициал! Единственное.
 				</p>
-				<p class="toggle-hidden">
-					<img class="toggle-icon" src="image/tgl_gb0.png" alt="Нажмите, чтобы равернуть\свернуть" title="Нажмите, чтобы равернуть\свернуть">
-					<a class="dropdown-toggle" href="#" title="Нажмите, чтобы равернуть\свернуть">Пример 1</a>.
-					<div class="toggle-content toggle-bg-yellow toggle-collapse">
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus eum porro facilis alias fuga sunt voluptatum dolores? Nam earum officia tenetur quisquam voluptas, modi dolore maiores quae culpa dolorum! Laborum.
-						</p>
-						<p>
-							Accusamus facilis placeat, non laudantium laboriosam praesentium dolore ipsa, veniam nesciunt assumenda aperiam iure? Animi illo id minima veniam, facilis facere adipisci non, laudantium eligendi provident vel, quia corporis magni!
-						</p>
-						<p>
-							Nulla, dolorem! Quas natus, in odit voluptas facilis ipsum hic impedit dolor tenetur facere aperiam nesciunt dolorum sit, blanditiis saepe fugit minus. Facilis totam earum cumque incidunt voluptate ad odit.
-						</p>
-						<p>
-							Debitis vel ullam odit illo quod nihil, voluptatem ad voluptas autem optio numquam temporibus, modi perspiciatis eos vitae facilis! In cum blanditiis explicabo iure unde officia doloribus eveniet, eligendi quo.
-						</p>
-						<p>
-							Aliquid repellat, sapiente impedit iste ut magni quam dolorum veritatis nobis dolores laboriosam quod optio officia nostrum? Iste voluptates iusto nostrum odit, corrupti nisi amet doloremque, et, esse quam officia.
-						</p>
-						<p>
-							Obcaecati itaque optio odit animi, adipisci ea quae consequuntur id amet, tempora, sed sapiente facilis ipsum! Ullam eius, magnam incidunt odit sapiente aliquid debitis perferendis, fugit temporibus, omnis rerum ducimus.
-						</p>
+				<div class="toggle-content toggle-bg-default toggle-collapse">
+					<div class="lightbox toggle-collapse">
+						<div class="btn-box lightbox-btn-close" title="Закрыть окно просмотра изображений">&times;</div>
+						<div class="lightbox-img">
+							<div class="zoomer">
+								<img class="zoom-in" src="icon/zoom.png">
+							</div>
+							<div class="img-viewer">
+								<img class="img-item" src="img/screen-00.jpg" alt="Изображение из интернета">
+							</div>
+						</div>
+						<div class="img-text">Изображение из интернета</div>
 					</div>
+				</div>
+				<p><b><u><i>Группа изображений</i></u></b>:</p>
+				<p style="text-indent: 0.5em;">
+					<img class="toggle-icon" src="icon/tgl_gb0.png" alt="Нажмите, чтобы равернуть\свернуть" title="Нажмите, чтобы равернуть\свернуть">
+					<a class="dropdown-toggle toggle-hidden" href="#" num="1" title="Нажмите, чтобы равернуть\свернуть">пример 2</a>, <a class="dropdown-toggle toggle-hidden" href="#" num="2" title="Нажмите, чтобы равернуть\свернуть">пример 3</a>, <a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 4</a><span class="toggle-content toggle-bg-default toggle-collapse">&nbsp;<span class="toggle-bg-yellow">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих жизни текстами снова буквенных которое, назад вопрос всеми свою домах. Прямо, речью однажды. Себя большой которой агентство он прямо</span></span>, <a class="dropdown-toggle toggle-hidden" href="#" num="3" title="Нажмите, чтобы равернуть\свернуть">пример 5</a>.
 				</p>
-				<p>
-					Explicabo, magnam exercitationem quis est, itaque adipisci repellendus recusandae amet numquam veniam repudiandae eaque fugiat. Minima atque iure pariatur. Inventore rerum pariatur reiciendis. Cumque eos sequi sapiente, est eum illum!
-				</p>
-				<p class="toggle-hidden">
-					<img class="toggle-icon" src="image/tgl_expand1.gif" alt="Нажмите, чтобы равернуть\свернуть" title="Нажмите, чтобы равернуть\свернуть">
-					<a class="inline-toggle" href="#" title="Нажмите, чтобы равернуть\свернуть">Пример 2</a>:&nbsp;
-					<span class="toggle-content toggle-bg-blue toggle-collapse">Lorem ipsum dolor sit, amet consectetur adipisicing elit. In, accusamus atque odit, facilis, amet dolorem dolorum aliquam quam obcaecati nihil officiis provident numquam eligendi dignissimos exercitationem quae ipsa ad nostrum.</span>
-				</p>
-				<p class="toggle-hidden">
-					Amet adipisci libero aliquid, ipsam deserunt labore corporis quod eius eum, porro nobis! Ad laboriosam a odit animi voluptatibus, <a class="dropdown-toggle" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 3</a>, amet adipisci consequuntur. Quasi officiis neque eius molestias facilis ducimus at.
-					<div class="toggle-content toggle-bg-green toggle-collapse">
-						<p>
-							Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatibus eum porro facilis alias fuga sunt voluptatum dolores? Nam earum officia tenetur quisquam voluptas, modi dolore maiores quae culpa dolorum! Laborum.
-						</p>
-						<p>
-							Accusamus facilis placeat, non laudantium laboriosam praesentium dolore ipsa, veniam nesciunt assumenda aperiam iure? Animi illo id minima veniam, facilis facere adipisci non, laudantium eligendi provident vel, quia corporis magni!
-						</p>
-						<p>
-							Nulla, dolorem! Quas natus, in odit voluptas facilis ipsum hic impedit dolor tenetur facere aperiam nesciunt dolorum sit, blanditiis saepe fugit minus. Facilis totam earum cumque incidunt voluptate ad odit.
-						</p>
-						<p>
-							Debitis vel ullam odit illo quod nihil, voluptatem ad voluptas autem optio numquam temporibus, modi perspiciatis eos vitae facilis! In cum blanditiis explicabo iure unde officia doloribus eveniet, eligendi quo.
-						</p>
-						<p>
-							Aliquid repellat, sapiente impedit iste ut magni quam dolorum veritatis nobis dolores laboriosam quod optio officia nostrum? Iste voluptates iusto nostrum odit, corrupti nisi amet doloremque, et, esse quam officia.
-						</p>
-						<p>
-							Debitis explicabo sunt in maxime vitae veritatis, assumenda aspernatur similique ea pariatur architecto, ab accusamus corporis perferendis minus suscipit aliquid consectetur dolorum inventore perspiciatis, fuga non incidunt possimus fugit. Dolorum?
-						</p>
+				<div class="toggle-content toggle-bg-default toggle-collapse">
+					<div class="lightbox toggle-collapse" num="1">
+						<div class="btn-box lightbox-btn-close" title="Закрыть окно просмотра изображений">&times;</div>
+						<div class="lightbox-img">
+							<div class="btn-box img-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="zoomer">
+								<img class="zoom-in" src="icon/zoom.png">
+							</div>
+							<div class="img-viewer"></div>
+							<div class="btn-box img-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+						<div class="img-text"></div>
+						<div class="img-slider">
+							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="slider-track">
+								<div class="slider-item slider-current"><img src="img/screen-50.jpg" alt="Рязань, Коленцы, церковь"></div>
+								<div class="slider-item"><img src="img/screen-51.jpg" alt="Достопримечательность № 1, Рязань, Коленцы, церковь"></div>
+								<div class="slider-item"><img src="img/screen-52.jpg" alt="Достопримечательность № 2, Рязань, Коленцы, церковь"></div>
+								<div class="slider-item"><img src="img/screen-53.jpg" alt="Достопримечательность № 3, Рязань, Коленцы, церковь"></div>
+								<div class="slider-item"><img src="img/screen-54.jpg" alt="Достопримечательность № 4, Рязань, Коленцы, церковь"></div>
+								<div class="slider-item"><img src="img/screen-55.jpg" alt="Достопримечательность № 5, Рязань, Коленцы, игольная фабрика"></div>
+								<div class="slider-item"><img src="img/screen-56.jpg" alt="Достопримечательность № 6, Рязань, Коленцы, игольная фабрика"></div>
+								<div class="slider-item"><img src="img/screen-57.jpg" alt="Достопримечательность № 6, Рязань, Коленцы, река Проня, место «Платина» - когда то было купальным местом"></div>
+								<div class="slider-item"><img src="img/screen-58.jpg" alt="Достопримечательность № 7, Рязань, Коленцы, река Проня, место «Платина» - когда то было купальным местом"></div>
+							</div>
+							<div class="btn-slider slider-btn-next"><a href="#">&#10095;</a></div>
+						</div>
 					</div>
+					<div class="lightbox toggle-collapse" num="2">
+						<div class="btn-box lightbox-btn-close" title="Закрыть окно просмотра изображений">&times;</div>
+						<div class="lightbox-img">
+							<div class="btn-box img-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="zoomer">
+								<img class="zoom-in" src="icon/zoom.png">
+							</div>
+							<div class="img-viewer"></div>
+							<div class="btn-box img-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+						<div class="img-text"></div>
+						<div class="img-slider">
+							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="slider-track">
+								<div class="slider-item slider-current"><img src="img/screen-30.png" alt="Фото из интернета"></div>
+								<div class="slider-item"><img src="img/screen-31.jpg" alt="Рыся, снимок № 1 от 16.02.2016"></div>
+								<div class="slider-item"><img src="img/screen-32.jpg" alt="Рыся, снимок № 2 от 16.02.2016"></div>
+								<div class="slider-item"><img src="img/screen-33.jpg" alt="Рыся, снимок № 3 от 16.02.2016"></div>
+								<div class="slider-item"><img src="img/screen-34.jpg" alt="Рыся, снимок № 4 от 16.02.2016"></div>
+								<div class="slider-item"><img src="img/screen-35.jpg" alt="Фото № 1 с календаря 2012 г."></div>
+								<div class="slider-item"><img src="img/screen-36.jpg" alt="Фото № 2 с календаря 2012 г."></div>
+								<div class="slider-item"><img src="img/screen-37.jpg" alt="Фото № 1 с календаря 2022 г."></div>
+								<div class="slider-item"><img src="img/screen-38.jpg" alt="Фото № 2 с календаря 2022 г."></div>
+								<div class="slider-item"><img src="img/screen-39.jpg" alt="Жуля - наша любимая дворовая собака, снимок № 1 от 2022.05.02"></div>
+								<div class="slider-item"><img src="img/screen-40.jpg" alt="Жуля - наша любимая дворовая собака, снимок № 2 от 2022.05.02"></div>
+							</div>
+							<div class="btn-slider slider-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+					</div>
+					<div class="lightbox toggle-collapse" num="3">
+						<div class="btn-box lightbox-btn-close" title="Закрыть окно просмотра изображений">&times;</div>
+						<div class="lightbox-img">
+							<div class="btn-box img-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="zoomer">
+								<img class="zoom-in" src="icon/zoom.png">
+							</div>
+							<div class="img-viewer"></div>
+							<div class="btn-box img-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+						<div class="img-text"></div>
+						<div class="img-slider">
+							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="slider-track">
+								<div class="slider-item slider-current"><img src="img/screen-01.jpg" alt="Thief IV - Вор 4. Проект игры был закрыт так и не выйдя в продажу"></div>
+								<div class="slider-item"><img src="img/screen-02.jpg" alt="Thief III DEADLY SHADOWS - Вор 3 Смертоносные тени"></div>
+								<div class="slider-item"><img src="img/screen-03.jpg" alt="Assassin's Creed № 3"></div>
+								<div class="slider-item"><img src="img/screen-04.jpg" alt="Assassin's Creed № 4"></div>
+								<div class="slider-item"><img src="img/screen-05.jpg" alt="Assassin's Creed № 5"></div>
+								<div class="slider-item"><img src="img/screen-06.jpg" alt="Assassin's Creed № 6"></div>
+								<div class="slider-item"><img src="img/screen-07.jpg" alt="Assassin's Creed № 7"></div>
+								<div class="slider-item"><img src="img/screen-08.jpg" alt="Assassin's Creed № 8"></div>
+								<div class="slider-item"><img src="img/screen-09.jpg" alt="Assassin's Creed № 9"></div>
+								<div class="slider-item"><img src="img/screen-10.jpg" alt="Assassin's Creed № 10"></div>
+								<div class="slider-item"><img src="img/screen-11.jpg" alt="Assassin's Creed № 11"></div>
+								<div class="slider-item"><img src="img/screen-12.jpg" alt="Assassin's Creed № 12"></div>
+								<div class="slider-item"><img src="img/screen-13.jpg" alt="Assassin's Creed № 13"></div>
+								<div class="slider-item"><img src="img/screen-14.bmp" alt="Assassin's Creed № 14"></div>
+								<div class="slider-item"><img src="img/screen-15.jpg" alt="Assassin's Creed № 15"></div>
+								<div class="slider-item"><img src="img/screen-16.jpg" alt="Assassin's Creed № 16"></div>
+								<div class="slider-item"><img src="img/screen-17.jpg" alt="Assassin's Creed № 17"></div>
+								<div class="slider-item"><img src="img/screen-18.jpg" alt="Assassin's Creed № 18"></div>
+								<div class="slider-item"><img src="img/screen-19.jpg" alt="Assassin's Creed № 19"></div>
+								<div class="slider-item"><img src="img/screen-20.png" alt="Assassin's Creed № 20"></div>
+								<div class="slider-item"><img src="img/screen-21.png" alt="Assassin's Creed № 21"></div>
+								<div class="slider-item"><img src="img/screen-22.png" alt="Assassin's Creed № 22"></div>
+							</div>
+							<div class="btn-slider slider-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+					</div>
+				</div>
+				<p>
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Великий необходимыми, <b><u><i>видео с youtube</i></u></b> - <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 6</a>, диких безопасную переписали взгляд языком. Коварных, оксмокс взобравшись.
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты.
+				</p>
+				<div class="toggle-content toggle-bg-default toggle-collapse">
+					<div class="lightbox-video">
+						Временно отключено
+						<!-- (!) youtube вернуть обратно -->
+						<!-- <iframe src="https://www.youtube.com/embed/k8N6LANqJqc" title="YouTube video player" frameborder="1" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
+					</div>
+					<div class="video-text">Help&Manual</div>
+				</div>
+				<p style="text-indent: 0.5em;">
+					<img class="toggle-icon" src="icon/tgl_expand1.gif" alt="Нажмите, чтобы равернуть\свернуть" title="Нажмите, чтобы равернуть\свернуть">
+					<a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">Пример 7</a><span class="toggle-content toggle-bg-default toggle-collapse">&nbsp;<span class="toggle-bg-blue">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих жизни текстами снова буквенных которое, назад вопрос всеми свою домах. Прямо, речью однажды. Себя большой которой агентство он прямо.</span></span> - <b><u><i>скрытый текст</i></u></b>.
 				</p>
 				<p>
-					Quo ducimus ipsum cum dolorum amet velit soluta repudiandae, esse corrupti eius facilis excepturi fugiat temporibus libero culpa architecto consequuntur molestias, pariatur, qui vel nemo odio et adipisci ipsa. Soluta!
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Толку, использовало? Буквоград, грустный текстами <a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 8</a><span class="toggle-content toggle-bg-default toggle-collapse">&ensp;<span class="toggle-bg-peach">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих но над журчит предупредила переписывается напоивший знаках ручеек однажды дорогу скатился переулка снова, его вскоре они реторический рыбного даль</span></span>. Ты снова лучше там запятых. Далеко-далеко, за словесными горами в стране гласных и согласных живут рыбные тексты. Над текстами продолжил безорфографичный своих, страна, единственное мир ему одна там бросил грамматики.
 				</p>
 				<p>
-					Molestiae perspiciatis eum, perferendis corporis eos, sequi nesciunt veniam cupiditate, fugiat id aspernatur voluptate sed placeat natus? Sit rem, minima veritatis eaque, similique laudantium error excepturi voluptates itaque corporis accusamus!
+					Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Рекламных имеет образ свое живет моей <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 9</a>, напоивший речью пустился она на берегу которой вопроса которое бросил, дорогу заглавных злых дороге великий.
+				</p>
+				<div class="toggle-content toggle-bg-green toggle-collapse" style="text-indent: inherit;">
+					<p>
+						Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Страна домах буквоград языком вершину послушавшись, переписывается своего. Курсивных необходимыми однажды великий деревни парадигматическая составитель буквенных власти текст моей запятой.
+					</p>
+					<p>
+						Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Страна домах буквоград языком вершину послушавшись, переписывается своего. Курсивных необходимыми однажды великий деревни парадигматическая составитель буквенных власти текст моей запятой.
+						Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Океана, продолжил даль! Одна от всех дал над, деревни инициал подпоясал обеспечивает языком необходимыми свое раз даже составитель, пунктуация жизни рот!
+					</p>
+					<p>
+						Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Страна домах буквоград языком вершину послушавшись, переписывается своего. Курсивных необходимыми однажды великий деревни парадигматическая составитель буквенных власти текст моей запятой.
+					</p>
+					<p>
+						Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Страна домах буквоград языком вершину послушавшись, переписывается своего. Курсивных необходимыми однажды великий деревни парадигматическая составитель буквенных власти текст моей запятой.
+						Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих, реторический текстов ты злых вопрос себя вопроса толку. Напоивший одна маленький моей журчит пояс первую залетают всеми снова прямо!
+						Текста последний раз имени первую вдали жаренные, переулка реторический текст толку встретил то инициал приставка коварный проектах возвращайся родного залетают дорогу снова сбить? Океана своих даль однажды дорогу буквоград великий.
+					</p>
+					<p>
+						Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Страна домах буквоград языком вершину послушавшись, переписывается своего. Курсивных необходимыми однажды великий деревни парадигматическая составитель буквенных власти текст моей запятой.
+						Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Океана, продолжил даль! Одна от всех дал над, деревни инициал подпоясал обеспечивает языком необходимыми свое раз даже составитель, пунктуация жизни рот!
+					</p>
+					<p>
+						Далеко-далеко за словесными горами в стране гласных и согласных, живут рыбные тексты. Страна домах буквоград языком вершину послушавшись, переписывается своего. Курсивных необходимыми однажды великий деревни парадигматическая составитель буквенных власти текст моей запятой.
+					</p>
+				</div>
+				<p>
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Свое от всех необходимыми страна, последний речью послушавшись своего рот переписывается до домах жаренные. По всей грамматики однажды пунктуация семантика строчка там.
+					Пояс то дорогу свою раз ведущими, одна города, вопроса наш реторический lorem запятой буквенных до на берегу! Пор использовало всеми что свой скатился маленький повстречался которой рукописи образ подзаголовок, ipsum встретил?
 				</p>
 				<p>
-					Laboriosam ab ad aut magnam veritatis impedit, excepturi illo non ullam autem ex architecto quibusdam delectus voluptate, molestiae quos commodi nobis consequatur possimus dolore recusandae dignissimos praesentium optio saepe? Tempora!
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Свое от всех необходимыми страна, последний речью послушавшись своего рот переписывается до домах жаренные. По всей грамматики однажды пунктуация семантика строчка там.
+					Пояс то дорогу свою раз ведущими, одна города, вопроса наш реторический lorem запятой буквенных до на берегу! Пор использовало всеми что свой скатился маленький повстречался которой рукописи образ подзаголовок, ipsum встретил?
+					Далеко-далеко за словесными горами в стране гласных и согласных живут, рыбные тексты. Домах запятых сих встретил залетают несколько текстов о не? Продолжил всеми рыбного океана пор переписали одна она вершину однажды силуэт?
+					Мир знаках несколько, имеет безопасную его повстречался своих единственное даль запятой, предупредила заманивший гор страна коварных семантика взобравшись, парадигматическая заголовок свой наш. Подпоясал рыбного пор всемогущая вопроса там то ручеек!
 				</p>
 				<p>
-					Excepturi hic, modi quisquam soluta laudantium, eligendi autem eveniet doloremque dicta architecto et id labore rerum minus iusto blanditiis. Sit quam totam repellendus. Voluptatem neque soluta magnam explicabo quia. Sit.
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Свое от всех необходимыми страна, последний речью послушавшись своего рот переписывается до домах жаренные. По всей грамматики однажды пунктуация семантика строчка там.
+					Пояс то дорогу свою раз ведущими, одна города, вопроса наш реторический lorem запятой буквенных до на берегу! Пор использовало всеми что свой скатился маленький повстречался которой рукописи образ подзаголовок, ipsum встретил?
 				</p>
-				<!-- *Footer content в контент тексте -->
+				<p>
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Свое от всех необходимыми страна, последний речью послушавшись своего рот переписывается до домах жаренные. По всей грамматики однажды пунктуация семантика строчка там.
+					Пояс то дорогу свою раз ведущими, одна города, вопроса наш реторический lorem запятой буквенных до на берегу! Пор использовало всеми что свой скатился маленький повстречался которой рукописи образ подзаголовок, ipsum встретил?
+					Далеко-далеко за словесными горами в стране гласных и согласных живут, рыбные тексты. Домах запятых сих встретил залетают несколько текстов о не? Продолжил всеми рыбного океана пор переписали одна она вершину однажды силуэт?
+					Мир знаках несколько, имеет безопасную его повстречался своих единственное даль запятой, предупредила заманивший гор страна коварных семантика взобравшись, парадигматическая заголовок свой наш. Подпоясал рыбного пор всемогущая вопроса там то ручеек!
+					Взгляд меня скатился правилами его дороге осталось это своих, единственное дорогу, грустный переулка? Переписали, по всей! Букв текстов буквоград, имеет оксмокс текста вопрос диких одна безорфографичный имени от всех грамматики своих предложения.
+					Ipsum переписали обеспечивает несколько вдали, то злых текста власти но, правилами послушавшись страна она. Предложения то но правилами пояс над осталось свое решила щеке, своих необходимыми великий вдали, снова которой?
+				</p>
+				<!-- (!) idContentFooter -->
 				<div id="idContentFooter" class="content-footer">
 					<p>
 					База нормативно-правовых актов<br>
@@ -160,27 +306,26 @@
 				</div> <!-- idContentFooter the end -->
 			</div> <!-- idContentText the end -->
 		</div> <!-- idTopicContent the end -->
-	</div> <!-- idBox the end -->
-	<!-- *General Footer для всего топика -->
-	<div class="topic-footer">
-		<div id="idTopicFooterLeft" class="topic-footer-left">
-			<p>
-				ООО «Актион-диджитал»<br>
-				127015, г. Москва,<br>
-				Новодмитровская улица, 5а, стр. 8
-			</p>
-		</div>
-		<div id="idTopicFooterCenter" class="topic-footer-center">
-			<p></p>
-		</div>
-		<div id="idTopicFooterRight" class="topic-footer-right">
-			<p>
-				Коммерческая тайна<br>
-				Для служебного пользования
-			</p>
-		</div>
-	</div> <!-- General Footer the end -->
-
+		<!-- (!) idTopicFooter -->
+		<div id="idTopicFooter" class="topic-footer">
+			<div id="idTopicFooterLeft" class="topic-footer-left">
+				<p>
+					ООО «Актион-диджитал»<br>
+					127015, г. Москва,<br>
+					Новодмитровская улица, 5а, стр. 8
+				</p>
+			</div>
+			<div id="idTopicFooterCenter" class="topic-footer-center">
+				<p></p>
+			</div>
+			<div id="idTopicFooterRight" class="topic-footer-right">
+				<p>
+					Коммерческая тайна<br>
+					Для служебного пользования
+				</p>
+			</div>
+		</div> <!-- idTopicFooter the end -->
+	</div> <!-- idTopicBox the end -->
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->
 	<script src="js/jquery-3.6.0.js"></script>
@@ -193,6 +338,7 @@
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 	<!-- ************************************************************ -->
 	<script src="js/scripts.js"></script>
+	<script src="js/lightbox.js"></script>
 	<script src="js/topic.js"></script>
 </body>
 </html>

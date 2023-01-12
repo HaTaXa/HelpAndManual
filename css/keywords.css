@@ -1,5 +1,4 @@
-/* (i) Было в хеде файла hmkwindex.htm */
-
+/* (i) см.файл hmkwindex.htm */
 html, body {
 	overflow: hidden;
 	font-family: Verdana, Tahoma, Helvetica, sans-serif;
@@ -49,9 +48,9 @@ table\.idxtable {
 	background: #F4F4F4;
 	border: 1px solid #000000;
 	border-collapse: collapse;
-	-moz-box-shadow: 2px 2px 2px #B0B0B0;
-	-webkit-box-shadow: 2px 2px 2px #B0B0B0;
 	box-shadow: 2px 2px 2px #B0B0B0;
+	-webkit-box-shadow: 2px 2px 2px #B0B0B0;
+	-moz-box-shadow: 2px 2px 2px #B0B0B0;
 	filter: progid:DXImageTransform.Microsoft.Shadow(color=B0B0B0, Direction=135, Strength=4);
 }
 td.idxtable {background: #F4F4F4;}

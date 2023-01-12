@@ -1,17 +1,17 @@
-// (!) isEmptyObject-проверка объекта на пустоту
-function isEmptyObject (obj) {
+// (!) isEmptyObject-проверка объекта на пустоту. Не очень большое доверие - взято с просторов интернета
+function isEmptyObject(obj) {
 	for(let prop in obj) {
-		if(obj.hasOwnProperty(prop)) return false;
+		if(obj.hasOwnProperty(prop)) return false; // 'The hasOwnProperty() метод возвращает true, если объект содержит указанное свойство, которое является прямым свойством этого объекта, а не унаследованным
 	}
 	return true; // - объект пустой
 }
 // (!) writeTopic-создать фрейм с темой топика
-function writeTopic () {
+function writeTopic() {
 	if (window.location.search !== "") {
 		hmtopicvars.currP = hmnavpages.def = window.location.search.substring(1).replace(/:/g, "");
 	}
 	let frame = document.getElementById('hmcontent');
-	if (frame !== null && typeof (frame) !== "undefined" && typeof (frame) === "object") return;
+	if (frame !== null && typeof (frame) !== "undefined" && typeof (frame) === "object" || frame === Object(frame)) return;
 	frame = document.createElement('iframe');
 	frame.id = "hmcontent";
 	frame.name = "hmcontent";
@@ -20,8 +20,19 @@ function writeTopic () {
 	frame.title = "Вкладка Тема";
 	document.getElementById('idTopicBox').appendChild(frame);
 }
+// (!) jsLightboxLink-Ссылка на лайтбокс js
+function jsLightboxLink() { // TODO: 'ссылки временно прописаны статически в файлах: standartNPAbssGlavbyx.html и index.js
+	// <script src="js/lightbox.js"></script>
+	if (window === top || window.name === "") {
+
+	} else if (window === self || self !== top && window.name === "hmcontent") {
+
+	} else {
+
+	}
+}
 // (!) setUpdateVariables-обновление глобальных переменных variables.js в гл.окне
-function setUpdateVariables ( in_hmtopicvars = {}, in_hmnavpages = {}, in_hmpermalink = {} ) {
+function setUpdateVariables(in_hmtopicvars = {}, in_hmnavpages = {}, in_hmpermalink = {}) {
 	if (isEmptyObject(in_hmtopicvars) === false || Object.keys(in_hmtopicvars).length !== 0 || JSON.stringify(in_hmtopicvars) !== "{}") { // - если переменная аргумента внутри объекта содержит ключ(-и) со значением
 		for (const key in window.top.hmtopicvars) {
 			for (const k in in_hmtopicvars) {
@@ -120,169 +131,194 @@ function setUpdateVariables ( in_hmtopicvars = {}, in_hmnavpages = {}, in_hmperm
 		// }
 	// }
 }
-// (!) setToggleToolbarElement-переключение элемента на панели инструментов
-function setToggleToolbarElement (elem, classNameOn = "", classNameOff = "", valueOnOff = "") {
-	// *если elem - это id элемента
-	if (typeof(elem) !== "undefined" || elem !== "" && typeof(elem) === "string") {
+// (!) setToggleToolbarElement-переключение элемента на пан.инструментов
+function setToggleToolbarElement(elem, classNameOn = "", classNameOff = "", valueOnOff = "") {
+	if (typeof(classNameOn) === "undefined" || classNameOn === "" && (classNameOn === String(classNameOn) || typeof(classNameOn) === "string")) {
+		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		return;
+	} else if (typeof(classNameOff) === "undefined" || classNameOff === "" && (classNameOff === String(classNameOff) || typeof(classNameOff) === "string")) {
+		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		return;
+	}
+	// *если elem - это строка, например id элемента
+	if (typeof(elem) !== "undefined" || elem !== "" && (elem === String(elem) || typeof(elem) === "string")) {
 		if (valueOnOff === "on") {
 			window.top.document.getElementById(elem).classList.remove(classNameOff);
 			window.top.document.getElementById(elem).classList.add(classNameOn);
 		} else if (valueOnOff == "off") {
 			window.top.document.getElementById(elem).classList.remove(classNameOn);
 			window.top.document.getElementById(elem).classList.add(classNameOff);
+		} else {
+			console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
+			alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+			return;
 		}
-	} else if (typeof(elem) !== "undefined" || elem !== null || typeof(elem) === "object" || elem === Object(elem)) {
+	} else if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof(elem) === "object")) {
 		if (valueOnOff === "on") {
 			elem.classList.remove(classNameOff);
 			elem.classList.add(classNameOn);
 		} else if (valueOnOff == "off") {
 			elem.classList.remove(classNameOn);
 			elem.classList.add(classNameOff);
+		} else {
+			console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
+			alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+			return;
 		}
+	} else {
+		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		return;
 	}
 }
-// (!) setToolbarButtonsOnOff-включить/отключить кнопку панели инструментов
+// (!) setToolbarButtonsOnOff-включить/отключить кнопку пан.инструментов
 function setToolbarButtonsOnOff (elemId = "") {
-	if (elemId === null || typeof(elemId) === "undefined" || typeof(elemId) !== "string" || elemId === "") return;
+	if (typeof(elemId) === "undefined" || elemId === "" && (elemId === String(elemId) || typeof(elemId) === "string")) {
+		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToolbarButtonsOnOff(elemId: typeof(${typeof(elemId)}), Object(${Object(elemId)}), ${elemId}): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		return;
+	}
 	switch (elemId) {
 		case 'idExpandOn':
-			// *кнопка развернуть/свернуть скрытый текст - доступна
-			setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "on");
+			// *кнопка развернуть/свернуть скрытый контент - доступна
+			setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "on");
 			break;
 		case 'idExpandOff':
-			// *кнопка развернуть/свернуть скрытый текст - нет доступа
-			setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "off");
+			// *кнопка развернуть/свернуть скрытый контент - нет доступа
+			setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "off");
 			break;
 		case 'idPagePreviousOn':
 			// *кнопка назад - доступна
-			setToggleToolbarElement("idPagePreviousOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPagePreviousOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPagePreviousText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idPagePreviousOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPagePreviousOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPagePreviousText", "btn-text-on", "btn-text-off", "on");
 			break;
 		case 'idPagePreviousOff':
 			// *кнопка назад - нет доступа
-			setToggleToolbarElement("idPagePreviousOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPagePreviousOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPagePreviousText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idPagePreviousOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPagePreviousOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPagePreviousText", "btn-text-on", "btn-text-off", "off");
 			break;
 		case 'idPageNextOn':
 			// *кнопка вперед - доступна
-			setToggleToolbarElement("idPageNextOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPageNextOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPageNextText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idPageNextOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPageNextOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPageNextText", "btn-text-on", "btn-text-off", "on");
 			break;
 		case 'idPageNextOff':
 			// *кнопка вперед - нет доступа
-			setToggleToolbarElement("idPageNextOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPageNextOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPageNextText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idPageNextOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPageNextOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPageNextText", "btn-text-on", "btn-text-off", "off");
 			break;
 		case 'idTopicTab':
 			// *кнопка открепить - нет доступа
-			setToggleToolbarElement("idUndockTabOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idUndockTabOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idUndockTabText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idUndockTabOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idUndockTabOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idUndockTabText", "btn-text-on", "btn-text-off", "off");
 			// *кнопка новая вкладка - доступна
-			setToggleToolbarElement("idNewTabOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idNewTabOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idNewTabText", "nav-text-on", "nav-text-off", "on");
-			// *кнопка развернуть/свернуть скрытый текст - доступна, если в тексте текущей темы присутствует скрытый контент
+			setToggleToolbarElement("idNewTabOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idNewTabOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idNewTabText", "btn-text-on", "btn-text-off", "on");
+			// *кнопка развернуть/свернуть скрытый контент - доступна, если в тексте текущей темы присутствует скрытый контент
 			if (window.top.hmtopicvars.btnExpand === "idExpandOn") {
-				setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "on");
-				setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "off");
-				setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "on");
+				setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "on");
+				setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "off");
+				setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "on");
 			} else if (window.top.hmtopicvars.btnExpand === "idExpandOff") {
-				setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "off");
-				setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "on");
-				setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "off");
+				setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "off");
+				setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "on");
+				setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "off");
 			}
 			// *кнопка постоянная ссылка - доступна
-			setToggleToolbarElement("idPermalinkOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPermalinkOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPermalinkText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idPermalinkOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPermalinkOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPermalinkText", "btn-text-on", "btn-text-off", "on");
 			// *кнопка email - доступна
-			setToggleToolbarElement("idFeedBackOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idFeedBackOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idFeedBackText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idFeedBackOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idFeedBackOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idFeedBackText", "btn-text-on", "btn-text-off", "on");
 			// *кнопка печать - доступна
-			setToggleToolbarElement("idPrinterOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPrinterOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPrinterText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idPrinterOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPrinterOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPrinterText", "btn-text-on", "btn-text-off", "on");
 			break;
 		case 'idIndexTab': case 'idSearchTab':
 			// *кнопка открепить - доступна
-			setToggleToolbarElement("idUndockTabOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idUndockTabOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idUndockTabText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idUndockTabOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idUndockTabOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idUndockTabText", "btn-text-on", "btn-text-off", "on");
 			// *кнопка новая вкладка - нет доступа
-			setToggleToolbarElement("idNewTabOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idNewTabOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idNewTabText", "nav-text-on", "nav-text-off", "off");
-			// *кнопка развернуть/свернуть скрытый текст - нет доступа
-			setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idNewTabOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idNewTabOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idNewTabText", "btn-text-on", "btn-text-off", "off");
+			// *кнопка развернуть/свернуть скрытый контент - нет доступа
+			setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "off");
 			// *кнопка постоянная ссылка - нет доступа
-			setToggleToolbarElement("idPermalinkOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPermalinkOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPermalinkText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idPermalinkOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPermalinkOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPermalinkText", "btn-text-on", "btn-text-off", "off");
 			// *кнопка email - нет доступа
-			setToggleToolbarElement("idFeedBackOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idFeedBackOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idFeedBackText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idFeedBackOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idFeedBackOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idFeedBackText", "btn-text-on", "btn-text-off", "off");
 			// *кнопка печать - нет доступа
-			setToggleToolbarElement("idPrinterOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPrinterOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPrinterText", "nav-text-on", "nav-text-off", "off");
+			setToggleToolbarElement("idPrinterOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPrinterOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPrinterText", "btn-text-on", "btn-text-off", "off");
 			break;
 		// 'для остальных вкладок, кот.будут созданы как новые вкладки
 		default:
 			// *кнопка открепить - доступна
-			setToggleToolbarElement("idUndockTabOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idUndockTabOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idUndockTabText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idUndockTabOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idUndockTabOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idUndockTabText", "btn-text-on", "btn-text-off", "on");
 			// *кнопка новая вкладка - нет доступа
-			setToggleToolbarElement("idNewTabOn", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idNewTabOff", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idNewTabText", "nav-text-on", "nav-text-off", "off");
-			// *кнопка развернуть/свернуть скрытый текст - доступна, если в тексте текущей темы присутствует скрытый контент
+			setToggleToolbarElement("idNewTabOn", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idNewTabOff", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idNewTabText", "btn-text-on", "btn-text-off", "off");
+			// *кнопка развернуть/свернуть скрытый контент - доступна, если в тексте текущей темы присутствует скрытый контент
 			if (window.top.hmtopicvars.btnExpand === "idExpandOn") {
-				setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "on");
-				setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "off");
-				setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "on");
+				setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "on");
+				setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "off");
+				setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "on");
 			} else if (window.top.hmtopicvars.btnExpand === "idExpandOff") {
-				setToggleToolbarElement("idExpandOn", "nav-icon", "nav-icon-H", "off");
-				setToggleToolbarElement("idExpandOff", "nav-icon", "nav-icon-H", "on");
-				setToggleToolbarElement("idExpandText", "nav-text-on", "nav-text-off", "off");
+				setToggleToolbarElement("idExpandOn", "btn-icon", "btn-icon-H", "off");
+				setToggleToolbarElement("idExpandOff", "btn-icon", "btn-icon-H", "on");
+				setToggleToolbarElement("idExpandText", "btn-text-on", "btn-text-off", "off");
 			}
 			// *кнопка постоянная ссылка - доступна
-			setToggleToolbarElement("idPermalinkOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPermalinkOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPermalinkText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idPermalinkOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPermalinkOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPermalinkText", "btn-text-on", "btn-text-off", "on");
 			// *кнопка email - доступна
-			setToggleToolbarElement("idFeedBackOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idFeedBackOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idFeedBackText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idFeedBackOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idFeedBackOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idFeedBackText", "btn-text-on", "btn-text-off", "on");
 			// *кнопка печать - доступна
-			setToggleToolbarElement("idPrinterOn", "nav-icon", "nav-icon-H", "on");
-			setToggleToolbarElement("idPrinterOff", "nav-icon", "nav-icon-H", "off");
-			setToggleToolbarElement("idPrinterText", "nav-text-on", "nav-text-off", "on");
+			setToggleToolbarElement("idPrinterOn", "btn-icon", "btn-icon-H", "on");
+			setToggleToolbarElement("idPrinterOff", "btn-icon", "btn-icon-H", "off");
+			setToggleToolbarElement("idPrinterText", "btn-text-on", "btn-text-off", "on");
 		break;
 	}
 }
-// (!) setUpdateElements-обновление некоторых элементов: ссылок в кнопках на пан.инструментов и наименование главной вкладки в пан.тема топика
+// (!) setUpdateElements-обновление некоторых элементов: кнопки на пан.инструментов и наименование гл.вкладки в пан.тема топика, ссылку на текущую вкладку в меню вкладок
 function setUpdateElements () {
 	// *обновляем адресс ссылок в кнопках на пан.инструментов
 	let elem = window.top.document.getElementById('idLinkPageHome');
-	if (elem !== null || typeof (elem) === "object" || elem === Object(elem)) {
+	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof (elem) === "object")) {
 		elem.setAttribute('href', window.top.hmtopicvars.homeP);
 	}
 	elem = window.top.document.getElementById('idLinkPagePrevious');
-	if (elem !== null || typeof (elem) === "object" || elem === Object(elem)) {
+	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof (elem) === "object")) {
 		if (window.top.hmtopicvars.prevP === "") {
 			elem.setAttribute('href', '#');
 			setToolbarButtonsOnOff('idPagePreviousOff');
@@ -292,7 +328,7 @@ function setUpdateElements () {
 		}
 	}
 	elem = window.top.document.getElementById('idLinkPageNext');
-	if (elem !== null || typeof (elem) === "object" || elem === Object(elem)) {
+	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof (elem) === "object")) {
 		if (window.top.hmtopicvars.nextP === "") {
 			elem.setAttribute('href', '#');
 			setToolbarButtonsOnOff('idPageNextOff');
@@ -303,19 +339,24 @@ function setUpdateElements () {
 	}
 	// *обновляем наименование главной вкладки
 	elem = window.top.document.getElementById('idTopicTab');
-	if (elem !== null || typeof (elem) === "object" || elem === Object(elem)) {
+	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof (elem) === "object")) {
 		elem.querySelector('a').setAttribute('data', window.top.hmtopicvars.titleP);
 		elem.querySelector('a').setAttribute('title', window.top.hmtopicvars.titleP);
 		elem.querySelector('span').textContent = window.top.hmtopicvars.titleP;
 	}
-	// *обновляем ссылку в меню вкладок
+	// *обновляем ссылку на текущую вкладку в меню вкладок
 	elem = window.top.document.getElementById('idTabList0');
-	if (elem !== null || typeof (elem) === "object" || elem === Object(elem)) {
+	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof (elem) === "object")) {
 		elem.innerHTML = "Актуальная Тема:&nbsp;" + window.top.hmtopicvars.titleP;
 	}
 }
 // (!) setUpdateTabsMenuList-обновление списка Меню вкладок и выделение ссылки на текущую вкладку
 function setUpdateTabsMenuList (tabs) {
+	if (typeof(tabs) === "undefined" || tabs === null && (tabs === Object(tabs) || typeof(tabs) === "object")) {
+		console.error(`(!) Косяк: не удалось создать изо.во весь экран - переменная аргумента не определена:\n function setUpdateTabsMenuList(tabs: typeof(${typeof(tabs)}), Object(${Object(tabs)}), ${tabs}): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось создать изображение во весь экран - переменная аргумента не определена, см.консоль.`);
+		return;
+	}
 	let tabsList = window.top.document.getElementById('idTabsList');
 	let tabNum, tabList;
 	// 'цикл for...of
@@ -381,9 +422,9 @@ function setUpdateTabsMenuList (tabs) {
 }
 // (!) setTabShowHide-показать/скрыть текущую вкладку
 function setTabShowHide (currentTab, valueShowHide = "") {
-	if (currentTab === null || typeof (currentTab) === "undefined" || typeof (currentTab) !== "object" || currentTab !== Object(currentTab)) {
-		console.error(`(!) Косяк - не удалось показать/скрыть текущую вкладку:\n function setTabShowHide (currentTab: ${currentTab} / ${typeof(currentTab)}, valueShowHide = "${valueShowHide}")`);
-		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку, см.консоль`);
+	if (typeof (currentTab) === "undefined" || currentTab === null && (currentTab === Object(currentTab) || typeof (currentTab) === "object")) {
+		console.error(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена:\n function setTabShowHide (currentTab: typeof(${typeof(currentTab)}), Object(${Object(currentTab)}), ${currentTab}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена, см.консоль`);
 		return;
 	}
 	let tabs = currentTab.parentElement;
@@ -434,79 +475,68 @@ function setTabShowHide (currentTab, valueShowHide = "") {
 			currentTab.style.display = "none";
 			boxes.children[boxNum].style.display = "none";
 		}
+	} else {
+		console.error(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена:\n function setTabShowHide (currentTab: typeof(${typeof(currentTab)}), Object(${Object(currentTab)}), ${currentTab}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена, см.консоль`);
+		return;
 	}
 	setUpdateTabsMenuList(tabs); // - обновляем список Меню вкладок и выделяем ссылку на текущую вкладку
 }
-// (!) setToggleIcon-изменение иконки при переключении скрытого текста в топике
-function setToggleIcon (elem) {
-	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) {
-		console.error(`(!) Косяк - не удалось выполнить изменение иконки при переключении скрытого текста в топике:\n function setToggleIcon (elem: ${elem} / ${typeof(elem)})`);
-		alert(`(!) Косяк - не удалось выполнить изменение иконки при переключении скрытого текста в топике, см.консоль.`);
+// (!) animationOffset-анимационное смещение для: 1) вкладок на панели тема топика, 2) слайдера изо в скрытом контенте
+function animationOffset(elem) {
+	// 'elem - slider-track
+	if (typeof(elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
+		console.error(`(!) Косяк - не удалось воспроизвести анимацию - переменная аргумента не определена:\n function animationOffset(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось воспроизвести анимацию - переменная аргумента не определена, см.консоль.`);
 		return;
 	}
-	if (elem.classList.contains('toggle-icon')) {
-		if (elem.getAttribute('src') === "image/tgl_gb0.png") {
-			elem.setAttribute('src', 'image/tgl_gb1.png');
-		} else if (elem.getAttribute('src') === "image/tgl_gb1.png") {
-			elem.setAttribute('src', 'image/tgl_gb0.png');
-		} else if (elem.getAttribute('src') === "image/tgl_expand1.gif") {
-			elem.setAttribute('src', 'image/tgl_collapse1.gif');
-		} else if (elem.getAttribute('src') === "image/tgl_collapse1.gif") {
-			elem.setAttribute('src', 'image/tgl_expand1.gif');
+	if (elem.hasAttribute('id') || elem.hasOwnProperty('id') || elem.getAttribute('id') !== null) { // *для вкладок на панели тема топика
+		let topicTabs = document.getElementById('idTopicTabs');
+		if (typeof(topicTabs) === "undefined" || topicTabs === null && (topicTabs === Object(topicTabs) || typeof(topicTabs) === "object")) {
+			console.error(`(!) Косяк - не удалось воспроизвести анимацию - не найден элемент:\n function animationOffset(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window."${window.name}", location.origin: ${location.origin}:\n topicTabs: typeof(${typeof(topicTabs)}) / Object(${Object(topicTabs)}) / ${topicTabs}`);
+			alert(`(!) Косяк: не удалось воспроизвести анимацию - не найден элемент, см.консоль.`);
+			return;
+		}
+		// topicTabs.style.animationFillMode = "backwards"; // Элемент сохранит стиль первого ключевого кадра на протяжении периода animation-delay. Первый ключевой кадр определяется значением animation-direction
+		switch (elem.id) {
+			case 'idTabFirst': case 'idTabPrevious':
+				topicTabs.style.animation = "jumpToRight"; // имя @keyframes в файле styles.css
+				break;
+			case 'idTabNext': case 'idTabLast':
+				topicTabs.style.animation = "jumpToLeft"; // имя @keyframes в файле styles.css
+				break;
+			default:
+				console.error(`(!) Косяк - не удалось воспроизвести анимацию - текущая вкладка не определена:\n function animationOffset(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window."${window.name}", location.origin: ${location.origin}:\n elem.id: ${elem.id}`);
+				alert(`(!) Косяк: не удалось воспроизвести анимацию - текущая вкладка не определена, см.консоль.`);
+				return;
+		}
+		topicTabs.style.animationDuration = ".1s"; // продолжительность одного цикла анимации
+		topicTabs.style.animationTimingFunction = "cubic-bezier(0.18, 0.89, 0.32, 1.28)"; // временнАя функция - описывает, как будет развиваться анимация между каждой парой ключевых кадров. *Во время задержки анимации временные функции не применяются
+		topicTabs.style.animationIterationCount = 1; // повтор - сколько раз проигрывается цикл анимации
+		// topicTabs.style.animationDirection = "alternate"; // alternate-reverse // направление - определяет, должна ли анимация воспроизводиться в обратном порядке в некоторых или во всех циклах. *Когда анимация воспроизводится в обратном порядке, временные функции также меняются местами. Например, при воспроизведении в обратном порядке функция ease-in будет вести себя как ease-out
+		topicTabs.style.animationDelay = "0ms"; // задержка - определяет, когда анимация начнется. *Задается в секундах s или миллисекундах ms
+		// topicTabs.style.animationFillMode = "both"; // Анимация будет вести себя так, как будто значения forwards и backwards заданы одновременно
+		// topicTabs.style.animationFillMode = "forwards"; // По окончании анимации элемент сохранит стили последнего ключевого кадра, который определяется значениями animation-direction и animation-iteration-count. Определяет, какие значения применяются анимацией вне времени ее выполнения. Когда анимация завершается, элемент возвращается к своим исходным стилям. По умолчанию анимация не влияет на значения свойств animation-name и animation-delay, когда анимация применяется к элементу. Кроме того, по умолчанию анимация не влияет на значения свойств animation-duration и animation-iteration-count после ее завершения. Свойство animation-fill-mode может переопределить это поведение
+		// topicTabs.style.willChange = "transform"; // (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента
+	} else if (elem.classList.contains('slider-track')) { // *для слайдера изо.в скрытом контенте
+		if (elem.firstElementChild.classList.contains('slider-current')) {
+			elem.style.animation = "jumpToRight"; // имя @keyframes в файле styles.css
+		} else if (elem.lastElementChild.classList.contains('slider-current')) {
+			elem.style.animation = "jumpToLeft"; // имя @keyframes в файле styles.css
 		} else {
-			console.error(`(!) Косяк: не удалось выполнить изменение иконки при переключении скрытого текста в топике:\n function setToggleIcon (elem: ${elem} / ${typeof(elem)}):\n не известен аттрибут: ${elem.tagName}, ${elem.id}.src: ${elem.getAttribute('src')}`);
-			alert(`(!) Косяк: не удалось выполнить изменение иконки при переключении скрытого текста в топике - не известен аттрибут "src", см.консоль.`);
+			console.error(`(!) Косяк - не удалось воспроизвести анимацию - текущее изо.не определено:\n function animationOffset(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem})\n elem.classList: ${JSON.stringify(elem.classList, null, 1)}`);
+			alert(`(!) Косяк: не удалось воспроизвести анимацию - текущее изображение не определено, см.консоль.`);
 		}
-	} else {
-		console.error(`(!) Косяк: не удалось выполнить изменение иконки при переключении скрытого текста в топике:\n function setToggleIcon (elem: ${elem} / ${typeof(elem)}):\n в элементе отсутствует class: toggle-icon`);
-		alert(`(!) Косяк: не удалось выполнить изменение иконки при переключении скрытого текста в топике - в элементе отсутствует class, см.консоль.`);
+		elem.style.animationDuration = ".1s"; // продолжительность одного цикла анимации
+		elem.style.animationTimingFunction = "cubic-bezier(0.18, 0.89, 0.32, 1.28)"; // временнАя функция - описывает, как будет развиваться анимация между каждой парой ключевых кадров. *Во время задержки анимации временные функции не применяются
+		elem.style.animationIterationCount = 1; // повтор - сколько раз проигрывается цикл анимации
+		elem.style.animationDelay = "0ms"; // задержка - определяет, когда анимация начнется. *Задается в секундах s или миллисекундах ms
 	}
 }
-// (!) setToggleElement-развернуть/свернуть скрытый текст
-function setToggleElement (elem) {
-	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) {
-		console.error(`(!) Косяк: не удалось развернуть/свернуть скрытый текст:\n function setToggleElement (elem: ${elem} / ${typeof(elem)}):\n отсутствует элемент <p></p>`);
-		alert(`(!) Косяк: не удалось развернуть/свернуть скрытый текст - отсутствует элемент <p></p>, см.консоль.`);
-		return;
-	}
-	if (elem.classList.contains('toggle-hidden') || elem.classList.contains('toggle-shown')) {
-		for (let i = 0; i < elem.children.length; i++) {
-			if (elem.children[i].tagName === "IMG" && elem.children[i].classList.contains('toggle-icon')) {
-				setToggleIcon(elem.children[i]);
-			} else if (elem.children[i].tagName === "SPAN" && elem.children[i].classList.contains('toggle-content')) {
-				if (elem.children[i].classList.contains('toggle-collapse')) {
-					elem.children[i].classList.remove('toggle-collapse');
-					elem.classList.remove('toggle-hidden');
-					elem.classList.add('toggle-shown');
-				} else {
-					elem.children[i].classList.add('toggle-collapse');
-					elem.classList.add('toggle-hidden');
-					elem.classList.remove('toggle-shown');
-				}
-			}
-		}
-		if (elem.nextElementSibling !== null && typeof (elem.nextElementSibling) === "object") {
-			if (elem.nextElementSibling.tagName === "DIV" && elem.nextElementSibling.classList.contains('toggle-content')) {
-				if (elem.nextElementSibling.classList.contains('toggle-collapse')) {
-					elem.nextElementSibling.classList.remove('toggle-collapse');
-					elem.classList.remove('toggle-hidden');
-					elem.classList.add('toggle-shown');
-				} else {
-					elem.nextElementSibling.classList.add('toggle-collapse');
-					elem.classList.remove('toggle-shown');
-					elem.classList.add('toggle-hidden');
-				}
-			}
-		}
-	} else {
-		console.error(`(!) Косяк: не удалось развернуть/свернуть скрытый текст:\n function setToggleElement (elem: ${elem} / ${typeof(elem)}):\n у элемента отсутствует class: toggle-hidden/toggle-shown`);
-		alert(`(!) Косяк: не удалось развернуть/свернуть скрытый текст - у элемента отсутствует class, см.консоль.`);
-	}
-}
-// (!) permaLinkDefault-очищение инфо-подсказок при закрытии окна Постоянная ссылка
-function permaLinkDefault () {
+// (!) clearPermalink-очистить окно Постоянная ссылка
+function clearPermalink() {
 	let elem = window.top.document.getElementById('idTextArea');
-	if (elem !== null || typeof (elem) !== "undefined" || typeof (elem) === "object" || elem === Object(elem)) {
+	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof(elem) === "object")) {
 		if (elem.labels[0].innerHTML !== "") {
 			elem.labels[0].innerHTML = "";
 			elem.labels[0].classList.remove('permalink-error');
@@ -516,13 +546,13 @@ function permaLinkDefault () {
 }
 // (!) setShowHideWindow-показать/скрыть всплывающее окно
 function setShowHideWindow(elem, valueShowHide = "") {
-	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) {
-		console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно:\n function setShowHideWindow (elem: ${elem} / ${typeof(elem)}, valueShowHide = "${valueShowHide}")`);
-		alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно, см.консоль.`);
+	if (typeof (elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
+		console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена, см.консоль.`);
 		return;
 	}
-	if (typeof (valueShowHide) === "undefined" || typeof (valueShowHide) === "string" && valueShowHide === "") {
-		if (elem.style.display === "none") { // - в качестве переключателя
+	if (typeof(valueShowHide) === "undefined" || valueShowHide === null || valueShowHide === "" && (valueShowHide === String(valueShowHide) || typeof(valueShowHide) === "string")) {
+		if (elem.style.display === "none") { // переключатель
 			elem.removeAttribute('style');
 			// elem.focus();
 		} else {
@@ -534,17 +564,25 @@ function setShowHideWindow(elem, valueShowHide = "") {
 			elem.removeAttribute('style');
 		} else if (valueShowHide === "hide") {
 			elem.style.display = "none";
+		} else {
+			console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+			alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена, см.консоль.`);
 		}
 	}
 }
 // (!) windowOpen-открытие в новом окне браузера
-function windowOpen (htmlFileName = "", winProp) {
-	if (htmlFileName === null || typeof(htmlFileName) === "undefined" || typeof(htmlFileName) !== "string" || htmlFileName === "") {
-		console.error(`(!) Косяк - не удалось выполнить открытие в новом окне браузера:\n function windowOpen (htmlFileName = "${htmlFileName}", winProp: ${winProp})`);
-		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера, см.консоль.`);
+function windowOpen(htmlFileName = "", winProp = "") {
+	if (typeof(htmlFileName) === "undefined" || htmlFileName !== String(htmlFileName) || typeof(htmlFileName) !== "string") {
+		console.error(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена:\n function windowOpen (htmlFileName: "${htmlFileName}", winProp: "${winProp}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена, см.консоль.`);
 		return;
 	}
-	// window.open("","","width=250,height=250"); // - пример открытия пустого окна
+	if (typeof(winProp) === "undefined" || winProp !== String(winProp) || typeof(winProp) !== "string") {
+		console.error(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена:\n function windowOpen (htmlFileName: "${htmlFileName}", winProp: "${winProp}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена, см.консоль.`);
+		return;
+	}
+	// window.open("","","width=250,height=250"); // пример открытия пустого окна
 	// // let windowProperties = 'toolbar=0,location=0,status=0,menubar=0,scrollbars=0,resizable=yes,width=900,height=700';
 	// // let windowProperties = 'left=100,top=100,width=350,height=250,menubar=false,toolbar=false,location=false,resizabie=no,scrollbars=yes,status=false';
 	if (htmlFileName === "") {

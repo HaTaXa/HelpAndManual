@@ -4,15 +4,21 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta http-equiv="Expires" content="0"> --> <!-- 'страница всегда будет загружаться с сервера -->
+	<meta name="MobileOptimized" content="width"> <!-- 'ширина страницы в соответствии с размером экрана, аналог device-width -->
+	<meta name="HandheldFriendly" content="true"> <!-- 'оптимизация под мобильные устройства на Palm и Blackberry -->
 	<title>Поиск</title>
-	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
-	<meta name="robots" content="index, follow">
+	<link rel="shortcut icon" href="icon/favicon.ico" type="icon/x-icon">
+	<meta name="author" content="HaTaXa">
+	<meta name="copyright" content="HaTaXa">
+	<meta name="robots" content="index,follow"> <!-- 'для поисковиков -->
+	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<!-- ! подключение стилей -->
 	<link rel="stylesheet" href="css/topic.css"> <!-- 'вместо файла hm_topic.css -->
 	<link rel="stylesheet" href="css/search.css"> <!-- 'было прописано внутри тега хед файла hmftsearch.htm -->
 	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 	<!-- ! подключение скриптов + см.внизу -->
-	<!-- <script src="js/tab_search.js"></script> --> <!-- 'было прописано внутри тега хед файла hmftsearch.htm -->
+	<!-- <script src="js/search.js"></script> --> <!-- 'было прописано внутри тега хед файла hmftsearch.htm -->
 
 	<!--[if IE 9]>
 		<link id="iesvgcss" rel="stylesheet" type="text/css" href="js/hm_webhelp_svg.css" />
@@ -25,12 +31,12 @@
 			<a id="idSearchTabLink" href="#"><span>Поиск</span></a>
 		</li>
 	</ul>
-	<div id="idBox">
+	<div id="idTopicBox" class="topic-box">
 		<div id="idInnerBox">
 			<p class="submit">Введите одно или несколько ключевых слов для поиска ('*' и '?' подстановочные символы поддерживаются):</p>
 			<!-- This is where the search form and results will appear -->
 			<div id="idLoadingMsg" align="center" style="display: none;">
-				<img src="image/cicon_loadindex_ani.gif" style="border: none" alt="Loading..." />
+				<img src="icon/cicon_loadindex_ani.gif" style="border: none" alt="Loading..." />
 			</div>
 
 			<!-- <script type="text/javascript" src="js/settings.js" charset="UTF-8"></script> -->

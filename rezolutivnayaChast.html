@@ -4,13 +4,21 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta http-equiv="Expires" content="0"> --> <!-- 'страница всегда будет загружаться с сервера -->
+	<meta name="MobileOptimized" content="width"> <!-- 'ширина страницы в соответствии с размером экрана, аналог device-width -->
+	<meta name="HandheldFriendly" content="true"> <!-- 'оптимизация под мобильные устройства на Palm и Blackberry -->
 	<title>Резолютивная часть</title>
-	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
+	<link rel="shortcut icon" href="icon/favicon.ico" type="icon/x-icon">
+	<meta name="author" content="HaTaXa">
+	<meta name="copyright" content="HaTaXa">
+	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
+	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="Инструкция «Оформление актов судебного законодательства»,Резолютивная часть">
+	<meta name="keywords" content="Резолютивная часть,Инструкция «Оформление актов судебного законодательства»">
 	<!-- ! подключение стилей -->
 	<link rel="stylesheet" href="css/topic.css"> <!-- 'вместо hm_topic.css -->
-	<!-- // <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо hm_footer.css -->
+	<link rel="stylesheet" href="css/animation.css">
+	<!-- <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо hm_footer.css -->
 	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 
 	<!-- [if IE 9]>
@@ -23,6 +31,7 @@
 
 </head>
 <body>
+	<!-- (!) idTopicTabs -->
 	<ul id="idTopicTabs" class="tabs">
 		<li id="idIndexTab" class="topic-tab topic-tab-current">
 			<a href="#" id="idIndexTabLink">
@@ -30,68 +39,92 @@
 			</a>
 		</li>
 	</ul>
-	<div id="idBox">
+	<div id="idTopicBox" class="topic-box">
+		<!-- (!) idTopicHeader -->
 		<div id="idTopicHeader" class="topic-header">
+			<!-- (!) idHeaderContent -->
 			<div id="idHeaderContent" class="header-content">
-				<div id="idBreadCrumbs" class="bread-crumbs">
-					<span class="sync-toc">
-						<a class="sync-toc-link" rel="nofollow" href="index.html?rezolutivnayaChast.html" target="_top">&lt;&lt;&nbsp;Просмотреть оглавление&nbsp;&gt;&gt;</a>
-					</span>
-					<span class="sync-toc-off">Навигация:&nbsp;</span>
-					<noscript>
-						<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>&nbsp;&#47;</span>
-						<span class="sync-toc-off"><a href="standartNPAbssGlavbyx.html" target="hmcontent">Стандарт НПА БСС «Главбух»</a>&nbsp;&#47;</span>
-						<span class="sync-toc-off"><a href="szNPAbssGlavbyx.html" target="hmcontent">СЗ НПА БСС «Главбух»</a>&nbsp;&#47;</span>
-						<span class="sync-toc-off"><a href="instrykciya_4.html" target="hmcontent">Инструкция «Оформление актов судебного законодательства»</a></span>
-					</noscript>
+				<div id="idNavLinks" class="nav-links">
+					<div id="idAutoToc" class="auto-toc">
+						<img id="idAutoTocIcon" class="btn-icon" src="icon/contents-off.png" title="На этой странице содержание отсутствует">
+						<span class="btn-text">Содержание</span>
+					</div>
+					<p>
+						<span class="sync-toc">&lt;&lt;&nbsp;
+							<a class="sync-toc-link" rel="nofollow" href="index.html?rezolutivnayaChast.html" target="_top">Просмотреть оглавление</a>&nbsp;&gt;&gt;
+						</span>
+						<span class="sync-toc-off">Навигация:&nbsp;</span>
+						<noscript>
+							<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
+							<span class="sync-toc-off"><a href="standartNPAbssGlavbyx.html" target="hmcontent">Стандарт НПА БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
+							<span class="sync-toc-off"><a href="szNPAbssGlavbyx.html" target="hmcontent">СЗ НПА БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
+							<span class="sync-toc-off"><a href="instrykciya_4.html" target="hmcontent">Инструкция «Оформление актов судебного законодательства»</a>:</span>
+						</noscript>
+					</p>
 				</div>
-				<div class="title topic-title-scrolling">
+				<div class="title topic-title-scrolling reflect">
 					<p>Резолютивная часть</p>
 				</div>
 			</div> <!-- idHeaderContents the end -->
-			<div id="idAtocIcon" class="nav-divs">
-				<img id="idAtocLink" class="nav-icon" src="image/contents_off.png" title="На этой странице содержание отсутствует">
-				<br>
-				<span>Содержание</span>
-			</div>
 		</div> <!-- idTopicHeader the end -->
-		<!-- *Меню содержания -->
+		<!-- (!) idAutoTocWrapper-Меню содержания -->
 		<div id="idAutoTocWrapper" class="topic-menu"></div>
-		<!-- *Контент-текст -->
+		<!-- (!) idLinksComment-Комментарии
+			*см.функцию в файле comments.js -->
+		<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
+		<div id="idLinksComment" class="links-comment">
+			<p id="idCommentLink1" class="comment-para comment-link1">
+				<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
+			</p>
+		</div> <!-- idLinksComment the end -->
+		<!-- (!) idMsgBox - всплывающее окно сообщения -->
+		<div id="idMsgBox" class="msg-box" style="display: none;">
+			<div id="idMsgContent" class="msg-content" style="display: none;">
+				<div id="idMsgImg" class="msg-info"></div>
+				<div id="idMsgText" class="msg-text"></div>
+			</div>
+			<div id="idMsgBtn" class="msg-btn" title="Скрыть/Показать информационное сообщение"></div>
+		</div> <!-- idMsgBox the end -->
+		<!-- (!) idTopicContent -->
 		<div id="idTopicContent" class="topic-content">
 			<div id="idUnclicker"></div>
-			<!-- ! см.функцию в файле comments.js -->
-			<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
-			<!-- *Comment Links - комментарии -->
-			<div id="idLinksComment" class="links-comment">
-				<p id="idCommentLink1" class="comment-para comment-link1">
-					<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
-				</p>
-			</div> <!-- links-comment the end -->
-			<!-- *Дальше начинается текст контента -->
+			<!-- (!) idContentText -->
 			<div id="idContentText" class="content-text">
-				<h1 style="text-align: center;">
-					Текст инструкций принадлежит правообладателю.
+				<h1 class="heading1">
+					Резолютивная часть
 				</h1>
 				<p>
-					Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia corporis adipisci consectetur facere voluptates ipsa dolor eum soluta, in rem vel esse. Quo ea quisquam quia harum architecto, quam alias!
-					Molestiae neque facere praesentium optio iusto minima. Provident delectus nesciunt recusandae accusamus pariatur aut, labore error numquam aperiam illo placeat suscipit ut consequuntur, veniam, quia eius ea voluptates velit architecto?
+					Далеко-далеко за словесными, горами в стране гласных и согласных живут рыбные тексты. Вершину это гор парадигматическая семь сих о рукописи прямо коварных, ты, живет толку своего свой текста, там все рыбными образ.
+					Ipsum сбить то грустный свою подпоясал возвращайся первую последний! Языком не заглавных переулка толку осталось безопасную коварных, алфавит гор пустился текст, но большого, все парадигматическая ручеек имеет. Своего, щеке дорогу.
+					Снова образ рукопись живет все всемогущая строчка, точках пустился, если вскоре запятой подпоясал они, пунктуация домах силуэт проектах вдали дал пор там использовало рекламных грамматики! О предложения правилами приставка прямо!
+					Жизни силуэт деревни щеке, всемогущая подпоясал маленький это, вопрос языкового даль предупредила вершину дал выйти снова заголовок маленькая рот свой своих дорогу рекламных то? Речью оксмокс все ее над составитель!
+					Но рыбного вершину имеет единственное! Великий инициал залетают переписывается раз повстречался последний языкового точках, дал щеке текстами, все продолжил свое решила текстов прямо рот пунктуация ведущими собрал вопроса, рыбного рыбными?
+					Семь силуэт ipsum текстов однажды то меня, lorem строчка знаках переулка первую встретил, рекламных переписали оксмокс власти вскоре предложения все! Знаках взгляд пустился его о снова пояс запятой маленькая подпоясал?
 				</p>
 				<p>
-					Explicabo, magnam exercitationem quis est, itaque adipisci repellendus recusandae amet numquam veniam repudiandae eaque fugiat. Minima atque iure pariatur. Inventore rerum pariatur reiciendis. Cumque eos sequi sapiente, est eum illum!
-					Obcaecati itaque optio odit animi, adipisci ea quae consequuntur id amet, tempora, sed sapiente facilis ipsum! Ullam eius, magnam incidunt odit sapiente aliquid debitis perferendis, fugit temporibus, omnis rerum ducimus.
-					Amet adipisci libero aliquid, ipsam deserunt labore corporis quod eius eum, porro nobis! Ad laboriosam a odit animi voluptatibus, amet adipisci consequuntur. Quasi officiis neque eius molestias facilis ducimus at.
+					Далеко-далеко за, словесными горами в стране гласных и согласных живут рыбные тексты. Ведущими, ручеек раз. Точках большого алфавит текст пунктуация, ведущими языкового пустился маленький инициал текстов выйти, предупредила первую скатился семантика. Меня.
+					Меня сих вопрос большого дал выйти взобравшись агентство свой назад, вдали всеми дороге рукописи родного силуэт злых страна его но строчка лучше текстами своего букв встретил одна прямо? Деревни, над!
+					Меня до обеспечивает единственное моей ipsum, точках дороге снова семь. Последний повстречался дорогу по всей ему силуэт деревни семантика его коварных гор щеке! Необходимыми, власти? Гор проектах бросил великий заманивший о.
+					Ведущими вершину свой, реторический дороге эта от всех то знаках пояс мир маленькая дорогу строчка он залетают оксмокс парадигматическая заманивший напоивший запятых предложения там всеми продолжил безопасную страну. Знаках, предложения оксмокс.
 				</p>
 				<p>
-					Debitis explicabo sunt in maxime vitae veritatis, assumenda aspernatur similique ea pariatur architecto, ab accusamus corporis perferendis minus suscipit aliquid consectetur dolorum inventore perspiciatis, fuga non incidunt possimus fugit. Dolorum?
-					Quo ducimus ipsum cum dolorum amet velit soluta repudiandae, esse corrupti eius facilis excepturi fugiat temporibus libero culpa architecto consequuntur molestias, pariatur, qui vel nemo odio et adipisci ipsa. Soluta!
-					Molestiae perspiciatis eum, perferendis corporis eos, sequi nesciunt veniam cupiditate, fugiat id aspernatur voluptate sed placeat natus? Sit rem, minima veritatis eaque, similique laudantium error excepturi voluptates itaque corporis accusamus!
+					Далеко-далеко за словесными горами в стране гласных и согласных живут, рыбные тексты. Приставка предупреждал безопасную послушавшись напоивший залетают семь повстречался буквенных, они обеспечивает на берегу предложения коварный заглавных предупредила, вершину снова до прямо?
+					Всеми до, рыбными ручеек осталось запятой собрал гор знаках толку встретил пояс текстов океана родного вопрос проектах правилами, вдали назад маленькая заманивший. Прямо бросил, щеке знаках запятой меня ведущими свою!
+					Языкового жаренные снова повстречался последний рыбного алфавит рот даже это возвращайся, предложения ручеек вдали несколько? Выйти семантика своих эта злых пустился переписывается о, журчит до ему меня рукописи пор лучше.
 				</p>
 				<p>
-					Laboriosam ab ad aut magnam veritatis impedit, excepturi illo non ullam autem ex architecto quibusdam delectus voluptate, molestiae quos commodi nobis consequatur possimus dolore recusandae dignissimos praesentium optio saepe? Tempora!
-					Excepturi hic, modi quisquam soluta laudantium, eligendi autem eveniet doloremque dicta architecto et id labore rerum minus iusto blanditiis. Sit quam totam repellendus. Voluptatem neque soluta magnam explicabo quia. Sit.
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Ручеек над своих семантика. Грамматики правилами приставка диких ручеек от всех коварных, путь реторический текстами. Переписали путь агентство гор эта обеспечивает.
+					Использовало, возвращайся курсивных о щеке это гор. Моей, прямо образ города силуэт даль власти инициал семантика семь осталось все послушавшись оксмокс наш взобравшись сих правилами языком великий запятой. Они, моей.
+					Жаренные первую своего что своих языком собрал, страну пояс рекламных себя скатился толку бросил великий продолжил, снова ее силуэт меня пустился? Повстречался рекламных напоивший страна меня пунктуация прямо единственное обеспечивает!
+					Домах пустился снова осталось буквенных переулка маленькая эта злых собрал, ее большого первую послушавшись имеет, единственное ему! Дороге дорогу домах на берегу эта продолжил, ручеек вдали скатился рыбного рекламных свой языкового!
+					Большой диких его эта гор щеке прямо дороге путь маленький первую лучше несколько инициал города дал, имеет возвращайся ipsum своего все страна заглавных себя! Страна эта но страну возвращайся буквоград.
+					Свою власти, семь однажды деревни скатился собрал продолжил текстами безорфографичный наш агентство, единственное сих большого меня над дорогу они букв? Текстов собрал запятой дал до она дорогу мир, своего но.
+					Мир последний знаках на берегу, однажды, реторический составитель пунктуация правилами живет толку алфавит домах! Предложения страну его рекламных рот реторический запятой пунктуация однажды большой, скатился, курсивных языкового запятых жаренные! Пояс, повстречался!
+					Языкового диких снова языком вершину, дорогу проектах там родного большой необходимыми, однажды текст своих. Себя, агентство вскоре переулка которой всемогущая гор живет назад силуэт семантика, напоивший скатился текстов маленькая злых.
+					Дорогу, его возвращайся? Выйти свой имеет скатился, снова дороге рукописи всемогущая продолжил щеке вдали великий рот образ решила языкового знаках жизни наш родного путь имени предупреждал языком даль своего предупредила?
+					Вершину буквенных за образ продолжил она жизни если осталось подпоясал безорфографичный, рекламных рукописи пояс несколько, единственное точках дал курсивных рыбного которой. Необходимыми прямо за заголовок текст путь вопроса вдали свое.
 				</p>
-				<!-- *Footer content в контент тексте -->
+				<!-- (!) idContentFooter -->
 				<div id="idContentFooter" class="content-footer">
 					<p>
 					База нормативно-правовых актов<br>
@@ -107,27 +140,26 @@
 				</div> <!-- idContentFooter the end -->
 			</div> <!-- idContentText the end -->
 		</div> <!-- idTopicContent the end -->
+		<!-- (!) idTopicFooter -->
+		<div id="idTopicFooter" class="topic-footer">
+			<div id="idTopicFooterLeft" class="topic-footer-left">
+				<p>
+					ООО «Актион-диджитал»<br>
+					127015, г. Москва,<br>
+					Новодмитровская улица, 5а, стр. 8
+				</p>
+			</div>
+			<div id="idTopicFooterCenter" class="topic-footer-center">
+				<p></p>
+			</div>
+			<div id="idTopicFooterRight" class="topic-footer-right">
+				<p>
+					Коммерческая тайна<br>
+					Для служебного пользования
+				</p>
+			</div>
+		</div> <!-- idTopicFooter the end -->
 	</div> <!-- idBox end -->
-	<!-- *General Footer для всего топика -->
-	<div class="topic-footer">
-		<div id="idTopicFooterLeft" class="topic-footer-left">
-			<p>
-				ООО «Актион-диджитал»<br>
-				127015, г. Москва,<br>
-				Новодмитровская улица, 5а, стр. 8
-			</p>
-		</div>
-		<div id="idTopicFooterCenter" class="topic-footer-center">
-			<p></p>
-		</div>
-		<div id="idTopicFooterRight" class="topic-footer-right">
-			<p>
-				Коммерческая тайна<br>
-				Для служебного пользования
-			</p>
-		</div>
-	</div> <!-- General Footer the end -->
-
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->
 	<script src="js/jquery-3.6.0.js"></script>

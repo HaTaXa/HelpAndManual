@@ -1,5 +1,5 @@
-/* ! Topic Content Footer. The footer defined in the topic content */
-/* (i) Нижний колонтитул, определенный в контенте топика */
+/* ! Topic Content Footer. The footer defined in the topic content
+(i) Нижний колонтитул, определенный в контенте топика */
 div#idFooterContents {
 	left: 0; right: 0;
 	/* bottom: 0; */
@@ -31,8 +31,8 @@ div#idFooterContents a:hover {
 	text-decoration: none;
 }
 
-/* ! Нижний колонтитул в навигационной панели и в топике */
-/* (i) Не путать с нижним колонтитулом в контенте топика */
+/* ! Нижний колонтитул в навигационной панели и в топике
+(i) Не путать с нижним колонтитулом в контенте топика */
 /* p.footer a {
 	border-bottom: 1px dotted #737373;
 	text-decoration: underline;
@@ -62,7 +62,7 @@ p.footer a:hover {
 	overflow-y: hidden;
 	overflow-x: hidden;
 	background-color: transparent;
-	background-image: url("../image/bg-bottom.png");
+	background-image: url("../icon/bg-bottom.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	color: #fff;

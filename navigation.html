@@ -4,11 +4,16 @@
 		<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- <meta http-equiv="Expires" content="0"> --> <!-- 'страница всегда будет загружаться с сервера -->
+	<meta name="MobileOptimized" content="width"> <!-- 'ширина страницы в соответствии с размером экрана, аналог device-width -->
+	<meta name="HandheldFriendly" content="true"> <!-- 'оптимизация под мобильные устройства на Palm и Blackberry -->
 	<title>ЕСД БСС «Главбух»</title>
+	<link rel="shortcut icon" href="icon/favicon.ico" type="icon/x-icon">
+	<meta name="author" content="HaTaXa">
+	<meta name="copyright" content="HaTaXa">
+	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
+	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<meta name="description" content="&nbsp;"/>
-	<meta name="robots" content="index, follow"/>
-	<meta http-equiv="Content-Style-Type" content="text/css"/>
-	<link rel="shortcut icon" href="image/favicon.ico" type="image/x-icon">
 	<!-- ! подключение стилей -->
 	<link rel="stylesheet" href="css/navigation.css"> <!-- 'взято из hmcontent.htm, было прописано внутри страницы в хеде -->
 
@@ -47,18 +52,18 @@
 				<input type="checkbox" id="idTocListMenuSwitch">
 				<label for="idTocListMenuSwitch" toclistmenu-tooltip-expand="Развернуть все оглавление" toclistmenu-tooltip-collapse="Свернуть все оглавление">
 					<div class="toclistmenu-tooltip-triangle"></div>
-					<div id="idNavIcon" class="nav-icon"></div>
+					<div id="idNavIcon" class="btn-icon"></div>
 				</label>
 			</div>
 		</div>
-		<div id="idTocTitle" class="toc-title">
+		<div id="idTocTitle" class="toc-title reflect">
 			<p class="nav-title">ЕСД БСС «Главбух» - Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum eum laudantium culpa distinctio aliquam delectus doloremque suscipit quidem doloribus impedit, velit excepturi ea, saepe eveniet vitae! Suscipit molestiae corporis dolores.</p>
 		</div>
-		<div id="idTocSubtitle" class="toc-subtitle">
+		<div id="idTocSubtitle" class="toc-subtitle reflect">
 			<p class="nav-subtitle">База нормативно-правовых актов - Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam iste nesciunt sed, nemo laboriosam quam quisquam delectus neque at blanditiis libero rem nisi, perferendis temporibus eos ad illo, ipsa ipsam.</p>
 		</div>
 		<!-- (?) не разобралась для каких ситуаций действует данный скрипт -->
-	<!-- <div>
+		<!-- <div>
 			<span id="idOperaBug" style="display: none">Opera Bug</span>
 			<p class="no-js-title" style="display: none;">
 				<b>Содержание</b> | <a href="keywords.html" target="_self">Слова</a>
@@ -67,21 +72,25 @@
 	</div>
 	<div id="idTocBody" class="toc-body">
 		<ul id="idToc-ul" class="toc icon-expand">
+			<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="ЕСД БСС «Главбух»"> -->
 			<li id="idToc-li" class="toc-list toc-main-icon heading1">
 				<a id="idToc-a" class="heading1" href="esd_bss_glavbyx.html" target="hmcontent">
 					<span id="idToc-s" class="heading1">ЕСД БСС «Главбух»</span>
 				</a>
 				<ul id="ul1" class="icon-expand" style="display:none;">
+					<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Стандарт НПА БСС «Главбух»"> -->
 					<li id="li1" class="toc-list icon-book-purple heading1">
 						<a id="a1" class="heading1" href="standartNPAbssGlavbyx.html" target="hmcontent">
 							<span id="s1" class="heading1">Стандарт НПА БСС «Главбух»</span>
 						</a>
 						<ul id="ul2" class="icon-expand" style="display:none;">
+							<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="СЗ НПА БСС «Главбух»"> -->
 							<li id="li2" class="toc-list icon-book-purple heading2">
 								<a id="a2" class="heading2" href="szNPAbssGlavbyx.html" target="hmcontent">
 									<span id="s2" class="heading2">СЗ НПА БСС «Главбух»</span>
 								</a>
 								<ul id="ul3" class="icon-expand" style="display:none;">
+									<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Оформление актов судебного законодательства»"> -->
 									<li id="li3" class="toc-list icon-folder heading3">
 										<a id="a3" class="heading3" href="instrykciya_4.html" target="hmcontent">
 											<span id="s3" class="heading3">Инструкция «Оформление актов судебного законодательства»</span>
@@ -118,31 +127,29 @@
 							</li>
 						</ul> <!-- ul2 the end -->
 						<ul id="ul4" class="icon-expand" style="display:none;">
+							<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="СРЗ НПА БСС «Главбух»"> -->
 							<li id="li4" class="toc-list icon-book-purple heading2">
 								<a id="a4" class="heading2" href="srzNPAbssGlavbyx.html" target="hmcontent">
 									<span id="s4" class="heading2">СРЗ НПА БСС «Главбух»</span>
 								</a>
 								<ul id="ul5" class="icon-expand" style="display:none;">
+									<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Порядок передачи регулярных обновлений»"> -->
 									<li id="li5" class="toc-list icon-folder heading3">
 										<a id="a5" class="heading3" href="instrykciya_5.html" target="hmcontent">
 											<span id="s5" class="heading3">Инструкция «Порядок передачи регулярных обновлений»</span>
 										</a>
 										<ul id="ul5-1" style="display:none;">
 											<li id="li5-1" class="toc-list icon-topic heading4">
-												<a id="a5-1" class="heading4" href="instrykciya_5_Soderjanie.html" target="hmcontent">
-													<span id="s5-1" class="heading4">Содержание</span>
+												<a id="a5-1" class="heading4" href="startoviyEtap.html" target="hmcontent">
+													<span id="s5-1" class="heading4">Стартовый этап</span>
 												</a>
-												<li id="li5-2" class="toc-list icon-topic heading4">
-													<a id="a5-2" class="heading4" href="startoviyEtap.html" target="hmcontent">
-														<span id="s5-2" class="heading4">Стартовый этап</span>
-													</a>
-												</li>
 												<li id="li5-3" class="toc-list icon-topic heading4">
 													<a id="a5-3" class="heading4" href="ejemesyachnieObnovleniya.html" target="hmcontent">
 														<span id="s5-3" class="heading4">Ежемесячные обновления</span>
 													</a>
 												</li>
 												<ul id="ul6" class="icon-expand offset" style="display:none;">
+													<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Создание и ведение электронных деловых писем"> -->
 													<li id="li6" class="toc-list icon-book-blue heading4">
 														<a id="a6" class="heading4" href="sozdanieIvedenieElektronnixDelovixPisem.html" target="hmcontent">
 															<span id="s6" class="heading4">Создание и ведение электронных деловых писем</span>
@@ -171,6 +178,7 @@
 									</li>
 								</ul> <!-- ul5 the end -->
 								<ul id="ul7" class="icon-expand" style="display:none;">
+									<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Изготовление копий документов по официальным источникам опубликования»"> -->
 									<li id="li7" class="toc-list icon-folder heading3">
 										<a id="a7" class="heading3" href="instrykciya_6.html" target="hmcontent">
 											<span id="s7" class="heading3">Инструкция «Изготовление копий документов по официальным источникам опубликования»</span>
@@ -195,26 +203,23 @@
 									</li>
 								</ul> <!-- ul7 the end -->
 								<ul id="ul8" class="icon-expand" style="display:none;">
+									<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Шаблон MS Word 2003 &quot;Региональный.dot&quot;»"> -->
 									<li id="li8" class="toc-list icon-folder heading3">
 										<a id="a8" class="heading3" href="instrykciya_7.html" target="hmcontent">
 											<span id="s8" class="heading3">Инструкция «Шаблон MS Word 2003 "Региональный.dot"»</span>
 										</a>
 										<ul id="ul8-1" style="display:none;">
 											<li id="li8-1" class="toc-list icon-topic heading4">
-												<a id="a8-1" class="heading4" href="instrykciya_7_Soderjanie.html" target="hmcontent">
-													<span id="s8-1" class="heading4">Содержание</span>
+												<a id="a8-1" class="heading4" href="obshieSvedeniya.html" target="hmcontent">
+													<span id="s8-1" class="heading4">Общие сведения</span>
 												</a>
-												<li id="li8-2" class="toc-list icon-info heading4">
-													<a id="a8-2" class="heading4" href="obshieSvedeniya.html" target="hmcontent">
-														<span id="s8-2" class="heading4">Общие сведения</span>
-													</a>
-												</li>
 												<li id="li8-3" class="toc-list icon-topic heading4">
 													<a id="a8-3" class="heading4" href="podkluchenieShablona.html" target="hmcontent">
 														<span id="s8-3" class="heading4">Подключение шаблона</span>
 													</a>
 												</li>
 												<ul id="ul9" class="icon-expand offset" style="display:none;">
+													<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Использование шаблона"> -->
 													<li id="li9" class="toc-list icon-book-blue heading4">
 														<a id="a9" class="heading4" href="ispolzovanieShablona.html" target="hmcontent">
 															<span id="s9" class="heading4">Использование шаблона</span>
@@ -267,6 +272,7 @@
 						</ul> <!-- ul4 the end -->
 						<!--  -->
 						<ul id="ul10" class="icon-expand" style="display:none;">
+							<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Оформление карточки и текста документов»"> -->
 							<li id="li10" class="toc-list icon-folder heading2">
 								<a id="a10" class="heading2" href="instrykciya_1.html" target="hmcontent">
 									<span id="s10" class="heading2">Инструкция «Оформление карточки и текста документов»</span>
@@ -282,6 +288,7 @@
 						</ul> <!-- ul10 the end -->
 						<!--  -->
 						<ul id="ul11" class="icon-expand" style="display:none;">
+							<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Гипертекст и гипертекстовые ссылки»"> -->
 							<li id="li11" class="toc-list icon-folder heading2">
 								<a id="a11" class="heading2" href="instrykciya_2.html" target="hmcontent">
 									<span id="s11" class="heading2">Инструкция «Гипертекст и гипертекстовые ссылки»</span>
@@ -297,6 +304,7 @@
 						</ul> <!-- ul11 the end -->
 						<!--  -->
 						<ul id="ul12" class="icon-expand" style="display:none;">
+							<!-- <img class="nav-icon" src="icon/tgl_expand.gif" alt="Инструкция «Оформление редакций документа»"> -->
 							<li id="li12" class="toc-list icon-folder heading2">
 								<a id="a12" class="heading2" href="instrykciya_3.html" target="hmcontent">
 									<span id="s12" class="heading2">Инструкция «Оформление редакций документа»</span>
@@ -328,7 +336,7 @@
 			<a href="https://hataxa.github.io/HelpAndManual/" target="_blank"><i>Солянина<br> Натал<u>И</u>я Владиславовна</i></a>
 		</p>
 		<p><a href="mailto:solanina@yandex.ru" title="Разработчик и автор инструкций">
-				<img class="feed-back-on" src="image/email.png" onmouseover="this.src='image/HaTaXa.jpg'" onmouseout="this.src='image/email.png'"/>
+				<img class="feed-back-on" src="icon/email.png" onmouseover="this.src='icon/HaTaXa.jpg'" onmouseout="this.src='icon/email.png'"/>
 			</a>
 			<br>E-mail
 		</p>

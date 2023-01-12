@@ -10,6 +10,9 @@ var hmtopicvars = {
 	titleP: "ЕСД БСС «Главбух»",
 	btnExpand: "idExpandOn",
 	keys: "HaTaXa",
+	msgBox: "enable", // "disable",
+	msgBtn: true,
+	msgText: "Текст инструкций принадлежит правообладателю.",
 }
 // (!) Navigation pages
 var hmnavpages = {
