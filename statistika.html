@@ -13,24 +13,24 @@
 	<meta name="copyright" content="HaTaXa">
 	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
 	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
-	<meta name="description" content="Демонстрация вэб-сайта">
 	<meta name="keywords" content="«Статистика»,Использование шаблона,Инструкция «Шаблон MS Word 2003 &quot;Региональный.dot&quot;»">
-	<!-- ! подключение стилей -->
+	<!-- (!) подключение стилей -->
 	<link rel="stylesheet" href="css/topic.css"> <!-- 'вместо hm_topic.css -->
+	<link rel="stylesheet" href="css/loading.css"> <!-- 'загрузчик -->
+	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 	<link rel="stylesheet" href="css/animation.css">
 	<!-- <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо hm_footer.css -->
-	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
+	<!-- (!) подключение скриптов + см.внизу -->
+	<script src="js/scripts.js"></script>
 
 	<!-- [if IE 9]>
 		<link id="iesvgcss" rel="stylesheet" type="text/css" href="svg.css" />
 	<![endif] -->
-
-	<!-- (?) при загрузке автоматом создается ссылка на файл undocked.css, см.скрипт hmtopic.js
-		'я так понимаю это для случаев, когда срабатывает открепление топика от основной вкладки
-	-->
-
 </head>
 <body>
+	<!-- (!) loader - загрузчик -->
+	<script type="text/javascript">writeLoaderPreLoader();</script>
+	<noscript><div class="loader"><div class="loader-img"></div></div></noscript>
 	<!-- (!) idTopicTabs -->
 	<ul id="idTopicTabs" class="tabs">
 		<li id="idIndexTab" class="topic-tab topic-tab-current">
@@ -161,6 +161,8 @@
 			</div>
 		</div> <!-- idTopicFooter the end -->
 	</div> <!-- idTopicBox the end -->
+	<!-- (!)*loader - вариант запуска сценария, если html код уже прописан -->
+	<!-- <script type="text/javascript">loaderPreLoader();</script> -->
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->
 	<script src="js/jquery-3.6.0.js"></script>
@@ -172,7 +174,6 @@
 	<!-- ссылка на jquery CDN: минимизированный -->
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 	<!-- ************************************************************ -->
-	<script src="js/scripts.js"></script>
 	<script src="js/topic.js"></script>
 </body>
 </html>

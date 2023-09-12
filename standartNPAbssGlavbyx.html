@@ -13,25 +13,24 @@
 	<meta name="copyright" content="HaTaXa">
 	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
 	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
-	<meta name="description" content="Демонстрация вэб-сайта">
 	<meta name="keywords" content="Стандарт НПА БСС «Главбух»,ЕСД БСС «Главбух»">
-	<!-- ! подключение стилей -->
+	<!-- (!) подключение стилей -->
 	<link rel="stylesheet" href="css/topic.css"> <!-- 'вместо hm_topic.css -->
+	<link rel="stylesheet" href="css/loading.css"> <!-- 'загрузчик -->
+	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
 	<link rel="stylesheet" href="css/animation.css">
 	<!-- <link type="text/css" href="css/footer.css" rel="stylesheet"> --> <!-- 'вместо hm_footer.css -->
-	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
-	<!-- ! подключение скриптов см.внизу -->
+	<!-- (!) подключение скриптов + см.внизу -->
+	<script src="js/scripts.js"></script>
 
 	<!-- [if IE 9]>
 		<link id="iesvgcss" rel="stylesheet" type="text/css" href="svg.css" />
 	<![endif] -->
-
-	<!-- ??? при загрузке автоматом создается ссылка на файл undocked.css, см.скрипт hmtopic.js
-		'я так понимаю это для случаев, когда срабатывает открепление топика от основной вкладки
-	-->
-
 </head>
 <body>
+	<!-- (!) loader - загрузчик -->
+	<script type="text/javascript">writeLoaderPreLoader();</script>
+	<noscript><div class="loader"><div class="loader-img"></div></div></noscript>
 	<!-- (!) idTopicTabs -->
 	<ul id="idTopicTabs" class="tabs">
 		<li id="idIndexTab" class="topic-tab topic-tab-current">
@@ -106,7 +105,7 @@
 					Буквоград океана вдали предложения своих текста вершину то своего коварный, рукописи на берегу которое рыбными языком дорогу даже свой, имеет, переписали вопроса заголовок выйти осталось точках маленький ты. Сбить, инициал! Единственное.
 				</p>
 				<div class="toggle-content toggle-bg-default toggle-collapse">
-					<div class="lightbox toggle-collapse">
+					<div class="lightbox single-img toggle-collapse">
 						<div class="btn-box lightbox-btn-close" title="Закрыть окно просмотра изображений">&times;</div>
 						<div class="lightbox-img">
 							<div class="zoomer">
@@ -122,7 +121,7 @@
 				<p><b><u><i>Группа изображений</i></u></b>:</p>
 				<p style="text-indent: 0.5em;">
 					<img class="toggle-icon" src="icon/tgl_gb0.png" alt="Нажмите, чтобы равернуть\свернуть" title="Нажмите, чтобы равернуть\свернуть">
-					<a class="dropdown-toggle toggle-hidden" href="#" num="1" title="Нажмите, чтобы равернуть\свернуть">пример 2</a>, <a class="dropdown-toggle toggle-hidden" href="#" num="2" title="Нажмите, чтобы равернуть\свернуть">пример 3</a>, <a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 4</a><span class="toggle-content toggle-bg-default toggle-collapse">&nbsp;<span class="toggle-bg-yellow">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих жизни текстами снова буквенных которое, назад вопрос всеми свою домах. Прямо, речью однажды. Себя большой которой агентство он прямо</span></span>, <a class="dropdown-toggle toggle-hidden" href="#" num="3" title="Нажмите, чтобы равернуть\свернуть">пример 5</a>.
+					<a class="dropdown-toggle toggle-hidden" href="#" num="1" title="Нажмите, чтобы равернуть\свернуть">пример 2</a>, <a class="dropdown-toggle toggle-hidden" href="#" num="2" title="Нажмите, чтобы равернуть\свернуть">пример 3</a>, <a class="dropdown-toggle toggle-hidden" href="#" num="3" title="Нажмите, чтобы равернуть\свернуть">пример 4</a>, <a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 5</a><span class="toggle-content toggle-bg-default toggle-collapse">&nbsp;<span class="toggle-bg-yellow">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих жизни текстами снова буквенных которое, назад вопрос всеми свою домах. Прямо, речью однажды. Себя большой которой агентство он прямо</span></span>, <a class="dropdown-toggle toggle-hidden" href="#" num="4" title="Нажмите, чтобы равернуть\свернуть">пример 6</a>.
 				</p>
 				<div class="toggle-content toggle-bg-default toggle-collapse">
 					<div class="lightbox toggle-collapse" num="1">
@@ -140,14 +139,14 @@
 							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
 							<div class="slider-track">
 								<div class="slider-item slider-current"><img src="img/screen-50.jpg" alt="Рязань, Коленцы, церковь"></div>
-								<div class="slider-item"><img src="img/screen-51.jpg" alt="Достопримечательность № 1, Рязань, Коленцы, церковь"></div>
-								<div class="slider-item"><img src="img/screen-52.jpg" alt="Достопримечательность № 2, Рязань, Коленцы, церковь"></div>
-								<div class="slider-item"><img src="img/screen-53.jpg" alt="Достопримечательность № 3, Рязань, Коленцы, церковь"></div>
-								<div class="slider-item"><img src="img/screen-54.jpg" alt="Достопримечательность № 4, Рязань, Коленцы, церковь"></div>
-								<div class="slider-item"><img src="img/screen-55.jpg" alt="Достопримечательность № 5, Рязань, Коленцы, игольная фабрика"></div>
-								<div class="slider-item"><img src="img/screen-56.jpg" alt="Достопримечательность № 6, Рязань, Коленцы, игольная фабрика"></div>
-								<div class="slider-item"><img src="img/screen-57.jpg" alt="Достопримечательность № 6, Рязань, Коленцы, река Проня, место «Платина» - когда то было купальным местом"></div>
-								<div class="slider-item"><img src="img/screen-58.jpg" alt="Достопримечательность № 7, Рязань, Коленцы, река Проня, место «Платина» - когда то было купальным местом"></div>
+								<div class="slider-item"><img src="img/screen-51.jpg" alt="Достопримечательность № 1 Рязань, Коленцы, церковь" cap="<p>Достопримечательность № 1</p><p>Рязань, Коленцы, церковь</p><p>(фото из интернета)</p>"></div>
+								<div class="slider-item"><img src="img/screen-52.jpg" alt="Достопримечательность № 2 Рязань, Коленцы, церковь" cap="<p>Достопримечательность № 2</p><p>Рязань, Коленцы, церковь</p><p>(фото из интернета)</p>"></div>
+								<div class="slider-item"><img src="img/screen-53.jpg" alt="Достопримечательность № 3 Рязань, Коленцы, церковь" cap="<p>Достопримечательность № 3</p><p>Рязань, Коленцы, церковь</p>"></div>
+								<div class="slider-item"><img src="img/screen-54.jpg" alt="Достопримечательность № 4 Рязань, Коленцы, церковь" cap="<p>Достопримечательность № 4</p><p>Рязань, Коленцы, церковь</p>"></div>
+								<div class="slider-item"><img src="img/screen-55.jpg" alt="Достопримечательность № 5 Рязань, Коленцы, игольная фабрика" cap="<p>Достопримечательность № 5</p><p>Рязань, Коленцы, игольная фабрика</p><p>(фото из интернета)</p>"></div>
+								<div class="slider-item"><img src="img/screen-56.jpg" alt="Достопримечательность № 6 Рязань, Коленцы, игольная фабрика" cap="<p>Достопримечательность № 6</p><p>Рязань, Коленцы, игольная фабрика</p><p>(фото из интернета)</p>"></div>
+								<div class="slider-item"><img src="img/screen-57.jpg" alt="Достопримечательность № 7 Рязань, Коленцы, река Проня, место «Платина» - когда то было купальным местом" cap="<p>Достопримечательность № 7</p><p>Рязань, Коленцы, река Проня, место «Платина» - когда то было купальным местом</p><p>(фото из интернета)</p>"></div>
+								<div class="slider-item"><img src="img/screen-58.jpg" alt="Достопримечательность № 8 Рязань, Коленцы, река Проня, место «Платина» - когда то было не только купальным местом, но и местом, которое все называли джакузи" cap="<p>Достопримечательность № 8</p><p>Рязань, Коленцы, река Проня, место «Платина» - когда то было не только купальным местом, но и местом, которое все называли джакузи</p>"></div>
 							</div>
 							<div class="btn-slider slider-btn-next"><a href="#">&#10095;</a></div>
 						</div>
@@ -167,16 +166,14 @@
 							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
 							<div class="slider-track">
 								<div class="slider-item slider-current"><img src="img/screen-30.png" alt="Фото из интернета"></div>
-								<div class="slider-item"><img src="img/screen-31.jpg" alt="Рыся, снимок № 1 от 16.02.2016"></div>
-								<div class="slider-item"><img src="img/screen-32.jpg" alt="Рыся, снимок № 2 от 16.02.2016"></div>
-								<div class="slider-item"><img src="img/screen-33.jpg" alt="Рыся, снимок № 3 от 16.02.2016"></div>
-								<div class="slider-item"><img src="img/screen-34.jpg" alt="Рыся, снимок № 4 от 16.02.2016"></div>
-								<div class="slider-item"><img src="img/screen-35.jpg" alt="Фото № 1 с календаря 2012 г."></div>
-								<div class="slider-item"><img src="img/screen-36.jpg" alt="Фото № 2 с календаря 2012 г."></div>
-								<div class="slider-item"><img src="img/screen-37.jpg" alt="Фото № 1 с календаря 2022 г."></div>
-								<div class="slider-item"><img src="img/screen-38.jpg" alt="Фото № 2 с календаря 2022 г."></div>
-								<div class="slider-item"><img src="img/screen-39.jpg" alt="Жуля - наша любимая дворовая собака, снимок № 1 от 2022.05.02"></div>
-								<div class="slider-item"><img src="img/screen-40.jpg" alt="Жуля - наша любимая дворовая собака, снимок № 2 от 2022.05.02"></div>
+								<div class="slider-item"><img src="img/screen-31.jpg" alt="Рыся снимок № 1 от 16.02.2016" cap="<p>Рыся</p><p>снимок № 1 от 16.02.2016</p>"></div>
+								<div class="slider-item"><img src="img/screen-32.jpg" alt="Рыся снимок № 2 от 16.02.2016" cap="<p>Рыся</p><p>снимок № 2 от 16.02.2016</p>"></div>
+								<div class="slider-item"><img src="img/screen-33.jpg" alt="Рыся снимок № 3 от 16.02.2016" cap="<p>Рыся</p><p>снимок № 3 от 16.02.2016</p>"></div>
+								<div class="slider-item"><img src="img/screen-34.jpg" alt="Рыся снимок № 4 от 16.02.2016" cap="<p>Рыся</p><p>снимок № 4 от 16.02.2016</p>"></div>
+								<div class="slider-item"><img src="img/screen-35.jpg" alt="Фото № 1 с календаря 2012 года" cap="<p>Фото № 1</p><p>с календаря 2012 года</p>"></div>
+								<div class="slider-item"><img src="img/screen-36.jpg" alt="Фото № 2 с календаря 2012 года" cap="<p>Фото № 2</p><p>с календаря 2012 года</p>"></div>
+								<div class="slider-item"><img src="img/screen-37.jpg" alt="Фото № 1 с календаря 2022 года" cap="<p>Фото № 1</p><p>с календаря 2022 года</p>"></div>
+								<div class="slider-item"><img src="img/screen-38.jpg" alt="Фото № 2 с календаря 2022 года" cap="<p>Фото № 2</p><p>с календаря 2022 года</p>"></div>
 							</div>
 							<div class="btn-slider slider-btn-next"><a href="#">&#10095;</a></div>
 						</div>
@@ -195,8 +192,36 @@
 						<div class="img-slider">
 							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
 							<div class="slider-track">
-								<div class="slider-item slider-current"><img src="img/screen-01.jpg" alt="Thief IV - Вор 4. Проект игры был закрыт так и не выйдя в продажу"></div>
-								<div class="slider-item"><img src="img/screen-02.jpg" alt="Thief III DEADLY SHADOWS - Вор 3 Смертоносные тени"></div>
+								<div class="slider-item slider-current"><img src="img/IMG_20220502_110053.jpg" alt="Жуля - наша любимая дворовая собака снимок № 1 от 2 мая 2022 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 1 от 2 мая 2022 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20220502_110207.jpg" alt="Жуля - наша любимая дворовая собака снимок № 2 от 2 мая 2022 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 2 от 2 мая 2022 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_113422.jpg" alt="Жуля - наша любимая дворовая собака снимок № 1 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 1 от 17 апреля 2023 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_113446.jpg" alt="Жуля - наша любимая дворовая собака снимок № 2 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 2 от 17 апреля 2023 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_113517.jpg" alt="Жуля - наша любимая дворовая собака снимок № 3 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 3 от 17 апреля 2023 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_131029.jpg" alt="Жуля - наша любимая дворовая собака снимок № 4 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 4 от 17 апреля 2023 года<p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_131112.jpg" alt="Жуля - наша любимая дворовая собака снимок № 5 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 5 от 17 апреля 2023 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_131132.jpg" alt="Жуля - наша любимая дворовая собака снимок № 6 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 6 от 17 апреля 2023 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_131156.jpg" alt="Жуля - наша любимая дворовая собака снимок № 7 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 7 от 17 апреля 2023 года</p>"></div>
+								<div class="slider-item"><img src="img/IMG_20230417_131400.jpg" alt="Жуля - наша любимая дворовая собака снимок № 8 от 17 апреля 2023 года" cap="<p>Жуля</p><p>наша любимая дворовая собака</p><p>снимок № 8 от 17 апреля 2023 года</p>"></div>
+							</div>
+							<div class="btn-slider slider-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+					</div>
+					<div class="lightbox toggle-collapse" num="4">
+						<div class="btn-box lightbox-btn-close" title="Закрыть окно просмотра изображений">&times;</div>
+						<div class="lightbox-img">
+							<div class="btn-box img-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="zoomer">
+								<img class="zoom-in" src="icon/zoom.png">
+							</div>
+							<div class="img-viewer"></div>
+							<div class="btn-box img-btn-next"><a href="#">&#10095;</a></div>
+						</div>
+						<div class="img-text"></div>
+						<div class="img-slider">
+							<div class="btn-slider slider-btn-prev"><a href="#">&#10094;</a></div>
+							<div class="slider-track">
+								<div class="slider-item slider-current"><img src="img/screen-01.jpg" alt="Thief IV Вор 4 Проект игры был закрыт так и не выйдя в продажу" cap="<p>Thief IV - Вор 4</p><p>Проект игры был закрыт так и не выйдя в продажу</p>"></div>
+								<div class="slider-item"><img src="img/screen-02.jpg" alt="Thief III DEADLY SHADOWS Вор 3 Смертоносные тени" cap="<p>Thief III</p><p>DEADLY SHADOWS</p><p>Вор 3</p><p>Смертоносные тени</p>"></div>
 								<div class="slider-item"><img src="img/screen-03.jpg" alt="Assassin's Creed № 3"></div>
 								<div class="slider-item"><img src="img/screen-04.jpg" alt="Assassin's Creed № 4"></div>
 								<div class="slider-item"><img src="img/screen-05.jpg" alt="Assassin's Creed № 5"></div>
@@ -223,7 +248,7 @@
 					</div>
 				</div>
 				<p>
-					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Великий необходимыми, <b><u><i>видео с youtube</i></u></b> - <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 6</a>, диких безопасную переписали взгляд языком. Коварных, оксмокс взобравшись.
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Великий необходимыми, <b><u><i>видео с youtube</i></u></b> - <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 7</a>, диких безопасную переписали взгляд языком. Коварных, оксмокс взобравшись.
 					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты.
 				</p>
 				<div class="toggle-content toggle-bg-default toggle-collapse">
@@ -236,13 +261,13 @@
 				</div>
 				<p style="text-indent: 0.5em;">
 					<img class="toggle-icon" src="icon/tgl_expand1.gif" alt="Нажмите, чтобы равернуть\свернуть" title="Нажмите, чтобы равернуть\свернуть">
-					<a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">Пример 7</a><span class="toggle-content toggle-bg-default toggle-collapse">&nbsp;<span class="toggle-bg-blue">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих жизни текстами снова буквенных которое, назад вопрос всеми свою домах. Прямо, речью однажды. Себя большой которой агентство он прямо.</span></span> - <b><u><i>скрытый текст</i></u></b>.
+					<a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">Пример 8</a><span class="toggle-content toggle-bg-default toggle-collapse">&nbsp;<span class="toggle-bg-blue">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих жизни текстами снова буквенных которое, назад вопрос всеми свою домах. Прямо, речью однажды. Себя большой которой агентство он прямо.</span></span> - <b><u><i>скрытый текст</i></u></b>.
 				</p>
 				<p>
-					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Толку, использовало? Буквоград, грустный текстами <a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 8</a><span class="toggle-content toggle-bg-default toggle-collapse">&ensp;<span class="toggle-bg-peach">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих но над журчит предупредила переписывается напоивший знаках ручеек однажды дорогу скатился переулка снова, его вскоре они реторический рыбного даль</span></span>. Ты снова лучше там запятых. Далеко-далеко, за словесными горами в стране гласных и согласных живут рыбные тексты. Над текстами продолжил безорфографичный своих, страна, единственное мир ему одна там бросил грамматики.
+					Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Толку, использовало? Буквоград, грустный текстами <a class="inline-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 9</a><span class="toggle-content toggle-bg-default toggle-collapse">&ensp;<span class="toggle-bg-peach">Далеко-далеко за словесными горами в стране гласных и согласных живут рыбные тексты. Своих но над журчит предупредила переписывается напоивший знаках ручеек однажды дорогу скатился переулка снова, его вскоре они реторический рыбного даль</span></span>. Ты снова лучше там запятых. Далеко-далеко, за словесными горами в стране гласных и согласных живут рыбные тексты. Над текстами продолжил безорфографичный своих, страна, единственное мир ему одна там бросил грамматики.
 				</p>
 				<p>
-					Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Рекламных имеет образ свое живет моей <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 9</a>, напоивший речью пустился она на берегу которой вопроса которое бросил, дорогу заглавных злых дороге великий.
+					Далеко-далеко за словесными горами в стране, гласных и согласных живут рыбные тексты. Рекламных имеет образ свое живет моей <a class="dropdown-toggle toggle-hidden" href="#" title="Нажмите, чтобы равернуть\свернуть">пример 10</a>, напоивший речью пустился она на берегу которой вопроса которое бросил, дорогу заглавных злых дороге великий.
 				</p>
 				<div class="toggle-content toggle-bg-green toggle-collapse" style="text-indent: inherit;">
 					<p>
@@ -326,6 +351,8 @@
 			</div>
 		</div> <!-- idTopicFooter the end -->
 	</div> <!-- idTopicBox the end -->
+	<!-- (!)*loader - вариант запуска сценария, если html код уже прописан -->
+	<!-- <script type="text/javascript">loaderPreLoader();</script> -->
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->
 	<script src="js/jquery-3.6.0.js"></script>
@@ -337,8 +364,6 @@
 	<!-- ссылка на jquery CDN: минимизированный -->
 	<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script> -->
 	<!-- ************************************************************ -->
-	<script src="js/scripts.js"></script>
-	<script src="js/lightbox.js"></script>
 	<script src="js/topic.js"></script>
 </body>
 </html>

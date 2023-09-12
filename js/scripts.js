@@ -1,4 +1,4 @@
-// (!) isEmptyObject-проверка объекта на пустоту. Не очень большое доверие - взято с просторов интернета
+// (!) isEmptyObject - проверка объекта на пустоту. Не очень большое доверие - взято с просторов интернета
 function isEmptyObject(obj) {
 	for(let prop in obj) {
 		if(obj.hasOwnProperty(prop)) return false; // 'The hasOwnProperty() метод возвращает true, если объект содержит указанное свойство, которое является прямым свойством этого объекта, а не унаследованным
@@ -10,25 +10,167 @@ function writeTopic() {
 	if (window.location.search !== "") {
 		hmtopicvars.currP = hmnavpages.def = window.location.search.substring(1).replace(/:/g, "");
 	}
-	let frame = document.getElementById('hmcontent');
-	if (frame !== null && typeof (frame) !== "undefined" && typeof (frame) === "object" || frame === Object(frame)) return;
-	frame = document.createElement('iframe');
-	frame.id = "hmcontent";
-	frame.name = "hmcontent";
-	frame.classList.add('scroll-pane');
-	frame.setAttribute('src', hmtopicvars.currP);
-	frame.title = "Вкладка Тема";
-	document.getElementById('idTopicBox').appendChild(frame);
+	// if (document.getElementById('hmcontent') === null) {
+	// 	document.currentScript.insertAdjacentHTML("afterend", '<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="' + hmtopicvars.currP + '" title="Вкладка Тема"></iframe>');
+	// }
+	// (i) др.вариант
+	let iframe = document.getElementById('hmcontent');
+	if (iframe !== null && typeof (iframe) !== "undefined" && typeof (iframe) === "object" || iframe === Object(iframe)) return;
+	iframe = document.createElement('iframe');
+	iframe.id = "hmcontent";
+	iframe.name = "hmcontent";
+	iframe.classList.add('scroll-pane');
+	iframe.setAttribute('src', hmtopicvars.currP);
+	iframe.title = "Вкладка Тема";
+	document.getElementById('idTopicBox').appendChild(iframe);
 }
-// (!) jsLightboxLink-Ссылка на лайтбокс js
-function jsLightboxLink() { // TODO: 'ссылки временно прописаны статически в файлах: standartNPAbssGlavbyx.html и index.js
-	// <script src="js/lightbox.js"></script>
-	if (window === top || window.name === "") {
+// (!) loaderPreLoader - загрузчик/предзагрузчик
+function loaderPreLoader() {
+	let idTimer = setInterval(() => {
+		if (document.readyState === 'complete' || document.body.readyState === 'complete') {
+			clearInterval(idTimer);
+			// *.loader/.preloader
+			let lpl = document.querySelector('.preloader');
+			if (lpl === null) {
+				lpl = document.querySelector('.loader');
+				if (lpl === null) {
+					console.error(`(!) Косяк: не удалось создать/удалить ссылку на файл lightbox.js - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function loaderPreLoader():\n window.«${window.name}»\n location.origin: ${location.origin}`);
+					alert(`(!) Косяк: не удалось создать/удалить ссылку на файл lightbox.js - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+					return;
+				}
+			}
+			lpl.classList.add('loaded-hiding');
+			// (i) чтобы position: fixed не блокировало стр.
+			setTimeout(() => {
+				lpl.style.display = "none";
+			}, 500);
+		}
+	}, 500);
+}
+// (!) writeLoaderPreLoader - создать загрузчик/предзагрузчик
+function writeLoaderPreLoader() {
+	if (window === top && window.name === "") {
+		document.currentScript.insertAdjacentHTML('afterend', '<div class="preloader"><div class="preloader-img"></div></div>');
+	} else if (window.name === "hmcontent") {
+		document.currentScript.insertAdjacentHTML('afterend', '<div class="loader"><div class="loader-img"></div></div>');
+	}
+	loaderPreLoader(); // - загрузчик/предзагрузчик
+}
+// (!) getLightboxLink - получить скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
+function getLightboxLink(wnd = window) {
+	let nodeList = wnd.document.body.querySelectorAll('script');
+	if (nodeList instanceof(NodeList) || nodeList.length > 0) {
+		for (let i = 0; i < nodeList.length; i++) {
+			if (nodeList[i].getAttribute('src') === "js/lightbox.js") {
+				return nodeList[i]; // - lightbox уже имеется
+			}
+		}
+	} return null; // (i) если еще ни разу не было ни одного раскрытия скрытого контента на стр.
+}
+// (!) setLightboxLink - создать скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
+function setLightboxLink(wnd = window) {
+	// if (typeof (elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
+	if (!wnd === top || !wnd.name === "" || !wnd === window.top.frames.hmcontent || !wnd.name === "hmcontent") {
+		console.error(`(!) Косяк: не удалось создать/удалить ссылку на файл lightbox.js - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setLightboxLink("${wnd}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось создать/удалить ссылку на файл lightbox.js - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+		return null;
+	}
+	let js = wnd.document.body.querySelectorAll('script');
+	if (js instanceof(NodeList) || js.length > 0) {
+		for (let i = 0; i < js.length; i++) {
+			if (js[i].getAttribute('src') === "js/lightbox.js") { // 'скрипт уже имеется
+				return js[i];
+			} else { // 'скрипт отсутствует
+				let jsLightBox = wnd.document.createElement('script');
+				jsLightBox.src = "js/lightbox.js"
+				if ((js[i].getAttribute('src') === "js/index.js") || (js[i].getAttribute('src') === "js/topic.js")) {
+					js[i].after(jsLightBox);
+					return jsLightBox;
+				}
+				// (i) если через onload
+				// let jsLightBox = document.createElement('script');
+				// jsLightBox.src = "js/lightbox.js"
+				// if ((js[i].getAttribute('src') === "js/index.js") || (js[i].getAttribute('src') === "js/topic.js")) {
+				// 	js[i].after(jsLightBox);
+					// jsLightBox.onload = function () {
+					// 	setTimeout(() => {
+					// 		setToggleElement(elem); // развернуть/свернуть скрытый контент
+					// 	}, 0); // Это эффективный способ планирования работы для асинхронного выполнения. При вызове setTimeout с тайм-аутом 0 мс мы говорим движку запланировать выполнение этой функции как можно скорее. Обычно это происходит после того, как ваш текущий стек вызовов завершит выполнение.
+					// }
+					// js[i].after(jsLightBox);
+					// jsLightBox.onload = null;
+					// break;
+				// }
+			}
+		}
+	} return null;
+}
+// (!) getValueFullSizeProperty - получить полноразмерное значение св-ва
+function getValueFullSizeProperty (elem) {
+	if (elem === null || typeof (elem) === "undefined" && typeof (elem) !== "object" || elem !== Object(elem)) {
+		console.error(`(!) Косяк - не удалось получить значения св-ва элемента - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function getValueFullSizeProperty(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem})`);
+		alert(`(!) Косяк - не удалось получить значения св-ва элемента - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+		return 0;
+	}
+	let property = {
+		width: parseInt(getComputedStyle(elem, null).width, 10),
+		height: parseInt(getComputedStyle(elem, null).height, 10),
+		padding: {
+			left: parseInt(getComputedStyle(elem, null).paddingLeft, 10),
+			right: parseInt(getComputedStyle(elem, null).paddingRight, 10),
+			top: parseInt(getComputedStyle(elem, null).paddingTop, 10),
+			bottom: parseInt (getComputedStyle(elem, null).paddingBottom, 10)
+		},
+		border: {
+			left: parseInt(getComputedStyle(elem, null).borderLeft, 10),
+			right: parseInt(getComputedStyle(elem, null).borderRight, 10),
+			top: parseInt(getComputedStyle(elem, null).borderTop, 10),
+			bottom: parseInt(getComputedStyle(elem, null).borderBottom, 10)
+		},
+		margin: {
+			left: parseInt(getComputedStyle(elem, null).marginLeft, 10),
+			right: parseInt(getComputedStyle(elem, null).marginRight, 10),
+			top: parseInt(getComputedStyle(elem, null).marginTop, 10),
+			bottom: parseInt(getComputedStyle(elem, null).marginBottom, 10)
+		},
+	};
+	let size = {
+		width: property.width + property.padding.left + property.padding.right + property.border.left + property.border.right + property.margin.left + property.margin.right,
+		height: property.height + property.padding.top + property.padding.bottom + property.border.top + property.border.bottom + property.margin.top + property.margin.bottom
+	}
+	return size;
+}
+// (!) setFocus-фокусировка
+function setFocus(elem, focusInOut = "") {
+	if (typeof (elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
+		console.error(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setFocus(elem: typeof(${typeof(elem)}) / Object(${Object(elem)} / ${elem}, focusInOut: "${focusInOut}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+		return;
+	}
+	// X // if (typeof(focusInOut) === "undefined" || focusInOut === "" && (focusInOut === String(focusInOut) || typeof(elem) === "string")) {
+		if (focusInOut !== "focusIn" && focusInOut !== "focusOut") {
+		console.error(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setFocus(elem: typeof(${typeof(elem)}) / Object(${Object(elem)} / ${elem}, focusInOut: "${focusInOut}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+		return;
+	}
+	if (focusInOut === "focusIn") {
+		// (?) 'как снять визуальное выделение браузером
+		// console.log(`1) function setFocus(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, focusInOut = "${focusInOut}"):\n window."${window.name}", location.origin: ${location.origin}:\n document.activeElement.tagName: ${document.activeElement.tagName}\n document.activeElement.classList: ${document.activeElement.classList}`); // X -
 
-	} else if (window === self || self !== top && window.name === "hmcontent") {
+		elem.tabIndex = "0"; // (1)
+		elem.focus(); // (2)
+		// if (elem !== document.activeElement) {
+		// 	document.activeElement.tabIndex = "-1"; // (3)
+		// }
+		// console.log(`2) function setFocus(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, focusInOut = "${focusInOut}"):\n window."${window.name}", location.origin: ${location.origin}:\n document.activeElement.tagName: ${document.activeElement.tagName}\n document.activeElement.classList: ${document.activeElement.classList}`); // X -
 
-	} else {
-
+	} else if (focusInOut === "focusOut") {
+		// elem.tabIndex = "-1";
+		if (elem.hasAttribute('tabIndex')) {
+			elem.removeAttribute('tabIndex');
+		} else {
+			elem.blur();
+		}
 	}
 }
 // (!) setUpdateVariables-обновление глобальных переменных variables.js в гл.окне
@@ -67,7 +209,7 @@ function setUpdateVariables(in_hmtopicvars = {}, in_hmnavpages = {}, in_hmpermal
 		}
 	}
 	// X первичный вариант
-	// if (window.location.origin === "file://") { // - при локальном использовании
+	// if (window.location.origin === "file://") { // при локальном использовании
 	// (i) в Firefox не работает
 	// 	console.error(`function setUpdateVariables(window.name: ${window.name}):\n window.location.origin: ${window.location.origin}`);
 	// 	alert(`(!) Косяк: function setUpdateVariables(window.name: ${window.name}):\n window.location.origin: ${window.location.origin}, см.консоль.`);
@@ -135,11 +277,12 @@ function setUpdateVariables(in_hmtopicvars = {}, in_hmnavpages = {}, in_hmpermal
 function setToggleToolbarElement(elem, classNameOn = "", classNameOff = "", valueOnOff = "") {
 	if (typeof(classNameOn) === "undefined" || classNameOn === "" && (classNameOn === String(classNameOn) || typeof(classNameOn) === "string")) {
 		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
-	} else if (typeof(classNameOff) === "undefined" || classNameOff === "" && (classNameOff === String(classNameOff) || typeof(classNameOff) === "string")) {
+	}
+	if (typeof(classNameOff) === "undefined" || classNameOff === "" && (classNameOff === String(classNameOff) || typeof(classNameOff) === "string")) {
 		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 	// *если elem - это строка, например id элемента
@@ -152,7 +295,7 @@ function setToggleToolbarElement(elem, classNameOn = "", classNameOff = "", valu
 			window.top.document.getElementById(elem).classList.add(classNameOff);
 		} else {
 			console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
-			alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+			alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 			return;
 		}
 	} else if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof(elem) === "object")) {
@@ -164,12 +307,12 @@ function setToggleToolbarElement(elem, classNameOn = "", classNameOff = "", valu
 			elem.classList.add(classNameOff);
 		} else {
 			console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
-			alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+			alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 			return;
 		}
 	} else {
 		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToggleToolbarElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, classNameOn: "${classNameOn}", classNameOff: "${classNameOff}", valueOnOff: "${valueOnOff}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 }
@@ -177,7 +320,7 @@ function setToggleToolbarElement(elem, classNameOn = "", classNameOff = "", valu
 function setToolbarButtonsOnOff (elemId = "") {
 	if (typeof(elemId) === "undefined" || elemId === "" && (elemId === String(elemId) || typeof(elemId) === "string")) {
 		console.error(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена:\n function setToolbarButtonsOnOff(elemId: typeof(${typeof(elemId)}), Object(${Object(elemId)}), ${elemId}): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк: не удалось осуществить переключение элемента(-ов) - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 	switch (elemId) {
@@ -354,7 +497,7 @@ function setUpdateElements () {
 function setUpdateTabsMenuList (tabs) {
 	if (typeof(tabs) === "undefined" || tabs === null && (tabs === Object(tabs) || typeof(tabs) === "object")) {
 		console.error(`(!) Косяк: не удалось создать изо.во весь экран - переменная аргумента не определена:\n function setUpdateTabsMenuList(tabs: typeof(${typeof(tabs)}), Object(${Object(tabs)}), ${tabs}): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк: не удалось создать изображение во весь экран - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк: не удалось создать изображение во весь экран - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 	let tabsList = window.top.document.getElementById('idTabsList');
@@ -424,7 +567,7 @@ function setUpdateTabsMenuList (tabs) {
 function setTabShowHide (currentTab, valueShowHide = "") {
 	if (typeof (currentTab) === "undefined" || currentTab === null && (currentTab === Object(currentTab) || typeof (currentTab) === "object")) {
 		console.error(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена:\n function setTabShowHide (currentTab: typeof(${typeof(currentTab)}), Object(${Object(currentTab)}), ${currentTab}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена, см.консоль`);
+		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль`);
 		return;
 	}
 	let tabs = currentTab.parentElement;
@@ -477,7 +620,7 @@ function setTabShowHide (currentTab, valueShowHide = "") {
 		}
 	} else {
 		console.error(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена:\n function setTabShowHide (currentTab: typeof(${typeof(currentTab)}), Object(${Object(currentTab)}), ${currentTab}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена, см.консоль`);
+		alert(`(!) Косяк - не удалось показать/скрыть текущую вкладку - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль`);
 		return;
 	}
 	setUpdateTabsMenuList(tabs); // - обновляем список Меню вкладок и выделяем ссылку на текущую вкладку
@@ -487,7 +630,7 @@ function animationOffset(elem) {
 	// 'elem - slider-track
 	if (typeof(elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
 		console.error(`(!) Косяк - не удалось воспроизвести анимацию - переменная аргумента не определена:\n function animationOffset(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк: не удалось воспроизвести анимацию - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк: не удалось воспроизвести анимацию - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 	if (elem.hasAttribute('id') || elem.hasOwnProperty('id') || elem.getAttribute('id') !== null) { // *для вкладок на панели тема топика
@@ -533,30 +676,18 @@ function animationOffset(elem) {
 		elem.style.animationDelay = "0ms"; // задержка - определяет, когда анимация начнется. *Задается в секундах s или миллисекундах ms
 	}
 }
-// (!) clearPermalink-очистить окно Постоянная ссылка
-function clearPermalink() {
-	let elem = window.top.document.getElementById('idTextArea');
-	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof(elem) === "object")) {
-		if (elem.labels[0].innerHTML !== "") {
-			elem.labels[0].innerHTML = "";
-			elem.labels[0].classList.remove('permalink-error');
-			elem.labels[0].classList.add('permalink-info');
-		}
-	}
-}
 // (!) setShowHideWindow-показать/скрыть всплывающее окно
 function setShowHideWindow(elem, valueShowHide = "") {
 	if (typeof (elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
 		console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
-	if (typeof(valueShowHide) === "undefined" || valueShowHide === null || valueShowHide === "" && (valueShowHide === String(valueShowHide) || typeof(valueShowHide) === "string")) {
+	// if (typeof(valueShowHide) === "undefined" || valueShowHide === null || valueShowHide === "" && (valueShowHide === String(valueShowHide) || typeof(valueShowHide) === "string")) {
+	if (valueShowHide !== "show" && valueShowHide !== "hide") {
 		if (elem.style.display === "none") { // переключатель
 			elem.removeAttribute('style');
-			// elem.focus();
 		} else {
-			// document.activeElement.blur();
 			elem.style.display = "none";
 		}
 	} else {
@@ -565,8 +696,8 @@ function setShowHideWindow(elem, valueShowHide = "") {
 		} else if (valueShowHide === "hide") {
 			elem.style.display = "none";
 		} else {
-			console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
-			alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена, см.консоль.`);
+			console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+			alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		}
 	}
 }
@@ -574,12 +705,12 @@ function setShowHideWindow(elem, valueShowHide = "") {
 function windowOpen(htmlFileName = "", winProp = "") {
 	if (typeof(htmlFileName) === "undefined" || htmlFileName !== String(htmlFileName) || typeof(htmlFileName) !== "string") {
 		console.error(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена:\n function windowOpen (htmlFileName: "${htmlFileName}", winProp: "${winProp}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена, см.консоль.`);
+		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 	if (typeof(winProp) === "undefined" || winProp !== String(winProp) || typeof(winProp) !== "string") {
-		console.error(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена:\n function windowOpen (htmlFileName: "${htmlFileName}", winProp: "${winProp}"): window."${window.name}", location.origin: ${location.origin}`);
-		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена, см.консоль.`);
+		console.error(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function windowOpen (htmlFileName: "${htmlFileName}", winProp: "${winProp}"): window."${window.name}", location.origin: ${location.origin}`);
+		alert(`(!) Косяк - не удалось выполнить открытие в новом окне браузера - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
 	// window.open("","","width=250,height=250"); // пример открытия пустого окна

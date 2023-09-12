@@ -11,7 +11,7 @@ $(document).ready(function () { // - jq
 		// setListExpandCollapse(true); // 'если требуется, чтобы при старте все оглавление было сразу развернутым
 		// (!) message
 		window.addEventListener("message", (event) => {
-			// console.log(`window.addEventListener("message", (event) window.name: ${window.name}):\n location.origin: "${location.origin}" <=> event.origin: "${event.origin}": ${location.origin === event.origin}\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // X -
+			// console.log(`window.addEventListener("message", (event) window.name: ${window.name}):\n location.origin: "${location.origin}" <=> event.origin: "${event.origin}": ${location.origin === event.origin}\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // x -
 			if (event.data.value === "goToPage" || event.data.value === "setVariables") {
 				// (i) в Firefox не работает
 				if (event.data.currP !== "") {
@@ -38,7 +38,7 @@ $(document).ready(function () { // - jq
 			} else if (event.data.value === "setCollapse") { // (i) если вариант 1
 				isCollapse = event.data.collapse;
 			}
-		}, false); // - false - фаза "всплытие"
+		}, false); // false - фаза "всплытие"
 		// (!) click
 		document.addEventListener("click", function (e) {
 			// *показать/скрыть всплывающее окно
@@ -57,7 +57,7 @@ $(document).ready(function () { // - jq
 				];
 				elems.forEach(item => {
 					if (item.style.display !== "none") {
-						if (item.id === "idPermaLink") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+						if (item.id === "idPermaLink") { window.top.clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 						setShowHideWindow(item, 'hide');
 					}
 				});
@@ -380,7 +380,7 @@ function setTreeViewListCurrent (elem) {
 		if ($(ulParents[i]).css(`display`) === "none") {
 			$(ulParents[i]).removeAttr('style');
 		}
-		if (ulParents[i].id == ulParent[0].id) {
+		if (ulParents[i].id === ulParent[0].id) {
 			// *проверяем наличие атрибута "класс"
 			if (($(ulParents[i]).attr('class') !== false) || (typeof($(ulParents[i]).attr('class')) !== "undefined")) {
 				if (className === "icon-collapse") {
@@ -421,8 +421,7 @@ function setTreeViewListDefault (elem) {
 	// let ulChildren = $(ulParent[0]).children('li').children('ul'); // - вариант 3
 	// ! Потомки текущего потомка - вложенность цепочки во внутрь
 	let ulChildrensChildren = $(ulChildren).children('ul');
-
-	if (ulChildren.length == 0) return; // 'короткая запись if, если нет вложенных детей
+	if (ulChildren.length === 0) return; // 'короткая запись if, если нет вложенных детей
 	setHighlightsOnElement(elem.parentElement); // - устанавливаем подсветку на выбраном элементе
 	// *если есть атрибут "класс" меняем иконку «+/-» текущего предка и отображаем/скрываем: потомков и потомков от потомков
 	if (($(ulParent).attr('class') !== false) || (typeof($(ulParent).attr('class')) !== "undefined")) {

@@ -1,11 +1,10 @@
-// 'Инициализация переменных
-// X // let navToc = false; // - для отслеживания создания навигационных ссылок
 // document.addEventListener("DOMContentLoaded", function () {}); // - js. Дожидаемся, когда Объектная модель документа страницы (DOM) будет готова к выполнению кода JavaScript
 // (!) *window
-window.addEventListener('resize', function (e) {
-	resizeTopicContent(); // - изменение размера положения контент-текста
-}, false); // - false - фаза "всплытие"
-window.addEventListener("load", function () { // - js. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готово
+// window.addEventListener('resize', function (e) {
+// 	reSizeTopicContent(); // изменение размера расположения контент-текста
+// }, false); // false - фаза "всплытие"
+window.addEventListener('resize', reSizeTopicContent, false); // false - фаза "всплытие" // - изменение размера расположения контент-текста
+window.addEventListener('load', function () { // - js. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готово
 	if (window === top || window.name === "") { // (i) окно элемента яв-ся главным, например, при запуске отдельной страницей или через ctrl+клик из общего проекта
 		writeBreadCrumbs([]); // - заполнение топика навигационными ссылками
 	} else {
@@ -24,10 +23,10 @@ window.addEventListener("load", function () { // - js. Сработает, ка�
 		} else {
 			setToolbarButtonsOnOff(vrs.btnExpand);
 			setUpdateVariables(vrs); // - обновляем некоторые глобальные переменные в variables.js
-			let timerId = setInterval(() => {
+			let idTimer = setInterval(() => {
 				let frame = window.top.document.getElementById('hmnavigation').contentWindow || window.top.frames.hmnavigation.contentWindow;
 				if (frame !== null || typeof(frame) !== "undefined" || typeof(frame) === "object" || frame === Object(frame)) {
-					clearInterval(timerId);
+					clearInterval(idTimer);
 					// (i) если вариант 2, то эта часть кода переносится в гл.окно - index.js
 					if (window.top.location.search === "") {
 						frame.setVariables(null, vrs.currP); // - обновление глобальных переменных в variables.js
@@ -52,19 +51,6 @@ $(document).ready(function () { // - jq
 				writeBreadCrumbs(event.data.breadCrumbs); // - заполнение топика навигационными ссылками
 			} else if (event.data.value === "setMsgBox") {
 				setMsgBox(event.data.msgBox, event.data.msgBtn, event.data.msgText); // - заполнение всплывающего окна сообщения
-				// X // 'через глобальную переменную проверяем созданы ли уже навигационные ссылки, они влияют на вычисление общей высоты idTopicHeader
-				// let timerId = setInterval(() => {
-				// 	if (navToc) {
-				// 		clearInterval(timerId);
-				// 		setMsgBox(event.data.msgBox, event.data.msgBtn, event.data.msgText); // - заполнение всплывающего окна сообщения
-				// 	} else {
-				// 		if (timerId > 25) {
-				// 			clearInterval(timerId);
-				// 			console.error(`(!) Косяк - не удалось создать всплывающее окно сообщения:\n timerId > ${timerId}`);
-				// 			alert(`(!) Косяк - не удалось создать всплывающее окно сообщения, см.консоль.`);
-				// 		}
-				// 	}
-				// }, 100);
 			} else if (event.data.value === "setToggleElement") {
 				// *развернуть/свернуть скрытый текст
 				setToggleElement(null, event.data.btnChecked);
@@ -72,8 +58,6 @@ $(document).ready(function () { // - jq
 		}, false); // false - фаза "всплытие"
 		// 'keyup
 		document.addEventListener("keyup", function (event) {
-			// console.log(`document.addEventListener("keyup", function (event: ${typeof(event)} / ${event}):\n window.«${window.name}».document.${document.activeElement}\n event:\n 1) event.key: ${event.key}\n event.code: ${event.code}\n event.keyCode: ${event.keyCode}\n event.which: ${event.which}\n 2) typeof(event.target): ${typeof(event.target)}\n event.target: ${event.target})\n Object(event.target): ${Object(event.target)}\n 3) event.target.tagName: ${event.target.tagName}\n event.target.classList: ${event.target.classList}\n document.activeElement: ${document.activeElement}`); // X -
-
 			if (event.key === "Escape" || event.code === "Escape" || event.keyCode === 27 || event.which === 27) {
 				if (window.location.origin === "file://") { // - при локальном использовании
 					// (i) в Firefox не работает
@@ -90,7 +74,7 @@ $(document).ready(function () { // - jq
 					];
 					elems.forEach(item => {
 						if (item.style.display !== "none") {
-							if (item.id === "idPermaLink") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+							if (item.id === "idPermaLink") { window.top.clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 							setShowHideWindow(item, 'hide');
 						}
 					});
@@ -152,7 +136,24 @@ $(document).ready(function () { // - jq
 						let winProp = 'width=350,height=350,left=' + ((screen.width - 500) / 2) + ',top=' + ((screen.height - 500) / 2) + ',menubar=false,toolbar=false,location=false,resizabie=no,scrollbars=yes,status=false';
 						windowOpen('manualVersion.html', winProp);
 					} else if (e.target.classList.contains('dropdown-toggle') || e.target.classList.contains('inline-toggle')) {
-						setToggleElement(e.target); // - отображаем/скрываем скрытый контент
+						if (e.target.classList.contains('toggle-hidden')) {
+							let lbx = getLightboxLink(window.self); // - получить скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
+							if (lbx === null){
+								lbx = setLightboxLink(window.self) // - создать скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
+								if (lbx) {
+									lbx.addEventListener("load", function (event) {
+										setToggleElement(e.target); // - развернуть/свернуть скрытый контент
+									}, {once: true});
+								}
+							} else {
+								setToggleElement(e.target); // - развернуть/свернуть скрытый контент
+							}
+							// (i) для tagName a, чтобы сработал scrollIntoView() надо использовать отмену действия браузером по умолчанию - preventDefault(), см.событие keydown в lightbox, с использованием св-ва tabIndex = "0" элементов, не имеющих автофокусировку
+							e.target.scrollIntoView(); // - переход к элементу - не путать с фокусированием
+							e.preventDefault(); // 'отменяем действия браузера по умолчанию
+						} else if (e.target.classList.contains('toggle-shown')) {
+							setToggleElement(e.target); // - развернуть/свернуть скрытый контент
+						}
 					}
 				} else if (e.target.tagName === "IMG") {
 					if (e.target.classList.contains('toggle-icon')) {
@@ -173,17 +174,16 @@ $(document).ready(function () { // - jq
 	}
 }); // ready end
 // (!) writeBreadCrumbs-заполнение топика навигационными ссылками
-function writeBreadCrumbs (navlinks = []) {
+function writeBreadCrumbs(navlinks = []) {
 	// let elem = document.getElementById('idNavLinks').querySelector('.sync-toc-off');
 	let elem = document.getElementById('idNavLinks').querySelector('noscript');
 	if (elem === null || typeof (elem) === "undefined" || typeof(elem) !== "object" || elem !== Object(elem)) { // 'не объект/не объект HTMLSpanElement
-		console.error(`(!) Косяк - не удалось создать навигационные ссылки:\n function writeBreadCrumbs (navlinks.length: ${navlinks.length}), window.name: ${window.name}:\n 1) elem === null: ${elem === null}\n 2) typeof(elem) === "undefined": ${typeof (elem) === "undefined"}\n 3) typeof(elem) !== "object": ${typeof(elem) !== "object"}\n 4) elem !== Object(elem): ${elem !== Object(elem)}`);
+		console.error(`(!) Косяк - не удалось создать навигационные ссылки:\n function writeBreadCrumbs(navlinks.length: ${navlinks.length}), window.«${window.name}»:\n 1) elem === null: ${elem === null}\n 2) typeof(elem) === "undefined": ${typeof (elem) === "undefined"}\n 3) typeof(elem) !== "object": ${typeof(elem) !== "object"}\n 4) elem !== Object(elem): ${elem !== Object(elem)}`);
 		alert(`(!) Косяк - не удалось создать навигационные ссылки, см.консоль.`);
 		return;
 	}
 	if (navlinks.length === 0) {
 		elem.insertAdjacentHTML('afterend', '<span class="sync-toc-off">»Нет темы выше этого уровня«</span>');
-		// navToc = true; // X -
 	} else if (navlinks.length > 0) {
 		let strHTML = "";
 		for (let i = 0; i < navlinks.length; i++) {
@@ -200,79 +200,49 @@ function writeBreadCrumbs (navlinks = []) {
 			// }
 		}
 		elem.insertAdjacentHTML('afterend', strHTML);
-		// navToc = true; // X -
 	}
 }
 // (!) showComments-см.файл comments.js
-function showComments (params) {
+function showComments(params) {
 	alert(`(i) Функция показать комментарий(-и) пока что в разработке.`);
 }
 // (!) writeCommentLink-см.файл comments.js
-function writeCommentLink (params) { }
-// (!) getValElemProp-получить значения св-ва элемента
-function getValElemProp (elem) {
-	if (elem === null || typeof (elem) === "undefined" && typeof (elem) !== "object" || elem !== Object(elem)) {
-		console.error(`(!) Косяк - не удалось получить значения св-ва элемента:\n function getValElemProp (elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem})`);
-		alert(`(!) Косяк - не удалось получить значения св-ва элемента, см.консоль.`);
-		return;
-	}
-	let elemValues = {
-		height: parseInt(getComputedStyle(elem, null).height, 10),
-		margin: {
-			top: parseInt(getComputedStyle(elem, null).marginTop, 10),
-			bottom: parseInt(getComputedStyle(elem, null).marginBottom, 10),
-		},
-		padding: {
-			top: parseInt(getComputedStyle(elem, null).paddingTop, 10),
-			bottom: parseInt (getComputedStyle(elem, null).paddingBottom, 10),
-		},
-		border: {
-			top: parseInt(getComputedStyle(elem, null).borderTop, 10),
-			bottom: parseInt(getComputedStyle(elem, null).borderBottom, 10),
-		},
-	};
-	// console.log(`function getValElemProp (elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem} / ${elem.id}):\n elemValues: ${JSON.stringify(elemValues, null, 1)}`); // X -
-	return elemValues.height + elemValues.margin.top + elemValues.margin.bottom + elemValues.padding.top + elemValues.padding.bottom + elemValues.border.top + elemValues.border.bottom;
-}
-// (!) resizeTopicContent-изменение размера положения контент-текста
-function resizeTopicContent () {
+function writeCommentLink(params) { }
+// (!) reSizeTopicContent - изменение размера расположения контент-текста
+function reSizeTopicContent() {
 	let elem = document.getElementById('idTopicHeader');
-	let headerHeight = getValElemProp(elem);
-	if (typeof (headerHeight) === "undefined") {
+	let headerHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
+	if (typeof(headerHeight) === "undefined") { // перестраховка
 		headerHeight = 0;
 	}
 	elem = document.getElementById('idMsgBox');
-	let msgHeight = getValElemProp(elem);
-	// console.log(`function resizeTopicContent ():\n elem: ${typeof (elem)} / ${elem}\n msgHeight: isNaN(${isNaN(msgHeight)} / typeof(${typeof (msgHeight)}) / msgHeight = null: ${msgHeight === null})`); // X -
+	let msgHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
 	// *важно проверять на isNaN, т.к.может оказаться NAN
-	if (isNaN(msgHeight) && typeof (msgHeight) === "number" || typeof (msgHeight) === "undefined") {
+	if (isNaN(msgHeight) && typeof(msgHeight) === "number" || typeof(msgHeight) === "undefined") { // перестраховка
 		msgHeight = 0;
 	}
 	elem = document.getElementById('idTopicFooter');
-	let footerHeight = getValElemProp(elem);
-	if (typeof (footerHeight) === "undefined") {
+	let footerHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
+	if (typeof(footerHeight) === "undefined") { // перестраховка
 		footerHeight = 0;
 	}
 	let topicContent = {
 		top: headerHeight + msgHeight,
 		bottom: footerHeight
 	};
-	// console.log(`function resizeTopicContent ():\n headerHeight: ${headerHeight}\n msgHeight: ${msgHeight}\n footerHeight: ${footerHeight}\n--- итого ---\n topicContent: ${JSON.stringify(topicContent, null, 1)}`); // X -
-	if (JSON.stringify(topicContent) === {}) {
-		console.error(`(!) Косяк - не удалось изменить размеры положения контент-текста:\n function resizeTopicContent ()\n topicContent: ${JSON.stringify(topicContent, null, 1)}`);
-		alert(`(!) Косяк - не удалось изменить размеры положения контент-текста, см.консоль.`);
-		return;
-	}
 	elem = document.getElementById('idTopicContent');
-	// console.log(`parseInt(getComputedStyle(elem, null).top, 10)): ${parseInt(getComputedStyle(elem, null).top, 10)}\n parseInt(getComputedStyle(elem, null).bottom, 10)): ${parseInt(getComputedStyle(elem, null).bottom, 10)}`); // X -
-	elem.style.top = topicContent.top + "px";
-	elem.style.bottom = topicContent.bottom + "px";
+	if (topicContent.top > 0) {
+		elem.style.top = topicContent.top + "px";
+	}
+	if (topicContent.bottom > 0) {
+		elem.style.bottom = topicContent.bottom + "px";
+	}
 }
-// (!) setMsgBox-заполнение всплывающего окна сообщения
+// (!) setMsgBox - заполнение всплывающего окна сообщения
 function setMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 	if (msgBox === "disable") return; // (i) в условии намеренно не используется проверка на null/""/undefined, чтобы в переменной аргумента этот параметр можно было опускать как необязательный
 	if (msgText === "") {
-		console.error(`(!) Косяк - не удалось создать всплывающее окно сообщения:\n function setMsgBox (msgBox = "${msgBox}", msgText = "${msgText}", msgBtn = ${msgBtn})`);
+		console.error(`(!) Косяк - не удалось создать всплывающее окно сообщения:\n function setMsgBox(msgBox = "${msgBox}", msgText = "${msgText}", msgBtn = ${msgBtn})`);
 		alert(`(!) Косяк - не удалось создать всплывающее окно сообщения. Отсутствует информационный текст, см.консоль.`);
 		return;
 	}
@@ -290,14 +260,14 @@ function setMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 			document.getElementById('idMsgBtn').classList.remove('msg-show');
 		}
 		elem.removeAttribute('style');
-		resizeTopicContent(); // - изменение размера положения контент-текста
+		reSizeTopicContent(); // - изменение размера расположения контент-текста
 	}
 }
 // X writeMsgBox-создать всплывающее окно сообщения
-function writeMsgBox (msgBox = "enable", msgBtn = false, msgText = "") {
+function writeMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 	if (msgBox === "disable") return; // (i) в условии намеренно не используется проверка на null/""/undefined, чтобы в переменной аргумента этот параметр можно было опускать как необязательный
 	if (msgText === "") {
-		console.error(`(!) Косяк - не удалось создать всплывающее окно сообщения:\n function writeMessage (msgText = "${msgText}")`);
+		console.error(`(!) Косяк - не удалось создать всплывающее окно сообщения:\n function writeMessage(msgText = "${msgText}")`);
 		alert(`(!) Косяк - не удалось создать всплывающее окно сообщения. Отсутствует информационный текст, см.консоль.`);
 		return;
 	}
@@ -305,7 +275,7 @@ function writeMsgBox (msgBox = "enable", msgBtn = false, msgText = "") {
 	if (document.getElementById('idMsgBox') === null && document.getElementById('idMsgBox') !== Object(document.getElementById('idMsgBox'))) { // 'НЕ объект HTMLDivElement
 		let elem = document.getElementById('idTopicContent');
 		if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) {
-			console.error(`(!) Косяк - не удалось определить положение для вставки всплывающего окна сообщения:\n function writeMsgBox (msgBox = "${msgBox}", msgBtn = ${msgBtn}, msgText = "${msgText}"):\n elem: ${elem} / typeof(${typeof (elem)}) / ${Object(elem)}`);
+			console.error(`(!) Косяк - не удалось определить положение для вставки всплывающего окна сообщения:\n function writeMsgBox(msgBox = "${msgBox}", msgBtn = ${msgBtn}, msgText = "${msgText}"):\n elem: ${elem} / typeof(${typeof (elem)}) / ${Object(elem)}`);
 			alert(`(!) Косяк - не удалось определить положение для вставки всплывающего окна сообщения, см.консоль.`);
 			return;
 		}
@@ -324,12 +294,12 @@ function writeMsgBox (msgBox = "enable", msgBtn = false, msgText = "") {
 			}
 		}
 	}, false); // - false - фаза "всплытие"
-	resizeTopicContent(); // - изменение размера положения контент-текста
+	reSizeTopicContent(); // - изменение размера расположения контент-текста
 }
-// (!) toggleMsgBox-переключить всплывающее окно сообщения
-function toggleMsgBox (elem) {
+// (!) toggleMsgBox - переключить всплывающее окно сообщения
+function toggleMsgBox(elem) {
 	if (elem === null || typeof (elem) === "undefined" && typeof (elem) !== "object" || elem !== Object(elem)) {
-		console.error(`(!) Косяк - не удалось скрыть/показать всплывающее окно сообщения:\n function toggleMsgBox (elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem})`);
+		console.error(`(!) Косяк - не удалось скрыть/показать всплывающее окно сообщения:\n function toggleMsgBox(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem})`);
 		alert(`(!) Косяк - не удалось скрыть/показать всплывающее окно сообщения, см.консоль.`);
 		return;
 	}
@@ -362,66 +332,9 @@ function toggleMsgBox (elem) {
 			window.top.hmtopicvars.msgBtn = true;
 		}
 	} else {
-		console.error(`(!) Косяк - не удалось изменить элементу класс:\n function toggleMsgBox (elem: ${elem.tagName}, ${elem.id}):\n elem.classList: ${JSON.stringify(elem.classList, null, 1)}`);
+		console.error(`(!) Косяк - не удалось изменить элементу класс:\n function toggleMsgBox(elem: ${elem.tagName}, ${elem.id}):\n elem.classList: ${JSON.stringify(elem.classList, null, 1)}`);
 		alert(`(!) Косяк - не удалось изменить элементу класс, см.консоль.`);
 		return;
 	}
-	resizeTopicContent(); // - изменение размера положения контент-текста
-}
-// (!) setHideLightbox-скрыть окно просмотра изо - текущий lightbox
-function setHideLightbox(elem) {
-	if (elem === null || typeof(elem) === "undefined" || elem !== Object(elem) || typeof(elem) !== "object" || elem === null && typeof(elem) === "object") {
-		console.error(`(!) Косяк: не удалось закрыть окно просмотра изо - переменная аргумента не определена:\n setHideLightbox(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window.name: ${window.name})`);
-		alert(`(!) Косяк: не удалось закрыть окно просмотра изображений - переменная аргумента не определена, см.консоль.`);
-		return;
-	}
-	// 'elem - lightbox-btn-close
-	let lbx = null;
-	let tgl = elem;
-	while (!tgl.classList.contains('toggle-content')) {
-		tgl = tgl.parentElement;
-		if (tgl.tagName === "BODY" || tgl.id === "idContentText") {
-			console.error(`(!) Косяк: не удалось закрыть окно просмотра изо - не найден элемент:\n setHideLightbox(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window.name: ${window.name}):\n tgl: 1) ${tgl}\n 2) typeof(tgl): ${typeof(tgl)}\n 3) Object(tgl): ${Object(tgl)}`);
-			alert(`(!) Косяк: не удалось закрыть окно просмотра изображений - не найден элемент, см.консоль.`);
-			return;
-		} else if (tgl.classList.contains('lightbox')) {
-			lbx = tgl;
-			tgl.classList.add('toggle-collapse');
-		}
-	}
-	if (lbx.hasAttribute('num')) {
-		// *в tagName p перебираем tagName a, сверяея аттрибут "num" с аттрибутом элемента lightbox
-		let el = tgl.previousElementSibling.querySelectorAll('.toggle-shown');
-		if (el !== null || typeof(el) !== "undefined" || el === Object(el) || typeof(el) === "object" || el === null && typeof(el) === "object") {
-			for (let lnk of el) {
-				if (lnk.hasAttribute("num")) {
-					if (+lnk.getAttribute('num') === +lbx.getAttribute('num')) {
-						lnk.classList.remove('toggle-shown');
-						lnk.classList.add('toggle-hidden');
-						break;
-					}
-				}
-			}
-		}
-	} else { // - одиночное изо
-		let lnk = tgl.previousElementSibling.querySelector('.toggle-shown');
-		if (lnk !== null || typeof(lnk) !== "undefined" || lnk === Object(lnk) || typeof(lnk) === "object" || lnk === null && typeof(lnk) === "object") {
-			lnk.classList.remove('toggle-shown');
-			lnk.classList.add('toggle-hidden');
-		}
-	}
-	// *проверяем видимость др.lightbox's, кот.вложенны в toggle-content для текущего абзаца, если есть хотя бы 1 раскрытый lightbox, toggle-content остается видимым
-	if (getLightboxVisible(tgl)) {
-		tgl.classList.remove('toggle-collapse'); // - отображаем div toggle-content
-		lbx.focus();
-		// setFocusLightbox(lbx, "add"); // - фокусировка на lightbox
-	} else {
-		tgl.classList.add('toggle-collapse'); // - скрываем div toggle-content
-		setEventHandlersLightbox(lbx, "remove"); // - создание/удаление обработчиков событий для узла lightbox
-		lbx.blur();
-		// setFocusLightbox(lbx, "remove"); // - фокусировка на lightbox
-	}
-	// *проверяем существование (existence) элемента img - иконка в абзаце
-	let icon = tgl.previousElementSibling.querySelector('.toggle-icon');
-	if (icon !== null && icon === Object(icon)) setToggleIcon(icon); // - меняем иконку, если она есть
+	reSizeTopicContent(); // - изменение размера расположения контент-текста
 }

@@ -15,12 +15,13 @@
 	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
 	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="Help&Manual,Help & Manual,HelpAndManual,Help And Manual,HelpManual,Help Manual">
-	<!-- ! подключение стилей -->
+	<meta name="keywords" content="ЕСД,ЕСД БСС «Главбух»,Help&Manual,Help & Manual,HelpAndManual,Help And Manual,HelpManual,Help Manual">
+	<!-- (!) подключение стилей -->
 	<link rel="stylesheet" href="css/styles.css"> <!-- 'вместо hm_webhelp.css -->
-	<link rel="stylesheet" href="css/animation.css">
+	<link rel="stylesheet" href="css/loading.css"> <!-- 'загрузчик -->
 	<link rel="stylesheet" href="css/linkstyles.css"> <!-- 'стилизация ссылок -->
-	<!-- ! подключение скриптов + см.внизу -->
+	<link rel="stylesheet" href="css/animation.css">
+	<!-- (!) подключение скриптов + см.внизу -->
 	<script src="js/variables.js"></script>
 	<script src="js/scripts.js"></script>
 
@@ -32,9 +33,11 @@
 			topic-tab-current, div#idTabsCtab {background-image: url("icon/gb-banner.gif");}
 		</style>
 	<![endif] -->
-
 </head>
 <body>
+	<!-- (!) preloader - предзагрузчик -->
+	<script type="text/javascript">writeLoaderPreLoader();</script>
+	<noscript><div class="preloader"><div class="preloader-img"></div></div></noscript>
 	<!-- (!) idPermaLink-всплывающее окно "Постоянная ссылка" -->
 	<div id="idPermaLink" class="popups reflect" style="display: none;">
 		<div class="permalink">
@@ -58,8 +61,8 @@
 					<span>www.1gl.ru</span>
 			</a>
 		</div>
-		<!-- (!) idToolbar-Панель инструментов -->
-		<div id="idToolbar" class="toolbar">
+		<!-- (!) idToolbarPane-Панель инструментов -->
+		<div id="idToolbarPane" class="toolbar">
 			<!-- (!)*toolbar-search -->
 			<div class="toolbar-search">
 				<div id="idQuickSearch" class="toolbar-box toolbar-box-search">
@@ -258,12 +261,8 @@
 			<div id="idContentBox" class="content-box">
 				<!-- (!) idTopicBox-стр."Контент Тема" -->
 				<div id="idTopicBox" class="topic-box" boxnum="0">
-					<script type="text/javascript">
-						writeTopic();
-					</script>
-					<noscript>
-						<iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esd_bss_glavbyx.html" title="Вкладка Тема"></iframe>
-					</noscript>
+					<script type="text/javascript">writeTopic();</script>
+					<noscript><iframe id="hmcontent" name="hmcontent" class="scroll-pane" src="esd_bss_glavbyx.html" title="Вкладка Тема"></iframe></noscript>
 				</div>
 				<!-- (!) idKeywordsBox-стр."Ключевые слова" -->
 				<div id="idKeywordsBox" class="keywords-box" boxnum="1" style="display: none;">
@@ -276,7 +275,8 @@
 			</div>
 		</div>
 	</div>
-
+	<!-- (!)*preloader - вариант запуска сценария, если html код уже прописан -->
+	<!-- <script type="text/javascript">loaderPreLoader();</script> -->
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->
 	<script src="js/jquery-3.6.0.js"></script>
@@ -290,7 +290,7 @@
 	<!-- ************************************************************ -->
 	<!-- другие js-скрипты -->
 	<script src="js/index.js"></script>
-	<script src="js/lightbox.js"></script>
 	<script src="js/splitters.js"></script>
+	<script src="js/permalink.js"></script>
 </body>
 </html>

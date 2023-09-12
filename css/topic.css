@@ -4,6 +4,13 @@
 *Унивесальный селектор имеет нулевой приоритет (ниже только отсутствие приоритета вовсе).
 */
 * {margin: 0; padding: 0;} /* - перебить CSS свойства, которые браузеры устанавливают по умолчанию для некоторых тегов, например, тегу гиперссылки <a> синий цвет текста и подчёркивание, тегу body они задают поля (padding) и тд.и т.п. */
+/*
+(i) считается хорошей практикой, но в моем случае придется много чего переписывать
+*/
+/* html {box-sizing: border-box;} */
+/*
+// *, *:after, *:before {box-sizing: inherit;}
+*/
 body, html {
 	background-color: #fff;
 	text-indent: 1.5em; /* - отступ первой строки */
@@ -494,7 +501,8 @@ span.highlight {background-color: #ffff40;}
 	text-indent: 0;
 	color: #000;
 }
-.img-viewer,
+.img-slider,
+.img-text,
 .lightbox-img,
 .lightbox,
 .toggle-content {overflow: hidden;}
@@ -510,27 +518,54 @@ span.highlight {background-color: #ffff40;}
 .toggle-bg-green {background-color: lightgreen;}
 .toggle-bg-peach {background-color: #ffcc99;}
 
-.toggle-collapse {display: none;}
-
 .lightbox {
 	position: relative;
-	margin: 6px auto;
+	left: 0; top: 0;
+	width: auto;
+	height: 679px; /* высота будет вычисляться кодом js и будет = idTopicContent.clientHeight - видимая часть контента на стр. */
+	margin: auto;
+	padding: 4px;
+	display: flex;
+	flex-flow: row wrap;
+	align-items: center;
+	align-content: space-between;
+	justify-content: center;
+/*
+(i) вариант выравнивания по центру, если display: block;
+*/
+	/* left: 50%; *//* top: 50%; */
+	/* transform: translate(-50%, -50%); */
+}
+/* одиночное изо */
+.single-img {
+	/* height: auto; */
+	align-content: center;
 }
 
-.img-viewer,
+.toggle-collapse {display: none;} /* скрыть/отобразить lightbox */
+
+.img-slider,
+.slider-track,
+.img-text,
 .lightbox-img {
 	position: relative;
+	left: 0; top: 0;
 	width: auto;
 	height: auto;
-	margin: auto;
-	padding: 6px;
-	border-radius: 5px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
-.lightbox-img {max-width: fit-content;}
+.lightbox-img {
+	height: 70%; /* высота будет вычисляться кодом js */
+	flex: 1 1 100%;
+	flex-flow: row wrap;
+	-ms-flex-flow: row wrap; /* IE */
+}
 
 .zoomer {
 	position: absolute;
-	left: 10px; top: 10px;
+	left: 4px; top: 4px;
 	width: auto;
 	height: auto;
 	margin: 6px;
@@ -552,33 +587,57 @@ span.highlight {background-color: #ffff40;}
 	display: block;
 }
 .btn-slider a:hover,
+.btn-box a:hover,
 .zoom-out:hover,
 .zoom-in:hover {transform: scale(1.3);}
 
 .img-viewer {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	padding: 6px;
+	box-sizing: border-box; /* позволяет изменить алгоритм для расчета ширины и высоты, чтобы свойства width и height задавали размеры не контента, а размеры блока, margin, padding, border учитываться не будут */
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	display: flex;
+	flex-flow: row wrap;
+	-ms-flex-flow: row wrap; /* IE */
+	align-items: center;
 	border: 1px solid #000;
+	/* outline: 1px solid white; */ /* без влияния на размерность */
 	box-shadow: 5px 5px 5px #888;
+	overflow: auto;
 }
 
 .img-item {
-	max-width: 500px;
+	max-width: 300px;
 	margin: auto;
 	display: block;
 	cursor: zoom-in;
-	cursor: -moz-zoom-in;
 	cursor: -webkit-zoom-in;
+	cursor: -moz-zoom-in;
+	animation: 2s forwards;
+/*
+(i)*св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента
+*/
+	will-change: animation;
 }
-
+/*
+(!) css правило img-zoom100 для lightbox в гл.окне работает противоположно правилу img-zoom100 для lightbox в теме топика
+*/
 .img-zoom100 {
 	max-width: 100%;
 	cursor: zoom-out;
-	cursor: -moz-zoom-out;
 	cursor: -webkit-zoom-out;
+	cursor: -moz-zoom-out;
 }
 
 .btn-box {
 	position: absolute;
-	width: auto;
+	top: 50%;
+	width: 50px;
+	height: 50px;
+	display: flex;
 }
 .btn-slider,
 .btn-box {
@@ -604,24 +663,34 @@ span.highlight {background-color: #ffff40;}
 	-webkit-transition: .6s ease; /* Safari, Chrome, iOS */
 	-moz-transition: .6s ease; /* Firefox */
 	-o-transition: .6s ease; /* Opera */
+	/* will-change: transition; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 }
 
 .btn-slider a,
 .btn-box a {
 	width: 100%;
+	border-radius: 100px;
+	border-color: transparent;
 	line-height: 50px; /* - выравниваем "стрелки" (кнопки перехода) по высоте */
 	text-decoration: none;
 }
 .lightbox-btn-close,
+.btn-slider a,
 .btn-box a {color: #fff;}
+.btn-slider a:hover,
 .btn-box a:hover {
-	background-color: rgba(0, 0, 0, 0.4);
-	text-shadow: none;
+	/* outline: 1px solid #000; */ /* без влияния на размерность */
+	border: 1px solid #000;
+	/* background-color: rgba(0,0,0,0.4); */
+	/* text-shadow: none; */
 }
 
 .lightbox-btn-close {
-	right: 20px; top: 20px;
-	margin: 4px;
+	right: 20px; top: 10px;
+	width: auto;
+	height: auto;
+	margin: 6px;
+	padding: 6px;
 	line-height: 1;
 	border: none;
 	outline: none;
@@ -634,94 +703,88 @@ span.highlight {background-color: #ffff40;}
 	-webkit-transition: .3s ease; /* Safari, Chrome, iOS */
 	-moz-transition: .3s ease; /* Firefox */
 	-o-transition: .3s ease; /* Opera */
+	/* will-change: transition; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 }
 .lightbox-btn-close:hover {
 	transform: rotate(180deg) scale(1.6, 1.6);
-	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* - Safari, Chrome, iOS */
-	-moz-transform: rotate(180deg) scale(1.6, 1.6); /* - Firefox */
-	-o-transform: rotate(180deg) scale(1.6, 1.6); /* - Opera */
-	-ms-transform: rotate(180deg) scale(1.6, 1.6); /* - IE */
+	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Safari, Chrome, iOS */
+	-moz-transform: rotate(180deg) scale(1.6, 1.6); /* Firefox */
+	-o-transform: rotate(180deg) scale(1.6, 1.6); /* Opera */
+	-ms-transform: rotate(180deg) scale(1.6, 1.6); /* IE */
 	/* will-change: transform; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 	text-shadow: -4px 0 #000, .4px 0 #000, 0 .4px #000, 0 -.4px #000; /* - буквенная обводка */
 }
 
-.img-btn-prev {left: 8px;}
-.img-btn-next {right: 8px;}
-.img-btn-next,
-.img-btn-prev {top: 50%;}
-
+.img-btn-prev {
+	left: 0;
+	margin: 0 0 0 10px;
+	padding: 0 0 0 10px;
+}
+.slider-btn-prev a,
 .img-btn-prev a {
-	margin: 0 0 0 6px;
-	padding: 10px;
-	border-radius: 0 5px 5px 0;
+	/* padding: 0 6px 0 0; */ /* x */
 	text-shadow: -2px 0px #000,
-				2px 0px #000,
-				0px 2px #000,
-				0px -2px #000,
+				1px 2px #000,
+				-1px 2px #000,
+				-1px -2px #000,
 				4px 2px #000,
 				4px -2px #000; /* - буквенная обводка */
-	/* text-shadow: -4px 0px #000,
-				-2px -2px #000,
-				-2px 2px #000,
-				0px 2px #000,
-				0px -2px #000,
-				6px -2px #000,
-				6px 2px #000 */ /* буквенная обводка */
 }
 
+.img-btn-next {
+	right: 0;
+	margin: 0 20px 0 0;
+	padding: 0 10px 0 0;
+}
+
+.slider-btn-next a,
 .img-btn-next a {
-	margin: 0 6px 0 0;
-	padding: 10px;
-	border-radius: 5px 0 0 5px;
-	text-shadow: -2px 0px #000,
-				2px 0px #000,
-				0px 2px #000,
-				0px -2px #000,
+	/* padding: 0 0 0 6px; */ /* x */
+	text-shadow: 2px 0px #000,
+				1px 2px #000,
+				-1px 2px #000,
+				1px -2px #000,
 				-4px 2px #000,
 				-4px -2px #000; /* - буквенная обводка */
-	/* text-shadow: 4px 0px #000,
-				-2px 2px #000,
-				2px -2px #000,
-				0px -2px #000,
-				2px 2px #000,
-				-6px -2px #000,
-				-6px 2px #000; */
 }
 
 .video-text,
 .img-text {
-	position: relative;
 	width: auto;
 	height: auto;
-	margin: 5px;
-	text-align: center;
-	font-size: 1em;
+	margin: 6px;
+	flex: 1 1 100%;
+	flex-flow: column wrap;
+	-ms-flex-flow: column wrap;
 	font-weight: bold;
+	text-align: center;
 	cursor: default;
-	overflow: hidden;
 }
 
 .slider-track,
+.img-slider {flex: 1 1 100%;}
+
 .img-slider {
-	position: relative;
-	width: auto;
-	height: 70px;
-	height: auto; /* X !временно, пока не разобралась как делать слайдер */
-	display: flex;
-	align-items: center;
-}
-.img-slider {
-	flex: 1 1 100%;
+	margin: 6px;
 	flex-flow: row nowrap;
-	justify-content: space-between;
+	-ms-flex-flow: row nowrap; /* IE */
 }
+
 .slider-track {
 	margin: 2px;
 	padding: 4px;
-	flex: 1 1 auto;
 	flex-flow: row wrap;
-	justify-content: center;
-	/* box-shadow: 5px 5px 10px #000; */
+	-ms-flex-flow: row wrap; /* IE */
+}
+.slider-track {
+	/* box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
+				-23px 0 20px -23px rgba(0, 0, 0, .8),
+				23px 0 20px -23px rgba(0, 0, 0, .8),
+				0 0 40px rgba(0, 0, 0, .1) inset; */
+	/* background: radial-gradient(circle, rgba(0,0,0,0), #666); */
+	/* filter: brightness(0.5); */
+	box-shadow: 20px 0 20px -20px #000 inset,
+				-20px 0 20px -20px #000 inset;
 }
 
 .slider-item,
@@ -734,36 +797,42 @@ span.highlight {background-color: #ffff40;}
 	display: flex;
 	flex: 0 0 auto;
 	flex-flow: row nowrap;
+	-ms-flex-flow: row nowrap; /* IE */
 	align-items: center;
 	justify-content: center;
 }
 
-.btn-slider a {
-	color: #000;
-	border-radius: 100px;
-}
-.btn-slider a:hover {
-	border: 1px solid #000;
-}
-
 .slider-btn-prev,
-.slider-btn-next {/* (i) для js */}
-/* .btn-slider, */
+.slider-btn-next {flex: 0 0 auto;}
+
 .slider-item {
-	border: 1px solid #000;
+	/* outline: 1px dotted #000; */ /* без влияния на размерность */
+	border: 1px dotted #000;
+}
+.lightbox-img,
+.img-viewer,
+.slider-item {
 	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
 }
 .slider-item img {
 	width: 100%;
 	height: 100%;
-	object-fit: cover; /* вписываем в область */
-	-o-object-fit: cover; /* - Opera */
+	display: block;
+	object-fit: contain; /* вписываем в область */
+	-o-object-fit: contain; /* Opera */
 	cursor: pointer;
 }
-.slider-item:hover {transform: scale(1.2);}
+.slider-item:hover {
+	border-style: solid;
+	transform: scale(1.2);
+}
 
 .slider-current {border-color: red;}
-
+/*
+(!).lightbox-video
+*/
 .lightbox-video {
 	position: relative;
 	width: 320px;
@@ -785,7 +854,7 @@ span.highlight {background-color: #ffff40;}
 /**чтобы вписывалось независимо от размеров, работает с тегом video для локального видео, в случае с фреймом для видео с ютуба не катит */
 .lightbox-video video {
 	object-fit: cover; /* вписываем в область */
-	-o-object-fit: cover; /* - Opera */
+	-o-object-fit: cover; /* Opera */
 }
 /* ! Topic Content Footer. The footer defined in the topic content
 - Нижний колонтитул, определенный в контенте топика
@@ -1158,9 +1227,6 @@ span#sbuttontext {
 	button#livePrintButton {display: none; /* !important; */}
 }
 
-@media screen and (max-width: 550px) {
-	.img-viewer img {max-width: 100%;}
-}
 @media screen and (max-width: 200px) {
 	.msg-content {flex-wrap: wrap;}
 }
