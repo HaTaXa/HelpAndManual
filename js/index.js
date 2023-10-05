@@ -39,7 +39,7 @@ $(document).ready(function () { // - jq
 	if (document !== null && typeof (document) === "object") {
 		// (!) message
 		window.addEventListener("message", (event) => {
-			// console.log(`window.addEventListener("message", (event) гл.окно), location.origin: ${location.origin}:\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // x -
+			// console.log(`window.addEventListener("message", (event)): window.name: «${window.name}», location.origin: ${location.origin}:\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // x -
 			if (event.data.value === "setPushState") {
 				if (location.search === "") {
 					hmpermalink.url = location.href + "?" + event.data.currP;
@@ -47,6 +47,9 @@ $(document).ready(function () { // - jq
 					hmpermalink.url = location.href.replace(hmtopicvars.currP, event.data.currP);
 				}
 				window.history.pushState("", "", hmpermalink.url);
+				if (event.data.winName === "hmnavigation") {
+					setHideNavPane(); // - скрыть пан.нав.
+				}
 			} else if (event.data.value === "setToolbarButtonsOnOff") {
 				// *обновляем некоторые глобальные переменные в variables.js из hmcontent
 				setUpdateVariables(event.data.hmtopicvars);
@@ -108,7 +111,7 @@ $(document).ready(function () { // - jq
 				// }
 				event.data.winId.forEach((itemId) => {
 					if (document.getElementById(itemId).style.display !== "none") {
-						if (itemId === "idPermaLink") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+						if (itemId === "idPermalinkBox") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 						setShowHideWindow(document.getElementById(itemId), event.data.winHide);
 					}
 				});
@@ -133,7 +136,7 @@ $(document).ready(function () { // - jq
 		document.addEventListener("keyup", function (event) {
 			if (event.key === "Escape" || event.code === "Escape" || event.keyCode === 27 || event.which === 27) {
 				// (!) закрыть окно "Постоянная ссылка"
-				let permalink = document.getElementById('idPermaLink');
+				let permalink = document.getElementById('idPermalinkBox');
 				if (permalink !== null && typeof(permalink) !== "undefined" && permalink === Object(permalink)) {
 					if (permalink.style.display !== "none") {
 						clearPermalink(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
@@ -150,105 +153,30 @@ $(document).ready(function () { // - jq
 				}
 			}
 		}, false); // false - фаза "всплытие"
-		// TEST: X - удалить после теста, т.к.перенесено в см.ф.permalink_onClick()
-		// (!)*idPermaLink-всплывающее окно "Постоянная ссылка". Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
-		// if (document.getElementById('idPermaLink') !== null || typeof(document.getElementById('idPermaLink')) !== "undefined" && document.getElementById('idPermaLink') === Object(document.getElementById('idPermaLink'))) {
-		// 	// 'click
-		// 	document.getElementById('idPermaLink').addEventListener("click", function (e) {
-		// 		if (e.target.tagName === "DIV") {
-		// 			// (!) idPermaLinkClose - кнопка закрыть всплывающее окно Постоянная ссылка
-		// 			if (e.target.id === "idPermaLinkClose") {
-		// 				let permalink = e.target;
-		// 				while (permalink.id !== "idPermaLink") {
-		// 					permalink = permalink.parentElement;
-		// 					if (permalink.tagName === "BODY") {break;}
-		// 				}
-		// 				if (permalink.id === "idPermaLink") {
-		// 					clearPermalink(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
-		// 					setShowHideWindow(permalink, 'hide');
-		// 				}
-		// 			}
-		// 		} else if (e.target.tagName === "INPUT") {
-		// 			// (!) idPermaLinkBookmark - кнопка в закладки
-		// 			if (e.target.id === "idPermaLinkBookmark") {
-		// 				let textArea = document.getElementById('idTextArea');
-		// 				if (textArea !== null && typeof (textArea) === "object") {
-		// 					if (textArea.value === "") {
-		// 						e.target.value = "Bookmark failed";
-		// 						textArea.labels[0].innerHTML = hmpermalink.bookmarkError;
-		// 						textArea.labels[0].classList.remove('permalink-info');
-		// 						textArea.labels[0].classList.add('permalink-error');
-		// 					} else {
-		// 						if (setPermaLinkBookmark(textArea)) {
-		// 							e.target.value = "Добавлено";
-		// 							textArea.labels[0].innerHTML = hmpermalink.bookmarkInfo;
-		// 							textArea.labels[0].classList.remove('permalink-error');
-		// 							textArea.labels[0].classList.add('permalink-info');
-		// 						} else {
-		// 							e.target.value = "Bookmark failed";
-		// 							textArea.labels[0].innerHTML = hmpermalink.bookmarkError;
-		// 							textArea.labels[0].classList.remove('permalink-info');
-		// 							textArea.labels[0].classList.add('permalink-error');
-		// 						}
-		// 						setTimeout(() => {
-		// 							e.target.value = "В закладки";
-		// 						}, 2000);
-		// 					}
-		// 				}
-		// 			}
-		// 			// (!) idPermaLinkCopy - кнопка скопировать
-		// 			else if (e.target.id === "idPermaLinkCopy") {
-		// 				let textArea = document.getElementById('idTextArea');
-		// 				if (textArea !== null && typeof (textArea) === "object" || textArea === Object(textArea)) {
-		// 					if (textArea.value === "") {
-		// 						e.target.value = "Copy failed";
-		// 						textArea.labels[0].innerHTML = hmpermalink.copyError;
-		// 						textArea.labels[0].classList.remove('permalink-info');
-		// 						textArea.labels[0].classList.add('permalink-error');
-		// 					} else {
-		// 						if (setCopyToClipboard(textArea)) {
-		// 							e.target.value = "Скопировано";
-		// 							textArea.labels[0].innerHTML = hmpermalink.copyInfo;
-		// 							textArea.labels[0].classList.remove('permalink-error');
-		// 							textArea.labels[0].classList.add('permalink-info');
-		// 						} else {
-		// 							e.target.value = "Copy failed";
-		// 							textArea.labels[0].innerHTML = hmpermalink.copyError;
-		// 							textArea.labels[0].classList.remove('permalink-info');
-		// 							textArea.labels[0].classList.add('permalink-error');
-		// 						}
-		// 						setTimeout(() => {
-		// 							e.target.value = "Копировать";
-		// 						}, 2000);
-		// 					}
-		// 				}
-		// 			}
-		// 		}
-		// 	}, false); // false - фаза "всплытие"
-		// }
-		// (i)*idToolbarPane-События на панеле инструментов. Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
-		if (document.getElementById('idToolbarPane') !== null && typeof (document.getElementById('idToolbarPane')) === "object") {
-			// (i) mouseover/mouseout-наведение курсора
-			document.getElementById('idToolbarPane').addEventListener("mouseover", function (e) {
-				if (e.target.tagName === "IMG") {
-					// (!) idFeedBackOn - кнопка e-mail
-					if (e.target.id === "idFeedBackOn") {
-						// e.target.setAttribute('src', 'icon/support.gif');
-						e.target.src = "icon/support.gif";
-					}
-				}
-			}, false); // false - фаза "всплытие"
-			document.getElementById('idToolbarPane').addEventListener("mouseout", function (e) {
-				if (e.target.tagName === "IMG") {
-					// ! idFeedBackOn-кнопка e-mail
-					if (e.target.id === "idFeedBackOn") {
-						// e.target.setAttribute('src', 'icon/emailon.png');
-						e.target.src = "icon/emailon.png";
-					}
-				}
-			}, false); // false - фаза "всплытие"
+		// (i)*idToolbar-События на панеле инструментов. Используем делегирование событий, прослушивая общий элемент для всех дочерних элементов
+		if (document.getElementById('idToolbar') !== null && typeof(document.getElementById('idToolbar')) === "object") {
+			// x не используется
+			// // (i) mouseover/mouseout
+			// document.getElementById('idToolbar').addEventListener("mouseover", function (e) { // x -
+			// 	if (e.target.tagName === "IMG") {
+			// 		// (!) idFeedBackOn - кнопка e-mail
+			// 		if (e.target.id === "idFeedBackOn") {
+			// 			// e.target.setAttribute('src', 'icon/support.gif');
+			// 			e.target.src = "icon/support.gif";
+			// 		}
+			// 	}
+			// }, false); // false - фаза "всплытие"
+			// document.getElementById('idToolbar').addEventListener("mouseout", function (e) { // x -
+			// 	if (e.target.tagName === "IMG") {
+			// 		// (!) idFeedBackOn-кнопка e-mail
+			// 		if (e.target.id === "idFeedBackOn") {
+			// 			// e.target.setAttribute('src', 'icon/emailon.png');
+			// 			e.target.src = "icon/emailon.png";
+			// 		}
+			// 	}
+			// }, false); // false - фаза "всплытие"
 			// (i) change
-			document.getElementById('idToolbarPane').addEventListener("change", function (e) {
+			document.getElementById('idToolbar').addEventListener("change", function (e) {
 				if (e.target.tagName === "INPUT") {
 					// (i) toolbar-search
 					// (!) idToolbarNavShowHide - кнопка-переключатель Скрыть/Показать панель навигации
@@ -259,7 +187,7 @@ $(document).ready(function () { // - jq
 				}
 			}, false); // false - фаза "всплытие"
 			// (i) click
-			document.getElementById('idToolbarPane').addEventListener("click", function (e) {
+			document.getElementById('idToolbar').addEventListener("click", function (e) {
 				if (e.target.tagName === "INPUT") {
 					// (i) toolbar-search
 					// (!) idToolbarNavShowHide - кнопка-переключатель Скрыть/Показать панель навигации
@@ -331,7 +259,7 @@ $(document).ready(function () { // - jq
 					// (i) toolbar-right
 					// (!) idPermalinkOn - кнопка Постоянная ссылка
 					else if (e.target.id === "idPermalinkOn") {
-						let plnk = document.getElementById('idPermaLink');
+						let plnk = document.getElementById('idPermalinkBox');
 						if (plnk !== null || typeof(plnk) !== "undefined" && plnk === Object(plnk)) {
 							if (plnk.style.display === "none") {
 								document.getElementById('idTextArea').innerHTML = hmpermalink.url + window.top.location.hash;
@@ -720,10 +648,10 @@ function animationNavPane500 (duration = 1000, panels, valueShowHide = "show") {
 }
 // (!) setNavPaneShowHide - скрыть/показать боковую панель навигации
 function setNavPaneShowHide (panelShowHide = true) {
-	let imgNavHandle = document.getElementById('idTopicPaneNavShowHideIcon'); // - трансформации иконки на панели тема топика
+	let imgNavHandle = document.getElementById('idTopicPaneNavShowHideIcon'); // - трансформация иконки на панели тема топика
 	let panels = {
 		banner: document.getElementById('idBanner'),
-		toolbar: document.getElementById('idToolbarPane'),
+		toolbar: document.getElementById('idToolbar'),
 		navpane: document.getElementById('idNavPane'),
 		topicpane: document.getElementById('idTopicPane')
 	};
@@ -951,7 +879,7 @@ function animationBanner (duration = 1000, panels, valueShowHide = "hide") {
 function setBannerShowHide (bannerShowHide = false) {
 	let panels = {
 		banner: document.getElementById('idBanner'),
-		toolbar: document.getElementById('idToolbarPane'),
+		toolbar: document.getElementById('idToolbar'),
 		navpane: document.getElementById('idNavPane'),
 		topicpane: document.getElementById('idTopicPane')
 	};
@@ -1065,7 +993,7 @@ function setBannerShowHide (bannerShowHide = false) {
 // *jq/jQuery
 // function setBannerShowHide () {
 // 	let banner = document.getElementById('idBanner'); // js, удобнее использовать
-// 	let toolbar = document.getElementById('idToolbarPane'); // js, удобнее использовать
+// 	let toolbar = document.getElementById('idToolbar'); // js, удобнее использовать
 // 	let navpane = document.getElementById('idNavPane'); // js, удобнее использовать
 // 	let topicpane = document.getElementById('idTopicPane'); // js, удобнее использовать
 // 	// *переключение классов
@@ -1109,6 +1037,18 @@ function setPrintTopic (elem) {
 	// print();
 	alert(`(i) Кнопка «Печать» на панели пока что в разработке.`);
 }
+// (!) setHideNavPane - скрыть пан.нав.
+function setHideNavPane() {
+	// *проверяем размер окна браузера для определения запуска анимации скрытия пан.нав., если она занимает весь экран
+	if (document.documentElement.clientWidth <= 500) {
+		if (document.getElementById('idTopicPane').offsetTop >= document.body.clientHeight) { // - если пан.нав.занимает весь экран
+			setNavPaneShowHide(true); // - скрыть/показать боковую панель навигации
+			// *переводим кнопки в состояние, когда пан.нав.скрыта
+			document.getElementById('idToolbarNavShowHide').checked = false;
+			document.getElementById('idTopicPaneNavShowHide').checked = false;
+		}
+	}
+}
 // (!) setGoToPage - установка перехода на страницу
 function setGoToPage (elem) {
 	// (i) если вариант 1
@@ -1129,6 +1069,7 @@ function setGoToPage (elem) {
 		hmpermalink.url = location.href.replace(hmtopicvars.currP, currP);
 	}
 	window.history.pushState('', '', hmpermalink.url);
+	setHideNavPane(); // - скрыть пан.нав.
 	// (i) если вариант 2
 	// let currP = elem.getAttribute('href');
 	// if (location.search === "") {

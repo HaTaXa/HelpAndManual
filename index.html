@@ -15,7 +15,7 @@
 	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
 	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="ЕСД,ЕСД БСС «Главбух»,Help&Manual,Help & Manual,HelpAndManual,Help And Manual,HelpManual,Help Manual">
+	<meta name="keywords" content="HaTaXa,CHB,СНВ,Солянина НаталИя Владиславовна,ЕСД,ЕСД БСС «Главбух»,Help&Manual,Help & Manual,HelpAndManual,Help And Manual,HelpManual,Help Manual">
 	<!-- (!) подключение стилей -->
 	<link rel="stylesheet" href="css/styles.css"> <!-- 'вместо hm_webhelp.css -->
 	<link rel="stylesheet" href="css/loading.css"> <!-- 'загрузчик -->
@@ -38,8 +38,8 @@
 	<!-- (!) preloader - предзагрузчик -->
 	<script type="text/javascript">writeLoaderPreLoader();</script>
 	<noscript><div class="preloader"><div class="preloader-img"></div></div></noscript>
-	<!-- (!) idPermaLink-всплывающее окно "Постоянная ссылка" -->
-	<div id="idPermaLink" class="popups reflect" style="display: none;">
+	<!-- (!) idPermalinkBox-всплывающее окно "Постоянная ссылка" -->
+	<div id="idPermalinkBox" class="popups reflect" style="display: none;">
 		<div class="permalink">
 			<div class="permalink-btn">
 				<input type="button" name="PermaLinkBookmark" id="idPermaLinkBookmark" value="В закладки" title="Добавить страницу в закладки">
@@ -61,8 +61,8 @@
 					<span>www.1gl.ru</span>
 			</a>
 		</div>
-		<!-- (!) idToolbarPane-Панель инструментов -->
-		<div id="idToolbarPane" class="toolbar">
+		<!-- (!) idToolbar-Панель инструментов -->
+		<div id="idToolbar" class="toolbar">
 			<!-- (!)*toolbar-search -->
 			<div class="toolbar-search">
 				<div id="idQuickSearch" class="toolbar-box toolbar-box-search">
@@ -144,8 +144,25 @@
 				</div>
 				<!-- (!) - idFeedBackOn-buttonLink Email -->
 				<div id="idFeedBackTool" class="toolbar-box toolbar-box-right">
-					<a id="idLinkFeedBack" href="mailto:user231082@gmail.com">
-						<img id="idFeedBackOn" class="btn-icon" src="icon/emailon.png" title="ТехПоддержка">
+					<a id="idFeedBackLink" href="mailto:user231082@gmail.com">
+						<img id="idFeedBackOn" class="btn-icon" src="icon/emailon.png" title="Обратная связь">
+						<div class="feedback-tooltip">
+							<div class="feedback-tooltip-triangle"></div>
+							<div class="feedback-tooltip-title title-txt-custom">
+								<span>ТехПоддержка</span>
+							</div>
+							<div class="feedback-tooltip-title title-txt-top" style="display: none;">
+								<span>Солянина НаталИя Владиславовна</span>
+							</div>
+							<div class="feedback-tooltip-title title-txt-center" style="display: none;">
+								<span>СНВ</span>
+								<span>HaTaXa</span>
+							</div>
+							<div class="feedback-tooltip-title title-txt-bottom" style="display: none;">
+								<span>Frontend-</span>
+								<span>Разработчик сайта и автор инструкций</span>
+							</div>
+						</div>
 					</a>
 					<img id="idFeedBackOff" class="btn-icon-H" src="icon/emailoff.png">
 					<span id="idFeedBackText" class="btn-text-on">E-mail</span>

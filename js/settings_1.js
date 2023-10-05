@@ -91,4 +91,4 @@ var DisplayURL = 0;
 var DisplayDate = 0;
 var DisplayFilesize = 0;
 var StartPtFailed = 0;
-var Version = "Version 1.0 by HaTaXa 2021";
+var Version = "Version 1.0 by HaTaXa 2021-2023";

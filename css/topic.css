@@ -660,7 +660,7 @@ span.highlight {background-color: #ffff40;}
 .btn-box {
 	cursor: pointer;
 	transition: 0.6s ease; /**плавное появление/исчезновение при наведении курсора */
-	-webkit-transition: .6s ease; /* Safari, Chrome, iOS */
+	-webkit-transition: .6s ease; /* Chrome, Safari, iOS */
 	-moz-transition: .6s ease; /* Firefox */
 	-o-transition: .6s ease; /* Opera */
 	/* will-change: transition; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
@@ -700,14 +700,14 @@ span.highlight {background-color: #ffff40;}
 .lightbox-btn-close:hover,
 .lightbox-btn-close {
 	transition: 0.3s ease; /**плавное появление/исчезновение при наведении курсора */
-	-webkit-transition: .3s ease; /* Safari, Chrome, iOS */
+	-webkit-transition: .3s ease; /* Chrome, Safari, iOS */
 	-moz-transition: .3s ease; /* Firefox */
 	-o-transition: .3s ease; /* Opera */
 	/* will-change: transition; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
 }
 .lightbox-btn-close:hover {
 	transform: rotate(180deg) scale(1.6, 1.6);
-	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Safari, Chrome, iOS */
+	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Chrome, Safari, iOS */
 	-moz-transform: rotate(180deg) scale(1.6, 1.6); /* Firefox */
 	-o-transform: rotate(180deg) scale(1.6, 1.6); /* Opera */
 	-ms-transform: rotate(180deg) scale(1.6, 1.6); /* IE */

@@ -36,7 +36,7 @@ function lightbox_onKeydown(eVent) {
 		if (window === top || window.name === "") {
 			setLightboxRemove(eVent.target); // - удаление DOM-элемента - узел lightbox в гл.окне
 		}
-		// else if (window === self || self !== top && window.name === "hmcontent") {
+		// else if (window === self || self !== top && window.name === "hmcontent") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
 		// 	setLightboxHide(eVent.target); // скрыть окно просмотра изо - текущий lightbox
 		// }
 	} else if (eVent.key === "Home" || eVent.code === "Home" || eVent.keyCode === 36 || eVent.which === 36) {
@@ -76,7 +76,7 @@ function lightbox_onClick(eVent) {
 		if (eVent.target.classList.contains('lightbox-btn-close')) {
 			if (window === top || window.name === "") {
 				setLightboxRemove(eVent.target); // - удаление DOM-элемента - узел lightbox в гл.окне
-			} else if (window === self || self !== top && window.name === "hmcontent") {
+			} else if (window === self || self !== top && window.name === "hmcontent") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
 				setLightboxHide(eVent.target); // - скрыть окно просмотра изо - текущий lightbox
 			}
 		}
@@ -88,7 +88,7 @@ function lightbox_onClick(eVent) {
 			if (window === top || window.name === "") { // (i) окно элемента яв-ся главным, например, при запуске отдельной страницей или через ctrl+клик из общего проекта
 				// *toggle image zoom
 				toggleZoomerIcon(eVent.target, ""); // - переключить (+/-) иконку масштабирования
-			} else if (window === self || self !== top && window.name === "hmcontent") {
+			} else if (window === self || self !== top && window.name === "hmcontent") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
 				// *image full screen - вывод текущего lightbox в гл.окне
 				if (location.origin === "file://") { // - получаем элемент lightbox clone и передаем его в гл.окно
 					alert(`(!) Не удалось осуществить image full screen - вывод текущего lightbox в гл.окне.\n (i) Нельзя передать узел/копию DOM-элемента в другое окно/фрейм, см.спецификацию.\n function lightbox_onClick(eVent.target: ${eVent.target}\n ${eVent})\n window.«${window.name}»\n location.origin: ${location.origin}`);
@@ -482,8 +482,7 @@ function toggleZoomerIcon(elem, typeEvent = "") {
 					}
 				}
 			}
-		} else if (window === self || self !== top && window.name === "hmcontent") {
-			// 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
+		} else if (window === self || self !== top && window.name === "hmcontent") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
 			if (typeEvent === "mouseover") { // - меняется только иконка
 				// zoom.setAttribute('src', 'icon/zoom-in.png'); // или так
 				zoom.src = "icon/zoom-in.png";

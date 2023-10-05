@@ -41,27 +41,30 @@ $(document).ready(function () { // - jq
 		}, false); // false - фаза "всплытие"
 		// (!) click
 		document.addEventListener("click", function (e) {
-			// *показать/скрыть всплывающее окно
-			if (window.location.origin === "file://") { // - при локальном использовании
-				// (i) в Firefox не работает
-				let msg = {
-					value: "setShowHideWindow",
-					winId: ["idPermaLink", "idTabsMenuBox"],
-					winHide: "hide"
-				};
-				window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
-			} else {
-				let elems = [
-					window.top.document.getElementById('idPermaLink'),
-					window.top.document.getElementById('idTabsMenuBox')
-				];
-				elems.forEach(item => {
-					if (item.style.display !== "none") {
-						if (item.id === "idPermaLink") { window.top.clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
-						setShowHideWindow(item, 'hide');
-					}
-				});
-			} // показать/скрыть всплывающее окно
+			if (window.name === "hmnavigation") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
+				// *показать/скрыть всплывающее окно Постоянная ссылка в пан.интсрументов/Меню вкладок в пан.тема топика
+				if (window.location.origin === "file://") { // - при локальном использовании
+					// (i) в Firefox не работает
+					let msg = {
+						value: "setShowHideWindow",
+						winId: ["idPermalinkBox", "idTabsMenuBox"],
+						winHide: "hide"
+					};
+					window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+				} else {
+					let elems = [
+						window.top.document.getElementById('idPermalinkBox'),
+						window.top.document.getElementById('idTabsMenuBox')
+					];
+					elems.forEach(item => {
+						if (item.style.display !== "none") {
+							if (item.id === "idPermalinkBox") { window.top.clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+							setShowHideWindow(item, 'hide');
+						}
+					});
+				}
+			}
+			// '
 			if (e.target.tagName === "INPUT" && e.target.type === "checkbox") {
 				if (e.target.id === "idTocListMenuSwitch") {
 					navigationListToggle(e.target); // - переключатель развернуть/свернуть все оглавление
@@ -69,34 +72,46 @@ $(document).ready(function () { // - jq
 			} else if (e.target.tagName === "SPAN") {
 				if (e.target.parentElement.tagName === "A") {
 					isCollapse = true; // (i) если вариант 1
-					if (location.origin === "file://") {
-						let msg = {
-							value: "setPushState",
-							currP: e.target.parentElement.getAttribute('href')
-						};
-						window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+					if (window === top && window.name === "") {
+						goToPage(e.target.parentElement, e.target.parentElement.getAttribute('href')); // - перейти на страницу
 					} else {
-						if (window.top.location.search === "") {
-							window.top.hmpermalink.url = window.top.location.href + "?" + e.target.parentElement.getAttribute('href');
+						if (window.name === "hmnavigation") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
+							if (location.origin === "file://") {
+								let msg = {
+									value: "setPushState",
+									currP: e.target.parentElement.getAttribute('href'),
+									winName: window.name
+								};
+								window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+							} else {
+								if (window.top.location.search === "") {
+									window.top.hmpermalink.url = window.top.location.href + "?" + e.target.parentElement.getAttribute('href');
+								} else {
+									window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, e.target.parentElement.getAttribute('href'));
+								}
+								window.top.history.pushState('', '', window.top.hmpermalink.url);
+								// *проверяем размер окна браузера для определения запуска анимации скрытия пан.нав., если она занимает весь экран
+								if (window.top.document.documentElement.clientWidth <= 500) {
+									window.top.setHideNavPane(); // - скрыть пан.нав.
+								}
+							}
+							// (i) если вариант 2 - при очень интенсивных кликах браузер может не успевать и будет срабатывать ошибка
+							// setTimeout(() => { // - без задержки стр.загружается с опозданием
+							// 	goToPage(e.target.parentElement); // - перейти на страницу
+							// }, 1000); // 'если вариант 2
 						} else {
-							window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, e.target.parentElement.getAttribute('href'));
+							console.error(`(!) Косяк - не удалось установить имя текущего окна:\n window.name: «${window.name}», location.origin: ${location.origin}`);
+							alert(`(!) Косяк - не удалось установить имя текущего окна, см.консоль.`);
 						}
-						window.top.history.pushState('', '', window.top.hmpermalink.url);
 					}
-					// (i) если вариант 2 - при очень интенсивных кликах браузер может не успевать и будет срабатывать ошибка
-					// setTimeout(() => { // - без задержки стр.загружается с опозданием
-					// 	goToPage(e.target.parentElement); // - перейти на страницу
-					// }, 1000); // 'если вариант 2
 				}
 			}
-		}, false); // - false - фаза "всплытие"
+		}, false); // false - фаза "всплытие"
 	}
 }); // ready end
-// (!) setCollapse-обновление глобальной переменной для кнопок Домой/Назад/Вперед в пан.инструментов и при переходах по списку оглавления в нав.пан., см.в функции goToPage функцию setGoToWithOptionDefault
-function setCollapse (value = true) { // (i) если вариант 1
-	isCollapse = value;
-}
-// (!) setListExpandCollapse-развернуть/свернуть все оглавление
+// (!) setCollapse - обновление глобальной переменной для кнопок Домой/Назад/Вперед в пан.инструментов и при переходах по списку оглавления в пан.нав., см.в функции goToPage переменную аргумента функции setGoToWithOptionDefault
+function setCollapse (value = true) { isCollapse = value; } // (i) если вариант 1
+// (!) setListExpandCollapse - развернуть/свернуть все оглавление
 function setListExpandCollapse (value) {
 	// let ulFirstLevel = document.querySelector('ul:first-child'); // - ul самый 1-ый родитель - предок всех потомков
 	// let list = document.querySelectorAll('ul:not(:first-child)'); // - ul все предки, кроме 1-го
@@ -127,7 +142,7 @@ function setListExpandCollapse (value) {
 		}
 	}
 }
-// (!) navigationListToggle-переключатель развернуть/свернуть все оглавление
+// (!) navigationListToggle - переключатель развернуть/свернуть все оглавление
 function navigationListToggle (elem) {
 	let idNavIcon = document.getElementById('idNavIcon');
 	setListExpandCollapse(elem.checked); // - true - развернуть/свернуть - false, все оглавление
@@ -137,7 +152,7 @@ function navigationListToggle (elem) {
 		// idNavIcon.classList.add('btn-icon-toggle');
 	}
 }
-// (!) setHighlightsOnElement-установка подсветки на выбранном элементе
+// (!) setHighlightsOnElement - установка подсветки на выбранном элементе
 function setHighlightsOnElement (elem) {
 	// *проверяем наличие подсвечиваемого элемента
 	let e = document.getElementById('idToc-ul').getElementsByClassName('hilight');
@@ -150,7 +165,7 @@ function setHighlightsOnElement (elem) {
 	}
 	elem.classList.add('hilight');
 }
-// (!) setStatusTocListMenuSwitch-изменение состояния кнопки-переключателя развернуть/свернуть все оглавлениеи при переходах по страницам
+// (!) setStatusTocListMenuSwitch - изменение состояния кнопки-переключателя развернуть/свернуть все оглавлениеи при переходах по страницам
 function setStatusTocListMenuSwitch () {
 	let inputCheckboxNode = document.getElementById('idTocListMenuSwitch');
 	let toc = document.getElementById('idToc-ul');
@@ -160,8 +175,8 @@ function setStatusTocListMenuSwitch () {
 		inputCheckboxNode.checked = false;
 	}
 }
-// (!) setGoToWithOptionCurrent-переход на страницу - опция древовидный вид списка в режиме "Текущий пункт":
-// i в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
+// (!) setGoToWithOptionCurrent - переход на страницу - опция древовидный вид списка в режиме "Текущий пункт":
+// (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
 function setGoToWithOptionCurrent (elem) {
 	setListExpandCollapse(false); // - сворачиваем все оглавление
 	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
@@ -218,8 +233,8 @@ function setGoToWithOptionCurrent (elem) {
 		}
 	}
 }
-// (!) setGoToWithOptionDefault-переход на страницу - опция древовидный вид списка в режиме "По умолчанию":
-// i в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
+// (!) setGoToWithOptionDefault - переход на страницу - опция древовидный вид списка в режиме "По умолчанию":
+// (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
 function setGoToWithOptionDefault (elem, collapse = true) {
 	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
 	e = elem.parentElement; // - li
@@ -307,8 +322,8 @@ function setGoToWithOptionDefault (elem, collapse = true) {
 	}
 	setStatusTocListMenuSwitch(); // - меняем состояние кнопки-переключателя развернуть/свернуть все оглавление
 }
-// (!) setTreeViewListCurrent-опция древовидный вид списка в режиме "Текущий пункт":
-// i в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
+// (!) setTreeViewListCurrent - опция древовидный вид списка в режиме "Текущий пункт":
+// (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
 // *jq/jQuery
 // X не используется, см.функцию setGoToWithOptionCurrent
 function setTreeViewListCurrent (elem) {
@@ -403,8 +418,8 @@ function setTreeViewListCurrent (elem) {
 		}
 	}
 }
-// (!) setTreeViewListDefault-опция древовидный вид списка в режиме "По умолчанию":
-// i в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
+// (!) setTreeViewListDefault - опция древовидный вид списка в режиме "По умолчанию":
+// (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
 // *jq/jQuery
 // X не используется, см.функцию setGoToWithOptionDefault
 function setTreeViewListDefault (elem) {
@@ -472,7 +487,7 @@ function setTreeViewListDefault (elem) {
 		}
 	}
 }
-// (!) getPageHome-получение ссылки на страницу текущего раздела/подраздела
+// (!) getPageHome - получение ссылки на страницу текущего раздела/подраздела
 function getPageHome (elem) {
 	let e = elem;
 	while (e.tagName !== "UL") {
@@ -503,7 +518,7 @@ function getPageHome (elem) {
 			return e.getAttribute('href');
 		}
 	}
-	// X *старый вариант через jq
+	// x *старый вариант через jq
 	// if (elem.parentElement.id === "idToc-a") {
 	// 	return elem.parentElement.getAttribute('href');
 	// } else {
@@ -515,7 +530,7 @@ function getPageHome (elem) {
 	// 	return $(ulParent).children('li').children('a').attr('href');
 	// }
 }
-// (!) getPagePrevious-рекурсия - получение ссылки на предыдущую страницу
+// (!) getPagePrevious - рекурсия - получение ссылки на предыдущую страницу
 function getPagePrevious (elem) {
 	let href = "";
 	if (elem.id === "idToc-a") {
@@ -560,7 +575,7 @@ function getPagePrevious (elem) {
 		}
 	}
 }
-// (!) getPageNext-рекурсия - получение ссылки на следующую страницу
+// (!) getPageNext - рекурсия - получение ссылки на следующую страницу
 function getPageNext (elem) {
 	let href = "";
 	if (elem.id === "idToc-ul") {
@@ -598,7 +613,7 @@ function getPageNext (elem) {
 		}
 	}
 }
-// (!) getBreadCrumbs-получение навигационных ссылок
+// (!) getBreadCrumbs - получение навигационных ссылок
 function getBreadCrumbs (elem) {
 	let e = elem;
 	let breadCrumbs = [];
@@ -635,7 +650,7 @@ function getBreadCrumbs (elem) {
 		return breadCrumbs;
 	}
 }
-// (!) getVariables-получение данных для обновления глобальных переменных в variables.js
+// (!) getVariables - получение данных для обновления глобальных переменных в variables.js
 function getVariables (elem, currP = "") {
 	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) { // 'не объект/не объект HTMLlinkElement
 		if (currP !== null && typeof (currP) !== "undefined" && typeof (currP) === "string" && currP !== "") {
@@ -680,7 +695,7 @@ function getVariables (elem, currP = "") {
 		hmpermalink: { url: url },
 	};
 }
-// (!) setVariables-обновление глобальных переменных в variables.js
+// (!) setVariables - обновление глобальных переменных в variables.js
 function setVariables (elem, currP = "") {
 	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) { // 'не объект/не объект HTMLlinkElement
 		if (currP !== null && typeof (currP) !== "undefined" && typeof (currP) === "string" && currP !== "") {
@@ -733,10 +748,10 @@ function setVariables (elem, currP = "") {
 		}
 	}
 }
-// (!) goToPage-перейти на страницу
+// (!) goToPage - перейти на страницу
 function goToPage (elem, currP = "", collapse = true) {
 	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) { // 'не объект/не объект HTMLlinkElement
-		if (currP !== null && typeof (currP) !== "undefined" && typeof (currP) === "string" && currP !== "") {
+		if (currP !== null && typeof(currP) !== "undefined" && typeof(currP) === "string" && currP !== "") {
 			elem = document.getElementById('idTocBody').querySelector('a[href="' + currP + '"]');
 		} else { // - стремимся все равно получить текущий элемент и/или его значение
 			if (window.location.origin === "file://") { // - при локальном использовании
@@ -760,14 +775,14 @@ function goToPage (elem, currP = "", collapse = true) {
 		if (inputCheckboxNode !== null && typeof (inputCheckboxNode) !== "undefined" && typeof (inputCheckboxNode) === "object") {
 			if (inputCheckboxNode.checked) {
 				setGoToWithOptionCurrent(elem); // - переход на страницу - опция древовидный вид списка в режиме "Текущий пункт"
-				// setTreeViewListCurrent(elem); // X не используется
+				// setTreeViewListCurrent(elem); // x не используется
 			} else {
 				collapse = isCollapse; // (i) если вариант 1
 				setGoToWithOptionDefault(elem, collapse); // - переход на страницу - опция древовидный вид списка в режиме "По умолчанию"
-				// setTreeViewListDefault(elem); // X не используется
+				// setTreeViewListDefault(elem); // x не используется
 			}
 		} else { // *код оставлен для варианта классический
-			console.warn(`function goToPage (elem: ${typeof (elem)} / ${elem}, currP = "${currP}", collapse = ${collapse}):\n сработало условие для варианта классический`);
+			console.warn(`function goToPage (elem: ${typeof (elem)} / ${elem}, currP = "${currP}", collapse = ${collapse}):\n (i) сработало условие для варианта классический`);
 			if (elem.tagName !== "INPUT") return; // 'если кликнули вне тега input
 			let inputRadioNodes = document.getElementsByTagName('INPUT');
 			if (inputRadioNodes.length > 0) {
@@ -796,6 +811,8 @@ function goToPage (elem, currP = "", collapse = true) {
 				alert(`(i) Опция режим древовидного вида списка не найдена.\n Настройка будет работать в режиме "Текущий список".`);
 			}
 		}
-		setVariables(elem, currP); // - обновление глобальных переменных в variables.js
+		if (window.name === "hmnavigation") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
+			setVariables(elem, currP); // - обновление глобальных переменных в variables.js
+		}
 	}
 }

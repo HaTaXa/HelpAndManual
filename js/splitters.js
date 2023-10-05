@@ -1,6 +1,6 @@
 // (i) Инициализация переменных
 const banner = document.getElementById('idBanner');
-const toolbarPane = document.getElementById('idToolbarPane');
+const toolbarPane = document.getElementById('idToolbar');
 const navPane = document.getElementById('idNavPane');
 const topicPane = document.getElementById('idTopicPane');
 const splitterRight = document.getElementById('idSplitterRight');
@@ -40,7 +40,7 @@ $(document).ready(function () { // - jq
 			// 'eVent - tagName div splitterRight, но может быть и другим элементом предположительно из-за делегирования через наследование на основе прототипов (.prototype)
 			if (unlockResize) {
 				unlockResize = false;
-				setSizes(eVent); // - установить значения в глобальной переменной reSizes
+				setSizes(eVent); // - установить значения и обновить глобальную переменную reSizes
 				// splitterRight.style.pointerEvents = "initial"; // (?) св-во позволяет управлять тем, как элементы будут реагировать на события мыши или прикосновения к сенсорному экрану. Применяется для взаимодействия с нижележащими элементами, игнорируя вышележащие.
 				document.removeEventListener('mousemove', splitterRight_onMousemove, false);
 				document.removeEventListener('mouseup', splitterRight_onMouseup, false);
@@ -74,7 +74,7 @@ $(document).ready(function () { // - jq
 			// 'eVent - tagName div splitterBottom, но может быть и другим элементом предположительно из-за делегирования через наследование на основе прототипов (.prototype)
 			if (unlockResize) {
 				unlockResize = false;
-				setSizes(eVent); // - установить значения в глобальной переменной reSizes
+				setSizes(eVent); // - установить значения и обновить глобальную переменную reSizes
 				splitterBottom.classList.remove('icon-grab'); // (!) иногда срабатывает инверсионно + не всеми браузерами поддерживается, например IE
 				// splitterBottom.style.pointerEvents = "initial"; // (?) св-во позволяет управлять тем, как элементы будут реагировать на события мыши или прикосновения к сенсорному экрану. Применяется для взаимодействия с нижележащими элементами, игнорируя вышележащие.
 				document.removeEventListener('mousemove', splitterBottom_onMousemove, false);
@@ -101,7 +101,7 @@ function putSizes(eVent) {
 		topicpaneHeight: document.body.offsetHeight - (eVent.clientY + getValueFullSizeProperty(splitterBottom).height + parseInt(navpaneStyles.paddingBottom, 10) + parseInt(navpaneStyles.borderBottom, 10) - parseInt(navpaneStyles.marginBottom, 10)) - parseInt(topicpaneStyles.paddingTop, 10) - parseInt(topicpaneStyles.paddingBottom, 10) - parseInt(topicpaneStyles.borderTop, 10) - parseInt(topicpaneStyles.borderBottom, 10) - parseInt(topicpaneStyles.marginTop, 10) - parseInt(topicpaneStyles.marginBottom, 10)
 	}
 }
-// (!) setSizes-установить значения в глобальной переменной reSizes
+// (!) setSizes - установить значения и обновить глобальную переменную reSizes
 function setSizes(eVent) {
 	// 'eVent.type - onResize, onMouseup
 	// 'eVent.target - window, splitterRight/splitterBottom
@@ -253,7 +253,7 @@ function reSizePanels(eVent) {
 		if (navpaneStyles.display === "none" || navpaneStyles.visibility === "hidden") { // - нав.пан.скрыта
 			navPane.style.removeProperty('display'); // удаляем css св-во
 			navPane.style.removeProperty('visibility'); // удаляем css св-во
-			setSizes(eVent); // - установить значения в глобальной переменной reSizes
+			setSizes(eVent); // - установить значения и обновить глобальную переменную reSizes
 			navPane.style.left = 0 - (navPane.offsetWidth + parseInt(navpaneStyles.marginRight, 10)) + "px";
 			navPane.style.display = "none";
 			topicPane.style.removeProperty('left'); // удаляем css св-во
@@ -265,7 +265,7 @@ function reSizePanels(eVent) {
 			// } else {
 			// 	topicPane.style.left = reSizes.topicpaneLeft + "px";
 			// }
-			setSizes(eVent); // - установить значения в глобальной переменной reSizes
+			setSizes(eVent); // - установить значения и обновить глобальную переменную reSizes
 		}
 	} else if (document.documentElement.clientWidth <= 500) {
 		navPane.style.removeProperty('left'); // удаляем css св-во
@@ -278,6 +278,6 @@ function reSizePanels(eVent) {
 			// navPane.style.top = (parseInt(navpaneStyles.top, 10) - ((parseInt(navpaneStyles.height, 10) + parseInt(navpaneStyles.paddingTop, 10) + parseInt(navpaneStyles.paddingBottom, 10) + parseInt(navpaneStyles.borderTop, 10) + parseInt(navpaneStyles.borderBottom, 10)) + parseInt(navpaneStyles.marginTop, 10))) + "px";
 			navPane.style.display = "none";
 		}
-		setSizes(eVent); // - установить значения в глобальной переменной reSizes
+		setSizes(eVent); // - установить значения и обновить глобальную переменную reSizes
 	}
 }

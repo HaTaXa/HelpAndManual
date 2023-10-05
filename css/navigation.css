@@ -11,7 +11,7 @@ body, html {
 	background-color: transparent;
 	font-family: Verdana, Tahoma, Helvetica, sans-serif;
 	text-indent: 0;
-	overflow: hidden;
+	overflow: hidden hidden;
 }
 /* (!) Scrollbars
 *для Mozilla Firefox будет работать пока только общий стиль */
@@ -93,6 +93,13 @@ html *::-webkit-scrollbar-thumb {
 }
 /* Scrollbars the end */
 body {
+	display: flex;
+	flex-flow: column nowrap;
+	align-items: center;
+	align-content: space-between; /* не учитывается из-за nowrap */
+	justify-content: space-between;
+}
+body {
 	background-color: #2a2a2a;
 	background: -webkit-linear-gradient(top, #888888, #000000);
 	background: -moz-linear-gradient(top, #888888, #000000);
@@ -109,6 +116,7 @@ body {
 	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #222222);
 	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #ffffff, endColorstr = #222222); */
 }
+
 a {
 	color: silver;
 	text-decoration: none;
@@ -142,22 +150,34 @@ ul, li {
 .reflect * {
 	direction: ltr; /* ? влияет на кавычки елочки для текстовых элементов, поэтому данное св-во необходимо так же применить к элементам типа "р"/span.., чтобы вернуть обратно направление чтения по умолчанию (с лева на право). Применяется непосредственно к текущему элементу, применение к псевдоэлементу работать не будет. */
 }
-
+.toc-footer,
+.toc,
+.toc-body,
+.toc-subtitle,
+.toc-title,
+.toc-tools,
 .toc-header {
-	position: absolute;
-	left: 0; right: 0;
-	top: 0;
-	height: 116px;
+	position: relative;
+	left: 0; top: 0;
+}
+.toc-header {
+	width: auto;
+	height: fit-content;
 	margin: 1px;
 	display: flex;
+	flex: 1 1 auto;
 	flex-flow: row wrap;
-	align-items: flex-start;
+	align-items: center;
+	align-content: space-between;
 	justify-content: space-between;
+	/* overflow: hidden hidden; */ /* (i) влияет на высоту потомков */
 }
 
 .toc-tools {
+	order: 1;
 	width: 100%;
 	height: 20px;
+	padding: 1px;
 	flex: 1 1 auto; /* i flex-basis - auto означает, что размер flex-элементов рассчитывается с использованием либо элемента width, либо элемента height (в зависимости от того, определяется ли макет на основе строк или столбцов) */
 	display: flex;
 	flex-flow: column nowrap;
@@ -216,7 +236,7 @@ ul, li {
 	text-shadow: 0 1px rgba(0, 0, 0, .5);
 	text-align: center;
 }
-/* (i) Тильда ( ~ ) между селекторами - обобщённый смежный селектор действует точно также как и обычные смежные селекторы (обозначение: + ), за исключением того, что свойства применяются не только к первому соседу ниже, а ко всем заданным соседям ниже. */
+/* (i) Тильда ( ~ «Общий родственный комбинатор») между селекторами - обобщённый смежный селектор действует точно также как и обычные смежные селекторы (обозначение: + «Соседний родственный комбинатор», > «Дочерний комбинатор»), за исключением того, что свойства применяются не только к первому соседу ниже, а ко всем заданным соседям ниже. */
 #idTreeView:checked~[for="idTreeView"]:after,
 [for="idTreeView"]:before {
 	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
@@ -236,22 +256,21 @@ ul, li {
 #idTreeView:checked~[for="idTreeView"]:hover:before {color: rgba(255,255,255,.42);}
 #idTreeView:checked~[for="idTreeView"]:hover:after {color: #fff;}
 
-.toclistmenu-tooltip-triangle, /* треугольный уголок подсказки checkbox-Развернуть/свернуть все оглавление */
-.treeview-tooltip-triangle, /* треугольный уголок подсказки */
+.toclistmenu-tooltip-triangle, /* треугольник подсказки checkbox-Развернуть/свернуть все оглавление */
+.treeview-tooltip-triangle, /* треугольник подсказки */
 .treeview-tooltip { /* подсказка */
 	position: relative;
 	left: 0; top: 0;
-	width: 0;
-	height: 0;
-	background: transparent;
+	width: 0; height: 0;
+	background-color: transparent;
 }
-/* - иконка подсказки */
+/**иконка подсказки */
 #idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:before,
 [for="idTreeView"]:hover>.treeview-tooltip:before {
-	content: ""; /**без этого псевдоэлемент не сработает */
+	content: ""; /* (!) без этого псевдоэлемент не сработает */
 	position: absolute;
-	/* left: 200px; *//**общая ширина, если вертикально */
-	top: 0; /**общая высота, если горизонтально */
+	/* left: 200px; *//* - общая ширина, если вертикально */
+	top: 0; /* - общая высота, если горизонтально */
 	width: 50px;
 	height: 50px;
 	background: url("../icon/info.png") no-repeat;
@@ -259,18 +278,18 @@ ul, li {
 }
 
 [for="idTreeView"]:hover>.treeview-tooltip:before {
-	left: 100px; /**если горизонтально */
-	/* top: 110px; *//**если вертикально */
+	left: 100px; /* - если горизонтально */
+	/* top: 110px; *//* - если вертикально */
 }
 
 #idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:before {
-	left: 150px; /**если горизонтально */
-	/* top: 130px; *//**если вертикально */
+	left: 150px; /* - если горизонтально */
+	/* top: 130px; *//* - если вертикально */
 }
-/* - треугольный уголок подсказки */
+/**треугольник */
 #idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip>div:before,
 [for="idTreeView"]:hover>.treeview-tooltip>div:before {
-	content: "";
+	content: ""; /* (!) без этого псевдоэлемент не сработает */
 	position: absolute;
 	top: 22px;
 	/* border-left: 0px solid transparent; */
@@ -281,13 +300,13 @@ ul, li {
 
 [for="idTreeView"]:hover>.treeview-tooltip>div:before {left: -23px;}
 #idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip>div:before {left: 23px;}
-/* - текст подсказки */
+/**текст подсказки */
 #idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:after,
 [for="idTreeView"]:hover>.treeview-tooltip:after {
 	position: relative;
-	/* left: 104px; *//* top: 0; *//**общая ширина и высота, если вертикально */
-	top: 40px; /**если горизонтально */
-	width: 160px; /**если горизонтально */
+	/* left: 104px; *//* top: 0; *//* - общая ширина и высота, если вертикально */
+	top: 40px; /* - если горизонтально */
+	width: 160px; /* - если горизонтально */
 	padding: 2px;
 	display: inline-block;
 	text-align: center;
@@ -298,12 +317,16 @@ ul, li {
 	border: 1px solid rgba(171,222,247,.6);
 	z-index: 1;
 }
-/* content: "Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления"; */
+/* content:
+"Режим «По умолчанию»: (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления";
+*/
 [for="idTreeView"]:hover>.treeview-tooltip:after {
 	left: -50px;
 	content: attr(treeview-tooltip-default);
 }
-/* content: "Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления"; */
+/* content:
+"Режим «Текущий пункт»: (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления";
+*/
 /* #idTreeView:checked~[for="idTreeView"]:hover>div:after, */
 #idTreeView:checked~[for="idTreeView"]:hover>.treeview-tooltip:after {
 	left: 0;
@@ -314,6 +337,10 @@ ul, li {
 [for="idTreeView"]>div {
 	opacity: 0;
 	transform: translateY(.7em) scale(.3);
+	-webkit-transform: translateY(0.7em) scale(.3); /* Chrome, Safari, iOS */
+	-moz-transform: translateY(0.7em) scale(.3); /* Firefox */
+	-o-transform: translateY(0.7em) scale(.3); /* Opera */
+	-ms-transform: translateY(0.7em) scale(.3); /* IE */
 	transform-origin: center bottom;
 }
 
@@ -322,6 +349,10 @@ ul, li {
 	opacity: 1;
 	transition: .6s .9s;
 	transform: translateY(0);
+	-webkit-transform: translateY(0); /* Chrome, Safari, iOS */
+	-moz-transform: translateY(0); /* Firefox */
+	-o-transform: translateY(0); /* Opera */
+	-ms-transform: translateY(0); /* IE */
 	z-index: 1;
 }
 /* (!) checkbox-Развернуть/свернуть все оглавление */
@@ -342,19 +373,19 @@ ul, li {
 
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover,
 [for="idTocListMenuSwitch"]:hover {color: #fff;}
-/* - иконка подсказки */
+/**иконка подсказки */
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:before,
 [for="idTocListMenuSwitch"]:hover:before {
-	content: ""; /**без этого псевдоэлемент не сработает */
+	content: ""; /* - без этого псевдоэлемент не сработает */
 	position: absolute;
-	right: 92px; top: 6px; /**без наведения курсора на подсказку */
+	right: 92px; top: 6px; /* - без наведения курсора на подсказку */
 	width: 35px;
 	height: 35px;
 	background: url("../icon/info.png") no-repeat;
 	background-size: 35px 35px;
 	z-index: 2;
 }
-/* - треугольный уголок подсказки */
+/**треугольник */
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover>.toclistmenu-tooltip-triangle:before,
 [for="idTocListMenuSwitch"]:hover>.toclistmenu-tooltip-triangle:before {
 	content: "";
@@ -365,11 +396,11 @@ ul, li {
 	/* border-top: 0px solid transparent; */
 	border-bottom: 10px solid rgba(171,222,247,.6);
 }
-/* - текст подсказки */
+/**текст подсказки */
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after,
 [for="idTocListMenuSwitch"]:hover:after {
 	position: relative;
-	right: 88px; top: 32px; /**без наведения курсора на подсказку */
+	right: 88px; top: 32px; /* - без наведения курсора на подсказку */
 	width: 100px;
 	height: auto;
 	padding: 2px;
@@ -394,8 +425,9 @@ ul, li {
 	background: rgba(0, 0, 0, .3) linear-gradient(rgba(0,0,0,.3), rgba(0,0,0,0));
 	box-shadow: 0 1px 1px rgba(0, 0, 0, .5) inset, 0 1px 0 rgba(255, 255, 255, .4);
 }
-/* (i) анимация подсказки */
-/* ! с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно */
+/* (i) анимация подсказки
+(!) с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно
+*/
 /* #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
 [for="idTocListMenuSwitch"].toclistmenu-tooltip-triangle,
 #idTocListMenuSwitch:checked~[for="idTocListMenuSwitch"]:hover:after,
@@ -416,7 +448,8 @@ ul, li {
 }
 */
 /* (!).btn-icon
-(i).btn-icon-имя класса так же присутствует в стилях styles.css и topic.css, но правила разные */
+(i) имя класса так же присутствует в стилях styles.css и topic.css, но правила разные
+*/
 .btn-icon {
 	content: "";
 	background: url(../icon/menu.png) no-repeat;
@@ -448,13 +481,15 @@ ul, li {
 
 .toc-title,
 .toc-subtitle {
-	width: 100%;
-	flex: 2 2 auto;
-	margin: 1px;
-	padding: 1px 1px 1px 2px;
-	overflow-y: auto;
+	width: auto;
+	height: fit-content;
+	flex: 1 1 auto;
+	margin: 2px;
+	padding: 2px;
+	overflow: hidden auto;
 	scroll-behavior: smooth; /* плавная прокрутка */
 }
+
 .toc-title::-webkit-scrollbar-thumb,
 .toc-subtitle::-webkit-scrollbar-thumb {
 	/* background: #737373; */
@@ -463,13 +498,7 @@ ul, li {
 	/* border: 1px solid transparent; */
 	border-radius: 10px;
 }
-.toc-title {
-	order: 2;
-	min-height: 18px;
-	max-height: 48px;
-	padding: 1px 1px 1px 2px;
-	/* flex: 2 2 18px; */
-}
+.toc-title {order: 2;}
 
 .nav-title {
 	/* font-size: 16px; */
@@ -478,12 +507,7 @@ ul, li {
 	line-height: 100%;
 }
 
-.toc-subtitle {
-	order: 3;
-	min-height: 11px;
-	max-height: 38px;
-	/* flex: 2 2 11px; */
-}
+.toc-subtitle {order: 3;}
 
 .nav-subtitle {
 	/* font-size: 11px; */
@@ -506,33 +530,27 @@ ul, li {
 .no-js-title a:hover {text-decoration: underline;}
 
 .toc-body {
-	background-image: url("../icon/spacer.gif"); /* (?) не понятно для чего */
-	position: absolute;
-	left: 0; right: 0;
-	top: 116px; bottom: 120px;
-	margin: 2px;
+	width: 96%;
+	height: 100%;
 	padding: 2px;
-	overflow: hidden auto;
 	border-style: solid;
 	border-color: #3f3f3f;
 	border-bottom-color: #4f4f4f;
 	border-width: thin; /* border-width: 1px 0 1px 0; */
+	overflow: hidden auto;
+	/* background-image: url("../icon/spacer.gif"); */ /* (?) не понятно для чего */
 }
 /* (!) TOC LIST CSS */
 /**General margin of the TOC (root entry) - Общее поле оглавления (корневая запись) */
+.toc-body,
+.toc {margin: 2px;}
+.toc ul, /**для каждого потомка ul */
 .toc {
-	position: absolute;
-	left: 0; right: 0; top: 0;
-	margin: 2px;
+	padding: 0 0 0 16px;
 }
-
 .toc ul {
 	margin: 0 0 0 -16px; /* - Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
 }
-.toc,
-.toc ul {
-	padding: 0 0 0 16px;
-} /** для каждого потомка ul */
 /* (i) от классов зависит условие в коде js */
 .icon-expand {background: url(../icon/tgl_expand.gif) no-repeat;}
 /* .icon-expand::before {content: "+";} *//* - если не использовать иконки +/- */
@@ -540,7 +558,7 @@ ul, li {
 /* .icon-collapse::before {content: "-";} *//* - если не использовать иконки +/- */
 .icon-collapse,
 .icon-expand {background-position: 2px 2px;}
-/* TODO: сделать иконки с +/- отдельно */
+/* (!) TODO: сделать иконки с +/- отдельно */
 .nav-icon {
 	position: absolute;
 	left: 0;
@@ -552,7 +570,6 @@ ul, li {
 	margin: 1px 0 1px 0;
 	padding: 0 0 0 20px;
 }
-
 .toc-main-icon { /* - главный значок оглавления */
 	background: url(../icon/tgl_gb0.png) no-repeat;
 	background-position: 1px 1px;
@@ -597,7 +614,6 @@ ul, li {
 	font-weight: normal;
 	font-size: 11pt;
 	text-decoration: none;
-
 }
 .heading2,
 .heading3,
@@ -608,6 +624,8 @@ ul, li {
 .heading8,
 .heading9,
 .heading10 {font-size: 10pt;}
+/* (i) пробелы, дефисы, тире */
+.feedback-tooltip-title span,
 .heading10,
 .heading9,
 .heading8,
@@ -624,72 +642,477 @@ ul, li {
 	word-break: normal; /* - чтобы игнорировались "черточки" - перенос текста */
 	word-spacing: normal;
 	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+	-moz-hyphens: none;
+	-ms-hyphens: none;
 }
-/** подсветка текущего топика */
+/**подсветка текущего топика */
 .hilight {
 	color: #fff;
 	/* background: #dedede; */
 }
 
-div#tree {overflow-y: hidden;} /* (?) id нигде не найден */
-
 .toc-footer {
-	position: absolute;
-	left: 8px; right: 8px;
-	bottom: 0;
-	background-color: transparent;
-	overflow: hidden;
+	width: 98%;
+	height: fit-content;
+	margin: 4px 8px;
+	display: flex;
+	flex: 1 1 auto;
+	flex-flow: row wrap;
+	align-items: center;
+	align-content: space-between;
+	justify-content: space-between;
+	/* overflow: hidden; *//* (!) влияет на размер, а так же отображение.feedback-tooltip/.email-feedback */
 }
+
+.toc-footer span,
 .toc-footer a,
 .toc-footer p {
-	margin: 2px;
+	width: 100%;
+	height: auto;
+	margin: 1px 2px;
 	padding: 2px 0;
 	font-size: 11px;
 	text-align: center;
 	color: #737373;
 }
+.feedback-tooltip-title span,
+.feedback-link:hover,
 .toc-footer p:hover a,
 .toc-footer p:hover {color: #fff;}
+
 .toc-footer a:hover {text-decoration: underline dotted;}
+.feedback-link {
+	position: relative;
+	width: auto;
+	height: auto;
+	display: flex; /* - чтобы div.feedback-tooltip был элементом flex box */
+}
+/* 'повышаем приоритет.feedback-link, чтобы перебить св-ва правила.toc-footer a */
+.toc-footer a.feedback-link {
+	width: initial;
+	height: initial;
+	margin: auto;
+	padding: 4px;
+}
+.feedback-link:hover .feedback-tooltip,
+.feedback-link {
+	border: 1px solid transparent;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+}
+.feedback-link:hover .feedback-tooltip,
+.toc-footer a.feedback-link:hover {border-color: #fff;}
+/* (!).email-feedback
+*во всем проекте прописан в 2-х местах:
+- 1) в пан.инструментов и
+- 2) в пан.нав.
+x не используется
+(i) переделано как анимационная всплывающая подсказка через div
+*/
+.email-feedback:hover {
+	/* position: fixed; *//* (i) если в правиле.toc-footer вкл.overflow: hidden; */
+	position: absolute;
+	padding: 4px;
+	border: 1px solid #fff;
+	border-radius: 5px;
+	-webkit-border-radius: 5px;
+	-moz-border-radius: 5px;
+	transform: translate(-50%, -80%); /* (x, y)
+	*Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
+	-webkit-transform: translate(-50%, -80%); /* Chrome, Safari, iOS */
+	-moz-transform: translate(-50%, -80%); /* Firefox */
+	-o-transform: translate(-50%, -80%); /* Opera */
+	-ms-transform: translate(-50%, -80%); /* IE */
+}
+/* (!).feedback-tooltip - анимационная всплывающая подсказка для кнопки E-mail на пан.нав.
+(i) имя класса так же присутствует в стилях topic.css и navigation.css, но правила разные
+*/
+.feedback-tooltip-triangle,
+.feedback-tooltip-title,
+.feedback-tooltip {
+	position: absolute;
+	left: 0; right: 0;
+	display: flex;
+	flex: 1 1 100%;
+	flex-flow: row wrap;
+}
+.feedback-tooltip-title,
+.feedback-tooltip {padding: 4px;}
+/**фон подсказки */
+.feedback-tooltip {
+	width: 150px; height: 230px;
+	align-content: space-between;
+	background: url(../icon/HaTaXa.jpg) no-repeat center transparent;
+}
+/**текст подсказки */
+.feedback-tooltip-title {width: auto; height: auto;}
+/* 'перебиваем св-ва правила.toc-footer span */
+.feedback-tooltip-title span {
+	margin: 0; padding: 0;
+	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+}
+.title-txt-top {
+	top: 0;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+.title-txt-center {
+	top: 0; bottom: 0;
+	align-items: center;
+	align-content: center;
+}
+.title-txt-bottom {
+	bottom: 0;
+	align-items: flex-end;
+	align-content: flex-end;
+}
+.title-txt-custom {bottom: 30px;}
+/**треугольник */
+.feedback-tooltip-triangle {
+	bottom: -52px;
+	width: 0;
+	margin: auto;
+	background-color: transparent;
+	border-left: 75px solid transparent;
+	border-right: 75px solid transparent;
+	border-top: 50px solid #fff;
+}
+/* *анимация
+(!) с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно
+*/
+.feedback-tooltip {
+	/* (i) изначальное положение при 0-ом размере, иначе появление будет из другого места, даже если изначально все элементы будут иметь значение width: 0; height: 0; вдобавок ко всему, надо учесть, чтобы все элементы не перекрывали саму кнопку */
+	transform: translate(-68px, -128px) scale(0); /* (x, y) */
+	-webkit-transform: translate(-68px, -128px) scale(0); /* Chrome, Safari, iOS */
+	-moz-transform: translate(-68px, -128px) scale(0); /* Firefox */
+	-o-transform: translate(-68px, -128px) scale(0); /* Opera */
+	-ms-transform: translate(-68px, -128px) scale(0); /* IE */
+	will-change: transform; /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+}
+.feedback-link:hover .feedback-tooltip {
+	animation: tooltipToAppear ease 2s both;
+	-webkit-animation: tooltipToAppear ease 2s both;
+	-moz-animation: tooltipToAppear ease 2s both;
+	-o-animation: tooltipToAppear ease 2s both;
+	will-change: animation; /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+}
+@keyframes tooltipToAppear {
+	0% {
+		opacity: 0;
+		transform: translate(-68px, -128px) scale(.1);
+		-webkit-transform: translate(-68px, -128px) scale(.1);
+		-moz-transform: translate(-68px, -128px) scale(.1);
+		-o-transform: translate(-68px, -128px) scale(.1);
+		-ms-transform: translate(-68px, -128px) scale(.1);
+	}
+	100% {
+		transform: translate(-68px, -300px);
+		-webkit-transform: translate(-68px, -300px);
+		-moz-transform: translate(-68px, -300px);
+		-o-transform: translate(-68px, -300px);
+		-ms-transform: translate(-68px, -300px);
+		opacity: 1;
+	}
+}
+.feedback-link:hover .feedback-tooltip .feedback-tooltip-triangle {
+	animation: triangleFadeIn ease 2s both;
+	-webkit-animation: triangleFadeIn ease 2s both;
+	-moz-animation: triangleFadeIn ease 2s both;
+	-o-animation: triangleFadeIn ease 2s both;
+}
+@keyframes triangleFadeIn {
+	0% {opacity: 0;}
+	50% {opacity: 1;}
+	100% {opacity: 0;}
+}
+.feedback-link:hover .feedback-tooltip .feedback-tooltip-title span,
+.feedback-link:hover .feedback-tooltip .feedback-tooltip-title {
+	animation: titleToAppear ease 10s both;
+	-webkit-animation: titleToAppear ease 10s both;
+	-moz-animation: titleToAppear ease 10s both;
+	-o-animation: titleToAppear ease 10s both;
+	will-change: animation; /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	/* transition-delay: 3s; */ /* задержка перед началом анимации */
+	/* transition-duration: 3s; */ /* длительность анимации */
+	/* (i) первичный вариант */
+	/* transition: 2s 3s;
+	transform-origin: center center;
+	-webkit-transform-origin: center center;
+	-moz-transform-origin: center center;
+	-o-transform-origin: 100% 100%;
+	-ms-transform-origin: center center;
+	transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-moz-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	opacity: 1; */
+}
+@keyframes titleToAppear {
+	0% {opacity: 0;}
+	20% {
+		opacity: 1;
+		transform: scale(-1, 1);
+		-webkit-transform: scale(-1, 1);
+		-moz-transform: scale(-1, 1);
+		-o-transform: scale(-1, 1);
+		-ms-transform: scale(-1, 1);
+	}
+	40% {
+		transform: scale(1);
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		-o-transform: scale(1);
+		-ms-transform: scale(1);
+	}
+	80% {opacity: 1;}
+	100% {opacity: 0;}
+}
 
 .hr {
 	border-style: solid;
 	border-color: #3f3f3f;
 	border-width: 1px 0 1px 0;
 }
-/* (i)"idFeedBackOn"
-*во всем проекте прописан в 2-х местах:
-- 1) в пан.инструментов и
-- 2) в пан.нав. */
-.feed-back-on:hover {
-	/* position: absolute; *//* 'не выводит изображение на передний план, поэтому использ.fixed */
-	position: fixed; /* - устраняем смещение всплывающей картинки */
-	margin: 0;
-	padding: 2px 4px 2px 4px;
-	font-weight: normal; /* 'насыщенность шрифта */
-	transform: translate (-50%, -80%); /* - (x, y)
-	*Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
-	-webkit-transform: translate(-50%, -80%); /* - Safari, Chrome, iOS */
-	-moz-transform: translate(-50%, -80%); /* - Firefox */
-	-o-transform: translate(-50%, -80%); /* - Opera */
-	-ms-transform: translate(-50%, -80%); /* - IE */
-	border: 1px solid #fff;
-	border-radius: 5px;
-	-webkit-border-radius: 5px;
-	-moz-border-radius: 5px;
-}
 /* (!) МЕДИА ЗАПРОСЫ */
-/**диапазон < 260px */
-@media screen and (max-width: 260px) {.toc-body {bottom: 128px;}}
-/**диапазон < 213px */
-@media screen and (max-width: 213px) {.toc-body {bottom: 140px;}}
-/**диапазон < 161px */
-@media screen and (max-width: 161px) {.toc-body {bottom: 154px;}}
-/**диапазон < 158px */
-@media screen and (max-width: 158px) {.toc-body {bottom: 166px;}}
-/**диапазон < 142px */
-@media screen and (max-width: 142px) {.toc-body {bottom: 180px;}}
-/**диапазон < 134px */
-@media screen and (max-width: 134px) {.toc-body {bottom: 192px;}}
-/**диапазон < 127px */
-@media screen and (max-width: 127px) {.toc-body {bottom: 206px;}}
+/**диапазон < 338 */
+@media screen and (max-height: 338px) {
+	.toc-title {max-height: 48px;}
+	.toc-subtitle {max-height: 38px;}
+	.toc-footer {
+		width: 100%;
+		margin: auto;
+	}
+	/**всплывающее фоновое изо.для кнопки E-mail */
+	/**фон подсказки */
+	.feedback-tooltip {
+		width: 120px; height: 184px;
+		background-size: 120px 184px;
+		-webkit-background-size: 120px 184px;
+		-moz-background-size: 120px 184px;
+		-o-background-size: 120px 184px;
+		-ms-background-size: 120px 184px;
+		/**анимация */
+		transform: translate(-54px, -90px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-54px, -90px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-54px, -90px) scale(0); /* Firefox */
+		-o-transform: translate(-54px, -90px) scale(0); /* Opera */
+		-ms-transform: translate(-54px, -90px) scale(0); /* IE */
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-54px, -90px) scale(.1);
+			-webkit-transform: translate(-54px, -90px) scale(.1);
+			-moz-transform: translate(-54px, -90px) scale(.1);
+			-o-transform: translate(-54px, -90px) scale(.1);
+			-ms-transform: translate(-54px, -90px) scale(.1);
+		}
+		100% {
+			transform: translate(-54px, -248px);
+			-webkit-transform: translate(-54px, -248px);
+			-moz-transform: translate(-54px, -248px);
+			-o-transform: translate(-54px, -248px);
+			-ms-transform: translate(-54px, -248px);
+			opacity: 1;
+		}
+	}
+	.feedback-tooltip-triangle {
+		bottom: -56px;
+		border-left: 65px solid transparent;
+		border-right: 65px solid transparent;
+		border-top: 54px solid #fff;
+	}
+}
+/**диапазон < 338 по высоте и < 206 по ширине */
+@media screen and (max-height: 338px) and (max-width: 206px) {
+	/**всплывающее фоновое изо.для кнопки E-mail */
+	/**фон подсказки */
+	.feedback-tooltip {
+		width: 80px; height: 123px;
+		background-size: 80px 123px;
+		-webkit-background-size: 80px 123px;
+		-moz-background-size: 80px 123px;
+		-o-background-size: 80px 123px;
+		-ms-background-size: 80px 123px;
+		/**анимация */
+		transform: translate(-34px, -60px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-34px, -60px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-34px, -60px) scale(0); /* Firefox */
+		-o-transform: translate(-34px, -60px) scale(0); /* Opera */
+		-ms-transform: translate(-34px, -60px) scale(0); /* IE */
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-34px, -60px) scale(.1);
+			-webkit-transform: translate(-34px, -60px) scale(.1);
+			-moz-transform: translate(-34px, -60px) scale(.1);
+			-o-transform: translate(-34px, -60px) scale(.1);
+			-ms-transform: translate(-34px, -60px) scale(.1);
+		}
+		100% {
+			transform: translate(-34px, -200px);
+			-webkit-transform: translate(-34px, -200px);
+			-moz-transform: translate(-34px, -200px);
+			-o-transform: translate(-34px, -200px);
+			-ms-transform: translate(-34px, -200px);
+			opacity: 1;
+		}
+	}
+	.feedback-tooltip-triangle {
+		border-left: 45px solid transparent;
+		border-right: 45px solid transparent;
+	}
+	/**текст подсказки */
+	.title-txt-custom {bottom: 40px;}
+}
+/**диапазон < 338 по высоте и < 145 по ширине */
+@media screen and (max-height: 338px) and (max-width: 145px) {
+	/**всплывающее фоновое изо.для кнопки E-mail */
+	/**фон подсказки */
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-34px, -60px) scale(.1);
+			-webkit-transform: translate(-34px, -60px) scale(.1);
+			-moz-transform: translate(-34px, -60px) scale(.1);
+			-o-transform: translate(-34px, -60px) scale(.1);
+			-ms-transform: translate(-34px, -60px) scale(.1);
+		}
+		100% {
+			transform: translate(-34px, -212px);
+			-webkit-transform: translate(-34px, -212px);
+			-moz-transform: translate(-34px, -212px);
+			-o-transform: translate(-34px, -212px);
+			-ms-transform: translate(-34px, -212px);
+			opacity: 1;
+		}
+	}
+}
+/**диапазон < 298 */
+@media screen and (max-height: 298px) {
+	.toc-title {max-height: 32px;}
+	.toc-subtitle {max-height: 24px;}
+	/**всплывающее фоновое изо.для кнопки E-mail */
+	/**фон подсказки */
+	.feedback-tooltip {
+		width: 100px; height: 153px;
+		background-size: 100px 153px;
+		-webkit-background-size: 100px 153px;
+		-moz-background-size: 100px 153px;
+		-o-background-size: 100px 153px;
+		-ms-background-size: 100px 153px;
+		/**анимация */
+		transform: translate(-43px, -76px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-43px, -76px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-43px, -76px) scale(0); /* Firefox */
+		-o-transform: translate(-43px, -76px) scale(0); /* Opera */
+		-ms-transform: translate(-43px, -76px) scale(0); /* IE */
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-43px, -76px) scale(.1);
+			-webkit-transform: translate(-43px, -76px) scale(.1);
+			-moz-transform: translate(-43px, -76px) scale(.1);
+			-o-transform: translate(-43px, -76px) scale(.1);
+			-ms-transform: translate(-43px, -76px) scale(.1);
+		}
+		100% {
+			transform: translate(-43px, -218px);
+			-webkit-transform: translate(-43px, -218px);
+			-moz-transform: translate(-43px, -218px);
+			-o-transform: translate(-43px, -218px);
+			-ms-transform: translate(-43px, -218px);
+			opacity: 1;
+		}
+	}
+	.feedback-tooltip-triangle {
+		border-left: 50px solid transparent;
+		border-right: 50px solid transparent;
+	}
+	/**текст подсказки */
+	.title-txt-custom {bottom: 40px;}
+}
+/**диапазон < 298 по высоте и < 256 по ширине */
+@media screen and (max-height: 298px) and (max-width: 256px) {
+	/**всплывающее фоновое изо.для кнопки E-mail */
+	/**фон подсказки */
+	.feedback-tooltip {
+		width: 90px; height: 138px;
+		background-size: 90px 138px;
+		-webkit-background-size: 90px 138px;
+		-moz-background-size: 90px 138px;
+		-o-background-size: 90px 138px;
+		-ms-background-size: 90px 138px;
+		/**анимация */
+		transform: translate(-38px, -68px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-38px, -68px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-38px, -68px) scale(0); /* Firefox */
+		-o-transform: translate(-38px, -68px) scale(0); /* Opera */
+		-ms-transform: translate(-38px, -68px) scale(0); /* IE */
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-38px, -68px) scale(.1);
+			-webkit-transform: translate(-38px, -68px) scale(.1);
+			-moz-transform: translate(-38px, -68px) scale(.1);
+			-o-transform: translate(-38px, -68px) scale(.1);
+			-ms-transform: translate(-38px, -68px) scale(.1);
+		}
+		100% {
+			transform: translate(-38px, -200px);
+			-webkit-transform: translate(-38px, -200px);
+			-moz-transform: translate(-38px, -200px);
+			-o-transform: translate(-38px, -200px);
+			-ms-transform: translate(-38px, -200px);
+			opacity: 1;
+		}
+	}
+}
+/**диапазон < 298 по высоте и < 233 по ширине */
+@media screen and (max-height: 298px) and (max-width: 233px) {
+	/**всплывающее фоновое изо.для кнопки E-mail */
+	/**фон подсказки */
+	.feedback-tooltip {
+		width: 80px; height: 123px;
+		background-size: 80px 123px;
+		-webkit-background-size: 80px 123px;
+		-moz-background-size: 80px 123px;
+		-o-background-size: 80px 123px;
+		-ms-background-size: 80px 123px;
+		/**анимация */
+		transform: translate(-34px, -60px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-34px, -60px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-34px, -60px) scale(0); /* Firefox */
+		-o-transform: translate(-34px, -60px) scale(0); /* Opera */
+		-ms-transform: translate(-34px, -60px) scale(0); /* IE */
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-34px, -60px) scale(.1);
+			-webkit-transform: translate(-34px, -60px) scale(.1);
+			-moz-transform: translate(-34px, -60px) scale(.1);
+			-o-transform: translate(-34px, -60px) scale(.1);
+			-ms-transform: translate(-34px, -60px) scale(.1);
+		}
+		100% {
+			transform: translate(-34px, -200px);
+			-webkit-transform: translate(-34px, -200px);
+			-moz-transform: translate(-34px, -200px);
+			-o-transform: translate(-34px, -200px);
+			-ms-transform: translate(-34px, -200px);
+			opacity: 1;
+		}
+	}
+	.feedback-tooltip-triangle {
+		border-left: 45px solid transparent;
+		border-right: 45px solid transparent;
+	}
+}

@@ -294,7 +294,7 @@ html *::-webkit-scrollbar-thumb {
 .btn-box {
 	cursor: pointer;
 	transition: 0.6s ease; /**плавное появление/исчезновение при наведении курсора */
-	-webkit-transition: .6s ease; /* Safari, Chrome, iOS */
+	-webkit-transition: .6s ease; /* Chrome, Safari, iOS */
 	-moz-transition: .6s ease; /* Firefox */
 	-o-transition: .6s ease; /* Opera */
 	/* will-change: transition; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
@@ -327,12 +327,12 @@ html *::-webkit-scrollbar-thumb {
 	line-height: 1;
 	border: none;
 	outline: none;
-	background: transparent;
+	background-color: transparent;
 }
 .lightbox-btn-close:hover,
 .lightbox-btn-close {
 	transition: 0.3s ease; /**плавное появление/исчезновение при наведении курсора */
-	-webkit-transition: .3s ease; /* Safari, Chrome, iOS */
+	-webkit-transition: .3s ease; /* Chrome, Safari, iOS */
 	-moz-transition: .3s ease; /* Firefox */
 	-o-transition: .3s ease; /* Opera */
 	/* will-change: transition; */ /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
@@ -340,7 +340,7 @@ html *::-webkit-scrollbar-thumb {
 }
 .lightbox-btn-close:hover {
 	transform: rotate(180deg) scale(1.6, 1.6);
-	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Safari, Chrome, iOS */
+	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Chrome, Safari, iOS */
 	-moz-transform: rotate(180deg) scale(1.6, 1.6); /* Firefox */
 	-o-transform: rotate(180deg) scale(1.6, 1.6); /* Opera */
 	-ms-transform: rotate(180deg) scale(1.6, 1.6); /* IE */
@@ -474,9 +474,9 @@ html *::-webkit-scrollbar-thumb {
 	font-size: 1em;
 	border: none;
 	outline: none;
-	background: transparent;
+	background-color: transparent;
 	transition: .3s;
-	-webkit-transition: .3s; /* Safari, Chrome, iOS */
+	-webkit-transition: .3s; /* Chrome, Safari, iOS */
 	-moz-transition: .3s; /* Firefox */
 	-o-transition: .3s; /* Opera */
 }
@@ -486,7 +486,7 @@ html *::-webkit-scrollbar-thumb {
 	-moz-transition: .3s;
 	-o-transition: .3s;
 	transform: rotate(180deg) scale(1.6, 1.6);
-	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Safari, Chrome, iOS */
+	-webkit-transform: rotate(180deg) scale(1.6, 1.6); /* Chrome, Safari, iOS */
 	-moz-transform: rotate(180deg) scale(1.6, 1.6); /* Firefox */
 	-o-transform: rotate(180deg) scale(1.6, 1.6); /* Opera */
 	-ms-transform: rotate(180deg) scale(1.6, 1.6); /* IE */
@@ -498,7 +498,7 @@ html *::-webkit-scrollbar-thumb {
 
 .permalink-btn input {
 	transition: .3s;
-	-webkit-transition: .3s; /* Safari, Chrome, iOS */
+	-webkit-transition: .3s; /* Chrome, Safari, iOS */
 	-moz-transition: .3s; /* Firefox */
 	-o-transition: .3s; /* Opera */
 }
@@ -508,7 +508,7 @@ html *::-webkit-scrollbar-thumb {
 	-moz-transition: .3s;
 	-o-transition: .3s;
 	transform: rotateY(360deg);
-	-webkit-transform: rotateY(360deg); /* Safari, Chrome, iOS */
+	-webkit-transform: rotateY(360deg); /* Chrome, Safari, iOS */
 	-moz-transform: rotateY(360deg); /* Firefox */
 	-o-transform: rotateY(360deg); /* Opera */
 	-ms-transform: rotateY(360deg); /* IE */
@@ -720,7 +720,8 @@ img#social_off {border-color: transparent;}
 .toolbar-search {
 	position: relative;
 	padding: 2px 0;
-	display: inline-flex;
+	/* display: inline-flex; */ /* (?)'протестить */
+	display: flex;
 	flex-flow: row nowrap; /* - св-ва flex-direction и flex-wrap вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
 
 }
@@ -766,6 +767,7 @@ img#social_off {border-color: transparent;}
 	font-family: Tahoma, Verdana, Arial, sans-serif, Helvetica;
 	font-size: 9px;
 	font-weight: normal;
+	text-indent: 0;
 	line-height: 1em;
 }
 /* (!) Quick search box */
@@ -826,8 +828,7 @@ img#social_off {border-color: transparent;}
 }
 
 .toolbar-box-search input {
-	/* width: 150px; */
-	width: 100px;
+	width: 80px;
 	height: 20px;
 	/* flex-grow: 1; *//**Растягивание flex-элемента при необходимости. */
 	/* flex-shrink: 1; *//**Способность гибкого элемента сжиматься при необходимости. */
@@ -845,13 +846,10 @@ img#social_off {border-color: transparent;}
 /* 'the end Quick search box */
 .toolbar-box-right,
 .toolbar-box-center,
-.toolbar-box-left {
-	/* flex-grow: 0; *//**Растягивание flex-элемента при необходимости. */
-	/* flex-shrink: 1; *//**Способность гибкого элемента сжиматься при необходимости. */
-	/* flex-basis: auto; *//**Размер элемента по умолчанию ПЕРЕД распределением оставшегося пространства. */
-	flex: 0 1 auto; /**Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis */
-}
-/*(!) Позиционирование для всех компонентов: и ссылок, и иконок */
+.toolbar-box-left {flex: 0 1 auto;}
+/*
+(!) Позиционирование для всех компонентов: и ссылок, и иконок
+*/
 .btn-icon,
 .btn-icon-H,
 .toolbar-box-right a {
@@ -860,36 +858,188 @@ img#social_off {border-color: transparent;}
 	top: 0;
 	margin: 0 auto;
 }
-/* (i).btn-icon-имя класса так же присутствует в стилях topic.css и navigation.css, но правила разные */
-.btn-icon,
-.btn-icon-H {
-	padding: 2px 4px 2px 4px;
+/* (i) имя класса так же присутствует в стилях topic.css и navigation.css, но правила разные */
+.feedback-tooltip-title,
+.feedback-tooltip,
+.btn-icon-H,
+.btn-icon {padding: 2px 4px 2px 4px;}
+.feedback-tooltip,
+.btn-icon-H,
+.btn-icon {
 	border: 1px solid transparent;
 	border-radius: 5px;
 	-webkit-border-radius: 5px;
 	-moz-border-radius: 5px;
 }
+.feedback-tooltip,
 .toolbar:hover,
 .toolbar-banner:hover,
-.btn-icon:hover,
-.btn-icon-H:hover {border-color: #fff;}
-/* (i) idFeedBackOn-во всем проекте прописан в 2-х местах:
+.btn-icon-H:hover,
+.btn-icon:hover {border-color: #fff;}
+/*
+(!)#idFeedBackOn
+*во всем проекте прописан в 2-х местах:
 - 1) в пан.инструментов и
-- 2) в пан.нав. */
-#idFeedBackOn:hover {
-	/* position: absolute; *//**не выводит изображение на передний план, поэтому использ.fixed */
+- 2) в пан.нав.
+x не используется
+(i) переделано как анимационная всплывающая подсказка через div, а в коде js события mouseover/mouseout исключены
+*/
+/* #idFeedBackOn:hover { */
+	/* position: absolute; *//* - не выводит изображение на передний план, поэтому использ.fixed */
 	/* position: fixed; *//* - устраняем смещение всплывающей картинки */
 	/* left: 50%; */
 	/* top: 50%; */
-	/* transform: translate(-80%, -5%); *//* - (x, y)
+	/* transform: translate(-80%, -5%); *//* (x, y)
 	*Трансформирует элемент, в частности, позволяет его масштабировать, вращать, сдвигать, наклонять, а также комбинировать виды трансформаций */
-	transform: translateX(-80%);
-	-webkit-transform: translateX(-80%); /* - Safari, Chrome, iOS */
-	-moz-transform: translateX(-80%); /* - Firefox */
-	-o-transform: translateX(-80%); /* - Opera */
-	-ms-transform: translateX(-80%); /* - IE */
-	z-index: 2;
-	/* src: url(../icon/support.gif); *//* TODO: *попробовать сделать псевдо */
+/* 	transform: translateX(-80%);
+	-webkit-transform: translateX(-80%); */ /* Chrome, Safari, iOS */
+/* 	-moz-transform: translateX(-80%); */ /* Firefox */
+/* 	-o-transform: translateX(-80%); */ /* Opera */
+/* 	-ms-transform: translateX(-80%); */ /* IE */
+/* } */
+/* (!).feedback-tooltip - анимационная всплывающая подсказка для кнопки E-mail на пан.инструментов
+(i) имя класса так же присутствует в стилях topic.css и navigation.css, но правила разные
+*/
+.feedback-tooltip-title,
+.feedback-tooltip-triangle,
+.feedback-tooltip {
+	position: absolute;
+	left: 0; right: 0;
+	display: flex;
+	flex: 1 1 100%;
+	flex-flow: row wrap;
+}
+/**фон подсказки */
+.feedback-tooltip{
+	width: 120px; height: 130px;
+	align-content: space-between;
+	background: url(../icon/support.gif) no-repeat center transparent;
+}
+/**текст подсказки */
+.feedback-tooltip-title {width: auto; height: auto;}
+.feedback-tooltip-title span {
+	width: 100%; height: auto;
+	font-size: 11px;
+	text-align: center;
+	line-height: normal;
+	color: #fff;
+}
+/* (i) пробелы, дефисы, тире */
+.btn-text-off,
+.btn-text-on,
+.feedback-tooltip-title span {
+	white-space: normal; /* - текст в окне браузера выводится как обычно, переносы строк устанавливаются автоматически. Разбивает строки, чтобы заполнить строчные боксы */
+	overflow-wrap: break-word;
+	word-wrap: break-word;
+	word-break: normal; /* - чтобы игнорировались "черточки" - перенос текста */
+	word-spacing: normal; /* - нормальный интервал между словами, определенный текущим шрифтом и/или браузером */
+	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+	-moz-hyphens: auto;
+	-ms-hyphens: auto;
+}
+.title-txt-top {
+	top: 0;
+	align-items: flex-start;
+	align-content: flex-start;
+}
+.title-txt-center {
+	top: 0; bottom: 0;
+	align-items: center;
+	align-content: center;
+}
+.title-txt-bottom {
+	bottom: 0;
+	align-items: flex-end;
+	align-content: flex-end;
+}
+.title-txt-custom {bottom: 30px;}
+/**треугольник */
+.feedback-tooltip-triangle {
+	top: -22px;
+	width: 0;
+	margin: auto;
+	background-color: transparent;
+	border-left: 30px solid transparent;
+	border-bottom: 20px solid #fff;
+}
+/* *анимация
+(!) с псевдоэлементами не срабатывает и работать не будет, или будет влиять не на те элементы, на кот.нужно
+*/
+.feedback-tooltip {
+	/* (i) изначальное положение при 0-ом размере, иначе появление будет из другого места, даже если изначально все элементы будут иметь значение width: 0; height: 0; вдобавок ко всему, надо учесть, чтобы все элементы не перекрывали саму кнопку */
+	transform: translate(-50px, -40px) scale(0); /* (x, y) */
+	-webkit-transform: translate(-50px, -40px) scale(0); /* Chrome, Safari, iOS */
+	-moz-transform: translate(-50px, -40px) scale(0); /* Firefox */
+	-o-transform: translate(-50px, -40px) scale(0); /* Opera */
+	-ms-transform: translate(-50px, -40px) scale(0); /* IE */
+	will-change: transform; /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+}
+.btn-icon:hover+.feedback-tooltip {
+	animation: tooltipToAppear ease 2s both;
+	-webkit-animation: tooltipToAppear ease 2s both;
+	-moz-animation: tooltipToAppear ease 2s both;
+	-o-animation: tooltipToAppear ease 2s both;
+	will-change: animation; /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	z-index: 2; /* - перекрываем.topic-controls {z-index: 1;} */
+}
+@keyframes tooltipToAppear {
+	0% {
+		opacity: 0;
+		transform: translate(-50px, -40px) scale(.1);
+		-webkit-transform: translate(-50px, -40px) scale(.1);
+		-moz-transform: translate(-50px, -40px) scale(.1);
+		-o-transform: translate(-50px, -40px) scale(.1);
+		-ms-transform: translate(-50px, -40px) scale(.1);
+	}
+	100% {
+		transform: translate(-72px, 64px);
+		-webkit-transform: translate(-72px, 64px);
+		-moz-transform: translate(-72px, 64px);
+		-o-transform: translate(-72px, 64px);
+		-ms-transform: translate(-72px, 64px);
+		opacity: 1;
+	}
+}
+.btn-icon:hover+.feedback-tooltip .feedback-tooltip-title span,
+.btn-icon:hover+.feedback-tooltip .feedback-tooltip-title {
+	animation: titleToAppear ease 10s both;
+	-webkit-animation: titleToAppear ease 10s both;
+	-moz-animation: titleToAppear ease 10s both;
+	-o-animation: titleToAppear ease 10s both;
+	will-change: animation; /* (i) - св-во will-change - экспериментальная технология, заранее передает браузеру инфу о возможном предстоящем изменении элемента */
+	/* (i) первичный вариант */
+	/* transition: 2s 3s;
+	transform-origin: center bottom;
+	-webkit-transform-origin: center bottom;
+	-moz-transform-origin: center bottom;
+	-o-transform-origin: 100% 0;
+	-ms-transform-origin: center bottom;
+	transform: scale(-1, 1);
+	-webkit-transform: scale(-1, 1);
+	-moz-transform: scale(-1, 1);
+	-o-transform: scale(-1, 1);
+	-ms-transform: scale(-1, 1);
+	opacity: 1; */
+}
+@keyframes titleToAppear {
+	0% {opacity: 0;}
+	20% {
+		opacity: 1;
+		transform: scale(-1, 1);
+		-webkit-transform: scale(-1, 1);
+		-moz-transform: scale(-1, 1);
+		-o-transform: scale(-1, 1);
+		-ms-transform: scale(-1, 1);
+	}
+	40% {
+		transform: scale(1);
+		-webkit-transform: scale(1);
+		-moz-transform: scale(1);
+		-o-transform: scale(1);
+		-ms-transform: scale(1);
+	}
+	/* 80% {opacity: 1;} */
+	100% {opacity: 1;}
 }
 
 .btn-text-off,
@@ -899,21 +1049,18 @@ img#social_off {border-color: transparent;}
 	margin: 1px;
 	text-indent: 0;
 	text-align: center;
-	text-transform: capitalize;
-	white-space: normal; /* - текст в окне браузера выводится как обычно, переносы строк устанавливаются автоматически. Разбивает строки, чтобы заполнить строчные боксы */
-	overflow-wrap: break-word;
-	word-wrap: break-word;
-	word-break: normal; /* - чтобы игнорировались "черточки" - перенос текста */
-	word-spacing: normal;
-	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
-	-moz-hyphens: auto;
-	-ms-hyphens: auto;
+	text-transform: capitalize; /* преобразование текста элемента в заглавные или прописные символы */
 	user-select: none;
 	cursor: default;
 }
-
 .btn-text-on {color: #dedede; /* color: #f1f1f1; */}
 .btn-text-off {color: #a1a1a1;}
+.btn-text-off,
+.btn-text-on {
+	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
+	-moz-hyphens: none;
+	-ms-hyphens: none;
+}
 /* (!) Панель навигации */
 /**Предотвращение выбора инструментов */
 .nav-pane *, .topic-controls * {
@@ -1313,7 +1460,7 @@ ul.subnav, /* (?) не понятно к чему */
 .topic-tab {
 	transition: 0.3s ease;
 	transition: .3s ease;
-	-webkit-transition: .3s ease; /* Safari, Chrome, iOS */
+	-webkit-transition: .3s ease; /* Chrome, Safari, iOS */
 	-moz-transition: .3s ease; /* Firefox */
 	-o-transition: .3s ease; /* Opera */
 }
@@ -1570,13 +1717,10 @@ html ul.topnav li ul.subnav li a {
 }
 /* (!)*диапазон < 500px */
 @media screen and (max-width: 500px) {
-	.popups {
-		max-width: 50vw;
-		z-index: 4;
-	}
+	.popups {max-width: 50vw;}
 	.toolbar-banner,
 	.toolbar,
-	.banner {z-index: 3;}
+	.banner {z-index: 1;}
 	/* 'убираем тень */
 	.nav-pane,
 	.content-box,
@@ -1590,16 +1734,15 @@ html ul.topnav li ul.subnav li a {
 	.nav-pane {
 		right: 0;
 		width: auto; height: 344px;
-		z-index: 1;
 	}
+	.topic-pane,
+	.nav-pane {z-index: 0;}
 
 	.splitter-right {display: none;}
 	.splitter-bottom {display: block;}
 
-	.topic-pane {
-		left: 0; top: 458px;
-		z-index: 2;
-	}
+	.topic-pane {left: 0; top: 458px;}
+
 	.topic-pane-banner {top: 574px;}
 	.topic-pane-extend {top: 104px;} /* - без пан.нав.банер скрыт */
 	.topic-pane-expand {top: 220px;} /* - без пан.нав.банер раскрыт */
@@ -1681,6 +1824,7 @@ html ul.topnav li ul.subnav li a {
 	.toolbar-right {justify-content: space-around;}
 
 	.toolbar-box-search span {top: 10px;}
+	.toolbar-box-center span.text-wrap {width: auto;}
 
 	.nav-pane {top: 154px;}
 	.nav-pane-banner {top: 270px;}
@@ -1813,6 +1957,36 @@ html ul.topnav li ul.subnav li a {
 	.toolbar-box-search span {top: 14px;}
 	.toolbar-box-left span.text-wrap,
 	.toolbar-box-center span.text-wrap {width: auto;}
+	/**анимация подсказки для кнопки e-mail */
+	.feedback-tooltip {
+		transform: translate(-40px, -40px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-40px, -40px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-40px, -40px) scale(0); /* Firefox */
+		-o-transform: translate(-40px, -40px) scale(0); /* Opera */
+		-ms-transform: translate(-40px, -40px) scale(0); /* IE */
+	}
+	.feedback-tooltip-triangle {
+		border-left: none;
+		border-right: 30px solid transparent;
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-40px, -40px) scale(.1);
+			-webkit-transform: translate(-40px, -40px) scale(.1);
+			-moz-transform: translate(-40px, -40px) scale(.1);
+			-o-transform: translate(-40px, -40px) scale(.1);
+			-ms-transform: translate(-40px, -40px) scale(.1);
+		}
+		100% {
+			transform: translate(0px, 60px);
+			-webkit-transform: translate(0px, 60px);
+			-moz-transform: translate(0px, 60px);
+			-o-transform: translate(0px, 60px);
+			-ms-transform: translate(0px, 60px);
+			opacity: 1;
+		}
+	}
 
 	.nav-pane {top: 204px;}
 	.nav-pane-banner {top: 320px;}
@@ -1901,7 +2075,7 @@ html ul.topnav li ul.subnav li a {
 	.topic-pane-banner {top: 578px;} /* - с пан.нав.баннер раскрыт */
 	.topic-pane-extend {top: 104px;} /* - без пан.нав.банер скрыт */
 	.topic-pane-expand {top: 220px;} /* - без пан.нав.банер раскрыт */
-	/* (!) Анимация < 397 */
+	/* (!) Анимация < 226 */
 	/**баннер */
 	/* x использовалась в ф.animateBanner */
 	/* @keyframes panelBannerShow {
@@ -1922,4 +2096,32 @@ html ul.topnav li ul.subnav li a {
 	} */
 }
 /* (!)*диапазон < 220px */
-@media screen and (max-width: 220px) {.toolbar-search {min-width: fit-content;}}
+@media screen and (max-width: 220px) {
+	.toolbar-search {min-width: fit-content;}
+	/**анимация подсказки для кнопки e-mail */
+	.feedback-tooltip {
+		transform: translate(-34px, -40px) scale(0); /* (x, y) */
+		-webkit-transform: translate(-34px, -40px) scale(0); /* Chrome, Safari, iOS */
+		-moz-transform: translate(-34px, -40px) scale(0); /* Firefox */
+		-o-transform: translate(-34px, -40px) scale(0); /* Opera */
+		-ms-transform: translate(-34px, -40px) scale(0); /* IE */
+	}
+	@keyframes tooltipToAppear {
+		0% {
+			opacity: 0;
+			transform: translate(-34px, -40px) scale(.1);
+			-webkit-transform: translate(-34px, -40px) scale(.1);
+			-moz-transform: translate(-34px, -40px) scale(.1);
+			-o-transform: translate(-34px, -40px) scale(.1);
+			-ms-transform: translate(-34px, -40px) scale(.1);
+		}
+		100% {
+			transform: translate(-20px, 46px);
+			-webkit-transform: translate(-20px, 46px);
+			-moz-transform: translate(-20px, 46px);
+			-o-transform: translate(-20px, 46px);
+			-ms-transform: translate(-20px, 46px);
+			opacity: 1;
+		}
+	}
+}

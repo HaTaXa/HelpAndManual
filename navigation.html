@@ -14,6 +14,9 @@
 	<meta name="description" content="&nbsp;"/>
 	<!-- (!) подключение стилей -->
 	<link rel="stylesheet" href="css/navigation.css"> <!-- 'взято из hmcontent.htm, было прописано внутри страницы в хеде -->
+	<!-- (!) подключение скриптов + см.внизу -->
+	<script src="js/settings.js"></script>
+	<script type="text/javascript">forceReDirect();</script>
 
 <!--[if lte IE 8]>
 	<style type="text/css">
@@ -329,21 +332,36 @@
 	</div>
 	<!-- (!) idTocFooter-Нижний колонтитул -->
 	<div id="idTocFooter" class="toc-footer">
-		<p>Разработчик и автор инструкций:<br>
+		<p>Разработчик сайта и автор инструкций:<br>
 			<a href="https://hataxa.github.io/HelpAndManual/" target="_blank"><i>Солянина<br> Натал<u>И</u>я Владиславовна</i></a>
 		</p>
-		<p><a href="mailto:solanina@yandex.ru" title="Разработчик и автор инструкций">
-				<img class="feed-back-on" src="icon/email.png" onmouseover="this.src='icon/HaTaXa.jpg'" onmouseout="this.src='icon/email.png'"/>
-			</a>
-			<br>E-mail
-		</p>
+		<a class="feedback-link" href="mailto:solanina@yandex.ru" title="Солянина НаталИя Владиславовна">
+			<!-- <img class="email-feedback" src="icon/email.png" onmouseover="this.src='icon/HaTaXa.jpg'" onmouseout="this.src='icon/email.png'"> -->
+			<img class="feedback-icon" src="icon/email.png">
+			<div class="feedback-tooltip">
+				<div class="feedback-tooltip-triangle"></div>
+				<div class="feedback-tooltip-title title-txt-custom">
+					<span>Frontend-</span>
+				</div>
+				<div class="feedback-tooltip-title title-txt-top">
+					<span>Солянина НаталИя Владиславовна</span>
+				</div>
+				<div class="feedback-tooltip-title title-txt-center">
+					<span>СНВ</span>
+					<span>HaTaXa</span>
+				</div>
+				<div class="feedback-tooltip-title title-txt-bottom">
+					<span>Разработчик сайта и автор инструкций</span>
+				</div>
+			</div>
+		</a>
+		<p>E-mail</p>
 		<p class="hr">
 			<a href="https://hataxa.github.io/HelpAndManual/" target="_blank">Официальный сайт</a>,&nbsp;
 			<a href="mailto:user231082@gmail.com">Электронная почта</a>
 		</p>
 		<p>&copy;&nbsp;«<a href="https://hataxa.github.io/HelpAndManual/" target="_blank">HaTaXa</a>» 2021-2023</p>
 	</div> <!-- idTocFooter the end -->
-
 	<!-- *** асинхронное подключение скриптов js, jQuery *** -->
 	<!-- локальное подключение библиотеки jquery: несжатый -->
 	<script src="js/jquery-3.6.0.js"></script>

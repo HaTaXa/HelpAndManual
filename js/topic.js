@@ -40,7 +40,7 @@ window.addEventListener('load', function () { // - js. Сработает, ка�
 			}
 		}
 	}
-}, false); // - false - фаза "всплытие"
+}, false); // false - фаза "всплытие"
 // (!) *document
 $(document).ready(function () { // - jq
 	if (document !== null && typeof(document) === "object") {
@@ -63,18 +63,18 @@ $(document).ready(function () { // - jq
 					// (i) в Firefox не работает
 					let msg = {
 						value: "setShowHideWindow",
-						winId: ["idPermaLink", "idTabsMenuBox"],
+						winId: ["idPermalinkBox", "idTabsMenuBox"],
 						winHide: "hide"
 					};
 					window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 				} else {
 					let elems = [
-						window.top.document.getElementById('idPermaLink'),
+						window.top.document.getElementById('idPermalinkBox'),
 						window.top.document.getElementById('idTabsMenuBox')
 					];
 					elems.forEach(item => {
 						if (item.style.display !== "none") {
-							if (item.id === "idPermaLink") { window.top.clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+							if (item.id === "idPermalinkBox") { window.top.clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 							setShowHideWindow(item, 'hide');
 						}
 					});
@@ -90,7 +90,8 @@ $(document).ready(function () { // - jq
 						if (location.origin === "file://") {
 							let msg = {
 								value: "setPushState",
-								currP: e.target.getAttribute('href')
+								currP: e.target.getAttribute('href'),
+								winName: window.name
 							};
 							window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 						} else {
@@ -103,7 +104,7 @@ $(document).ready(function () { // - jq
 						}
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
 		// (!) idLinksComment
 		if (document.getElementById('idLinksComment') !== null && typeof (document.getElementById('idLinksComment')) === "object") {
@@ -114,7 +115,7 @@ $(document).ready(function () { // - jq
 						showComments();
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
 		// (!) idMsgBox-всплывающее окно сообщения
 		if (document.getElementById('idMsgBox') !== null && typeof (document.getElementById('idMsgBox')) === "object") {
@@ -125,7 +126,7 @@ $(document).ready(function () { // - jq
 						toggleMsgBox(e.target); // - переключить всплывающее окно сообщения
 					}
 				}
-			}, false); // - false - фаза "всплытие"
+			}, false); // false - фаза "всплытие"
 		}
 		// (!) idContentText
 		if (document.getElementById('idContentText') !== null && typeof (document.getElementById('idContentText')) === "object") {

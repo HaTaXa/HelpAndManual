@@ -30,7 +30,7 @@ https://itchief.ru/javascript/preloader
 */
 .loaded-hiding {
 	transition: .9s opacity;
-	-webkit-transition: .9s opacity; /* Safari, Chrome, iOS */
+	-webkit-transition: .9s opacity; /* Chrome, Safari, iOS */
 	-moz-transition: .9s opacity; /* Firefox */
 	-o-transition: .9s opacity; /* Opera */
 	opacity: 0;

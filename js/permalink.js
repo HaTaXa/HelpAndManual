@@ -71,11 +71,11 @@ function permalink_onClick(eVent) {
 	if (eVent.target.tagName === "DIV") {
 		if (eVent.target.id === "idPermaLinkClose") { // - кнопка закрыть всплывающее окно Постоянная ссылка
 			let plnk = eVent.target;
-			while (plnk.id !== "idPermaLink") {
+			while (plnk.id !== "idPermalinkBox") {
 				plnk = plnk.parentElement;
 				if (plnk.tagName === "BODY") { break; }
 			}
-			if (plnk.id === "idPermaLink") {
+			if (plnk.id === "idPermalinkBox") {
 				// tmp: - переделать
 				clearPermalink(); // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 				setShowHideWindow(plnk, 'hide');
@@ -145,7 +145,7 @@ function setEventHandlersPermalink(elem, addOrRemove = "") {
 	}
 	let plnk;
 	if (typeof(elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
-		plnk = document.getElementById('idPermaLink');
+		plnk = document.getElementById('idPermalinkBox');
 		if (plnk === null) {
 			console.error(`(!) Косяк: не удалось создать/удалить обработчик события - не найден элемент:\n function setEventHandlersPermalink(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, addOrRemove: "${addOrRemove}")`);
 			alert(`(!) Косяк: не удалось создать/удалить обработчик события - не найден элемент, см.консоль.`);
