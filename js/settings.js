@@ -1,5 +1,5 @@
 // (!) принудительная переадрессация
-var forceReDirect = function () {
+let forceReDirect = function () {
 	if (window === top || window.name === "") {
 		// *при локальном использовании или http://127.0.0.1
 		if (location.origin === "file://" || location.origin === "http://127.0.0.1") return;

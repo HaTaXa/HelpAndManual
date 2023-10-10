@@ -933,8 +933,8 @@ x не используется
 	word-wrap: break-word;
 	word-break: normal; /* - чтобы игнорировались "черточки" - перенос текста */
 	word-spacing: normal; /* - нормальный интервал между словами, определенный текущим шрифтом и/или браузером */
-	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
-	-moz-hyphens: auto;
+	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none для Chrome, с Firefox все сложнее */
+	-moz-hyphens: auto; /* - все равно не работает */
 	-ms-hyphens: auto;
 }
 .title-txt-top {
@@ -1057,9 +1057,9 @@ x не используется
 .btn-text-off {color: #a1a1a1;}
 .btn-text-off,
 .btn-text-on {
-	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none */
-	-moz-hyphens: none;
-	-ms-hyphens: none;
+	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none для Chrome, с Firefox все сложнее */
+	-moz-hyphens: auto; /* - все равно не работает */
+	-ms-hyphens: auto;
 }
 /* (!) Панель навигации */
 /**Предотвращение выбора инструментов */
