@@ -627,8 +627,8 @@ function setReSizeViewerImg(elem) {
 	}
 	// *определяем высоту lightbox
 	let lbxHeight = null;
-	// *отталкиваемся от высоты видимой части контента, т.е.высота lightbox = высоте idTopicContent.clientHeight - видимая часть контента на стр.
-	let idTpCnt = document.getElementById('idTopicContent');
+	// *отталкиваемся от высоты видимой части контента, т.е.высота lightbox = высоте idTopicBody.clientHeight - видимая часть контента на стр.
+	let idTpCnt = document.getElementById('idTopicBody');
 	if (idTpCnt === null) { // - копия lightbox создана в глобальном окне, а не открыта отд.окном
 		lbxHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
 	} else { // - lightbox во фрейме или стр.открыта отд.окном
@@ -749,7 +749,7 @@ function setToggleElement(elem = null, btnChecked = null) {
 		}
 		let elems; // 'toggle-content - tagName: div/span; lightbox's - tagName div; dropdown-toggle/inline-toggle - tagName a; toggle-icon - tagName img
 		if (btnChecked) { // - отображаем
-			elems = document.getElementById('idTopicContent').querySelectorAll('.toggle-content');
+			elems = document.getElementById('idTopicBody').querySelectorAll('.toggle-content');
 			if (elems.length < 1) {
 				console.error(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент:\n function setToggleElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, btnChecked: ${btnChecked}):\n elems: typeof(${typeof(elems)}) / Object(${Object(elems)}) / ${elems}`);
 				alert(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент, см.консоль.`);
@@ -784,7 +784,7 @@ function setToggleElement(elem = null, btnChecked = null) {
 				});
 			}
 			// 'link's - tagName a: dropdown-toggle/inline-toggle
-			elems = document.getElementById('idTopicContent').querySelectorAll('.toggle-hidden');
+			elems = document.getElementById('idTopicBody').querySelectorAll('.toggle-hidden');
 			if (elems.length < 1) {
 				console.error(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент:\n function setToggleElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, btnChecked: ${btnChecked}):\n elems: typeof(${typeof(elems)}) / Object(${Object(elems)}) / ${elems}`);
 				alert(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент, см.консоль.`);
@@ -796,7 +796,7 @@ function setToggleElement(elem = null, btnChecked = null) {
 			}
 		} else { // - скрываем
 			// 'lightbox's - tagName div
-			elems = document.getElementById('idTopicContent').querySelectorAll('.lightbox');
+			elems = document.getElementById('idTopicBody').querySelectorAll('.lightbox');
 			if (elems.length < 1) {
 				console.error(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент:\n function setToggleElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, btnChecked: ${btnChecked}):\n elems: typeof(${typeof(elems)}) / Object(${Object(elems)}) / ${elems}`);
 				alert(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент, см.консоль.`);
@@ -807,7 +807,7 @@ function setToggleElement(elem = null, btnChecked = null) {
 				});
 			}
 			// 'toggle-content - tagName: div/span
-			elems = document.getElementById('idTopicContent').querySelectorAll('.toggle-content');
+			elems = document.getElementById('idTopicBody').querySelectorAll('.toggle-content');
 			if (elems.length < 1) {
 				console.error(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент:\n function setToggleElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, btnChecked: ${btnChecked}):\n elems: typeof(${typeof(elems)}) / Object(${Object(elems)}) / ${elems}`);
 				alert(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент, см.консоль.`);
@@ -817,7 +817,7 @@ function setToggleElement(elem = null, btnChecked = null) {
 				});
 			}
 			// 'link's - tagName a: dropdown-toggle/inline-toggle
-			elems = document.getElementById('idTopicContent').querySelectorAll('.toggle-shown');
+			elems = document.getElementById('idTopicBody').querySelectorAll('.toggle-shown');
 			if (elems.length < 1) {
 				console.error(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент:\n function setToggleElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, btnChecked: ${btnChecked}):`);
 				alert(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент, см.консоль.`);
@@ -829,7 +829,7 @@ function setToggleElement(elem = null, btnChecked = null) {
 			}
 		}
 		// 'icon's - tagName img: toggle-icon
-		elems = document.getElementById('idTopicContent').querySelectorAll('.toggle-icon');
+		elems = document.getElementById('idTopicBody').querySelectorAll('.toggle-icon');
 		if (elems.length < 1) {
 			console.error(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент:\n function setToggleElement(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, btnChecked: ${btnChecked}):\n elems: typeof(${typeof(elems)}) / Object(${Object(elems)}) / ${elems}`);
 			alert(`(!) Косяк: не удалось выполнить переключение элементов скрытого контента - не найден элемент, см.консоль.`);

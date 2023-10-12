@@ -571,7 +571,7 @@ function setTabShowHide (currentTab, valueShowHide = "") {
 		return;
 	}
 	let tabs = currentTab.parentElement;
-	let boxes = window.top.document.getElementById('idContentBox');
+	let boxes = window.top.document.getElementById('idTopicContent');
 	let boxNum = +currentTab.getAttribute('tabnum');
 	if (valueShowHide === "show") {
 		if (currentTab.classList.contains('topic-tab-current')) return;

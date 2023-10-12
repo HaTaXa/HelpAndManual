@@ -671,7 +671,7 @@ img#social_off {border-color: transparent;}
 .nav-pane,
 .nav-box,
 .tabs-menu,
-.content-box,
+.topic-content,
 .toolbar-table, /* (?) нигде не фигурирует */
 .toolbar-banner,
 .toolbar {border-color: #000000;}
@@ -689,7 +689,7 @@ img#social_off {border-color: transparent;}
 /**Border */
 .nav-pane,
 .nav-box,
-.content-box,
+.topic-content,
 .toolbar-banner,
 .toolbar {
 	margin: 4px;
@@ -700,7 +700,7 @@ img#social_off {border-color: transparent;}
 }
 /**Shadows - тень */
 .nav-pane,
-.content-box,
+.topic-content,
 .toolbar-banner,
 .toolbar {
 	box-shadow: 2px 2px 2px #3f3f3f;
@@ -1512,8 +1512,8 @@ ul.subnav, /* (?) не понятно к чему */
 	z-index: 1;
 	display: none;
 }
-/* (!).content-box-содержимое контейнеров */
-.content-box {
+/* (!).topic-content-содержимое контейнеров */
+.topic-content {
 	position: absolute;
 	top: 25px; left: 0; right: 0; bottom: 0;
 	border-radius: 5px;
@@ -1522,15 +1522,15 @@ ul.subnav, /* (?) не понятно к чему */
 }
 
 .topic-box,
-.content-box {background-color: #fff;}
+.topic-content {background-color: #fff;}
 /* (i).topic-box-имя класса так же присутствует в стилях topic.css, но правила разные */
 .new-tab-box, /* (?) предположительно класс создается кодом js */
 .search-box,
 .keywords-box,
 .topic-box {
 	position: absolute;
-	left: 2px; right: 2px; top: 0; bottom: 0;
-	/* display: block; */
+	left: 2px; right: 2px;
+	top: 0; bottom: 0;
 }
 /* (?) не понятно где и для чего */
 .interface {
@@ -1543,7 +1543,7 @@ ul.subnav, /* (?) не понятно к чему */
 .panes .pane {/* display: none; */}
 /* (!) ul.topnav-выпадающее меню в заголовке баннера
 (?) Видимо оно не было загружено в скине, т.к.некоторые опции были платными
- X скорее всего эта часть не понадобится */
+x скорее всего эта часть не понадобится */
 ul.topnav {
 	position: absolute;
 	bottom: 0px; right: 0;
@@ -1723,7 +1723,7 @@ html ul.topnav li ul.subnav li a {
 	.banner {z-index: 1;}
 	/* 'убираем тень */
 	.nav-pane,
-	.content-box,
+	.topic-content,
 	.toolbar-banner,
 	.toolbar {
 		box-shadow: none;

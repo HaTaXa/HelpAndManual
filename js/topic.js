@@ -3,7 +3,7 @@
 // window.addEventListener('resize', function (e) {
 // 	reSizeTopicContent(); // изменение размера расположения контент-текста
 // }, false); // false - фаза "всплытие"
-window.addEventListener('resize', reSizeTopicContent, false); // false - фаза "всплытие" // - изменение размера расположения контент-текста
+// window.addEventListener('resize', reSizeTopicContent, false); // false - фаза "всплытие" // x изменение размера расположения контент-текста
 window.addEventListener('load', function () { // - js. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готово
 	if (window === top || window.name === "") { // (i) окно элемента яв-ся главным, например, при запуске отдельной страницей или через ctrl+клик из общего проекта
 		writeBreadCrumbs([]); // - заполнение топика навигационными ссылками
@@ -231,7 +231,7 @@ function reSizeTopicContent() {
 		top: headerHeight + msgHeight,
 		bottom: footerHeight
 	};
-	elem = document.getElementById('idTopicContent');
+	elem = document.getElementById('idTopicBody');
 	if (topicContent.top > 0) {
 		elem.style.top = topicContent.top + "px";
 	}
@@ -261,10 +261,10 @@ function setMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 			document.getElementById('idMsgBtn').classList.remove('msg-show');
 		}
 		elem.removeAttribute('style');
-		reSizeTopicContent(); // - изменение размера расположения контент-текста
+		// reSizeTopicContent(); // - изменение размера расположения контент-текста
 	}
 }
-// X writeMsgBox-создать всплывающее окно сообщения
+// x writeMsgBox-создать всплывающее окно сообщения
 function writeMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 	if (msgBox === "disable") return; // (i) в условии намеренно не используется проверка на null/""/undefined, чтобы в переменной аргумента этот параметр можно было опускать как необязательный
 	if (msgText === "") {
@@ -274,7 +274,7 @@ function writeMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 	}
 	// *проверяем существование узла, если он существует, назначаем ему обработчик события, если нет, создаем его.
 	if (document.getElementById('idMsgBox') === null && document.getElementById('idMsgBox') !== Object(document.getElementById('idMsgBox'))) { // 'НЕ объект HTMLDivElement
-		let elem = document.getElementById('idTopicContent');
+		let elem = document.getElementById('idTopicBody');
 		if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) {
 			console.error(`(!) Косяк - не удалось определить положение для вставки всплывающего окна сообщения:\n function writeMsgBox(msgBox = "${msgBox}", msgBtn = ${msgBtn}, msgText = "${msgText}"):\n elem: ${elem} / typeof(${typeof (elem)}) / ${Object(elem)}`);
 			alert(`(!) Косяк - не удалось определить положение для вставки всплывающего окна сообщения, см.консоль.`);
@@ -295,7 +295,7 @@ function writeMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 			}
 		}
 	}, false); // - false - фаза "всплытие"
-	reSizeTopicContent(); // - изменение размера расположения контент-текста
+	// reSizeTopicContent(); // - изменение размера расположения контент-текста
 }
 // (!) toggleMsgBox - переключить всплывающее окно сообщения
 function toggleMsgBox(elem) {
@@ -337,5 +337,5 @@ function toggleMsgBox(elem) {
 		alert(`(!) Косяк - не удалось изменить элементу класс, см.консоль.`);
 		return;
 	}
-	reSizeTopicContent(); // - изменение размера расположения контент-текста
+	// reSizeTopicContent(); // - изменение размера расположения контент-текста
 }

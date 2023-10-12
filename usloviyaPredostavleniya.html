@@ -44,33 +44,36 @@
 	<div id="idTopicBox" class="topic-box">
 		<!-- (!) idTopicHeader -->
 		<div id="idTopicHeader" class="topic-header">
-			<!-- (!) idHeaderContent -->
-			<div id="idHeaderContent" class="header-content">
-				<div id="idNavLinks" class="nav-links">
-					<div id="idAutoToc" class="auto-toc">
-						<img id="idAutoTocIcon" class="btn-icon" src="icon/contents-off.png" title="На этой странице содержание отсутствует">
-						<span class="btn-text">Содержание</span>
-					</div>
-					<p>
-						<span class="sync-toc">&lt;&lt;&nbsp;
-							<a class="sync-toc-link" rel="nofollow" href="index.html?usloviyaPredostavleniya.html" target="_top">Просмотреть оглавление</a>&nbsp;&gt;&gt;
-						</span>
-						<span class="sync-toc-off">Навигация:&nbsp;</span>
-						<noscript>
-							<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
-							<span class="sync-toc-off"><a href="standartNPAbssGlavbyx.html" target="hmcontent">Стандарт НПА БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
-							<span class="sync-toc-off"><a href="srzNPAbssGlavbyx.html" target="hmcontent">СРЗ НПА БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
-							<span class="sync-toc-off"><a href="instrykciya_7.html" target="hmcontent">Инструкция «Шаблон MS Word 2003 &quot;Региональный.dot&quot;»</a>:</span>
-						</noscript>
-					</p>
+			<div id="idNavLinks" class="nav-links">
+				<div id="idTocPage" class="toc-page">
+					<img id="idTocPageIcon" class="btn-icon" src="icon/contents-off.png" title="На этой странице содержание отсутствует">
+					<span class="btn-text">Содержание</span>
 				</div>
-				<div class="title topic-title-scrolling reflect">
-					<p>Условия предоставления</p>
-				</div>
-			</div> <!-- idHeaderContent the end -->
+				<p>
+					<span class="sync-toc">&lt;&lt;&nbsp;
+						<a class="sync-toc-link" rel="nofollow" href="index.html?usloviyaPredostavleniya.html" target="_top">Просмотреть оглавление</a>&nbsp;&gt;&gt;
+					</span>
+					<span class="sync-toc-off">Навигация:&nbsp;</span>
+					<noscript>
+						<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
+						<span class="sync-toc-off"><a href="standartNPAbssGlavbyx.html" target="hmcontent">Стандарт НПА БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
+						<span class="sync-toc-off"><a href="srzNPAbssGlavbyx.html" target="hmcontent">СРЗ НПА БСС «Главбух»</a>&nbsp;&#47;&ensp;</span>
+						<span class="sync-toc-off"><a href="instrykciya_7.html" target="hmcontent">Инструкция «Шаблон MS Word 2003 &quot;Региональный.dot&quot;»</a>:</span>
+					</noscript>
+				</p>
+			</div>
+			<div class="title topic-title-scrolling reflect">
+				<p>Условия предоставления</p>
+			</div>
 		</div> <!-- idTopicHeader the end -->
-		<!-- (!) idAutoTocWrapper-Меню содержания -->
-		<div id="idAutoTocWrapper" class="topic-menu"></div>
+		<!-- (!) idMsgBox - всплывающее окно сообщения -->
+		<div id="idMsgBox" class="msg-box" style="display: none;">
+			<div id="idMsgContent" class="msg-content" style="display: none;">
+				<div id="idMsgImg" class="msg-icon msg-info"></div>
+				<div id="idMsgText" class="msg-text"></div>
+			</div>
+			<div id="idMsgBtn" class="msg-btn" title="Скрыть/Показать информационное сообщение"></div>
+		</div> <!-- idMsgBox the end -->
 		<!-- (!) idLinksComment-Комментарии
 			*см.функцию в файле comments.js -->
 		<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
@@ -79,16 +82,10 @@
 				<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
 			</p>
 		</div> <!-- idLinksComment the end -->
-		<!-- (!) idMsgBox - всплывающее окно сообщения -->
-		<div id="idMsgBox" class="msg-box" style="display: none;">
-			<div id="idMsgContent" class="msg-content" style="display: none;">
-				<div id="idMsgImg" class="msg-info"></div>
-				<div id="idMsgText" class="msg-text"></div>
-			</div>
-			<div id="idMsgBtn" class="msg-btn" title="Скрыть/Показать информационное сообщение"></div>
-		</div> <!-- idMsgBox the end -->
-		<!-- (!) idTopicContent -->
-		<div id="idTopicContent" class="topic-content">
+		<!-- (!) idTopicMenu-Меню содержания -->
+		<div id="idTopicMenu" class="topic-menu"></div>
+		<!-- (!) idTopicBody -->
+		<div id="idTopicBody" class="topic-body">
 			<div id="idUnclicker"></div>
 			<!-- (!) idContentText -->
 			<div id="idContentText" class="content-text">
@@ -141,7 +138,7 @@
 					</p>
 				</div> <!-- idContentFooter the end -->
 			</div> <!-- idContentText the end -->
-		</div> <!-- idTopicContent the end -->
+		</div> <!-- idTopicBody the end -->
 		<!-- (!) idTopicFooter -->
 		<div id="idTopicFooter" class="topic-footer">
 			<div id="idTopicFooterLeft" class="topic-footer-left">

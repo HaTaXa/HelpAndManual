@@ -1,8 +1,6 @@
 // document.addEventListener("DOMContentLoaded", function () {}, false); // - js. Дожидаемся, когда Объектная модель документа страницы (DOM) будет готова к выполнению кода JavaScript
 // (!) *window
 window.addEventListener("load", function () { // - js. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готово
-	// X обработчик события resize прописываем здесь, т.к.заранее не известно когда и как будут/были загружены панели idNavPane & idTopicPane
-	// window.addEventListener('resize', reSizePanels);
 	// *обновляем глобальные переменные в variables.js
 	// (i) если вариант 1
 	if (hmpermalink.url !== location.href) { // 'перестраховка
@@ -101,7 +99,7 @@ $(document).ready(function () { // - jq
 				hmtopicvars.msgBtn = event.data.msgBtn; // - обновляем глобальную переменную в variables.js
 			} else if (event.data.value === "setImageFullScreen") {
 				// 'image full screen - вывод текущего lightbox в гл.окне
-				console.log(`event.data: \n 1) .value: ${event.data.value}\n 2) .clone: ${event.data.clone}\n---\n event.data.clone.classList: ${event.data.clone.classList}\n event.data.clone === null: ${event.data.clone === null}\n typeof(event.data.clone): ${typeof(event.data.clone)}\n event.data.clone === Object(event.data.clone): ${event.data.clone === Object(event.data.clone)}\n (event.data.clone === null && typeof(event.data.clone) === "object"): ${event.data.clone === null && typeof(event.data.clone) === "object"}\n---`); // x -
+				// console.log(`event.data: \n 1) .value: ${event.data.value}\n 2) .clone: ${event.data.clone}\n---\n event.data.clone.classList: ${event.data.clone.classList}\n event.data.clone === null: ${event.data.clone === null}\n typeof(event.data.clone): ${typeof(event.data.clone)}\n event.data.clone === Object(event.data.clone): ${event.data.clone === Object(event.data.clone)}\n (event.data.clone === null && typeof(event.data.clone) === "object"): ${event.data.clone === null && typeof(event.data.clone) === "object"}\n---`); // x -
 				// (i) нельзя передать узел/копию DOM-элемента в другое окно/фрейм, см.спецификацию
 				setImageFullScreen(event.data.clone); // - создать изо.во весь экран
 			} else if (event.data.value === "setShowHideWindow") {
@@ -1088,7 +1086,7 @@ function setGoToPage (elem) {
 	// } else {
 	// 	document.getElementById('hmnavigation').contentWindow.goToPage(null, currP, false); // - перейти на страницу выполнив обновление глобальных переменных в variables.js
 	// } // 'если вариант 2
-	// X let tab = document.getElementById('idTopicTab');
+	// x let tab = document.getElementById('idTopicTab');
 	// if (!tab.classList.contains('topic-tab-current')) {
 	// 	setTabShowHide(tab, 'show'); // показать/скрыть текущую вкладку
 	// }
@@ -1118,7 +1116,7 @@ function goToPageNext (elem) {
 // (!) goToTab - переход между вкладками
 function goToTab (currentTab) {
 	let tabs = document.getElementById('idTopicTabs');
-	let boxes = document.getElementById('idContentBox');
+	let boxes = document.getElementById('idTopicContent');
 
 	if (currentTab.id === "idTabFirst") {
 		if (tabs.children[0].classList.contains('topic-tab-current')) {

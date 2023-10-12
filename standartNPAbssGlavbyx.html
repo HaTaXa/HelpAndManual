@@ -44,48 +44,45 @@
 	<div id="idTopicBox" class="topic-box">
 		<!-- (!) idTopicHeader -->
 		<div id="idTopicHeader" class="topic-header">
-			<!-- (!) idHeaderContent -->
-			<div id="idHeaderContent" class="header-content">
-				<div id="idNavLinks" class="nav-links">
-					<div id="idAutoToc" class="auto-toc">
-						<img id="idAutoTocIcon" class="btn-icon" src="icon/contents-off.png" title="На этой странице содержание отсутствует">
-						<span class="btn-text">Содержание</span>
-					</div>
-					<p>
-						<span class="sync-toc">&lt;&lt;&nbsp;
-							<a class="sync-toc-link" rel="nofollow" href="index.html?standartNPAbssGlavbyx.html" target="_top">Просмотреть оглавление</a>&nbsp;&gt;&gt;
-						</span>
-						<span class="sync-toc-off">Навигация:&nbsp;</span>
-						<noscript>
-							<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>:</span>
-						</noscript>
-					</p>
+			<div id="idNavLinks" class="nav-links">
+				<div id="idTocPage" class="toc-page">
+					<img id="idTocPageIcon" class="btn-icon" src="icon/contents-off.png" title="На этой странице содержание отсутствует">
+					<span class="btn-text">Содержание</span>
 				</div>
-				<div class="title topic-title-scrolling reflect reflect">
-					<p>Стандарт НПА БСС «Главбух»</p>
-				</div>
-			</div> <!-- idHeaderContent the end -->
+				<p>
+					<span class="sync-toc">&lt;&lt;&nbsp;
+						<a class="sync-toc-link" rel="nofollow" href="index.html?standartNPAbssGlavbyx.html" target="_top">Просмотреть оглавление</a>&nbsp;&gt;&gt;
+					</span>
+					<span class="sync-toc-off">Навигация:&nbsp;</span>
+					<noscript>
+						<span class="sync-toc-off"><a href="esd_bss_glavbyx.html" target="hmcontent">ЕСД БСС «Главбух»</a>:</span>
+					</noscript>
+				</p>
+			</div>
+			<div class="title topic-title-scrolling reflect">
+				<p>Стандарт НПА БСС «Главбух»</p>
+			</div>
 		</div> <!-- idTopicHeader the end -->
-		<!-- (!) idAutoTocWrapper-Меню содержания -->
-		<div id="idAutoTocWrapper" class="topic-menu"></div>
-		<!-- (!) idLinksComment-Комментарии
-			*см.функцию в файле comments.js -->
-		<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
-		<div id="idLinksComment" class="links-comment">
-			<p id="idCommentLink1" class="comment-para comment-link1">
-				<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
-			</p>
-		</div> <!-- idLinksComment the end -->
-		<!-- (!) idMsgBox - всплывающее окно сообщения -->
+		<!-- (!) idMsgBox - всплывающее окно сообщения - работает через глобальную переменную в variables.js -->
 		<div id="idMsgBox" class="msg-box" style="display: none;">
 			<div id="idMsgContent" class="msg-content" style="display: none;">
-				<div id="idMsgImg" class="msg-info"></div>
+				<div id="idMsgImg" class="msg-icon msg-info"></div>
 				<div id="idMsgText" class="msg-text"></div>
 			</div>
 			<div id="idMsgBtn" class="msg-btn" title="Скрыть/Показать информационное сообщение"></div>
 		</div> <!-- idMsgBox the end -->
-		<!-- (!) idTopicContent -->
-		<div id="idTopicContent" class="topic-content">
+		<!-- (!) idLinksComment-Комментарии
+			*см.функцию в файле comments.js -->
+		<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
+		<div id="idLinksComment" class="links-comment" style="display: none;">
+			<p id="idCommentLink1" class="comment-para comment-link1">
+				<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
+			</p>
+		</div> <!-- idLinksComment the end -->
+		<!-- (!) idTopicMenu-Меню содержания -->
+		<div id="idTopicMenu" class="topic-menu" style="display: none;"></div>
+		<!-- (!) idTopicBody -->
+		<div id="idTopicBody" class="topic-body">
 			<div id="idUnclicker"></div> <!-- (?) -->
 			<!-- (!) idContentText -->
 			<div id="idContentText" class="content-text">
@@ -332,7 +329,7 @@
 					</p>
 				</div> <!-- idContentFooter the end -->
 			</div> <!-- idContentText the end -->
-		</div> <!-- idTopicContent the end -->
+		</div> <!-- idTopicBody the end -->
 		<!-- (!) idTopicFooter -->
 		<div id="idTopicFooter" class="topic-footer">
 			<div id="idTopicFooterLeft" class="topic-footer-left">
