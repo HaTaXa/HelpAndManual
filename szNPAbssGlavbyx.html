@@ -33,9 +33,9 @@
 	<!-- (!) loader - загрузчик -->
 	<script type="text/javascript">writeLoaderPreLoader();</script>
 	<noscript><div class="loader"><div class="loader-img"></div></div></noscript>
-	<!-- (!) idTopicTabs -->
-	<ul id="idTopicTabs" class="tabs">
-		<li id="idIndexTab" class="topic-tab topic-tab-current">
+	<!-- (!) idTabSliderTrack -->
+	<ul id="idTabSliderTrack" class="tab-slider-track">
+		<li id="idIndexTab" class="tabs tab-current">
 			<a href="#" id="idIndexTabLink">
 				<span>СЗ НПА БСС «Главбух»</span>
 			</a>
@@ -75,13 +75,13 @@
 		<!-- (!) idLinksComment-Комментарии
 			*см.функцию в файле comments.js -->
 		<!-- // <script type="text/javascript">writeCommentLink("1")</script> -->
-		<div id="idLinksComment" class="links-comment">
+		<div id="idLinksComment" class="links-comment" style="display: none;">
 			<p id="idCommentLink1" class="comment-para comment-link1">
 				<a id="idCommentToggle1" class="comment-link" href="#" title="Просмотр и добавление комментариев">Комментарии (<span class="comments">0</span>)</a>
 			</p>
 		</div> <!-- idLinksComment the end -->
 		<!-- (!) idTopicMenu-Меню содержания -->
-		<div id="idTopicMenu" class="topic-menu"></div>
+		<div id="idTopicMenu" class="topic-menu" style="display: none;"></div>
 		<!-- (!) idTopicBody -->
 		<div id="idTopicBody" class="topic-body">
 			<div id="idUnclicker"></div>

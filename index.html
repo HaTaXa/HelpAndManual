@@ -15,7 +15,7 @@
 	<meta name="robots" content="index,follow"/> <!-- 'для поисковиков -->
 	<meta name ="revisit-after" content="15 days"> <!-- 'посещение программой роботом сайта и индексирование его содержания -->
 	<meta name="description" content="Демонстрация вэб-сайта">
-	<meta name="keywords" content="HaTaXa,CHB,СНВ,Солянина НаталИя Владиславовна,ЕСД,ЕСД БСС «Главбух»,Help&Manual,Help & Manual,HelpAndManual,Help And Manual,HelpManual,Help Manual">
+	<meta name="keywords" content="HaTaXa,CHB,НаТаХа,СНВ,Солянина НаталИя Владиславовна,ЕСД,ЕСД БСС «Главбух»,Help&Manual,Help & Manual,HelpAndManual,Help And Manual,HelpManual,Help Manual">
 	<!-- (!) подключение стилей -->
 	<link rel="stylesheet" href="css/styles.css"> <!-- 'вместо hm_webhelp.css -->
 	<link rel="stylesheet" href="css/loading.css"> <!-- 'загрузчик -->
@@ -23,6 +23,7 @@
 	<link rel="stylesheet" href="css/animation.css">
 	<!-- (!) подключение скриптов + см.внизу -->
 	<script src="js/variables.js"></script>
+	<script src="js/settings.js"></script>
 	<script src="js/scripts.js"></script>
 
 	<!-- [if IE 9]>
@@ -30,7 +31,7 @@
 	<![endif] -->
 	<!-- [if lte IE 8]>
 		<style type="text/css">.toolbar, .toolbar-banner {background-image: url("icon/gb-banner.gif");}
-			topic-tab-current, div#idTabsCtab {background-image: url("icon/gb-banner.gif");}
+			tab-current, div#idTabsCtab {background-image: url("icon/gb-banner.gif");}
 		</style>
 	<![endif] -->
 </head>
@@ -248,23 +249,23 @@
 				</div>
 				<!-- (!)*idTabsWindow-вкладки топика -->
 				<div id="idTabsWindow" class="tabs-window">
-					<div id="idTabsLider" class="tabs-lider">
-						<ul id="idTopicTabs" class="tabs">
+					<div id="idTabSlider" class="tab-slider">
+						<ul id="idTabSliderTrack" class="tab-slider-track">
 							<!-- (!) idTopicTab-вкладка "Тема" -->
-							<li id="idTopicTab" class="topic-tab" tabnum="0">
+							<li id="idTopicTab" class="tabs" tabnum="0">
 								<a id="idTopicTabLink" href="#topictablink" data="Тема текста" title="Тема текста">
-									<span class="truncate">Тема текста</span>
+									<span>Тема текста</span>
 								</a>
 							</li>
 							<!-- (!) idIndexTab-вкладка "Ключевые слова" -->
-							<li id="idIndexTab" class="topic-tab" tabpage="index" tabnum="1">
+							<li id="idIndexTab" class="tabs" tabpage="index" tabnum="1">
 								<img class="close-tab" src="icon/closetaboff.png" title="Закрыть эту вкладку">
 								<a id="idIndexTabLink" href="#indextablink" title="Дважды щелкните, чтобы открепить вкладку «Ключевые слова»">
 									<span>Ключевые слова</span>
 								</a>
 							</li>
 							<!-- (!) idSearchTab-вкладка "Поиск" -->
-							<li id="idSearchTab" class="topic-tab" tabpage="search" tabnum="2">
+							<li id="idSearchTab" class="tabs" tabpage="search" tabnum="2">
 								<img class="close-tab" src="icon/closetaboff.png" title="Закрыть эту вкладку">
 								<a id="idSearchTabLink" href="#searchtablink" title="Дважды щелкните, чтобы открепить вкладку «Поиск»">
 									<span>Поиск</span>

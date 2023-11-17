@@ -41,18 +41,21 @@ function lightbox_onKeydown(eVent) {
 		// }
 	} else if (eVent.key === "Home" || eVent.code === "Home" || eVent.keyCode === 36 || eVent.which === 36) {
 		goToImage(eVent.target, eVent.code); // - переключение по изо.в lightbox
+		eVent.preventDefault(); // отменяем действия браузера по умолчанию
 	} else if (eVent.key === "End" || eVent.code === "End" || eVent.keyCode === 35 || eVent.which === 35) {
 		goToImage(eVent.target, eVent.code); // - переключение по изо.в lightbox
+		eVent.preventDefault(); // отменяем действия браузера по умолчанию
 	} else if (eVent.key === "ArrowLeft" || eVent.code === "ArrowLeft" || eVent.keyCode === 37 || eVent.which === 37) {
 		goToImage(eVent.target, eVent.code); // - переключение по изо.в lightbox
 	} else if (eVent.key === "ArrowUp" || eVent.code === "ArrowUp" || eVent.keyCode === 38 || eVent.which === 38) {
 		goToImage(eVent.target, eVent.code); // - переключение по изо.в lightbox
+		eVent.preventDefault(); // отменяем действия браузера по умолчанию
 	} else if (eVent.key === "ArrowRight" || eVent.code === "ArrowRight" || eVent.keyCode === 39 || eVent.which === 39) {
 		goToImage(eVent.target, eVent.code); // - переключение по изо.в lightbox
 	} else if (eVent.key === "ArrowDown" || eVent.code === "ArrowDown" || eVent.keyCode === 40 || eVent.which === 40) {
 		goToImage(eVent.target, eVent.code); // - переключение по изо.в lightbox
+		eVent.preventDefault(); // отменяем действия браузера по умолчанию
 	}
-	eVent.preventDefault(); // 'отменяем действия браузера по умолчанию
 }
 // (!) lightbox_onClick
 function lightbox_onClick(eVent) {
@@ -635,9 +638,10 @@ function setReSizeViewerImg(elem) {
 		lbxHeight = getValueFullSizeProperty(idTpCnt).height; // - получить полноразмерное значение св-ва
 	}
 	// *минусуем padding lightbox
-	// (i) не понятно почему не хочет воспринимать строку сразу с присвоением элементу значение стиля - ему как буд-то бы мешает: « + "px"» ???
 	lbxHeight = lbxHeight - (parseInt(getComputedStyle(elem, null).paddingTop, 10) + parseInt (getComputedStyle(elem, null).paddingBottom, 10));
-	elem.style.height = lbxHeight + "px";
+	if (window !== top || window.name !== "" && window.name === "hmcontent") {
+		elem.style.height = lbxHeight + "px";
+	}
 	// *определяем высоту у остальных элементов с учетом margin, padding, border, кот.не будут учитываться, т.к.box-sizing для.lightbox-img изменяет алгоритм расчета ширины и высоты элемента
 	let txtHeight = getValueFullSizeProperty(txt).height; // - получить полноразмерное значение св-ва
 	// *если изо.одиночное, чтобы вместо узла DOM элемента не получить « NAN »
@@ -988,6 +992,7 @@ function goToImage(elem, keyEvent = "") {
 						sldr.children[0].classList.add('slider-current');
 					}
 				}
+				sldr.scrollLeft -= sldr.scrollWidth; // - прокручиваем скроллбар
 			} else if (keyEvent === "End") {
 				if (i === sldr.children.length - 1) { // - изо.последнее
 					animationOffset(sldr); // - анимационное смещение
@@ -1009,6 +1014,7 @@ function goToImage(elem, keyEvent = "") {
 						sldr.children[sldr.children.length - 1].classList.add('slider-current');
 					}
 				}
+				sldr.scrollLeft += sldr.scrollWidth; // - прокручиваем скроллбар
 			} else if (elem.classList.contains('img-btn-prev') || keyEvent === "ArrowUp") {
 				if (i === 0) { // - изо.первое
 					// 'меняем изо.в окне просмотра
@@ -1026,6 +1032,7 @@ function goToImage(elem, keyEvent = "") {
 						sldr.children[i].classList.remove('slider-current');
 						sldr.children[sldr.children.length - 1].classList.add('slider-current');
 					}
+					sldr.scrollLeft += sldr.scrollWidth; // - прокручиваем скроллбар (перех.к последнему)
 				} else { // - изо.последнее или промежуточное
 					// 'меняем изо.в окне просмотра
 					if (img.src !== sldr.children[i - 1].firstElementChild.src) {
@@ -1042,6 +1049,7 @@ function goToImage(elem, keyEvent = "") {
 						sldr.children[i].classList.remove('slider-current');
 						sldr.children[i - 1].classList.add('slider-current');
 					}
+					sldr.scrollLeft -= sldr.children[i - 1].clientWidth / 2; // - прокручиваем скроллбар
 				}
 			} else if (elem.classList.contains('slider-btn-prev') || keyEvent === "ArrowLeft") {
 				if (i === 0) { // - изо.первое
@@ -1063,6 +1071,7 @@ function goToImage(elem, keyEvent = "") {
 						sldr.children[i].classList.remove('slider-current');
 						sldr.children[i - 1].classList.add('slider-current');
 					}
+					sldr.scrollLeft -= sldr.children[i - 1].clientWidth / 2; // - прокручиваем скроллбар
 				}
 			} else if (elem.classList.contains('img-btn-next') || keyEvent === "ArrowDown") {
 				if (i === sldr.children.length - 1) { // - изо.последнее
@@ -1081,6 +1090,7 @@ function goToImage(elem, keyEvent = "") {
 					// 'переназначаем класс
 					sldr.children[i].classList.remove('slider-current');
 					sldr.children[0].classList.add('slider-current');
+					sldr.scrollLeft -= sldr.scrollWidth; // - прокручиваем скроллбар (перех.к первому)
 				} else { // - изо.первое или промежуточное
 					// 'меняем изо.в окне просмотра
 					if (img.src !== sldr.children[i + 1].firstElementChild.src) {
@@ -1097,6 +1107,7 @@ function goToImage(elem, keyEvent = "") {
 					// 'переназначаем класс
 					sldr.children[i].classList.remove('slider-current');
 					sldr.children[i + 1].classList.add('slider-current');
+					sldr.scrollLeft += sldr.children[i + 1].clientWidth / 2; // - прокручиваем скроллбар
 				}
 			} else if (elem.classList.contains('slider-btn-next') || keyEvent === "ArrowRight") {
 				if (i === sldr.children.length - 1) { // - изо.последнее
@@ -1119,6 +1130,7 @@ function goToImage(elem, keyEvent = "") {
 					sldr.children[i].classList.remove('slider-current');
 					sldr.children[i + 1].classList.add('slider-current');
 				}
+				sldr.scrollLeft += sldr.children[i + 1].clientWidth / 2; // - прокручиваем скроллбар
 			}
 			setReSizeViewerImg(lbx); // - переустановить размер элемента просмотра изо
 			break;

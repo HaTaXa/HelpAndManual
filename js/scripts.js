@@ -34,8 +34,8 @@ function loaderPreLoader() {
 			if (lpl === null) {
 				lpl = document.querySelector('.loader');
 				if (lpl === null) {
-					console.error(`(!) Косяк: не удалось создать/удалить ссылку на файл lightbox.js - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function loaderPreLoader():\n window.«${window.name}»\n location.origin: ${location.origin}`);
-					alert(`(!) Косяк: не удалось создать/удалить ссылку на файл lightbox.js - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+					console.warn(`(!) Косяк: не удалось создать предварительный загрузчик - переменная не определена или значение переменной не соответствует условию(-ям) проверки:\n function loaderPreLoader():\n window.«${window.name}»\n location.origin: ${location.origin}`);
+					alert(`(!) Косяк: не удалось создать предварительный загрузчик - переменная не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 					return;
 				}
 			}
@@ -106,7 +106,7 @@ function setLightboxLink(wnd = window) {
 	} return null;
 }
 // (!) getValueFullSizeProperty - получить полноразмерное значение св-ва
-function getValueFullSizeProperty (elem) {
+function getValueFullSizeProperty(elem) {
 	if (elem === null || typeof (elem) === "undefined" && typeof (elem) !== "object" || elem !== Object(elem)) {
 		console.error(`(!) Косяк - не удалось получить значения св-ва элемента - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function getValueFullSizeProperty(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem})`);
 		alert(`(!) Косяк - не удалось получить значения св-ва элемента - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
@@ -147,7 +147,7 @@ function setFocus(elem, focusInOut = "") {
 		alert(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
-	// X // if (typeof(focusInOut) === "undefined" || focusInOut === "" && (focusInOut === String(focusInOut) || typeof(elem) === "string")) {
+	// x // if (typeof(focusInOut) === "undefined" || focusInOut === "" && (focusInOut === String(focusInOut) || typeof(elem) === "string")) {
 		if (focusInOut !== "focusIn" && focusInOut !== "focusOut") {
 		console.error(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setFocus(elem: typeof(${typeof(elem)}) / Object(${Object(elem)} / ${elem}, focusInOut: "${focusInOut}"): window."${window.name}", location.origin: ${location.origin}`);
 		alert(`(!) Косяк: не удалось установить фокус на элемент - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
@@ -208,7 +208,7 @@ function setUpdateVariables(in_hmtopicvars = {}, in_hmnavpages = {}, in_hmpermal
 			}
 		}
 	}
-	// X первичный вариант
+	// x первичный вариант
 	// if (window.location.origin === "file://") { // при локальном использовании
 	// (i) в Firefox не работает
 	// 	console.error(`function setUpdateVariables(window.name: ${window.name}):\n window.location.origin: ${window.location.origin}`);
@@ -453,8 +453,8 @@ function setToolbarButtonsOnOff (elemId = "") {
 		break;
 	}
 }
-// (!) setUpdateElements-обновление некоторых элементов: кнопки на пан.инструментов и наименование гл.вкладки в пан.тема топика, ссылку на текущую вкладку в меню вкладок
-function setUpdateElements () {
+// (!) setUpdateElements - обновление некоторых элементов: кнопки на пан.инструментов и наименование гл.вкладки в пан.тема топика, ссылку на текущую вкладку в меню вкладок
+function setUpdateElements() {
 	// *обновляем адресс ссылок в кнопках на пан.инструментов
 	let elem = window.top.document.getElementById('idLinkPageHome');
 	if (typeof(elem) !== "undefined" || elem !== null && (elem === Object(elem) || typeof (elem) === "object")) {
@@ -493,8 +493,8 @@ function setUpdateElements () {
 		elem.innerHTML = "Актуальная Тема:&nbsp;" + window.top.hmtopicvars.titleP;
 	}
 }
-// (!) setUpdateTabsMenuList-обновление списка Меню вкладок и выделение ссылки на текущую вкладку
-function setUpdateTabsMenuList (tabs) {
+// (!) setUpdateTabsMenuList - обновление списка Меню вкладок и выделение ссылки на текущую вкладку
+function setUpdateTabsMenuList(tabs) {
 	if (typeof(tabs) === "undefined" || tabs === null && (tabs === Object(tabs) || typeof(tabs) === "object")) {
 		console.error(`(!) Косяк: не удалось создать изо.во весь экран - переменная аргумента не определена:\n function setUpdateTabsMenuList(tabs: typeof(${typeof(tabs)}), Object(${Object(tabs)}), ${tabs}): window."${window.name}", location.origin: ${location.origin}`);
 		alert(`(!) Косяк: не удалось создать изображение во весь экран - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
@@ -511,7 +511,7 @@ function setUpdateTabsMenuList (tabs) {
 				// *для 1-х 3-х вкладок // HACK: пока что без учета создаваемых юзером вкладок
 				if (((tabNum >= 0) && (tabNum < 3)) && ((tabList >= 0) && (tabList < 3))) {
 					// *выделяем ссылку на текущую вкладку
-					if (tab.classList.contains('topic-tab-current')) {
+					if (tab.classList.contains('tab-current')) {
 						list.children[0].style.fontWeight = "bold";
 					} else {
 						list.children[0].removeAttribute('style');
@@ -541,7 +541,7 @@ function setUpdateTabsMenuList (tabs) {
 	// 			// *для 1-х 3-х вкладок
 	// 			if (((tabNum >= 0) && (tabNum < 3)) && ((tabList >= 0) && (tabList < 3))) {
 	// 				// *выделяем ссылку на текущую вкладку
-	// 				if (tabs.children[i].classList.contains('topic-tab-current')) {
+	// 				if (tabs.children[i].classList.contains('tab-current')) {
 	// 					tabsList.children[k].children[0].style.fontWeight = "bold";
 	// 				} else {
 	// 					tabsList.children[k].children[0].removeAttribute('style');
@@ -574,23 +574,23 @@ function setTabShowHide (currentTab, valueShowHide = "") {
 	let boxes = window.top.document.getElementById('idTopicContent');
 	let boxNum = +currentTab.getAttribute('tabnum');
 	if (valueShowHide === "show") {
-		if (currentTab.classList.contains('topic-tab-current')) return;
+		if (currentTab.classList.contains('tab-current')) return;
 		// *делаем вкладку текущей и выводим ее контентную часть
 		// currentTab.style.display = null; // - удаляем значение св-ва
 		currentTab.removeAttribute('style'); // - удаляем атрибут "стиль"
-		currentTab.classList.add('topic-tab-current');
+		currentTab.classList.add('tab-current');
 		boxes.children[boxNum].removeAttribute('style');
 		// boxes.children[boxNum].style.display = null;
 		for (let i = 0; i < tabs.children.length; i++) {
 			if (tabs.children[i].id !== currentTab.id) {
-				tabs.children[i].classList.remove('topic-tab-current');
+				tabs.children[i].classList.remove('tab-current');
 				boxes.children[i].style.display = "none";
 			}
 		}
 		setToolbarButtonsOnOff(currentTab.id); // - меняем состояние вкл/выкл группы кнопок на панели инструментов
 	} else if (valueShowHide === "hide") {
 		// *переназначаем предыдущей вкладке значение на "текущая", если текущая вкладка была активной
-		if (currentTab.classList.contains('topic-tab-current')) {
+		if (currentTab.classList.contains('tab-current')) {
 			let visibleTabs = [];
 			let visibleBoxes = [];
 			// *просматриваем все вкладки и исключаем скрытые
@@ -602,15 +602,15 @@ function setTabShowHide (currentTab, valueShowHide = "") {
 			}
 			for (let i = 0; i < visibleTabs.length; i++) {
 				if (visibleTabs[i].id === currentTab.id) {
-					visibleTabs[i].classList.remove('topic-tab-current');
+					visibleTabs[i].classList.remove('tab-current');
 					visibleTabs[i].style.display = "none";
 					visibleBoxes[i].style.display = "none";
 					// - делаем текущей предыдущую вкладку и ее контентную часть
-					visibleTabs[i - 1].classList.add('topic-tab-current');
+					visibleTabs[i - 1].classList.add('tab-current');
 					visibleBoxes[i - 1].removeAttribute('style');
 					setToolbarButtonsOnOff(visibleTabs[i - 1].id); // - меняем состояние вкл/выкл группы кнопок на панели инструментов
 				} else {
-					visibleTabs[i].classList.remove('topic-tab-current');
+					visibleTabs[i].classList.remove('tab-current');
 					visibleBoxes[i].style.display = "none";
 				}
 			}
@@ -634,7 +634,7 @@ function animationOffset(elem) {
 		return;
 	}
 	if (elem.hasAttribute('id') || elem.hasOwnProperty('id') || elem.getAttribute('id') !== null) { // *для вкладок на панели тема топика
-		let topicTabs = document.getElementById('idTopicTabs');
+		let topicTabs = document.getElementById('idTabSliderTrack');
 		if (typeof(topicTabs) === "undefined" || topicTabs === null && (topicTabs === Object(topicTabs) || typeof(topicTabs) === "object")) {
 			console.error(`(!) Косяк - не удалось воспроизвести анимацию - не найден элемент:\n function animationOffset(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}): window."${window.name}", location.origin: ${location.origin}:\n topicTabs: typeof(${typeof(topicTabs)}) / Object(${Object(topicTabs)}) / ${topicTabs}`);
 			alert(`(!) Косяк: не удалось воспроизвести анимацию - не найден элемент, см.консоль.`);

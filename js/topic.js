@@ -1,9 +1,9 @@
 // document.addEventListener("DOMContentLoaded", function () {}); // - js. Дожидаемся, когда Объектная модель документа страницы (DOM) будет готова к выполнению кода JavaScript
 // (!) *window
 // window.addEventListener('resize', function (e) {
-// 	reSizeTopicContent(); // изменение размера расположения контент-текста
+// x // 	reSizeTopicContent(); // изменение размера расположения контент-текста
 // }, false); // false - фаза "всплытие"
-// window.addEventListener('resize', reSizeTopicContent, false); // false - фаза "всплытие" // x изменение размера расположения контент-текста
+// x // window.addEventListener('resize', reSizeTopicContent, false); // false - фаза "всплытие" // x изменение размера расположения контент-текста
 window.addEventListener('load', function () { // - js. Сработает, как только вся страница (изображения или встроенные фреймы), а не только DOM, будет готово
 	if (window === top || window.name === "") { // (i) окно элемента яв-ся главным, например, при запуске отдельной страницей или через ctrl+клик из общего проекта
 		writeBreadCrumbs([]); // - заполнение топика навигационными ссылками
@@ -89,18 +89,13 @@ $(document).ready(function () { // - jq
 					if (e.target.parentElement.classList.contains('sync-toc-off')) {
 						if (location.origin === "file://") {
 							let msg = {
-								value: "setPushState",
+								value: "setHistoryPushState",
 								currP: e.target.getAttribute('href'),
 								winName: window.name
 							};
 							window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 						} else {
-							if (window.top.location.search === "") {
-								window.top.hmpermalink.url = window.top.location.href + "?" + e.target.getAttribute('href');
-							} else {
-								window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, e.target.getAttribute('href'));
-							}
-							window.top.history.pushState('', '', window.top.hmpermalink.url);
+							window.top.setHistoryPushState(e.target.getAttribute('href')); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
 						}
 					}
 				}
@@ -210,35 +205,36 @@ function showComments(params) {
 // (!) writeCommentLink-см.файл comments.js
 function writeCommentLink(params) { }
 // (!) reSizeTopicContent - изменение размера расположения контент-текста
-function reSizeTopicContent() {
-	let elem = document.getElementById('idTopicHeader');
-	let headerHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
-	if (typeof(headerHeight) === "undefined") { // перестраховка
-		headerHeight = 0;
-	}
-	elem = document.getElementById('idMsgBox');
-	let msgHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
-	// *важно проверять на isNaN, т.к.может оказаться NAN
-	if (isNaN(msgHeight) && typeof(msgHeight) === "number" || typeof(msgHeight) === "undefined") { // перестраховка
-		msgHeight = 0;
-	}
-	elem = document.getElementById('idTopicFooter');
-	let footerHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
-	if (typeof(footerHeight) === "undefined") { // перестраховка
-		footerHeight = 0;
-	}
-	let topicContent = {
-		top: headerHeight + msgHeight,
-		bottom: footerHeight
-	};
-	elem = document.getElementById('idTopicBody');
-	if (topicContent.top > 0) {
-		elem.style.top = topicContent.top + "px";
-	}
-	if (topicContent.bottom > 0) {
-		elem.style.bottom = topicContent.bottom + "px";
-	}
-}
+// x использовалось, когда фрейм в пан.топ.был display: block
+// function reSizeTopicContent() {
+// 	let elem = document.getElementById('idTopicHeader');
+// 	let headerHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
+// 	if (typeof(headerHeight) === "undefined") { // перестраховка
+// 		headerHeight = 0;
+// 	}
+// 	elem = document.getElementById('idMsgBox');
+// 	let msgHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
+// 	// *важно проверять на isNaN, т.к.может оказаться NAN
+// 	if (isNaN(msgHeight) && typeof(msgHeight) === "number" || typeof(msgHeight) === "undefined") { // перестраховка
+// 		msgHeight = 0;
+// 	}
+// 	elem = document.getElementById('idTopicFooter');
+// 	let footerHeight = getValueFullSizeProperty(elem).height; // - получить полноразмерное значение св-ва
+// 	if (typeof(footerHeight) === "undefined") { // перестраховка
+// 		footerHeight = 0;
+// 	}
+// 	let topicContent = {
+// 		top: headerHeight + msgHeight,
+// 		bottom: footerHeight
+// 	};
+// 	elem = document.getElementById('idTopicBody');
+// 	if (topicContent.top > 0) {
+// 		elem.style.top = topicContent.top + "px";
+// 	}
+// 	if (topicContent.bottom > 0) {
+// 		elem.style.bottom = topicContent.bottom + "px";
+// 	}
+// }
 // (!) setMsgBox - заполнение всплывающего окна сообщения
 function setMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 	if (msgBox === "disable") return; // (i) в условии намеренно не используется проверка на null/""/undefined, чтобы в переменной аргумента этот параметр можно было опускать как необязательный
@@ -261,7 +257,7 @@ function setMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 			document.getElementById('idMsgBtn').classList.remove('msg-show');
 		}
 		elem.removeAttribute('style');
-		// reSizeTopicContent(); // - изменение размера расположения контент-текста
+		// x // reSizeTopicContent(); // - изменение размера расположения контент-текста
 	}
 }
 // x writeMsgBox-создать всплывающее окно сообщения
@@ -295,7 +291,7 @@ function writeMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 			}
 		}
 	}, false); // - false - фаза "всплытие"
-	// reSizeTopicContent(); // - изменение размера расположения контент-текста
+	// x // reSizeTopicContent(); // - изменение размера расположения контент-текста
 }
 // (!) toggleMsgBox - переключить всплывающее окно сообщения
 function toggleMsgBox(elem) {
@@ -337,5 +333,5 @@ function toggleMsgBox(elem) {
 		alert(`(!) Косяк - не удалось изменить элементу класс, см.консоль.`);
 		return;
 	}
-	// reSizeTopicContent(); // - изменение размера расположения контент-текста
+	// x // reSizeTopicContent(); // - изменение размера расположения контент-текста
 }

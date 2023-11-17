@@ -62,7 +62,7 @@ html *::-webkit-scrollbar-thumb {
 *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	background: #3f3f3f;
-	border: 4px solid #fff;
+	border: 4px solid transparent;
 	border-radius: 100px;
 }
 *::-webkit-scrollbar-thumb,
@@ -93,6 +93,16 @@ html *::-webkit-scrollbar-thumb {
 	border: 4px solid maroon;
 	/* border: 4px solid #fff; */
 	border-radius: 10px;
+}
+.slider-track::-webkit-scrollbar {
+	height: 3px;
+	/* display: none; */
+}
+.slider-track::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+.slider-track::-webkit-scrollbar-thumb {
+	border: 1px solid red;
 }
 /* Scrollbars the end */
 /**отражаем противоположно самый верхний div, чтобы scrollbar был слевой стороны */
@@ -447,7 +457,7 @@ span.highlight {background-color: #ffff40;}
 	position: relative;
 	left: 0; top: 0;
 	width: auto;
-	height: 679px; /* высота будет вычисляться кодом js и будет = idTopicBody.clientHeight - видимая часть контента на стр. */
+	height: auto; /* высота будет вычисляться кодом js и будет = idTopicBody.clientHeight - видимая часть контента на стр. */
 	margin: auto;
 	padding: 4px;
 	display: flex;
@@ -479,10 +489,10 @@ span.highlight {background-color: #ffff40;}
 	height: auto;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between;
 }
 .lightbox-img {
-	height: 70%; /* высота будет вычисляться кодом js */
+	height: auto; /* высота будет вычисляться кодом js */
 	flex: 1 1 100%;
 	flex-flow: row wrap;
 	-ms-flex-flow: row wrap; /* IE */
@@ -602,7 +612,7 @@ span.highlight {background-color: #ffff40;}
 .lightbox-btn-close,
 .btn-slider a,
 .btn-box a {color: #fff;}
-.btn-slider a:hover,
+/* .btn-slider a:hover, */
 .btn-box a:hover {
 	/* outline: 1px solid #000; */ /* без влияния на размерность */
 	border: 1px solid #000;
@@ -695,12 +705,20 @@ span.highlight {background-color: #ffff40;}
 	-ms-flex-flow: row nowrap; /* IE */
 }
 
+.img-slider {
+	box-shadow: 35px 0 30px -20px #000 inset,
+				-35px 0 30px -20px #000 inset;
+}
+
 .slider-track {
+	min-width: 50px;
 	margin: 2px;
 	padding: 4px;
-	flex-flow: row wrap;
-	-ms-flex-flow: row wrap; /* IE */
+	flex-flow: row nowrap;
+	-ms-flex-flow: row nowrap; /* IE */
+	overflow: auto hidden;
 }
+
 .slider-track {
 	/* box-shadow: 0 1px 4px rgba(0, 0, 0, .3),
 				-23px 0 20px -23px rgba(0, 0, 0, .8),
@@ -708,8 +726,8 @@ span.highlight {background-color: #ffff40;}
 				0 0 40px rgba(0, 0, 0, .1) inset; */
 	/* background: radial-gradient(circle, rgba(0,0,0,0), #666); */
 	/* filter: brightness(0.5); */
-	box-shadow: 20px 0 20px -20px #000 inset,
-				-20px 0 20px -20px #000 inset;
+	box-shadow: 35px 0 30px -20px #000 inset,
+				-35px 0 30px -20px #000 inset;
 }
 
 .slider-item,
@@ -717,7 +735,7 @@ span.highlight {background-color: #ffff40;}
 	position: relative;
 	width: 50px;
 	height: 50px;
-	margin: 4px;
+	margin: 5px;
 	padding: 4px;
 	display: flex;
 	flex: 0 0 auto;
@@ -731,9 +749,12 @@ span.highlight {background-color: #ffff40;}
 .slider-btn-next {flex: 0 0 auto;}
 
 .slider-item {
+	min-width: fit-content;
 	/* outline: 1px dotted #000; */ /* без влияния на размерность */
 	border: 1px dotted #000;
 }
+.img-slider,
+.slider-track,
 .lightbox-img,
 .img-viewer,
 .slider-item {
@@ -822,7 +843,7 @@ span.highlight {background-color: #ffff40;}
 	left: 0; top: 0;
 	width: 100%;
 	height: auto;
-	padding: 6px 0 10px 0;
+	padding: 2px 0 10px 0;
 	display: flex;
 	flex: 1 1 auto;
 	flex-flow: row nowrap; /* - сокращенная запись свойств flex-direction и flex-wrap, которые вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
@@ -833,7 +854,6 @@ span.highlight {background-color: #ffff40;}
 	font-size: 0.7em;
 	text-indent: 0px; /* отступ первой строки */
 	border-top: 1px solid silver;
-	overflow: hidden;
 }
 .topic-footer {
 	background: -webkit-linear-gradient(top, rgba(0,0,0, 0.96) 85%,rgba(136,136,136));
@@ -847,28 +867,32 @@ span.highlight {background-color: #ffff40;}
 .topic-footer-left,
 .topic-footer-center,
 .topic-footer-right {
+	position: relative;
+	top: 4px; bottom: 4px;
+	width: auto;
+	height: auto;
+	margin: 1px;
 	flex: 1 1 auto;
-	align-items: center; /* - Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
-	align-content: center; /**либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
-
 	display: flex;
 	flex-flow: row wrap;
+	align-items: center; /* - Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении. */
+	align-content: center; /**либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов. */
 }
 
 .topic-footer-left {
-	padding: 4px 2px 4px 6px;
+	padding: 1px 1px 1px 6px;
 	text-align: left;
 	justify-content: flex-start; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
 .topic-footer-center {
-	padding: 4px 2px;
+	padding: 1px;
 	text-align: center;
 	justify-content: center; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
 .topic-footer-right {
-	padding: 4px 6px 4px 2px;
+	padding: 1px 6px 1px 1px;
 	text-align: right;
 	justify-content: flex-end; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
@@ -883,10 +907,10 @@ span.highlight {background-color: #ffff40;}
 .topic-footer a:hover,
 .topic-footer p>a:hover,
 .topic-footer p:hover {color: #fff;}
-/* (!) root element for tabs
+/* (!) root element for tab-slider-track
 - Корневой элемент для вкладок
-(i) ul.tabs - это дубликат текущей вкладки, единственная и она же текущая вкладка тема топика, по умолчанию скрытая, но отображается, когда вкладка запускается в отдельном окне браузера по кнопке Открепить на пан.инструментов */
-ul.tabs {display: none;}
+(i) ul.tab-slider-track - это дубликат текущей вкладки, единственная и она же текущая вкладка тема топика, по умолчанию скрытая, но отображается, когда вкладка запускается в отдельном окне браузера по кнопке Открепить на пан.инструментов */
+ul.tab-slider-track {display: none;}
 /* (!) Sortable Tables
 - Сортируемые Таблицы
 x (?) скорее всего это не понадобится

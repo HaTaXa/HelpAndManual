@@ -78,20 +78,15 @@ $(document).ready(function () { // - jq
 						if (window.name === "hmnavigation") { // 'вариант проверки яв-ся ли окно фреймом: (window.frameElement && window.frameElement.nodeName === "IFRAME")
 							if (location.origin === "file://") {
 								let msg = {
-									value: "setPushState",
+									value: "setHistoryPushState",
 									currP: e.target.parentElement.getAttribute('href'),
 									winName: window.name
 								};
 								window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 							} else {
-								if (window.top.location.search === "") {
-									window.top.hmpermalink.url = window.top.location.href + "?" + e.target.parentElement.getAttribute('href');
-								} else {
-									window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, e.target.parentElement.getAttribute('href'));
-								}
-								window.top.history.pushState('', '', window.top.hmpermalink.url);
+								window.top.setHistoryPushState(e.target.parentElement.getAttribute('href')); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
 								// *проверяем размер окна браузера для определения запуска анимации скрытия пан.нав., если она занимает весь экран
-								if (window.top.document.documentElement.clientWidth <= 500) {
+								if (window.top.document.documentElement.clientWidth < 501) {
 									window.top.setHideNavPane(); // - скрыть пан.нав.
 								}
 							}
@@ -100,7 +95,7 @@ $(document).ready(function () { // - jq
 							// 	goToPage(e.target.parentElement); // - перейти на страницу
 							// }, 1000); // 'если вариант 2
 						} else {
-							console.error(`(!) Косяк - не удалось установить имя текущего окна:\n window.name: «${window.name}», location.origin: ${location.origin}`);
+							console.error(`(!) Косяк - не удалось установить имя текущего окна:\n window.«${window.name}», location.origin: ${location.origin}`);
 							alert(`(!) Косяк - не удалось установить имя текущего окна, см.консоль.`);
 						}
 					}
@@ -177,155 +172,8 @@ function setStatusTocListMenuSwitch () {
 }
 // (!) setGoToWithOptionCurrent - переход на страницу - опция древовидный вид списка в режиме "Текущий пункт":
 // (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
-function setGoToWithOptionCurrent (elem) {
-	setListExpandCollapse(false); // - сворачиваем все оглавление
-	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
-	// *первоначально проникаем внутрь
-	e = elem.parentElement; // - li
-	for (let i = 0; i < e.children.length; i++) {
-		if (e.children[i].tagName === "UL") {
-			for (let k = 0; k < e.children[i].children.length; k++) {
-				if (e.children[i].children[k].style.display === "none") {
-					e.children[i].children[k].removeAttribute('style');
-				}
-			}
-			if (e.children[i].style.display === "none") {
-				e.children[i].removeAttribute('style');
-			}
-		}
-	}
-	// *поднимаемся на верх до самой последней ul
-	while (e.id !== "idToc-ul") {
-		while (e.tagName !== "UL") {
-			e = e.parentElement;
-		}
-		if (e.id === "idToc-ul") {
-			if (e.classList.contains('icon-expand')) {
-				e.classList.replace('icon-expand', 'icon-collapse');
-				setStatusTocListMenuSwitch(); // - меняем состояние кнопки-переключателя развернуть/свернуть все оглавление
-				// return;
-			}
-		} else {
-			if (e.hasAttribute('class')) {
-				if (e.classList.contains('icon-expand')) {
-					e.classList.replace('icon-expand', 'icon-collapse');
-				}
-				for (let i = 0; i < e.parentElement.children.length; i++) {
-					if (e.parentElement.children[i].tagName === "UL") {
-						if (e.parentElement.children[i].style.display === "none") {
-							e.parentElement.children[i].removeAttribute('style');
-						}
-					}
-				}
-			} else {
-				for (let i = 0; i < e.children.length; i++) {
-					if (e.children[i].tagName === "UL") {
-						if (e.children[i].style.display === "none") {
-							e.children[i].removeAttribute('style');
-						}
-					}
-				}
-			}
-			if (e.style.display === "none") {
-				e.removeAttribute('style');
-			}
-			e = e.parentElement;
-		}
-	}
-}
-// (!) setGoToWithOptionDefault - переход на страницу - опция древовидный вид списка в режиме "По умолчанию":
-// (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
-function setGoToWithOptionDefault (elem, collapse = true) {
-	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
-	e = elem.parentElement; // - li
-	if (collapse) {
-		if (e.parentElement.hasAttribute('class')) { // - ul
-			if (e.parentElement.classList.contains('icon-expand')) {
-				e.parentElement.classList.replace('icon-expand', 'icon-collapse');
-				for (let i = 0; i < e.children.length; i++) {
-					if (e.children[i].tagName === "UL") {
-						for (let k = 0; k < e.children[i].children.length; k++) {
-							if (e.children[i].children[k].style.display === "none") {
-								e.children[i].children[k].removeAttribute('style');
-							}
-						}
-						if (e.children[i].style.display === "none") {
-							e.children[i].removeAttribute('style');
-						}
-					}
-				}
-			} else if (e.parentElement.classList.contains('icon-collapse')) {
-				e.parentElement.classList.replace('icon-collapse', 'icon-expand');
-				for (let i = 0; i < e.children.length; i++) {
-					if (e.children[i].tagName === "UL") {
-						if (e.children[i].style.display !== "none") {
-							e.children[i].style.display = "none";
-						}
-					}
-				}
-			}
-		}
-	} else {
-		if (e.parentElement.hasAttribute('class')) { // - ul
-			if (e.parentElement.classList.contains('icon-expand')) {
-				e.parentElement.classList.replace('icon-expand', 'icon-collapse');
-				for (let i = 0; i < e.children.length; i++) {
-					if (e.children[i].tagName === "UL") {
-						for (let k = 0; k < e.children[i].children.length; k++) {
-							if (e.children[i].children[k].style.display === "none") {
-								e.children[i].children[k].removeAttribute('style');
-							}
-						}
-						if (e.children[i].style.display === "none") {
-							e.children[i].removeAttribute('style');
-						}
-					}
-				}
-			}
-		}
-		// *поднимаемся на верх до самой последней ul
-		while (e.id !== "idToc-ul") {
-			while (e.tagName !== "UL") {
-			e = e.parentElement;
-			}
-			if (e.id === "idToc-ul") {
-				if (e.classList.contains('icon-expand')) {
-					e.classList.replace('icon-expand', 'icon-collapse');
-				}
-			} else {
-				if (e.hasAttribute('class')) {
-					if (e.classList.contains('icon-expand')) {
-						e.classList.replace('icon-expand', 'icon-collapse');
-					}
-					for (let i = 0; i < e.parentElement.children.length; i++) {
-						if (e.parentElement.children[i].tagName === "UL") {
-							if (e.parentElement.children[i].style.display === "none") {
-								e.parentElement.children[i].removeAttribute('style');
-							}
-						}
-					}
-				} else {
-					for (let i = 0; i < e.children.length; i++) {
-						if (e.children[i].tagName === "UL") {
-							if (e.children[i].style.display === "none") {
-								e.children[i].removeAttribute('style');
-							}
-						}
-					}
-				}
-				if (e.style.display === "none") {
-					e.removeAttribute('style');
-				}
-				e = e.parentElement;
-			}
-		}
-	}
-	setStatusTocListMenuSwitch(); // - меняем состояние кнопки-переключателя развернуть/свернуть все оглавление
-}
-// (!) setTreeViewListCurrent - опция древовидный вид списка в режиме "Текущий пункт":
-// (i) в древовидном виде списка будет скрытие всех разделов/подразделов, кроме выбранного пункта оглавления
 // *jq/jQuery
-// X не используется, см.функцию setGoToWithOptionCurrent
+// x не используется, см.функцию setGoToWithOptionCurrent
 function setTreeViewListCurrent (elem) {
 	if (elem.tagName !== "SPAN") return; // 'если кликнули вне тега span
 	// ! Предки - родительские узлы элементов:
@@ -418,10 +266,66 @@ function setTreeViewListCurrent (elem) {
 		}
 	}
 }
-// (!) setTreeViewListDefault - опция древовидный вид списка в режиме "По умолчанию":
+function setGoToWithOptionCurrent (elem) {
+	setListExpandCollapse(false); // - сворачиваем все оглавление
+	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
+	// *первоначально проникаем внутрь
+	e = elem.parentElement; // - li
+	for (let i = 0; i < e.children.length; i++) {
+		if (e.children[i].tagName === "UL") {
+			for (let k = 0; k < e.children[i].children.length; k++) {
+				if (e.children[i].children[k].style.display === "none") {
+					e.children[i].children[k].removeAttribute('style');
+				}
+			}
+			if (e.children[i].style.display === "none") {
+				e.children[i].removeAttribute('style');
+			}
+		}
+	}
+	// *поднимаемся на верх до самой последней ul
+	while (e.id !== "idToc-ul") {
+		while (e.tagName !== "UL") {
+			e = e.parentElement;
+		}
+		if (e.id === "idToc-ul") {
+			if (e.classList.contains('icon-expand')) {
+				e.classList.replace('icon-expand', 'icon-collapse');
+				setStatusTocListMenuSwitch(); // - меняем состояние кнопки-переключателя развернуть/свернуть все оглавление
+				// return;
+			}
+		} else {
+			if (e.hasAttribute('class')) {
+				if (e.classList.contains('icon-expand')) {
+					e.classList.replace('icon-expand', 'icon-collapse');
+				}
+				for (let i = 0; i < e.parentElement.children.length; i++) {
+					if (e.parentElement.children[i].tagName === "UL") {
+						if (e.parentElement.children[i].style.display === "none") {
+							e.parentElement.children[i].removeAttribute('style');
+						}
+					}
+				}
+			} else {
+				for (let i = 0; i < e.children.length; i++) {
+					if (e.children[i].tagName === "UL") {
+						if (e.children[i].style.display === "none") {
+							e.children[i].removeAttribute('style');
+						}
+					}
+				}
+			}
+			if (e.style.display === "none") {
+				e.removeAttribute('style');
+			}
+			e = e.parentElement;
+		}
+	}
+}
+// (!) setGoToWithOptionDefault - переход на страницу - опция древовидный вид списка в режиме "По умолчанию":
 // (i) в древовидном виде списка скрытие/отображение будет применительно ко всем пунктам оглавления
 // *jq/jQuery
-// X не используется, см.функцию setGoToWithOptionDefault
+// x не используется, см.функцию setGoToWithOptionDefault
 function setTreeViewListDefault (elem) {
 	if (elem.tagName !== "SPAN") return; // 'если кликнули вне тега span
 	// ! Предки - родительские узлы элементов:
@@ -487,6 +391,93 @@ function setTreeViewListDefault (elem) {
 		}
 	}
 }
+function setGoToWithOptionDefault (elem, collapse = true) {
+	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
+	e = elem.parentElement; // - li
+	if (collapse) {
+		if (e.parentElement.hasAttribute('class')) { // - ul
+			if (e.parentElement.classList.contains('icon-expand')) {
+				e.parentElement.classList.replace('icon-expand', 'icon-collapse');
+				for (let i = 0; i < e.children.length; i++) {
+					if (e.children[i].tagName === "UL") {
+						for (let k = 0; k < e.children[i].children.length; k++) {
+							if (e.children[i].children[k].style.display === "none") {
+								e.children[i].children[k].removeAttribute('style');
+							}
+						}
+						if (e.children[i].style.display === "none") {
+							e.children[i].removeAttribute('style');
+						}
+					}
+				}
+			} else if (e.parentElement.classList.contains('icon-collapse')) {
+				e.parentElement.classList.replace('icon-collapse', 'icon-expand');
+				for (let i = 0; i < e.children.length; i++) {
+					if (e.children[i].tagName === "UL") {
+						if (e.children[i].style.display !== "none") {
+							e.children[i].style.display = "none";
+						}
+					}
+				}
+			}
+		}
+	} else {
+		if (e.parentElement.hasAttribute('class')) { // - ul
+			if (e.parentElement.classList.contains('icon-expand')) {
+				e.parentElement.classList.replace('icon-expand', 'icon-collapse');
+				for (let i = 0; i < e.children.length; i++) {
+					if (e.children[i].tagName === "UL") {
+						for (let k = 0; k < e.children[i].children.length; k++) {
+							if (e.children[i].children[k].style.display === "none") {
+								e.children[i].children[k].removeAttribute('style');
+							}
+						}
+						if (e.children[i].style.display === "none") {
+							e.children[i].removeAttribute('style');
+						}
+					}
+				}
+			}
+		}
+		// *поднимаемся на верх до самой последней ul
+		while (e.id !== "idToc-ul") {
+			while (e.tagName !== "UL") {
+			e = e.parentElement;
+			}
+			if (e.id === "idToc-ul") {
+				if (e.classList.contains('icon-expand')) {
+					e.classList.replace('icon-expand', 'icon-collapse');
+				}
+			} else {
+				if (e.hasAttribute('class')) {
+					if (e.classList.contains('icon-expand')) {
+						e.classList.replace('icon-expand', 'icon-collapse');
+					}
+					for (let i = 0; i < e.parentElement.children.length; i++) {
+						if (e.parentElement.children[i].tagName === "UL") {
+							if (e.parentElement.children[i].style.display === "none") {
+								e.parentElement.children[i].removeAttribute('style');
+							}
+						}
+					}
+				} else {
+					for (let i = 0; i < e.children.length; i++) {
+						if (e.children[i].tagName === "UL") {
+							if (e.children[i].style.display === "none") {
+								e.children[i].removeAttribute('style');
+							}
+						}
+					}
+				}
+				if (e.style.display === "none") {
+					e.removeAttribute('style');
+				}
+				e = e.parentElement;
+			}
+		}
+	}
+	setStatusTocListMenuSwitch(); // - меняем состояние кнопки-переключателя развернуть/свернуть все оглавление
+}
 // (!) getPageHome - получение ссылки на страницу текущего раздела/подраздела
 function getPageHome (elem) {
 	let e = elem;
@@ -518,7 +509,7 @@ function getPageHome (elem) {
 			return e.getAttribute('href');
 		}
 	}
-	// x *старый вариант через jq
+	// x старый вариант
 	// if (elem.parentElement.id === "idToc-a") {
 	// 	return elem.parentElement.getAttribute('href');
 	// } else {
@@ -722,7 +713,6 @@ function setVariables (elem, currP = "") {
 		if (window.location.origin === "file://") { // - при локальном использовании
 			// (i) в Firefox не работает
 			vrs.value = "setUpdateVariables";
-			// X vrs.nameWindow = window.name;
 			window.top.postMessage(vrs, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 		} else {
 			if (window.top.location.search === "") {
@@ -735,7 +725,7 @@ function setVariables (elem, currP = "") {
 				); // - обновляем глобальные переменные в variables.js
 				let tab = window.top.document.getElementById('idTopicTab');
 				if (tab !== "" && typeof(tab) !== "undefined" && typeof(tab) === "object") {
-					if (tab.classList.contains('topic-tab-current')) {
+					if (tab.classList.contains('tab-current')) {
 						setToolbarButtonsOnOff(window.top.hmtopicvars.btnExpand);
 					} else {
 						setTabShowHide(tab, 'show'); // - показать/скрыть текущую вкладку

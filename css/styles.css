@@ -69,7 +69,7 @@ html *::-webkit-scrollbar-thumb {
 *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
 	background: #3f3f3f;
-	border: 4px solid #fff;
+	border: 4px solid transparent;
 	border-radius: 100px;
 }
 *::-webkit-scrollbar-thumb,
@@ -89,16 +89,16 @@ html *::-webkit-scrollbar-thumb {
 	border: 4px solid #fff;
 	border-radius: 100px;
 } */
-.topic-title-scrolling::-webkit-scrollbar {width: 2px;}
-.topic-title-scrolling::-webkit-scrollbar-track {
-	border: 1px solid gray;
-	border-radius: 10px;
+.slider-track::-webkit-scrollbar {
+	height: 3px;
+	/* display: none; */
 }
-.topic-title-scrolling::-webkit-scrollbar-thumb {
-	background-color: gray;
-	/* border: 2px solid #3f3f3f; */
-	border: 4px solid maroon;
-	border-radius: 10px;
+.slider-track::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+.slider-track::-webkit-scrollbar-thumb {
+	border: 1px solid maroon;
+	background-color: #fff;
 }
 /* Scrollbars the end */
 /**отражаем противоположно самый верхний div, чтобы scrollbar и треугольник для изменения размеров были слевой стороны */
@@ -189,10 +189,11 @@ html *::-webkit-scrollbar-thumb {
 	height: auto;
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	align-content: center;
+	justify-content: space-between;
 }
 .lightbox-img {
-	height: 80%; /* высота будет вычисляться кодом js */
+	height: auto; /* высота будет вычисляться кодом js */
 	flex: 1 1 100%;
 	flex-flow: row wrap;
 	-ms-flex-flow: row wrap; /* IE */
@@ -381,8 +382,6 @@ html *::-webkit-scrollbar-thumb {
 }
 
 .img-text {
-	width: auto;
-	height: auto;
 	margin: 6px;
 	flex: 1 1 100%;
 	flex-flow: column wrap;
@@ -400,10 +399,12 @@ html *::-webkit-scrollbar-thumb {
 }
 
 .slider-track {
+	min-width: 50px;
 	margin: 2px;
 	padding: 4px;
-	flex-flow: row wrap;
-	-ms-flex-flow: row wrap; /* IE */
+	flex-flow: row nowrap;
+	-ms-flex-flow: row nowrap; /* IE */
+	overflow: auto hidden;
 }
 
 .slider-item,
@@ -411,7 +412,6 @@ html *::-webkit-scrollbar-thumb {
 	position: relative;
 	width: 50px;
 	height: 50px;
-	margin: 4px;
 	padding: 4px;
 	display: flex;
 	flex: 0 0 auto;
@@ -422,9 +422,14 @@ html *::-webkit-scrollbar-thumb {
 }
 
 .slider-btn-prev,
-.slider-btn-next {flex: 0 0 auto;}
+.slider-btn-next {
+	margin: 4px;
+	flex: 0 0 auto;
+}
 
 .slider-item {
+	margin: 5px;
+	min-width: fit-content;
 	/* outline: 1px dotted white; */ /* без влияния на размерность */
 	border: 1px dotted #fff;
 	border-radius: 5px;
@@ -548,7 +553,8 @@ html *::-webkit-scrollbar-thumb {
 /**Фреймворк главной страницы */
 .container {
 	position: absolute;
-	left: 0; right: 0; top: 0; bottom: 0;
+	left: 0; right: 0;
+	top: 0; bottom: 0;
 }
 /* (!).banner-баннер */
 .banner {
@@ -558,7 +564,7 @@ html *::-webkit-scrollbar-thumb {
 	height: 120px;
 	margin: auto;
 	display: flex;
-	flex: 1 1 auto;
+	flex: 0 0 auto;
 	flex-flow: row wrap; /* - св-ва flex-direction и flex-wrap вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера */
 	align-items: center; /**либо align-content: center. Выравнивание флекс-элементов внутри контейнера в перпендикулярном направлении - расположение вдоль поперечной оси на текущей линии */
 	/* align-content: center; *//**либо align-items: center. Выравнивает линии в пределах flex-контейнера, когда есть дополнительное пространство на поперечной оси. Не действует, когда есть только одна строка flex-элементов */
@@ -581,8 +587,8 @@ html *::-webkit-scrollbar-thumb {
 	justify-content: center;
 	text-decoration: none;
 }
-
-/* X .banner div {
+/* x -
+	.banner div {
 	position: relative;
 	left: 0; top: 0;
 	width: auto;
@@ -605,7 +611,7 @@ html *::-webkit-scrollbar-thumb {
 }
 .banner span:hover {text-decoration: underline dotted;}
 /* (!).topnav-заголовок меню банера
- X 'скорее всего не понадобится, т.к.при компиляции проекта меню баннера отсутствовало */
+x 'скорее всего не понадобится, т.к.при компиляции проекта меню баннера отсутствовало */
 .topnav {
 	border-color: #000000;
 	border-style: solid;
@@ -641,7 +647,7 @@ html *::-webkit-scrollbar-thumb {
 	border-radius: 0px 0px 4px 4px;
 	-webkit-border-radius: 0px 0px 4px 4px;
 	-moz-border-radius: 0px 0px 4px 4px;
-}/* X 'скорее всего не понадобится */
+}/* x 'скорее всего не понадобится */
 /* (!) Панель инструментов */
 img#button_off, /* (?) че за кнопки не пойму */
 img#social_off {border-color: transparent;}
@@ -663,8 +669,8 @@ img#social_off {border-color: transparent;}
 	height: 48px;
 	padding: 0px 4px 0px 4px;
 	display: flex;
-	flex: 1 1 200px;
-	flex-flow: row wrap; /* - св-ва flex-direction и flex-wrap вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
+	flex: 1 1 auto;
+	flex-flow: row wrap;
 }
 /**Фон и границы панели инструментов и других компонентов */
 .banner,
@@ -720,7 +726,6 @@ img#social_off {border-color: transparent;}
 .toolbar-search {
 	position: relative;
 	padding: 2px 0;
-	/* display: inline-flex; */ /* (?)'протестить */
 	display: flex;
 	flex-flow: row nowrap; /* - св-ва flex-direction и flex-wrap вместе определяют основные и поперечные оси flex-контейнера. Применяется к родительскому элементу flex-контейнера. */
 
@@ -728,19 +733,17 @@ img#social_off {border-color: transparent;}
 
 .toolbar-search {
 	order: 1; /* - порядок появления в flex-контейнере */
-	/* min-width: 200px; *//* ' */
 	min-width: 150px;
 	/* flex-grow: 0; *//* - Растягивание flex-элемента при необходимости. */
 	/* flex-shrink: 1; *//* - Способность гибкого элемента сжиматься при необходимости. */
 	/* flex-basis: 150px; *//* - Размер элемента по умолчанию ПЕРЕД распределением оставшегося пространства. */
-	flex: 0 1 16vw; /* - вьюпорт 16vw, изменение ширины элемента относительно ширины видимой области браузера.
-	*Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis. */
+	flex: 0 1 16vw; /* - вьюпорт 16vw, изменение ширины элемента относительно ширины видимой области браузера. */
 }
 
 .toolbar-right,
 .toolbar-center,
 .toolbar-left {
-	flex: 2 2 auto; /**Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis. */
+	flex: 1 1 auto; /**Сокращенная запись свойств для текущего flex-элемента: flex-grow, flex-shrink и flex-basis. */
 }
 .toolbar-left {
 	order: 2; /* - порядок появления в flex-контейнере */
@@ -784,7 +787,7 @@ img#social_off {border-color: transparent;}
 #idBannerShowHide,
 #idTopicPaneNavShowHide,
 #idToolbarNavShowHide {display: none;} /* - скрываем "квадратик" checkbox */
-/* (!).toolbar-nav-pane-Иконка Скрыть/Показать панель навигации */
+/* (!).toolbar-nav-pane - Иконка Скрыть/Показать панель навигации */
 .btn-icon-search-H,
 .btn-icon-search,
 .toolbar-nav-pane {
@@ -810,7 +813,7 @@ img#social_off {border-color: transparent;}
 	box-sizing: unset;
 }
 .btn-icon-navigation:hover {border-color: #000;}
-/* 'the end .toolbar-nav-pane-Иконка Скрыть/Показать панель навигации */
+/* 'the end .toolbar-nav-pane - Иконка Скрыть/Показать панель навигации */
 .btn-icon-search-H,
 .btn-icon-search {
 	padding: 2px;
@@ -911,7 +914,8 @@ x не используется
 }
 /**фон подсказки */
 .feedback-tooltip{
-	width: 120px; height: 130px;
+	width: 120px;
+	height: 130px;
 	align-content: space-between;
 	background: url(../icon/support.gif) no-repeat center transparent;
 }
@@ -924,7 +928,7 @@ x не используется
 	line-height: normal;
 	color: #fff;
 }
-/* (i) пробелы, дефисы, тире */
+/* (i) перенос текста, пробелы, дефисы, тире */
 .btn-text-off,
 .btn-text-on,
 .feedback-tooltip-title span {
@@ -936,6 +940,7 @@ x не используется
 	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none для Chrome, с Firefox все сложнее */
 	-moz-hyphens: auto; /* - все равно не работает */
 	-ms-hyphens: auto;
+	text-wrap: balance; /* (!) new - экспериментальный */
 }
 .title-txt-top {
 	top: 0;
@@ -1063,7 +1068,8 @@ x не используется
 }
 /* (!) Панель навигации */
 /**Предотвращение выбора инструментов */
-.nav-pane *, .topic-controls * {
+.topic-controls *,
+.nav-pane * {
 	-webkit-touch-callout: none;
 	user-select: none;
 	-webkit-user-select: none;
@@ -1076,9 +1082,15 @@ x не используется
 	position: absolute;
 	left: 0; bottom: 0;
 	width: 294px;
-	/* min-width: 14vw; *//* - вьюпорт, изменение ширины элемента относительно ширины видимой области браузера */
-	min-height: 250px; /* для splitterBottom */
+	/* min-width: 14vw; */ /* - вьюпорт, изменение ширины элемента относительно ширины видимой области браузера */
 	padding: 2px;
+}
+.topic-pane,
+.nav-pane {top: 54px;}
+.topic-pane-banner,
+.nav-pane-banner {top: 170px;} /* [nav-pane, topic-pane] top: toolbar height: 100px + banner height: 120px */
+/**фон */
+.nav-pane {
 	background-color: #2a2a2a;
 	background: -webkit-linear-gradient(top, #888888, #000000);
 	background: -moz-linear-gradient(top, #888888, #000000);
@@ -1087,12 +1099,8 @@ x не используется
 	filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
 	-ms-filter: progid: DXImageTransform.Microsoft.gradient(startColorstr = #999999, endColorstr = #000000);
 }
-.topic-pane,
-.nav-pane {top: 54px;}
-.topic-pane-banner,
-.nav-pane-banner {top: 170px;} /* [nav-pane, topic-pane] top: toolbar height: 100px + banner height: 120px */
 /*
-(!).splitter-right-боковой разделитель между боковой панелью навигации и текстовым топиком
+(!).splitter-right - боковой разделитель между боковой панелью навигации и текстовым топиком
 */
 .splitter-right {
 	position: absolute;
@@ -1102,7 +1110,7 @@ x не используется
 	/* z-index: 1; */ /* накладывается поверх lightbox */
 }
 /*
-(!).splitter-bottom-нижний разделитель между боковой панелью навигации и текстовым топиком
+(!).splitter-bottom - нижний разделитель между боковой панелью навигации и текстовым топиком
 */
 .splitter-bottom {
 	position: absolute;
@@ -1145,18 +1153,18 @@ iframe#hmnavigation {
 	width: 100%;
 	height: 100%;
 	border: 0;
-	scroll-behavior: auto;
+	/* scroll-behavior: auto; */ /**test */
 }
 /* *Панель Тема (топиков)
 (!).topic-pane */
 .topic-pane {
 	position: absolute;
-	left: 304px; right: 0px; bottom: 0px;
-	min-height: 200px; /* для splitterBottom */
+	left: 304px; right: 0px;
+	bottom: 0px;
 	margin-top: 4px;
 }
-.topic-pane-extend,
-.topic-pane-expand {left: 0;}
+/* .topic-pane-extend,
+.topic-pane-expand {left: 0;} */ /* x использовалось при display: block; */
 /* (!).topic-controls-компоненты вкладок */
 .topic-controls {
 	position: relative;
@@ -1186,7 +1194,7 @@ iframe#hmnavigation {
 }
 .nav-handle:hover {top: 12px;}
 
-.topic-tab,
+.tabs,
 .tabsCtab,
 .nav-handle {
 	margin: 0 4px 0 0;
@@ -1200,8 +1208,8 @@ iframe#hmnavigation {
 }
 /* (!) Подавление контуров выбора HTML
 - Убираем границу вокруг ссылок */
-.topic-tab a,
-.topic-tab a:active,
+.tabs a,
+.tabs a:active,
 .nav-handle a {outline: none;}
 .nav-handle a {
 	position: relative;
@@ -1272,7 +1280,7 @@ TODO: *переделать в псевдо не получится, см.спе
 	border: 0px solid black;
 }
 
-.tab-player-H, /* X скорее всего не понадобится */
+.tab-player-H, /* x скорее всего не понадобится */
 .tab-player {
 	position: relative;
 	left: 0; top: 0;
@@ -1294,7 +1302,7 @@ TODO: *переделать в псевдо не получится, см.спе
 	border: 1px solid #999;
 }
 #idToggleMenuTab {cursor: pointer;}
-.tab-player-H {display: none;} /* X скорее всего нет надобности */
+.tab-player-H {display: none;} /* x скорее всего нет надобности */
 /* (!).tabs-menu-box-настройки для меню вкладок и меню баннеров */
 .tabs-menu-box {
 	position: absolute;
@@ -1322,7 +1330,7 @@ ul.subnav,
 
 .tabsCtab-right,
 ul.subnav, /* (?) не понятно к чему */
-.tabs-menu {/* z-index: 101; */ /* X */}
+.tabs-menu {/* z-index: 101; */ /* x */}
 /* (!) Цвет фона, тени и углы выпадающей вкладки списка меню */
 .tabs-menu {
 	background-color: #3f3f3f;
@@ -1359,51 +1367,43 @@ ul.subnav, /* (?) не понятно к чему */
 	text-decoration: underline;
 }
 /* (!).tabs-window-вкладки панели тем - топиков */
+.tab-slider-track,
+.tab-slider,
 .tabs-window {
-	position: relative;
-	/* left: 8px; */ top: 0;
-	width: auto;
-	height: auto;
-	display: flex;
-	flex-flow: row nowrap;
-	flex: 1 1 auto;
-	justify-content: center;
-	overflow: hidden;
-}
-
-.tabs-lider {
 	position: relative;
 	left: 0; top: 0;
 	width: auto;
 	height: auto;
 	display: flex;
 	flex-flow: row nowrap;
-	flex: 1 1 auto;
-	align-items: center;
-	justify-content: center;
-	border-bottom: 0;
+	flex: 1 1 100%;
 }
-/* (!).tabs-вкладки */
-.tabs {
-	position: absolute;
-	left: 0px; top: 0px; bottom: 0;
-	width: 100%;
-	min-width: 400px;
-	height: 100%;
-	margin: 0;
-	padding: 0;
+.tab-slider,
+.tabs-window {
+	justify-content: center;
+	overflow: hidden;
+}
+.tab-slider {border-bottom: 0;}
+/* (!).tab-slider-track-вкладки */
+.tab-slider-track {
+	min-width: 50px;
 	list-style:none;
 	font-family: 'Lucida Grande', 'Trebuchet MS', Arial, Verdana, sans-serif;
+	overflow: hidden;
 }
-
+/* Тень */ /* TODO: (?) */
+.tab-slider-track {
+	/* box-shadow: 35px 0 30px -20px #000 inset,
+				-35px 0 30px -20px #000 inset; */
+}
 .nav-handle,
 .tabsCtab,
 .tabs-menu-box,
-.tab-player-H, /* X скорее всего не понадобится */
+.tab-player-H, /* x скорее всего не понадобится */
 .tab-player,
-.tabs {/* z-index: 2; */ /* X */}
+.tab-slider-track {/* z-index: 2; */ /* x */}
 /**Одиночная вкладка */
-.topic-tab {
+.tabs {
 	position: relative;
 	top: 0;
 	width: auto;
@@ -1413,15 +1413,12 @@ ul.subnav, /* (?) не понятно к чему */
 	text-indent: 0;
 	list-style-image: none;
 }
-.topic-tab:hover {top: 12px;}
-.topic-tab-current,
-.topic-tab-current:hover,
-.topic-tab:hover {height: 20px;}
-.topic-tab-current:hover,
-.topic-tab-current {top: 10px;}
+.tabs:hover {top: 12px;}
+.tab-current:hover,
+.tab-current {top: 10px;}
 /**Не текущие вкладки */
 .nav-handle,
-.topic-tab {
+.tabs {
 	background-color: #6e6e6e;
 	background: -webkit-linear-gradient(top, #f1f1f1 3%, #888888 20%);
 	background: -moz-linear-gradient(top, #f1f1f1 3%, #888888 20%);
@@ -1431,7 +1428,7 @@ ul.subnav, /* (?) не понятно к чему */
 /**Текущая вкладка */
 .nav-handle:hover,
 .tabsCtab,
-.topic-tab-current {
+.tab-current {
 	background-color: #3f3f3f;
 	background: -webkit-linear-gradient(top, #f1f1f1 3%, #3f3f3f 20%);
 	background: -moz-linear-gradient(top, #f1f1f1 3%, #3f3f3f 20%);
@@ -1441,8 +1438,8 @@ ul.subnav, /* (?) не понятно к чему */
 /**Границы и затенение вкладок */
 .nav-handle,
 .tabsCtab,
-.topic-tab-current,
-.topic-tab {
+.tab-current,
+.tabs {
 	border-color: #000000;
 	box-shadow: 2px -1px 4px -1px #3f3f3f;
 	-webkit-box-shadow: 2px -1px 4px -1px #3f3f3f;
@@ -1451,28 +1448,21 @@ ul.subnav, /* (?) не понятно к чему */
 /**плавное появление при наведении курсора */
 .nav-handle,
 .tabsCtab,
-.topic-tab-current,
-.topic-tab span:hover,
-.topic-tab span,
-.topic-tab a:hover,
-.topic-tab a,
-.topic-tab:hover,
-.topic-tab {
+.tab-current,
+.tabs span:hover,
+.tabs span,
+.tabs a:hover,
+.tabs a,
+.tabs:hover,
+.tabs {
 	transition: 0.3s ease;
 	transition: .3s ease;
 	-webkit-transition: .3s ease; /* Chrome, Safari, iOS */
 	-moz-transition: .3s ease; /* Firefox */
 	-o-transition: .3s ease; /* Opera */
 }
-/**усечение длинного текста во вкладке */
-.truncate {
-	max-width: 120px;
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-}
 
-.topic-tab a {
+.tabs a {
 	position: relative;
 	top: 8px;
 	width: auto;
@@ -1484,25 +1474,41 @@ ul.subnav, /* (?) не понятно к чему */
 	text-decoration: none;
 }
 /**Текущая вкладка */
-.topic-tab-current a {
-	top: 3px; /* (i) для .topic-tab a:hover см.в коде js событие наведение курсора на ссылку вкладки, т.к.стиль становится наибольшим приоритетным по сравнению с отдельными классами */
+.tab-current a {
+	top: 3px; /* (i) для .tabs a:hover см.в коде js событие наведение курсора на ссылку вкладки, т.к.стиль становится наибольшим приоритетным по сравнению с отдельными классами */
 	cursor: default;
 	/* color: #000; */
 }
 
-.topic-tab span {
+.tabs span {
 	position: relative;
 	top: 0;
 	height: auto;
 	display: block;
 	/* line-height: 28px; */
 }
+/* (i) перенос текста, пробелы, дефисы, тире */
+.tabs span {
+	white-space: nowrap; /* - текст в окне браузера выводится как обычно, переносы строк устанавливаются автоматически. Разбивает строки, чтобы заполнить строчные боксы */
+	overflow-wrap: normal;
+	word-wrap: normal;
+	word-break: normal; /* - чтобы игнорировались "черточки" - перенос текста */
+	word-spacing: normal; /* - нормальный интервал между словами, определенный текущим шрифтом и/или браузером */
+	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none для Chrome, с Firefox все сложнее */
+	-moz-hyphens: none; /* - все равно не работает */
+	-ms-hyphens: none;
+	text-wrap: nowrap; /* (!) new - экспериментальный */
+	/* truncate - усечение длинного текста во вкладке */
+	max-width: 120px;
+	text-overflow: ellipsis;
+	overflow: hidden; /* усечение длинного текста во вкладке */
+}
 /**Цвет текста вкладок */
 /**Не текущие вкладки */
-.topic-tab span {color: #dedede;}
-.topic-tab span:hover {color: #fff;}
+.tabs span {color: #dedede;}
+.tabs span:hover {color: #fff;}
 /**Текущая вкладка */
-.topic-tab-current span {color: #737373;}
+.tab-current span {color: #737373;}
 /* (!).close-tab-мини-кнопка закрытия вкладки */
 .close-tab {
 	position: absolute;
@@ -1718,6 +1724,12 @@ html ul.topnav li ul.subnav li a {
 /* (!)*диапазон < 500px */
 @media screen and (max-width: 500px) {
 	.popups {max-width: 50vw;}
+
+	.container {
+		display: flex;
+		flex-flow: column nowrap;
+	}
+
 	.toolbar-banner,
 	.toolbar,
 	.banner {z-index: 1;}
@@ -1730,22 +1742,45 @@ html ul.topnav li ul.subnav li a {
 		-webkit-box-shadow: none;
 		-moz-box-shadow: 0 0 0;
 	}/* 'убираем тень */
-
-	.nav-pane {
+	/* x использовалось при display: block; */
+	/* .nav-pane {
 		right: 0;
-		width: auto; height: 344px;
-	}
+		width: auto;
+		height: 344px;
+		min-height: 250px; для splitterBottom
+	} */
+
+	.toolbar-banner,
+	.toolbar {flex: 0 0 auto;}
+	/* .topic-pane-banner, */ /* x использовалось при display: block; */
+	/* .nav-pane-banner, */ /* x использовалось при display: block; */
 	.topic-pane,
-	.nav-pane {z-index: 0;}
+	.nav-pane {
+		position: relative;
+		top: 0;
+		width: auto;
+		height: auto;
+		display: flex;
+		flex: 1 1 auto;
+		flex-wrap: nowrap;
+		z-index: 0;
+	}
+	/* .topic-pane-banner, */ /* x использовалось при display: block; */
+	.topic-pane {left: 0;}
+	/* x использовалось при display: block; */
+	/* .nav-pane-banner,
+	.nav-pane {z-index: 0;} */
 
 	.splitter-right {display: none;}
 	.splitter-bottom {display: block;}
-
-	.topic-pane {left: 0; top: 458px;}
-
-	.topic-pane-banner {top: 574px;}
-	.topic-pane-extend {top: 104px;} /* - без пан.нав.банер скрыт */
-	.topic-pane-expand {top: 220px;} /* - без пан.нав.банер раскрыт */
+	/* x использовалось при display: block; */
+	/* .topic-pane {
+		left: 0; top: 458px;
+		min-height: 200px; для splitterBottom
+	}
+	.topic-pane-banner {top: 574px;} */
+	/* .topic-pane-extend {top: 104px;} */ /* - без пан.нав.банер скрыт */
+	/* .topic-pane-expand {top: 220px;} */ /* - без пан.нав.банер раскрыт */
 	/*(!).navhandle-navpane-show/hide - трансформация иконки на кнопке в панеле топика */
 	.navhandle-navpane-show {
 		transform: rotate(90deg) scale(1, 1);
@@ -1825,14 +1860,14 @@ html ul.topnav li ul.subnav li a {
 
 	.toolbar-box-search span {top: 10px;}
 	.toolbar-box-center span.text-wrap {width: auto;}
+	/* x использовалось при display: block; */
+	/* .nav-pane {top: 154px;}
+	.nav-pane-banner {top: 270px;} */
 
-	.nav-pane {top: 154px;}
-	.nav-pane-banner {top: 270px;}
-
-	.topic-pane {top: 508px;}
-	.topic-pane-banner {top: 624px;}
-	.topic-pane-extend {top: 154px;} /* - без пан.нав.банер скрыт */
-	.topic-pane-expand {top: 270px;} /* - без пан.нав.банер раскрыт */
+	/* .topic-pane {top: 508px;} */
+	/* .topic-pane-banner {top: 624px;} */
+	/* .topic-pane-extend {top: 154px;} */ /* - без пан.нав.банер скрыт */
+	/* .topic-pane-expand {top: 270px;} */ /* - без пан.нав.банер раскрыт */
 	/* (!) Анимация < 496 */
 	/**баннер */
 	/* x использовалась в ф.animateBanner */
@@ -1889,22 +1924,22 @@ html ul.topnav li ul.subnav li a {
 }
 /* 'Landscape phones and smaller
 - Ландшафтные телефоны и меньшие */
-/* (!)*диапазон < 457px */
+/* x диапазон < 457px */
 @media screen and (max-width: 457px) {
-	.nav-pane {height: 304px;}
-	.topic-pane {top: 468px;}
-	.topic-pane-banner {top: 582px}
-	.topic-pane-extend {top: 154px;} /* - без пан.нав.банер скрыт */
-	.topic-pane-expand {top: 270px;} /* - без пан.нав.банер раскрыт */
+	/* .nav-pane {height: 304px;} */
+	/* .topic-pane {top: 468px;} */
+	/* .topic-pane-banner {top: 584px;} */
+	/* .topic-pane-extend {top: 154px;} */ /* - без пан.нав.банер скрыт */
+	/* .topic-pane-expand {top: 270px;} */ /* - без пан.нав.банер раскрыт */
 	/* (!) Анимация < 457 */
 	/**баннер */
 	/* x использовалась в ф.animateBanner */
 	/* @keyframes topicpaneBannerShow {
 		0% {top: 466px;}
-		100% {top: 582px;}
+		100% {top: 584px;}
 	}
 	@keyframes topicpaneBannerHide {
-		0% {top: 582px;}
+		0% {top: 584px;}
 		100% {top: 466px;}
 	} */
 	/**панель навигации */
@@ -1987,14 +2022,14 @@ html ul.topnav li ul.subnav li a {
 			opacity: 1;
 		}
 	}
+	/* x использовалось при display: block; */
+	/* .nav-pane {top: 204px;}
+	.nav-pane-banner {top: 320px;} */
 
-	.nav-pane {top: 204px;}
-	.nav-pane-banner {top: 320px;}
-
-	.topic-pane {top: 518px;}
-	.topic-pane-banner {top: 634px;}
-	.topic-pane-extend {top: 204px;} /* - без пан.нав.банер скрыт */
-	.topic-pane-expand {top: 320px;} /* - без пан.нав.банер раскрыт */
+	/* .topic-pane {top: 518px;} */
+	/* .topic-pane-banner {top: 634px;} */
+	/* .topic-pane-extend {top: 204px;} */ /* - без пан.нав.банер скрыт */
+	/* .topic-pane-expand {top: 320px;} */ /* - без пан.нав.банер раскрыт */
 	/* (!) Анимация < 397 */
 	/**баннер */
 	/* x использовалась в ф.animateBanner */
@@ -2064,17 +2099,17 @@ html ul.topnav li ul.subnav li a {
 	.toolbar-box-search {align-items: center;}
 
 	.toolbar-box span {display: none;}
-
-	.nav-pane {
+	/* x использовалось при display: block; */
+	/* .nav-pane {
 		right: 0; top: 104px;
 		width: auto; height: 344px;
 	}
-	.nav-pane-banner {top: 220px;}
+	.nav-pane-banner {top: 220px;} */
 
-	.topic-pane {left: 0; top: 458px;} /* - с пан.нав.баннер скрыт */
-	.topic-pane-banner {top: 578px;} /* - с пан.нав.баннер раскрыт */
-	.topic-pane-extend {top: 104px;} /* - без пан.нав.банер скрыт */
-	.topic-pane-expand {top: 220px;} /* - без пан.нав.банер раскрыт */
+	/* .topic-pane {left: 0; top: 458px;} */ /* - с пан.нав.баннер скрыт */
+	/* .topic-pane-banner {top: 574px;} */ /* - с пан.нав.баннер раскрыт */
+	/* .topic-pane-extend {top: 104px;} */ /* - без пан.нав.банер скрыт */
+	/* .topic-pane-expand {top: 220px;} */ /* - без пан.нав.банер раскрыт */
 	/* (!) Анимация < 226 */
 	/**баннер */
 	/* x использовалась в ф.animateBanner */
@@ -2097,7 +2132,7 @@ html ul.topnav li ul.subnav li a {
 }
 /* (!)*диапазон < 220px */
 @media screen and (max-width: 220px) {
-	.toolbar-search {min-width: fit-content;}
+	.toolbar-search {min-width: max-content;}
 	/**анимация подсказки для кнопки e-mail */
 	.feedback-tooltip {
 		transform: translate(-34px, -40px) scale(0); /* (x, y) */
@@ -2116,11 +2151,11 @@ html ul.topnav li ul.subnav li a {
 			-ms-transform: translate(-34px, -40px) scale(.1);
 		}
 		100% {
-			transform: translate(-20px, 46px);
-			-webkit-transform: translate(-20px, 46px);
-			-moz-transform: translate(-20px, 46px);
-			-o-transform: translate(-20px, 46px);
-			-ms-transform: translate(-20px, 46px);
+			transform: translate(-21px, 60px);
+			-webkit-transform: translate(-21px, 60px);
+			-moz-transform: translate(-21px, 60px);
+			-o-transform: translate(-21px, 60px);
+			-ms-transform: translate(-21px, 60px);
 			opacity: 1;
 		}
 	}
