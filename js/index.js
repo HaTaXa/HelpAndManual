@@ -450,15 +450,16 @@ function setHistoryPushState(hrefPage = window.top.hmtopicvars.currP) {
 		} else if (window.top.location.href.slice(-1) === "/") { // подстраховка
 			window.top.hmpermalink.url = window.top.location.href + hrefPage;
 		} else {
-			console.warn(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (i) Косяк - не удалось заполнить путь в строке браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}`);
-			alert(`(i) Косяк - не удалось заполнить путь в строке браузера, см.консоль.`);
+			window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
+
+			console.warn(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (i) Косяк - не удалось заполнить путь в строке браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}`); // x -
 		}
 	} else {
 		window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
 	}
-	window.top.history.pushState('', '', window.top.hmpermalink.url);
 	window.top.document.getElementById('hmcontent').src = hrefPage; // или
 	// window.top.document.getElementById('hmcontent').setAttribute('src', hrefPage);
+	window.top.history.pushState('', '', window.top.hmpermalink.url);
 }
 // x (!) animateNavPane - через CSS
 // function animateNavPane (elem, animationName, valueShowHide) {

@@ -61,12 +61,13 @@ html *::-webkit-scrollbar-thumb {
 /* 'вариант-3 */
 *::-webkit-scrollbar-track,
 html *::-webkit-scrollbar-track {
-	background: #3f3f3f;
-	border: 4px solid transparent;
+	background-color: #3f3f3f;
+	border: 4px solid #fff;
 	border-radius: 100px;
 }
 *::-webkit-scrollbar-thumb,
 html *::-webkit-scrollbar-thumb {
+	background-color: #3f3f3f;
 	border: 4px solid #3f3f3f;
 	border-radius: 100px;
 }
@@ -82,17 +83,13 @@ html *::-webkit-scrollbar-thumb {
 	border: 4px solid #fff;
 	border-radius: 100px;
 } */
-.topic-title-scrolling::-webkit-scrollbar {width: 2px;}
-.topic-title-scrolling::-webkit-scrollbar-track {
+.topic-title::-webkit-scrollbar {width: 2px;}
+.topic-title::-webkit-scrollbar-track {
 	border: 1px solid gray;
-	border-radius: 10px;
 }
-.topic-title-scrolling::-webkit-scrollbar-thumb {
+.topic-title::-webkit-scrollbar-thumb {
 	background-color: gray;
-	/* border: 2px solid #3f3f3f; */
 	border: 4px solid maroon;
-	/* border: 4px solid #fff; */
-	border-radius: 10px;
 }
 .slider-track::-webkit-scrollbar {
 	height: 3px;
@@ -100,8 +97,10 @@ html *::-webkit-scrollbar-thumb {
 }
 .slider-track::-webkit-scrollbar-track {
 	background-color: transparent;
+	border: 4px solid transparent;
 }
 .slider-track::-webkit-scrollbar-thumb {
+	background-color: transparent;
 	border: 1px solid red;
 }
 /* Scrollbars the end */
@@ -247,8 +246,8 @@ html *::-webkit-scrollbar-thumb {
 .sync-toc a:hover {
 	border-bottom: 1px dotted #fff;
 }
-/* (!).title - наименование темы топика */
-.title {
+/* (!).topic-title - наименование темы топика */
+.topic-title {
 	position: relative;
 	width: 100%;
 	height: auto;
@@ -266,7 +265,7 @@ html *::-webkit-scrollbar-thumb {
 	text-indent: 0.5em;
 	overflow: hidden auto;
 }
-.title:hover {color: #fff;}
+.topic-title:hover {color: #fff;}
 /* (!) Comment Links
 - Комментарии
 */
