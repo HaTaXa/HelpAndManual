@@ -123,7 +123,7 @@ $(document).ready(function () { // - jq
 			// *убираем hash из адресной строки в главном окне при клике по вкладкам
 			// if (window !== top) return;
 
-			console.log(`window.addEventListener("hashchange")`); // x -
+			// console.log(`window.addEventListener("hashchange")`); // x -
 
 			if (window.top.location.hash.length > 0) {
 				if (window.top.location.hash === "#topictablink" || window.top.location.hash === "#indextablink" || window.top.location.hash === "#searchtablink") {
@@ -445,15 +445,16 @@ $(document).ready(function () { // - jq
 // (!) setHistoryPushState - сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
 function setHistoryPushState(hrefPage = window.top.hmtopicvars.currP) {
 	if (window.top.location.search === "") {
-		if (window.top.location.href.includes("index.html")) {
-			window.top.hmpermalink.url = window.top.location.href + "?" + hrefPage;
-		} else if (window.top.location.href.slice(-1) === "/") { // подстраховка
-			window.top.hmpermalink.url = window.top.location.href + hrefPage;
-		} else {
-			window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
+		window.top.hmpermalink.url = window.top.location.href + "?" + hrefPage;
+		// if (window.top.location.href.includes("index.html")) {
+		// 	window.top.hmpermalink.url = window.top.location.href + "?" + hrefPage;
+		// } else if (window.top.location.href.slice(-1) === "/") { // подстраховка
+		// 	window.top.hmpermalink.url = window.top.location.href + hrefPage;
+		// } else {
+		// 	window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
 
-			console.warn(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (i) Косяк - не удалось заполнить путь в строке браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}`); // x -
-		}
+		// 	console.warn(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (i) Косяк - не удалось заполнить путь в строке браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}\n window.top.hmtopicvars.currP: ${window.top.hmtopicvars.currP}`); // x -
+		// }
 	} else {
 		window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
 	}
@@ -1209,8 +1210,7 @@ function setGoToPage (elem) {
 	} else {
 		document.getElementById('hmnavigation').contentWindow.setCollapse(false);
 	}
-	let currP = elem.getAttribute('href');
-	setHistoryPushState(currP); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
+	setHistoryPushState(elem.getAttribute('href')); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
 	setHideNavPane(); // - скрыть пан.нав.при размере окна браузера <= 500
 }
 // (!) goToPageHome - перейти на вкладку главная
