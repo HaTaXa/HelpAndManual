@@ -450,9 +450,8 @@ function setHistoryPushState(hrefPage = window.top.hmtopicvars.currP) {
 		} else if (window.top.location.href.slice(-1) === "/") { // подстраховка
 			window.top.hmpermalink.url = window.top.location.href + hrefPage;
 		} else {
-			console.error(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (!) Косяк - не удалось сохранить текущую ссылку в истории браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}`);
-			alert(`(!) Косяк - не удалось сохранить текущую ссылку в истории браузера, см.консоль.`); // x -
-			return;
+			console.warn(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (i) Косяк - не удалось заполнить путь в строке браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}`);
+			alert(`(i) Косяк - не удалось заполнить путь в строке браузера, см.консоль.`);
 		}
 	} else {
 		window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
