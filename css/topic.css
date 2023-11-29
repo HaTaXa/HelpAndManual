@@ -345,6 +345,7 @@ div#commentsWrapper {display: none;}
 	color: #f00;
 	overflow: hidden auto;
 }
+.msg-text p {width: 100%;}
 
 .msg-btn {
 	position: relative;
@@ -896,16 +897,20 @@ span.highlight {background-color: #ffff40;}
 	justify-content: flex-end; /* - после применения размеров и отступов пространство вокруг флекс-элементов вдоль главной оси контейнера */
 }
 
-.topic-footer a
 .topic-footer p>a,
+.topic-footer a,
 .topic-footer p {
-	margin-block: auto;
+	/* margin-block: auto; */
 	color: #737373;
 }
 .topic-footer p {cursor: default;}
 .topic-footer a:hover,
 .topic-footer p>a:hover,
 .topic-footer p:hover {color: #fff;}
+.topic-footer p>a,
+.topic-footer a {text-decoration: none;}
+.topic-footer p>a:hover,
+.topic-footer a:hover {text-decoration: underline dotted;}
 /* (!) root element for tab-slider-track
 - Корневой элемент для вкладок
 (i) ul.tab-slider-track - это дубликат текущей вкладки, единственная и она же текущая вкладка тема топика, по умолчанию скрытая, но отображается, когда вкладка запускается в отдельном окне браузера по кнопке Открепить на пан.инструментов */

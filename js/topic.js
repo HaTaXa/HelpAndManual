@@ -11,7 +11,7 @@ window.addEventListener('load', function () { // - js. Сработает, ка�
 		let vrs = {
 			currP: location.href.slice(location.href.lastIndexOf("/") + 1),
 			titleP: document.title,
-			btnExpand: document.getElementById('idContentText').querySelector('.toggle-hidden') || document.getElementById('idContentText').querySelector('.toggle-shown') ? "idExpandOn" : "idExpandOff", // - если есть скрытый контент, получаем и обновляем состояние кнопки развернуть/свернуть скрытый текст
+			btnExpand: document.getElementById('idContentText').querySelector('.toggle-content') ? "idExpandOn" : "idExpandOff", // - если есть скрытый контент, получаем и обновляем состояние кнопки развернуть/свернуть скрытый текст
 		};
 		if (window.location.origin === "file://") { // - при локальном использовании
 			// (i) в Firefox не работает
@@ -160,7 +160,17 @@ $(document).ready(function () { // - jq
 						for (let i = 0; i < elem.children.length; i++) {
 							if (elem.children[i].classList.contains('toggle-hidden') || elem.children[i].classList.contains('toggle-shown')) {
 								if (elem.children[i] !== null && elem.children[i] === Object(elem.children[i])) {
-									setToggleElement(elem.children[i]); // - отображаем/скрываем скрытый контент
+									// *проверяем наличие ссылки на файл lightbox.js
+									let js = getLightboxLink(window.self); // - получить скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
+									if (js === null){
+										js = setLightboxLink(window.self) // - создать скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
+									}
+									let id = setInterval(() => {
+										if (js){
+											clearInterval(id);
+											setToggleElement(elem.children[i]); // - отображаем/скрываем скрытый контент
+										}
+									}, 500);
 								}
 							}
 						}
