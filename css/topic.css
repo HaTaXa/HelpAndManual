@@ -226,6 +226,50 @@ html *::-webkit-scrollbar-thumb {
 }
 .btn-text {user-select: none;}
 .btn-text:hover {color: #fff;}
+
+.toc-menu {
+	position: absolute;
+	top: 36px; right: 0;
+	max-width: 410px;
+	height: auto;
+	padding: 4px;
+	display: flex;
+	flex: 1 1 auto;
+	flex-flow: row wrap;
+	align-items: center;
+	align-content: space-between;
+	justify-content: center;
+	white-space: nowrap;
+	border: 1px solid silver;
+	border-radius: 0px 0px 5px 5px;
+	-webkit-border-radius: 0px 0px 5px 5px;
+	-moz-border-radius: 0px 0px 5px 5px;
+	background-color: #3f3f3f;
+	box-shadow: 2px 2px 10px silver;
+	-webkit-box-shadow: 2px 2px 10px silver;
+	-moz-box-shadow: 2px 2px 10px silver;
+	z-index: 2; /* 1 не перекрывает lightbox */
+}
+.toc-menu p {margin: 1px;}
+.toc-menu a,
+.toc-menu p {
+	width: 100%;
+	display: block;
+	color: silver;
+	font-size: 11px;
+	font-weight: bold;
+	/* line-height: 100%; */
+}
+.toc-menu ul {
+	list-style: none;
+	text-indent: 0;
+}
+.toc-menu ul li {
+	padding: 3px;
+	border-bottom: 1px solid silver;
+	background-color: #f6f6f6;
+	cursor: pointer;
+}
 /* (!) Link to display entire user interface when topic is opened on its own
 - Ссылка для отображения всего пользовательского интерфейса при самостоятельном открытии темы
 *данный класс прописан так же в linkstyles.css */
@@ -683,6 +727,32 @@ span.highlight {background-color: #ffff40;}
 				-4px -2px #000; /* - буквенная обводка */
 }
 
+.btn-top {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	width: 100px;
+	height: 100px;
+	text-align: center;
+	border: 1px solid #3f3f3f;
+	border-radius: 100px;
+	background: url(../icon/streetlight-signboard-white.png) no-repeat center;
+	background-size: 100px;
+}
+.btn-top:hover {
+	background: url(../icon/streetlight-signboard-whitelight.png) no-repeat center;
+	background-size: 100px;
+	box-shadow: -20px 20px 20px 5px rgba(241, 217, 3, .4); /* #f1d903 */
+}
+.btn-top a {
+	position: absolute;
+	left: 0; right: 0;
+	top: 0; bottom: 0;
+	width: auto;
+	height: auto;
+	border-radius: 100px;
+}
+
 .video-text,
 .img-text {
 	width: auto;
@@ -937,62 +1007,7 @@ a.sortheader:hover {
 	text-decoration: none;
 }
 a.sortheader {outline: none;}
-/* (!) Components of the Topic AutoTOC Window. These are the dead defaults. A number of settings will be reset by the script
--Компоненты автоматического окна темы. Это мертвые дефолты. Ряд настроек будет сброшен сценарием
-(i).topic-menu - это меню оглавления содержания страницы
-*/
-.topic-menu {
-	position: relative;
-	left: 0; top: 0;
-	width: auto;
-	height: auto;
-	display: flex;
-	flex: 1 1 auto;
-	/* flex: 1 1 100%; */
-	flex-flow: row wrap;
-	align-items: center;
-	align-content: space-between;
-	justify-content: space-between;
-	white-space: nowrap;
-	border: 1px solid silver;
-	border-radius: 0px 0px 5px 5px;
-	-webkit-border-radius: 0px 0px 5px 5px;
-	-moz-border-radius: 0px 0px 5px 5px;
-	background-color: #999;
-	box-shadow: 2px 2px 10px silver;
-	-webkit-box-shadow: 2px 2px 10px silver;
-	-moz-box-shadow: 2px 2px 10px silver;
-}
-
-#autoTocMiddle,
-#autoTocInner {
-	padding: 0;
-	margin: 0;
-}
-
-p.autoTOC {
-	color: #333;
-	font-size: 13px;
-	font-weight: bold;
-	margin: 0;
-	padding: 0;
-	line-height: 100%;
-}
-
-.topic-menu ul {
-	list-style: none;
-	margin: 0;
-	padding: 0;
-	text-indent: 0;
-}
-
-.topic-menu ul li {
-	padding: 3px;
-	cursor: pointer;
-	border-bottom: 1px solid silver;
-	background-color: #f6f6f6;
-}
-
+/* (!) */
 div#idUnclicker {
 	position: fixed;
 	top: 0;

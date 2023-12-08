@@ -41,6 +41,7 @@ window.addEventListener('load', function () { // - js. Сработает, ка�
 			}
 		}
 	}
+	setPageToc(); // - создать содержание страницы
 }, false); // false - фаза "всплытие"
 // (!) *document
 $(document).ready(function () { // - jq
@@ -55,11 +56,15 @@ $(document).ready(function () { // - jq
 			} else if (event.data.value === "setToggleElement") {
 				// *развернуть/свернуть скрытый текст
 				setToggleElement(null, event.data.btnChecked);
+			} else if (event.data.value === "setShowHideWindow") {
+				// *Закрыть окно "Меню содержание страницы"
+				setShowHideWindow(document.getElementById(event.data.winId), event.data.winHide);
 			}
 		}, false); // false - фаза "всплытие"
 		// 'keyup
 		document.addEventListener("keyup", function (event) {
 			if (event.key === "Escape" || event.code === "Escape" || event.keyCode === 27 || event.which === 27) {
+				setShowHideWindow(document.getElementById('idPageMenuToc'), 'hide');
 				if (window.location.origin === "file://") { // - при локальном использовании
 					// (i) в Firefox не работает
 					let msg = {
@@ -97,6 +102,33 @@ $(document).ready(function () { // - jq
 							window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 						} else {
 							window.top.setHistoryPushState(e.target.getAttribute('href')); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
+						}
+					}
+				}
+			}, false); // false - фаза "всплытие"
+		}
+		// (!) idPageToc - содержание страницы
+		if (document.getElementById('idPageIconToc') !== null && typeof(document.getElementById('idPageIconToc')) === "object") {
+			// 'click
+			document.getElementById('idPageIconToc').addEventListener("click", function (e) {
+				if (e.target.tagName === "IMG") {
+					if (e.target.id === "idPageIconToc") {
+						if (e.target.getAttribute('src') === "icon/toc-menu_on.png") {
+							let tocMenu = document.getElementById('idPageMenuToc');
+							if (tocMenu === null) {
+								tocMenu = document.querySelector('toc-menu');
+								if (tocMenu === null) {
+									console.error(`(!) Косяк - не удалось проверить содержание страницы - не найден элемент:\n document.getElementById('idPageIconToc').addEventListener("click", function(e.target: ${e.target}):\n 1) tocMenu === null: ${tocMenu === null}\n 2) typeof(tocMenu) === "undefined": ${typeof (tocMenu) === "undefined"}\n 3) typeof(tocMenu) !== "object": ${typeof(tocMenu) !== "object"}\n 4) tocMenu !== Object(tocMenu): ${tocMenu !== Object(tocMenu)}`);
+									alert(`(!) Косяк - не удалось проверить содержание страницы - не найден элемент, см.консоль.`);
+								}
+							}
+							if (tocMenu !== null) {
+								if (tocMenu.style.display === "none") {
+									tocMenu.style.removeProperty('display');
+								} else {
+									tocMenu.style.display = "none";
+								}
+							}
 						}
 					}
 				}
@@ -207,6 +239,32 @@ function writeBreadCrumbs(navlinks = []) {
 			// }
 		}
 		elem.insertAdjacentHTML('afterend', strHTML);
+	}
+}
+// (!) setPageToc - создать содержание страницы
+function setPageToc() {
+	let tocMenu = document.getElementById('idTopicBox').querySelector('.toc-menu');
+	if (tocMenu === null) {
+		console.log(`function setPageToc():\n tocMenu: ${tocMenu}`); // x -
+		return false;
+	}
+
+	let arr = Array.from(document.getElementById('idTopicBody').querySelectorAll('h1, h2, h3, h4, h5, h6'));
+	if (arr.length > 0) {
+		arr.forEach(elem => {
+			tocMenu.insertAdjacentHTML('beforeend', '<p><a href="#' + elem.id + '" title="' + elem.innerText + '">' + elem.innerHTML + '</a></p>');
+		});
+		let img = document.getElementById('idPageIconToc');
+		if (img !== null) {
+			if (img.getAttribute('src') !== "icon/toc-menu_on.png") {
+				img.setAttribute('src', 'icon/toc-menu_on.png');
+			}
+		}
+		img.setAttribute('title', 'Показать/Скрыть содержание на текущей странице');
+		return true;
+	} else {
+		console.log(`arr(${arr.length}): ${arr}`); // x -
+		return false;
 	}
 }
 // (!) showComments-см.файл comments.js

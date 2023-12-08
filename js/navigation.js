@@ -47,14 +47,15 @@ $(document).ready(function () { // - jq
 					// (i) в Firefox не работает
 					let msg = {
 						value: "setShowHideWindow",
-						winId: ["idPermalinkBox", "idTabsMenuBox"],
+						winId: ["idPermalinkBox", "idTabsMenuBox", "idPageMenuToc"],
 						winHide: "hide"
 					};
 					window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 				} else {
 					let elems = [
 						window.top.document.getElementById('idPermalinkBox'),
-						window.top.document.getElementById('idTabsMenuBox')
+						window.top.document.getElementById('idTabsMenuBox'),
+						window.top.frames.hmcontent.document.getElementById('idPageMenuToc')
 					];
 					elems.forEach(item => {
 						if (item.style.display !== "none") {
@@ -136,6 +137,7 @@ function setListExpandCollapse (value) {
 			}
 		}
 	}
+	setSwitchTocIcon(document.querySelectorAll('li.toc-list'), value); // - переключение иконки в оглавлении
 }
 // (!) navigationListToggle - переключатель развернуть/свернуть все оглавление
 function navigationListToggle (elem) {
@@ -168,6 +170,87 @@ function setStatusTocListMenuSwitch () {
 		inputCheckboxNode.checked = true;
 	} else if (toc.classList.contains('icon-expand')) {
 		inputCheckboxNode.checked = false;
+	}
+}
+// (!) setSwitchTocIcon - переключение иконки в оглавлении
+function setSwitchTocIcon(elem, value = true) {
+	if (typeof(elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
+		console.error(`(!) Косяк: не удалось выполнить изменение иконки переключателя - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setSwitchTocIcon(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, value = ${value})`);
+		alert(`(!) Косяк: не удалось выполнить изменение иконки переключателя - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+		return;
+	}
+	if (elem.length > 0) { // (!) нужна проверка, что список может быть NodeList, а не HTMLObject
+		if (value) { // - expand - развернуть все оглавление
+			for (let li of elem) {
+				if (li.hasAttribute('class')) {
+					if (li.classList.contains('icon-book-purple1-close')) {
+						li.classList.replace('icon-book-purple1-close', 'icon-book-purple1-open');
+					} else if (li.classList.contains('icon-book-purple2-close')) {
+						li.classList.replace('icon-book-purple2-close', 'icon-book-purple2-open');
+					} else if (li.classList.contains('icon-book-blue-close')) {
+						li.classList.replace('icon-book-blue-close', 'icon-book-blue-open');
+					} else if (li.classList.contains('icon-book-orange-close')) {
+						li.classList.replace('icon-book-orange-close', 'icon-book-orange-open');
+					} else if (li.classList.contains('icon-folder1-close')) {
+						li.classList.replace('icon-folder1-close', 'icon-folder1-open');
+					} else if (li.classList.contains('icon-folder2-close')) {
+						li.classList.replace('icon-folder-close2', 'icon-folder2-open');
+					}
+				}
+			}
+		} else { // - collapse - свернуть все оглавление
+			for (let li of elem) {
+				if (li.hasAttribute('class')) {
+					if (li.classList.contains('icon-book-purple1-open')) {
+						li.classList.replace('icon-book-purple1-open', 'icon-book-purple1-close');
+					} else if (li.classList.contains('icon-book-purple2-open')) {
+						li.classList.replace('icon-book-purple2-open', 'icon-book-purple2-close');
+					} else if (li.classList.contains('icon-book-blue-open')) {
+						li.classList.replace('icon-book-blue-open', 'icon-book-blue-close');
+					} else if (li.classList.contains('icon-book-orange-open')) {
+						li.classList.replace('icon-book-orange-open', 'icon-book-orange-close');
+					} else if (li.classList.contains('icon-folder1-open')) {
+						li.classList.replace('icon-folder1-open', 'icon-folder1-close');
+					} else if (li.classList.contains('icon-folder2-open')) {
+						li.classList.replace('icon-folder2-open', 'icon-folder2-close');
+					}
+				}
+			}
+		}
+	} else {
+		if (elem.hasAttribute('class')) {
+			if (value) { // - expand - развернуть все оглавление
+				if (elem.classList.contains('icon-book-purple1-close')) {
+					elem.classList.replace('icon-book-purple1-close', 'icon-book-purple1-open');
+				} else if (elem.classList.contains('icon-book-purple2-close')) {
+					elem.classList.replace('icon-book-purple2-close', 'icon-book-purple2-open');
+				} else if (elem.classList.contains('icon-book-blue-close')) {
+					elem.classList.replace('icon-book-blue-close', 'icon-book-blue-open');
+				} else if (elem.classList.contains('icon-book-orange-close')) {
+					elem.classList.replace('icon-book-orange-close', 'icon-book-orange-open');
+				} else if (elem.classList.contains('icon-folder1-close')) {
+					elem.classList.replace('icon-folder1-close', 'icon-folder1-open');
+				} else if (elem.classList.contains('icon-folder2-close')) {
+					elem.classList.replace('icon-folder2-close', 'icon-folder2-open');
+				}
+			} else { // - collapse - свернуть все оглавление
+				if (elem.hasAttribute('class')) {
+					if (elem.classList.contains('icon-book-purple1-open')) {
+						elem.classList.replace('icon-book-purple1-open', 'icon-book-purple1-close');
+					} else if (elem.classList.contains('icon-book-purple2-open')) {
+						elem.classList.replace('icon-book-purple2-open', 'icon-book-purple2-close');
+					} else if (elem.classList.contains('icon-book-blue-open')) {
+						elem.classList.replace('icon-book-blue-open', 'icon-book-blue-close');
+					} else if (elem.classList.contains('icon-book-orange-open')) {
+						elem.classList.replace('icon-book-orange-open', 'icon-book-orange-close');
+					} else if (elem.classList.contains('icon-folder1-open')) {
+						elem.classList.replace('icon-folder1-open', 'icon-folder1-close');
+					} else if (elem.classList.contains('icon-folder2-open')) {
+						elem.classList.replace('icon-folder2-open', 'icon-folder2-close');
+					}
+				}
+			}
+		}
 	}
 }
 // (!) setGoToWithOptionCurrent - переход на страницу - опция древовидный вид списка в режиме "Текущий пункт":
@@ -283,6 +366,12 @@ function setGoToWithOptionCurrent (elem) {
 			}
 		}
 	}
+	// *переключаем иконку
+	if (e.hasAttribute('class')) {
+		if (e.classList.contains('toc-list')) {
+			setSwitchTocIcon(e, true); // - переключение иконки в оглавлении
+		}
+	}
 	// *поднимаемся на верх до самой последней ul
 	while (e.id !== "idToc-ul") {
 		while (e.tagName !== "UL") {
@@ -298,6 +387,10 @@ function setGoToWithOptionCurrent (elem) {
 			if (e.hasAttribute('class')) {
 				if (e.classList.contains('icon-expand')) {
 					e.classList.replace('icon-expand', 'icon-collapse');
+					// *переключаем иконку
+					if (e.firstElementChild.classList.contains('toc-list')) {
+						setSwitchTocIcon(e.firstElementChild, true); // - переключение иконки в оглавлении
+					}
 				}
 				for (let i = 0; i < e.parentElement.children.length; i++) {
 					if (e.parentElement.children[i].tagName === "UL") {
@@ -394,6 +487,12 @@ function setTreeViewListDefault (elem) {
 function setGoToWithOptionDefault (elem, collapse = true) {
 	setHighlightsOnElement(elem); // - устанавливаем подсветку на выбранном элементе
 	e = elem.parentElement; // - li
+	// *переключаем иконку
+	if (e.hasAttribute('class')) {
+		if (e.classList.contains('toc-list')) {
+			setSwitchTocIcon(e, true); // - переключение иконки в оглавлении
+		}
+	}
 	if (collapse) {
 		if (e.parentElement.hasAttribute('class')) { // - ul
 			if (e.parentElement.classList.contains('icon-expand')) {
@@ -410,6 +509,12 @@ function setGoToWithOptionDefault (elem, collapse = true) {
 						}
 					}
 				}
+				// *переключаем иконку
+				if (e.hasAttribute('class')) {
+					if (e.classList.contains('toc-list')) {
+						setSwitchTocIcon(e, true); // - переключение иконки в оглавлении
+					}
+				}
 			} else if (e.parentElement.classList.contains('icon-collapse')) {
 				e.parentElement.classList.replace('icon-collapse', 'icon-expand');
 				for (let i = 0; i < e.children.length; i++) {
@@ -417,6 +522,12 @@ function setGoToWithOptionDefault (elem, collapse = true) {
 						if (e.children[i].style.display !== "none") {
 							e.children[i].style.display = "none";
 						}
+					}
+				}
+				// *переключаем иконку
+				if (e.hasAttribute('class')) {
+					if (e.classList.contains('toc-list')) {
+						setSwitchTocIcon(e, false); // - переключение иконки в оглавлении
 					}
 				}
 			}

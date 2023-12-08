@@ -18,7 +18,7 @@ body, html {
 
 body {
 	background-color: #3f3f3f;
-	background-image: url(../icon/bg_body.jpeg);
+	background-image: url(../icon/bg-body.jpeg);
 	overflow: hidden;
 }
 /**Избавление от общих контуров выбора */
@@ -942,7 +942,7 @@ x не используется
 	hyphens: auto; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none для Chrome, с Firefox все сложнее */
 	-moz-hyphens: auto; /* - все равно не работает */
 	-ms-hyphens: auto;
-	text-wrap: balance; /* (!) new - экспериментальный */
+	/* text-wrap: balance; */ /* (!) new - экспериментальный - не очень удобный, может переносится одна буква от всего слова */
 }
 .title-txt-top {
 	top: 0;
@@ -1353,7 +1353,7 @@ ul.subnav, /* (?) не понятно к чему */
 }
 .tabs-list li {
 	text-indent:0;
-	list-style-image:none !important;
+	list-style-image:none;
 	/* white-space: nowrap; */
 }
 /* (!).tabs-list li-выпадающие вкладки списка элементов меню */

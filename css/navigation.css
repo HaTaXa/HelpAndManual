@@ -552,9 +552,9 @@ ul, li {
 	margin: 0 0 0 -16px; /* - Indentation per level (negative value) - Отступ на уровень (отрицательное значение) */
 }
 /* (i) от классов зависит условие в коде js */
-.icon-expand {background: url(../icon/tgl_expand.gif) no-repeat;}
+.icon-expand {background: url(../icon/tgl-expand.gif) no-repeat;}
 /* .icon-expand::before {content: "+";} *//* - если не использовать иконки +/- */
-.icon-collapse {background: url(../icon/tgl_collapse.gif) no-repeat;}
+.icon-collapse {background: url(../icon/tgl-collapse.gif) no-repeat;}
 /* .icon-collapse::before {content: "-";} *//* - если не использовать иконки +/- */
 .icon-collapse,
 .icon-expand {background-position: 2px 2px;}
@@ -571,37 +571,82 @@ ul, li {
 	padding: 0 0 0 20px;
 }
 .toc-main-icon { /* - главный значок оглавления */
-	background: url(../icon/tgl_gb0.png) no-repeat;
+	background: url(../icon/tgl-gb.png) no-repeat;
 	background-position: 1px 1px;
 }
-.icon-email {
-	background: url(../icon/toc_emailfile.png) no-repeat;
-	background-position: 2px 0;
-}
-.icon-glavbyx {
+.icon-company {
 	background: url(../icon/gb.gif) no-repeat;
 	background-position: 0;
 }
-.icon-book-purple {
-	background: url(../icon/toc_bookclosedpurple.png) no-repeat;
+.icon-email {
+	background: url(../icon/toc-email.png) no-repeat;
+	background-position: 2px 0;
+}
+.icon-book-purple1-close {
+	background: url(../icon/toc-book-purple-closed.png) no-repeat;
 	background-position: 1px 1px;
 }
-.icon-book-blue {
-	background: url(../icon/toc_bookclosedblue.png) no-repeat;
+.icon-book-purple1-open {
+	background: url(../icon/toc-book-purple1-opend.png) no-repeat;
+	background-position: 1px 1px;
+}
+.icon-book-purple2-close {
+	background: url(../icon/toc-book-purple-closed.png) no-repeat;
+	background-position: 1px 1px;
+}
+.icon-book-purple2-open {
+	background: url(../icon/toc-book-purple2-opend.png) no-repeat;
+	background-position: 1px 1px;
+}
+.icon-book-blue-close {
+	background: url(../icon/toc-book-blue-closed.png) no-repeat;
 	background-position: 1px 0;
 }
-.icon-folder {
-	background: url(../icon/toc_folderclosed.png) no-repeat;
+.icon-book-blue-open {
+	background: url(../icon/toc-book-blue-opend.png) no-repeat;
+	background-position: 1px 0;
+}
+.icon-book-orange-close {
+	background: url(../icon/toc-book-orange-closed.gif) no-repeat;
+	background-position: 1px 0;
+}
+.icon-book-orange-open {
+	background: url(../icon/toc-book-orange-opend.gif) no-repeat;
+	background-position: 1px 0;
+}
+.icon-folder1-close {
+	background: url(../icon/toc-folder-closed.png) no-repeat;
 	background-position: 1px -1px;
 }
-.icon-info {
-	background: url(../icon/toc_Info_2.png) no-repeat;
-	background-position: 1px 0;
+.icon-folder1-open {
+	background: url(../icon/toc-folder-opend.png) no-repeat;
+	background-position: 1px -1px;
+}
+.icon-folder2-close {
+	background: url(../icon/toc-folder-closed.gif) no-repeat;
+	background-position: 1px -1px;
+}
+.icon-folder2-open {
+	background: url(../icon/toc-folder-opend.gif) no-repeat;
+	background-position: 1px -1px;
 }
 .icon-topic {
-	background: url(../icon/toc_topic.png) no-repeat;
+	background: url(../icon/toc-topic.png) no-repeat;
 	background-position: 1px 0;
 }
+.icon-info {
+	/* background: url(../icon/toc-info_0.png) no-repeat;
+	background: url(../icon/toc-info_1.png) no-repeat; */
+	background: url(../icon/toc-info_2.png) no-repeat;
+	background-position: 1px 0;
+}
+.icon-question {
+	/* background: url(../icon/toc-question_0.png) no-repeat;
+	background: url(../icon/toc-question_1.png) no-repeat; */
+	background: url(../icon/toc-question_2.png) no-repeat;
+	background-position: 1px 0;
+}
+
 #idToc_li {padding-left: 16px;}
 #idToc_li1,
 #idToc_li2 {
@@ -644,7 +689,7 @@ ul, li {
 	hyphens: none; /* - чтобы браузер не обращал внимания на мягкий дефис, вставляем hyphens: none для Chrome, с Firefox все сложнее */
 	-moz-hyphens: none; /* - все равно не работает */
 	-ms-hyphens: none;
-	text-wrap: balance; /* (!) new - экспериментальный */
+	/* text-wrap: balance; */ /* (!) new - экспериментальный - не очень удобный, может переносится одна буква от всего слова */
 }
 /**подсветка текущего топика */
 .hilight {

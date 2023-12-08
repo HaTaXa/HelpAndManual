@@ -677,26 +677,26 @@ function animationOffset(elem) {
 	}
 }
 // (!) setShowHideWindow-показать/скрыть всплывающее окно
-function setShowHideWindow(elem, valueShowHide = "") {
-	if (typeof (elem) === "undefined" || elem === null && (elem === Object(elem) || typeof(elem) === "object")) {
-		console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+function setShowHideWindow(elemPoPuP, showORhide = "") {
+	if (typeof (elemPoPuP) === "undefined" || elemPoPuP === null && (elemPoPuP === Object(elemPoPuP) || typeof(elemPoPuP) === "object")) {
+		console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена:\n function setShowHideWindow(elemPoPuP: typeof(${typeof(elemPoPuP)}) / Object(${Object(elemPoPuP)}) / ${elemPoPuP}, showORhide: "${showORhide}"): window."${window.name}", location.origin: ${location.origin}`);
 		alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		return;
 	}
-	// if (typeof(valueShowHide) === "undefined" || valueShowHide === null || valueShowHide === "" && (valueShowHide === String(valueShowHide) || typeof(valueShowHide) === "string")) {
-	if (valueShowHide !== "show" && valueShowHide !== "hide") {
-		if (elem.style.display === "none") { // переключатель
-			elem.removeAttribute('style');
+	// if (typeof(showORhide) === "undefined" || showORhide === null || showORhide === "" && (showORhide === String(showORhide) || typeof(showORhide) === "string")) {
+	if (showORhide !== "show" && showORhide !== "hide") {
+		if (elemPoPuP.style.display === "none") { // переключатель
+			elemPoPuP.removeAttribute('style');
 		} else {
-			elem.style.display = "none";
+			elemPoPuP.style.display = "none";
 		}
 	} else {
-		if (valueShowHide === "show") {
-			elem.removeAttribute('style');
-		} else if (valueShowHide === "hide") {
-			elem.style.display = "none";
+		if (showORhide === "show") {
+			elemPoPuP.removeAttribute('style');
+		} else if (showORhide === "hide") {
+			elemPoPuP.style.display = "none";
 		} else {
-			console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setShowHideWindow(elem: typeof(${typeof(elem)}) / Object(${Object(elem)}) / ${elem}, valueShowHide: "${valueShowHide}"): window."${window.name}", location.origin: ${location.origin}`);
+			console.error(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setShowHideWindow(elemPoPuP: typeof(${typeof(elemPoPuP)}) / Object(${Object(elemPoPuP)}) / ${elemPoPuP}, showORhide: "${showORhide}"): window."${window.name}", location.origin: ${location.origin}`);
 			alert(`(!) Косяк - не удалось показать/скрыть всплывающее окно - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
 		}
 	}

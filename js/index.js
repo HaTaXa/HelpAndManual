@@ -105,12 +105,16 @@ $(document).ready(function () { // - jq
 				// (i) нельзя передать узел/копию DOM-элемента в другое окно/фрейм, см.спецификацию
 				setImageFullScreen(event.data.clone); // - создать изо.во весь экран
 			} else if (event.data.value === "setShowHideWindow") {
-				// *по нажатию на esc скрываем всплывающие окна permalink/tabsmenubox
-				// for (let i = 0; i < event.data.msg1.length; i++) {
-				// 	setShowHideWindow(document.getElementById(event.data.msg1[i]), event.data.msg2);
-				// }
+				// *по нажатию на esc скрываем всплывающие элементы:.toc-menu/permalink/tabsmenubox
 				event.data.winId.forEach((itemId) => {
-					if (document.getElementById(itemId).style.display !== "none") {
+					if (itemId === "idPageMenuToc") { // - всплывающий(-е) элемент(-ы) в топике
+						let msg = {
+							value: event.data.value,
+							winId: itemId,
+							winHide: event.data.winHide
+						};
+						frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+					} else { // - всплывающие элементы в гл.окне
 						if (itemId === "idPermalinkBox") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
 						setShowHideWindow(document.getElementById(itemId), event.data.winHide);
 					}
@@ -138,7 +142,7 @@ $(document).ready(function () { // - jq
 		// (!) keyup
 		document.addEventListener("keyup", function (event) {
 			if (event.key === "Escape" || event.code === "Escape" || event.keyCode === 27 || event.which === 27) {
-				// (!) закрыть окно "Постоянная ссылка"
+				// *закрыть окно "Постоянная ссылка"
 				let permalink = document.getElementById('idPermalinkBox');
 				if (permalink !== null && typeof(permalink) !== "undefined" && permalink === Object(permalink)) {
 					if (permalink.style.display !== "none") {
@@ -146,13 +150,24 @@ $(document).ready(function () { // - jq
 						setShowHideWindow(permalink, 'hide');
 					}
 				}
-				// (!) закрыть окно "Меню вкладок"
+				// *закрыть окно "Меню вкладок"
 				let tabsMenuBox = document.getElementById('idTabsMenuBox');
 				if (tabsMenuBox !== null && typeof(tabsMenuBox) !== "undefined" && tabsMenuBox === Object(tabsMenuBox)) {
 					if (tabsMenuBox.style.display !== "none") {
 						// TODO: 'сделать плавно
 						setShowHideWindow(tabsMenuBox, 'hide');
 					}
+				}
+				// *Закрыть окно "Меню содержание страницы"
+				if (window.location.origin === "file://") { // - при локальном использовании
+					let msg = {
+						value: "setShowHideWindow",
+						winId: "idPageMenuToc",
+						winHide: "hide"
+					};
+					frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+				} else {
+					setShowHideWindow(frames.hmcontent.document.getElementById('idPageMenuToc'), 'hide');
 				}
 			}
 		}, false); // false - фаза "всплытие"
@@ -173,8 +188,8 @@ $(document).ready(function () { // - jq
 			// 	if (e.target.tagName === "IMG") {
 			// 		// (!) idFeedBackOn-кнопка e-mail
 			// 		if (e.target.id === "idFeedBackOn") {
-			// 			// e.target.setAttribute('src', 'icon/emailon.png');
-			// 			e.target.src = "icon/emailon.png";
+			// 			// e.target.setAttribute('src', 'icon/email_on.png');
+			// 			e.target.src = "icon/email_on.png";
 			// 		}
 			// 	}
 			// }, false); // false - фаза "всплытие"
@@ -369,8 +384,8 @@ $(document).ready(function () { // - jq
 				} else if (e.target.tagName === "IMG") {
 					$(e.target).siblings('a').css('top', '3px'); // - доп.к стилю .tabs a/.tabs a:hover
 					e.target.style.display = "block";
-					e.target.src = "icon/closetabon.png";
-					// e.target.setAttribute('src', 'icon/closetabon.png');
+					e.target.src = "icon/tab-close_on.png";
+					// e.target.setAttribute('src', 'icon/tab-close_on.png');
 				} else if (e.target.tagName === "LI") {
 					$(e.target).children('a').css('top', '3px'); // - доп.к стилю .tabs a/.tabs a:hover
 					$(e.target).children('img').css('display', 'block');
@@ -387,8 +402,8 @@ $(document).ready(function () { // - jq
 				} else if (e.target.tagName === "IMG") {
 					$(e.target).siblings('a').removeAttr('style'); // - доп.к стилю .tabs a/.tabs a:hover
 					e.target.removeAttribute('style');
-					e.target.src = "icon/closetaboff.png";
-					// e.target.setAttribute('src', 'icon/closetaboff.png');
+					e.target.src = "icon/tab-close_off.png";
+					// e.target.setAttribute('src', 'icon/tab-close_off.png');
 				} else if (e.target.tagName === "LI") {
 					$(e.target).children('a').removeAttr('style'); // - доп.к стилю .tabs a/.tabs a:hover
 					$(e.target).children('img').removeAttr('style');

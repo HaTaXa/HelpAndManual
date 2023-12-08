@@ -294,6 +294,11 @@ function getLightboxCopy(elem) { // (i) нельзя передать узел/�
 		// imgZoom.setAttribute('src', "icon/zoom.png");
 		imgZoom.src = "icon/zoom.png";
 	}
+	// 'удаляем кнопку поднятия наверх, она нужна только в топике
+	let btnTop = clone.querySelector('.btn-top');
+	if (btnTop) {
+		btnTop.remove();
+	}
 	let imgItem = clone.querySelector('.img-item');
 	if (imgItem) {
 		if (!imgItem.classList.contains('img-zoom100')) {
@@ -546,19 +551,19 @@ function setToggleIcon(elem, btnValue = null) {
 			if (el.children[i].tagName === "A" && el.children[i].classList.contains('dropdown-toggle') || el.children[i].classList.contains('inline-toggle')) {
 				// *toggle-icon меняется, если имеется хотя бы одна ссылка с классом toggle-shown
 				if (el.children[i].classList.contains('toggle-shown')) {
-					if (elem.getAttribute('src') === "icon/tgl_gb0.png") {
-						elem.setAttribute('src', 'icon/tgl_gb1.png');
-					} else if (elem.getAttribute('src') === "icon/tgl_expand1.gif") {
-						// elem.setAttribute('src', 'icon/tgl_collapse1.gif');
-						elem.src = "icon/tgl_collapse1.gif";
+					if (elem.getAttribute('src') === "icon/tgl-gb.png") {
+						elem.setAttribute('src', 'icon/tgl-gb_0.png');
+					} else if (elem.getAttribute('src') === "icon/tgl-expand1.gif") {
+						// elem.setAttribute('src', 'icon/tgl-collapse1.gif');
+						elem.src = "icon/tgl-collapse1.gif";
 					}
 					break;
 				} else {
-					if (elem.getAttribute('src') === "icon/tgl_gb1.png") {
-						elem.setAttribute('src', 'icon/tgl_gb0.png');
-					} else if (elem.getAttribute('src') === "icon/tgl_collapse1.gif") {
-						// elem.setAttribute('src', 'icon/tgl_expand1.gif');
-						elem.src = "icon/tgl_expand1.gif";
+					if (elem.getAttribute('src') === "icon/tgl-gb_0.png") {
+						elem.setAttribute('src', 'icon/tgl-gb.png');
+					} else if (elem.getAttribute('src') === "icon/tgl-collapse1.gif") {
+						// elem.setAttribute('src', 'icon/tgl-expand1.gif');
+						elem.src = "icon/tgl-expand1.gif";
 					}
 				}
 			}
@@ -570,18 +575,18 @@ function setToggleIcon(elem, btnValue = null) {
 			return;
 		}
 		if (btnValue) { // - контент скрыт, отображаем
-			if (elem.getAttribute('src') === "icon/tgl_gb0.png") {
-				elem.setAttribute('src', 'icon/tgl_gb1.png');
-			} else if (elem.getAttribute('src') === "icon/tgl_expand1.gif") {
-				// elem.setAttribute('src', 'icon/tgl_collapse1.gif');
-				elem.src = "icon/tgl_collapse1.gif";
+			if (elem.getAttribute('src') === "icon/tgl-gb.png") {
+				elem.setAttribute('src', 'icon/tgl-gb_0.png');
+			} else if (elem.getAttribute('src') === "icon/tgl-expand1.gif") {
+				// elem.setAttribute('src', 'icon/tgl-collapse1.gif');
+				elem.src = "icon/tgl-collapse1.gif";
 			}
 		} else { // - контент раскрыт, скрываем
-			if (elem.getAttribute('src') === "icon/tgl_gb1.png") {
-				elem.setAttribute('src', 'icon/tgl_gb0.png');
-			} else if (elem.getAttribute('src') === "icon/tgl_collapse1.gif") {
-				// elem.setAttribute('src', 'icon/tgl_expand1.gif');
-				elem.src = "icon/tgl_expand1.gif";
+			if (elem.getAttribute('src') === "icon/tgl-gb_0.png") {
+				elem.setAttribute('src', 'icon/tgl-gb.png');
+			} else if (elem.getAttribute('src') === "icon/tgl-collapse1.gif") {
+				// elem.setAttribute('src', 'icon/tgl-expand1.gif');
+				elem.src = "icon/tgl-expand1.gif";
 			}
 		}
 	}
