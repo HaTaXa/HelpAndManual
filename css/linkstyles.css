@@ -15,14 +15,14 @@
 .scriptlink{color: blue; text-decoration: underline;}
 .scriptlink:visited {color: blue;}
 .scriptlink:hover {color: blue;}
-.inline-toggle {color: green; font-weight: bold; font-style: italic; text-decoration: none;}
-.inline-toggle:active {color: green; font-weight: bold; font-style: italic; text-decoration: underline;}
-.inline-toggle:visited {color: green; font-weight: normal; font-style: normal; text-decoration: none;}
-.inline-toggle:hover {color: blue; font-weight: bold; font-style: italic; text-decoration: underline;}
-.dropdown-toggle {color: red; font-weight: bold; font-style: italic; text-decoration: none;}
-.dropdown-toggle:active {color: red; font-weight: bold; font-style: italic; text-decoration: underline;}
-.dropdown-toggle:visited {color: red; font-weight: normal; font-style: normal; text-decoration: none;}
-.dropdown-toggle:hover {color: blue; font-weight: bold; font-style: italic; text-decoration: underline;}
+.toggle-inline {color: green; font-weight: bold; font-style: italic; text-decoration: none;}
+.toggle-inline:active {color: green; font-weight: bold; font-style: italic; text-decoration: underline;}
+.toggle-inline:visited {color: green; font-weight: normal; font-style: normal; text-decoration: none;}
+.toggle-inline:hover {color: blue; font-weight: bold; font-style: italic; text-decoration: underline;}
+.toggle-dropdown {color: red; font-weight: bold; font-style: italic; text-decoration: none;}
+.toggle-dropdown:active {color: red; font-weight: bold; font-style: italic; text-decoration: underline;}
+.toggle-dropdown:visited {color: red; font-weight: normal; font-style: normal; text-decoration: none;}
+.toggle-dropdown:hover {color: blue; font-weight: bold; font-style: italic; text-decoration: underline;}
 .comment-link {color: blue; font-size: 10pt; font-family: "Arial"; font-style: normal; font-weight: bold; text-decoration: none;}
 .comment-link:visited {color: blue;}
 .comment-link:hover {text-decoration: underline;}

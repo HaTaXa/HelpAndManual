@@ -177,13 +177,13 @@ html *::-webkit-scrollbar-thumb {
 	z-index: 4;
 }
 .img-slider,
-.img-text,
+.img-title,
 .lightbox-img,
 .lightbox {overflow: hidden;}
 
 .img-slider,
 .slider-track,
-.img-text,
+.img-title,
 .lightbox-img {
 	position: relative;
 	left: 0; top: 0;
@@ -312,7 +312,7 @@ html *::-webkit-scrollbar-thumb {
 	text-decoration: none;
 }
 .btn-slider a,
-.img-text,
+.img-title,
 .lightbox-btn-close,
 .btn-box a {color: #fff;}
 .btn-slider a:hover,
@@ -383,7 +383,7 @@ html *::-webkit-scrollbar-thumb {
 				-4px -2px #000; /* - буквенная обводка */
 }
 
-.img-text {
+.img-title {
 	margin: 6px;
 	flex: 1 1 100%;
 	flex-flow: column wrap;

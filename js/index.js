@@ -45,80 +45,82 @@ $(document).ready(function () { // - jq
 		// (!) message
 		window.addEventListener("message", (event) => {
 			// console.log(`window.addEventListener("message", (event)): window.«${window.name}», location.origin: ${location.origin}:\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // x -
-			if (event.data.value === "setHistoryPushState") {
-				setHistoryPushState(event.data.currP); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
-				if (event.data.winName === "hmnavigation") {
-					setHideNavPane(); // - скрыть пан.нав.при размере окна браузера <= 500
-				}
-			} else if (event.data.value === "setToolbarButtonsOnOff") {
-				// *обновляем некоторые глобальные переменные в variables.js из hmcontent
-				setUpdateVariables(event.data.hmtopicvars);
-				setToolbarButtonsOnOff(event.data.hmtopicvars.btnExpand);
-				// (i) если вариант 1
-				// *обновляем остальную часть глобальных переменных в variables.js через hmnavigation
-				let msg = {
-					value: location.search === "" ? "setVariables" : "goToPage",
-					currP: hmtopicvars.currP || event.data.hmtopicvars.currP
-				};
-				frames.hmnavigation.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
-				if (hmtopicvars.msgBox === "enable") {
-					// *возвращаемся обратно в источник hmcontent, передаем значения глобальных переменных из variables.js и создаем информационное сообщение
-					delete msg.currP; // - удаляем св-во в объекте
-					msg.value = "setMsgBox"; // - изменяем значение св-ва в объекте
-					// *создаем/добавляем новое св-во в объекте - 2 способа:
-					msg.msgBox = hmtopicvars.msgBox;
-					msg.msgBtn = hmtopicvars.msgBtn;
-					msg["msgText"] = hmtopicvars.msgText;
-					event.source.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
-				}
-			} else if (event.data.value === "setUpdateVariables") {
-				// *обновляем глобальные переменные из hmnavigation
-				if (location.search === "") {
-					setToolbarButtonsOnOff(hmtopicvars.btnExpand);
-				} else {
-					setUpdateVariables(
-						event.data.hmtopicvars,
-						event.data.hmnavpages,
-						event.data.hmpermalink
-					);
-					let tab = document.getElementById('idTopicTab');
-					if (tab !== null && typeof (tab) === "object") {
-						if (tab.classList.contains('tab-current')) {
-							setToolbarButtonsOnOff(hmtopicvars.btnExpand);
-						} else {
-							setTabShowHide(tab, 'show'); // - показать/скрыть текущую вкладку
+			if (location.origin === "file://") {
+				if (event.data.value === "setHistoryPushState") {
+					setHistoryPushState(event.data.currP); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
+					if (event.data.winName === "hmnavigation") {
+						setHideNavPane(); // - скрыть пан.нав.при размере окна браузера <= 500
+					}
+				} else if (event.data.value === "setToolbarButtonsOnOff") {
+					// *обновляем некоторые глобальные переменные в variables.js из hmcontent
+					setUpdateVariables(event.data.hmtopicvars);
+					setToolbarButtonsOnOff(event.data.hmtopicvars.btnExpand);
+					// (i) если вариант 1
+					// *обновляем остальную часть глобальных переменных в variables.js через hmnavigation
+					let msg = {
+						value: location.search === "" ? "setVariables" : "goToPage",
+						currP: hmtopicvars.currP || event.data.hmtopicvars.currP
+					};
+					frames.hmnavigation.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+					if (hmtopicvars.msgBox === "enable") {
+						// *возвращаемся обратно в источник hmcontent, передаем значения глобальных переменных из variables.js и создаем информационное сообщение
+						delete msg.currP; // - удаляем св-во в объекте
+						msg.value = "setMsgBox"; // - изменяем значение св-ва в объекте
+						// *создаем/добавляем новое св-во в объекте - 2 способа:
+						msg.msgBox = hmtopicvars.msgBox;
+						msg.msgBtn = hmtopicvars.msgBtn;
+						msg["msgText"] = hmtopicvars.msgText;
+						event.source.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+					}
+				} else if (event.data.value === "setUpdateVariables") {
+					// *обновляем глобальные переменные из hmnavigation
+					if (location.search === "") {
+						setToolbarButtonsOnOff(hmtopicvars.btnExpand);
+					} else {
+						setUpdateVariables(
+							event.data.hmtopicvars,
+							event.data.hmnavpages,
+							event.data.hmpermalink
+						);
+						let tab = document.getElementById('idTopicTab');
+						if (tab !== null && typeof (tab) === "object") {
+							if (tab.classList.contains('tab-current')) {
+								setToolbarButtonsOnOff(hmtopicvars.btnExpand);
+							} else {
+								setTabShowHide(tab, 'show'); // - показать/скрыть текущую вкладку
+							}
 						}
 					}
+					setUpdateElements(); // - обновляем группу кнопок навигации на пан.инструментов (домой/назад/вперед), вкладку главная и ссылку на актуальную тему в меню вкладок на пан.тема топика
+					// *идем в hmcontent создавать навигационные ссылки
+					let msg = {
+						value: "writeBreadCrumbs",
+						breadCrumbs: hmnavpages.breadCrumbs
+					};
+					frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+				} else if (event.data.value === "msgBtnUpdate") {
+					hmtopicvars.msgBtn = event.data.msgBtn; // - обновляем глобальную переменную в variables.js
+				} else if (event.data.value === "setImageFullScreen") {
+					// 'image full screen - вывод текущего lightbox в гл.окне
+					// console.log(`event.data: \n 1) .value: ${event.data.value}\n 2) .clone: ${event.data.clone}\n---\n event.data.clone.classList: ${event.data.clone.classList}\n event.data.clone === null: ${event.data.clone === null}\n typeof(event.data.clone): ${typeof(event.data.clone)}\n event.data.clone === Object(event.data.clone): ${event.data.clone === Object(event.data.clone)}\n (event.data.clone === null && typeof(event.data.clone) === "object"): ${event.data.clone === null && typeof(event.data.clone) === "object"}\n---`); // x -
+					// (i) нельзя передать узел/копию DOM-элемента в другое окно/фрейм, см.спецификацию
+					setImageFullScreen(event.data.clone); // - создать изо.во весь экран
+				} else if (event.data.value === "setShowHideWindow") {
+					// *по нажатию на esc скрываем всплывающие элементы:.toc-menu/permalink/tabsmenubox
+					event.data.winId.forEach((itemId) => {
+						if (itemId === "idPageMenuToc") { // - всплывающий(-е) элемент(-ы) в топике
+							let msg = {
+								value: event.data.value,
+								winId: itemId,
+								winHide: event.data.winHide
+							};
+							frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+						} else { // - всплывающие элементы в гл.окне
+							if (itemId === "idPermalinkBox") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
+							setShowHideWindow(document.getElementById(itemId), event.data.winHide);
+						}
+					});
 				}
-				setUpdateElements(); // - обновляем группу кнопок навигации на пан.инструментов (домой/назад/вперед), вкладку главная и ссылку на актуальную тему в меню вкладок на пан.тема топика
-				// *идем в hmcontent создавать навигационные ссылки
-				let msg = {
-					value: "writeBreadCrumbs",
-					breadCrumbs: hmnavpages.breadCrumbs
-				};
-				frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
-			} else if (event.data.value === "msgBtnUpdate") {
-				hmtopicvars.msgBtn = event.data.msgBtn; // - обновляем глобальную переменную в variables.js
-			} else if (event.data.value === "setImageFullScreen") {
-				// 'image full screen - вывод текущего lightbox в гл.окне
-				// console.log(`event.data: \n 1) .value: ${event.data.value}\n 2) .clone: ${event.data.clone}\n---\n event.data.clone.classList: ${event.data.clone.classList}\n event.data.clone === null: ${event.data.clone === null}\n typeof(event.data.clone): ${typeof(event.data.clone)}\n event.data.clone === Object(event.data.clone): ${event.data.clone === Object(event.data.clone)}\n (event.data.clone === null && typeof(event.data.clone) === "object"): ${event.data.clone === null && typeof(event.data.clone) === "object"}\n---`); // x -
-				// (i) нельзя передать узел/копию DOM-элемента в другое окно/фрейм, см.спецификацию
-				setImageFullScreen(event.data.clone); // - создать изо.во весь экран
-			} else if (event.data.value === "setShowHideWindow") {
-				// *по нажатию на esc скрываем всплывающие элементы:.toc-menu/permalink/tabsmenubox
-				event.data.winId.forEach((itemId) => {
-					if (itemId === "idPageMenuToc") { // - всплывающий(-е) элемент(-ы) в топике
-						let msg = {
-							value: event.data.value,
-							winId: itemId,
-							winHide: event.data.winHide
-						};
-						frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
-					} else { // - всплывающие элементы в гл.окне
-						if (itemId === "idPermalinkBox") { clearPermalink(); } // - очищение инфо-подсказок при закрытии окна Постоянная ссылка
-						setShowHideWindow(document.getElementById(itemId), event.data.winHide);
-					}
-				});
 			}
 		}, false); // false - фаза "всплытие"
 		// (!) hashchange
@@ -227,17 +229,29 @@ $(document).ready(function () { // - jq
 							};
 							frames.hmcontent.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
 						} else {
-							let js = getLightboxLink(frames.hmcontent); // - получить скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
-							if (js === null){
-								js = setLightboxLink(frames.hmcontent) // - создать скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
-								if (js) {
-									js.addEventListener("load", function (event) {
-										frames.hmcontent.setToggleElement(null, e.target.checked); // развернуть/свернуть скрытый контент
-									}, {once: true});
-								}
-							} else {
+							if (getLightboxLink(frames.hmcontent)) { // - получить скрипт - ссылка на lightbox.js
 								frames.hmcontent.setToggleElement(null, e.target.checked); // - развернуть/свернуть скрытый контент
+							} else {
+								let js = setLightboxLink(frames.hmcontent) // - создать скрипт - ссылка на lightbox.js
+								let id = setInterval(() => {
+									if (js) {
+										clearInterval(id);
+										frames.hmcontent.setToggleElement(null, e.target.checked); // - развернуть/свернуть скрытый контент
+									}
+								}, 500);
 							}
+							// x -
+							// let js = getLightboxLink(frames.hmcontent); // - получить скрипт - ссылка на lightbox.js
+							// if (js === null){
+							// 	js = setLightboxLink(frames.hmcontent) // - создать скрипт - ссылка на lightbox.js
+							// 	if (js) {
+							// 		js.addEventListener("load", function (event) {
+							// 			frames.hmcontent.setToggleElement(null, e.target.checked); // развернуть/свернуть скрытый контент
+							// 		}, {once: true});
+							// 	}
+							// } else {
+							// 	frames.hmcontent.setToggleElement(null, e.target.checked); // - развернуть/свернуть скрытый контент
+							// }
 						}
 					}
 				} else if (e.target.tagName === "IMG") {
@@ -459,22 +473,23 @@ $(document).ready(function () { // - jq
 }); // ready end
 // (!) setHistoryPushState - сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
 function setHistoryPushState(hrefPage = window.top.hmtopicvars.currP) {
+	if (typeof(hrefPage) !== "string" || hrefPage !== String(hrefPage) || hrefPage === "") {
+		console.error(`(!) Косяк: не удалось выполнить сохранение текущей ссылки в истории браузера - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки:\n function setHistoryPushState(hrefPage: typeof(${typeof(hrefPage)}) / Object(${Object(hrefPage)}): window.«${window.name}»`);
+		alert(`(!) Косяк: не удалось выполнить сохранение текущей ссылки в истории браузера - переменная аргумента не определена или значение переменной не соответствует условию(-ям) проверки, см.консоль.`);
+		return;
+	}
+	if (hrefPage[0] === "#") return; // - если внутренняя ссылка
+	window.top.location.hash = "";
 	if (window.top.location.search === "") {
 		window.top.hmpermalink.url = window.top.location.href + "?" + hrefPage;
-		// if (window.top.location.href.includes("index.html")) {
-		// 	window.top.hmpermalink.url = window.top.location.href + "?" + hrefPage;
-		// } else if (window.top.location.href.slice(-1) === "/") { // подстраховка
-		// 	window.top.hmpermalink.url = window.top.location.href + hrefPage;
-		// } else {
-		// 	window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
-
-		// 	console.warn(`function setHistoryPushState(${hrefPage}): window.«${window.name}»:\n (i) Косяк - не удалось заполнить путь в строке браузера\n window.top.location.href: ${window.top.location.href}\n window.top.location.search: ${window.top.location.search}\n window.top.hmtopicvars.currP: ${window.top.hmtopicvars.currP}`); // x -
-		// }
 	} else {
 		window.top.hmpermalink.url = window.top.location.href.replace(window.top.hmtopicvars.currP, hrefPage);
 	}
 	window.top.document.getElementById('hmcontent').src = hrefPage; // или
 	// window.top.document.getElementById('hmcontent').setAttribute('src', hrefPage);
+	if (window.top.hmpermalink.url[window.top.hmpermalink.url.length - 1] === "#") {
+		window.top.hmpermalink.url = window.top.hmpermalink.url.substring(0, window.top.hmpermalink.url.length - 1);
+	}
 	window.top.history.pushState('', '', window.top.hmpermalink.url);
 }
 // x (!) animateNavPane - через CSS

@@ -9,7 +9,7 @@ window.addEventListener('load', function () { // - js. Сработает, ка�
 		writeBreadCrumbs([]); // - заполнение топика навигационными ссылками
 	} else {
 		let vrs = {
-			currP: location.href.slice(location.href.lastIndexOf("/") + 1),
+			currP: location.pathname.slice(location.pathname.lastIndexOf("/") + 1),
 			titleP: document.title,
 			btnExpand: document.getElementById('idContentText').querySelector('.toggle-content') ? "idExpandOn" : "idExpandOff", // - если есть скрытый контент, получаем и обновляем состояние кнопки развернуть/свернуть скрытый текст
 		};
@@ -49,16 +49,31 @@ $(document).ready(function () { // - jq
 		// 'message
 		window.addEventListener("message", (event) => {
 			// console.log(`window.addEventListener("message", (event) window.name: ${window.name}):\n location.origin: "${location.origin}" <=> event.origin: "${event.origin}": ${location.origin === event.origin}\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // X -
-			if (event.data.value === "writeBreadCrumbs") {
-				writeBreadCrumbs(event.data.breadCrumbs); // - заполнение топика навигационными ссылками
-			} else if (event.data.value === "setMsgBox") {
-				setMsgBox(event.data.msgBox, event.data.msgBtn, event.data.msgText); // - заполнение всплывающего окна сообщения
-			} else if (event.data.value === "setToggleElement") {
-				// *развернуть/свернуть скрытый текст
-				setToggleElement(null, event.data.btnChecked);
-			} else if (event.data.value === "setShowHideWindow") {
-				// *Закрыть окно "Меню содержание страницы"
-				setShowHideWindow(document.getElementById(event.data.winId), event.data.winHide);
+			if (location.origin === "file://") {
+				if (event.data.value === "writeBreadCrumbs") {
+					writeBreadCrumbs(event.data.breadCrumbs); // - заполнение топика навигационными ссылками
+				} else if (event.data.value === "setMsgBox") {
+					setMsgBox(event.data.msgBox, event.data.msgBtn, event.data.msgText); // - заполнение всплывающего окна сообщения
+				} else if (event.data.value === "setToggleElement") {
+					// *развернуть/свернуть скрытый текст
+					// **проверяем наличие ссылки на файл lightbox.js
+					if (getLightboxLink(window.self)) { // - получить скрипт - ссылка на lightbox.js
+						// (i) для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
+						setToggleElement(null, event.data.btnChecked); // - отображаем/скрываем скрытый контент
+					} else {
+						let js = setLightboxLink(window.self); // - создать скрипт - ссылка на lightbox.js
+						let id = setInterval(() => {
+							if (js) {
+								clearInterval(id);
+								// (i) для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
+								setToggleElement(null, event.data.btnChecked); // - отображаем/скрываем скрытый контент
+							}
+						}, 500);
+					}
+				} else if (event.data.value === "setShowHideWindow") {
+					// *Закрыть окно "Меню содержание страницы"
+					setShowHideWindow(document.getElementById(event.data.winId), event.data.winHide);
+				}
 			}
 		}, false); // false - фаза "всплытие"
 		// 'keyup
@@ -164,47 +179,48 @@ $(document).ready(function () { // - jq
 					if (e.target.classList.contains('popuplink')) {
 						let winProp = 'width=350,height=350,left=' + ((screen.width - 500) / 2) + ',top=' + ((screen.height - 500) / 2) + ',menubar=false,toolbar=false,location=false,resizabie=no,scrollbars=yes,status=false';
 						windowOpen('manualVersion.html', winProp);
-					} else if (e.target.classList.contains('dropdown-toggle') || e.target.classList.contains('inline-toggle')) {
-						if (e.target.classList.contains('toggle-hidden')) {
-							let lbx = getLightboxLink(window.self); // - получить скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
-							if (lbx === null){
-								lbx = setLightboxLink(window.self) // - создать скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
-								if (lbx) {
-									lbx.addEventListener("load", function (event) {
-										setToggleElement(e.target); // - развернуть/свернуть скрытый контент
-									}, {once: true});
-								}
-							} else {
-								setToggleElement(e.target); // - развернуть/свернуть скрытый контент
-							}
-							// (i) для tagName a, чтобы сработал scrollIntoView() надо использовать отмену действия браузером по умолчанию - preventDefault(), см.событие keydown в lightbox, с использованием св-ва tabIndex = "0" элементов, не имеющих автофокусировку
-							e.target.scrollIntoView(); // - переход к элементу - не путать с фокусированием
-							e.preventDefault(); // 'отменяем действия браузера по умолчанию
-						} else if (e.target.classList.contains('toggle-shown')) {
+					} else if (e.target.classList.contains('toggle-dropdown') || e.target.classList.contains('toggle-inline')) {
+						if (getLightboxLink(window.self)){ // - получить скрипт - ссылка на lightbox.js
+							// (i) для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
 							setToggleElement(e.target); // - развернуть/свернуть скрытый контент
+						} else {
+							let js = setLightboxLink(window.self) // - создать скрипт - ссылка на lightbox.js
+							let id = setInterval(() => {
+								if (js) {
+									clearInterval(id);
+									// (i) для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
+									setToggleElement(e.target); // - отображаем/скрываем скрытый контент
+								}
+							}, 500);
+						}
+					} else {
+						if (location.origin === "file://") {
+							let msg = {
+								value: "setHistoryPushState",
+								currP: e.target.getAttribute('href'),
+								winName: window.name
+							};
+							window.top.postMessage(msg, '*'); // (?) когда звездочка - это плохое использование в целях безопасности от взлома страниц
+						} else {
+							window.top.setHistoryPushState(e.target.getAttribute('href')); // сохранение текущей ссылки в истории браузера для возможности дальнейшей навигации - возврата на предыдущую стр.
 						}
 					}
 				} else if (e.target.tagName === "IMG") {
 					if (e.target.classList.contains('toggle-icon')) {
 						// *в текущем абзаце отображаем/скрываем каждый скрытый контент
-						// **для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
-						let elem = e.target.parentElement;
-						for (let i = 0; i < elem.children.length; i++) {
-							if (elem.children[i].classList.contains('toggle-hidden') || elem.children[i].classList.contains('toggle-shown')) {
-								if (elem.children[i] !== null && elem.children[i] === Object(elem.children[i])) {
-									// *проверяем наличие ссылки на файл lightbox.js
-									let js = getLightboxLink(window.self); // - получить скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
-									if (js === null){
-										js = setLightboxLink(window.self) // - создать скрипт - ссылка на lightbox.js и вернуть DOM-элемент lightbox
-									}
-									let id = setInterval(() => {
-										if (js){
-											clearInterval(id);
-											setToggleElement(elem.children[i]); // - отображаем/скрываем скрытый контент
-										}
-									}, 500);
+						// **проверяем наличие ссылки на файл lightbox.js
+						if (getLightboxLink(window.self)) { // - получить скрипт - ссылка на lightbox.js
+							// (i) для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
+							setToggleElement(e.target); // - отображаем/скрываем скрытый контент
+						} else {
+							let js = setLightboxLink(window.self); // - создать скрипт - ссылка на lightbox.js
+							let id = setInterval(() => {
+								if (js) {
+									clearInterval(id);
+									// (i) для неск-их сгруппированных скрытых контентов в одном текущем абзаце работает принцип переключателя
+									setToggleElement(e.target); // - отображаем/скрываем скрытый контент
 								}
-							}
+							}, 500);
 						}
 					}
 				}
@@ -252,7 +268,7 @@ function setPageToc() {
 	let arr = Array.from(document.getElementById('idTopicBody').querySelectorAll('h1, h2, h3, h4, h5, h6'));
 	if (arr.length > 0) {
 		arr.forEach(elem => {
-			tocMenu.insertAdjacentHTML('beforeend', '<p><a href="#' + elem.id + '" title="' + elem.innerText + '">' + elem.innerHTML + '</a></p>');
+			tocMenu.insertAdjacentHTML('beforeend', '<p><a href="#' + elem.id + '">' + elem.innerHTML + '</a></p>');
 		});
 		let img = document.getElementById('idPageIconToc');
 		if (img !== null) {
@@ -263,7 +279,6 @@ function setPageToc() {
 		img.setAttribute('title', 'Показать/Скрыть содержание на текущей странице');
 		return true;
 	} else {
-		console.log(`arr(${arr.length}): ${arr}`); // x -
 		return false;
 	}
 }
@@ -315,7 +330,7 @@ function setMsgBox(msgBox = "enable", msgBtn = false, msgText = "") {
 	let elem = document.getElementById('idMsgBox');
 	if (elem !== null && elem === Object(elem)) { // 'объект HTMLDivElement
 		document.getElementById('idMsgText').innerHTML = msgText;
-		document.getElementById('idMsgBtn').innerHTML = "«";
+		// document.getElementById('idMsgBtn').innerHTML = "«";
 		if (msgBtn) {
 			document.getElementById('idMsgContent').removeAttribute('style');
 			document.getElementById('idMsgBtn').classList.add('msg-show');

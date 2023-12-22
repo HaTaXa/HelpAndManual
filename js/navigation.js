@@ -12,31 +12,33 @@ $(document).ready(function () { // - jq
 		// (!) message
 		window.addEventListener("message", (event) => {
 			// console.log(`window.addEventListener("message", (event) window.name: ${window.name}):\n location.origin: "${location.origin}" <=> event.origin: "${event.origin}": ${location.origin === event.origin}\n event.origin === 0: ${event.origin === 0}\n event.data: ${JSON.stringify(event.data, null, 1)}`); // x -
-			if (event.data.value === "goToPage" || event.data.value === "setVariables") {
-				// (i) в Firefox не работает
-				if (event.data.currP !== "") {
-					let elem = document.getElementById('idToc-ul').querySelector('a[href="' + event.data.currP + '"]');
-					if (elem !== null || typeof (elem) !== "undefined" || typeof (elem) === "object" || elem === Object(elem)) {
-						if (event.data.value === "goToPage") {
-							let isKey = false;
-							for (const key in event.data) {
-								if (key === "collapse") {
-									isKey = true;
-									break;
+			if (location.origin === "file://") {
+				if (event.data.value === "goToPage" || event.data.value === "setVariables") {
+					// (i) в Firefox не работает
+					if (event.data.currP !== "") {
+						let elem = document.getElementById('idToc-ul').querySelector('a[href="' + event.data.currP + '"]');
+						if (elem !== null || typeof (elem) !== "undefined" || typeof (elem) === "object" || elem === Object(elem)) {
+							if (event.data.value === "goToPage") {
+								let isKey = false;
+								for (const key in event.data) {
+									if (key === "collapse") {
+										isKey = true;
+										break;
+									}
 								}
+								if (isKey) {
+									goToPage(elem, event.data.currP, event.data.collapse); // - перейти на страницу
+								} else {
+									goToPage(elem, event.data.currP); // - перейти на страницу
+								}
+							} else if (event.data.value === "setVariables") {
+								setVariables(elem, event.data.currP); // - обновление глобальных переменных в variables.js
 							}
-							if (isKey) {
-								goToPage(elem, event.data.currP, event.data.collapse); // - перейти на страницу
-							} else {
-								goToPage(elem, event.data.currP); // - перейти на страницу
-							}
-						} else if (event.data.value === "setVariables") {
-							setVariables(elem, event.data.currP); // - обновление глобальных переменных в variables.js
 						}
 					}
+				} else if (event.data.value === "setCollapse") { // (i) если вариант 1
+					isCollapse = event.data.collapse;
 				}
-			} else if (event.data.value === "setCollapse") { // (i) если вариант 1
-				isCollapse = event.data.collapse;
 			}
 		}, false); // false - фаза "всплытие"
 		// (!) click
@@ -802,6 +804,16 @@ function setVariables (elem, currP = "") {
 	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) { // 'не объект/не объект HTMLlinkElement
 		if (currP !== null && typeof (currP) !== "undefined" && typeof (currP) === "string" && currP !== "") {
 			elem = document.getElementById('idTocBody').querySelector('a[href="' + currP + '"]');
+			if (elem === null) {
+				let arr = Array.prototype.slice.call(document.getElementById('idTocBody').querySelectorAll('a[href="' + currP + '"]'));
+				if (arr.length === 1) {
+					elem = arr[0];
+				} else {
+					console.error(`(!) Косяк - не удалось установить глобальные переменные:\n function setVariables (elem: ${typeof (elem)} / ${elem}, currP = "${currP}"):\n 1) isEmptyObject(${isEmptyObject(elem)})\n 2) elem === null: ${elem === null}`);
+					alert(`(!) Косяк - не удалось установить глобальные переменные, см.консоль.`);
+					return;
+				}
+			}
 		} else { // - стремимся все равно получить текущий элемент и/или его значение
 			if (window.location.origin === "file://") { // - при локальном использовании
 				console.error(`(!) Косяк - не удалось установить глобальные переменные:\n function setVariables (elem: ${typeof (elem)} / ${elem}, currP = "${currP}"):\n 1) isEmptyObject(${isEmptyObject(elem)})\n 2) elem === null: ${elem === null}`);
@@ -854,6 +866,16 @@ function goToPage (elem, currP = "", collapse = true) {
 	if (elem === null || typeof (elem) === "undefined" || typeof (elem) !== "object" || elem !== Object(elem)) { // 'не объект/не объект HTMLlinkElement
 		if (currP !== null && typeof(currP) !== "undefined" && typeof(currP) === "string" && currP !== "") {
 			elem = document.getElementById('idTocBody').querySelector('a[href="' + currP + '"]');
+			if (elem === null) {
+				let arr = Array.prototype.slice.call(document.getElementById('idTocBody').querySelectorAll('a[href="' + currP + '"]'));
+				if (arr.length === 1) {
+					elem = arr[0];
+				} else {
+					console.error(`(!) Косяк - не удалось выполнить переход на страницу:\n function goToPage (elem: ${typeof (elem)} / ${elem}, currP = "${currP}", collapse = ${collapse}):\n 1) isEmptyObject(${isEmptyObject(elem)})\n 2) elem === null: ${elem === null}`);
+					alert(`(!) Косяк - не удалось выполнить переход на страницу, см.консоль.`);
+					return;
+				}
+			}
 		} else { // - стремимся все равно получить текущий элемент и/или его значение
 			if (window.location.origin === "file://") { // - при локальном использовании
 				console.error(`(!) Косяк - не удалось выполнить переход на страницу:\n function goToPage (elem: ${typeof (elem)} / ${elem}, currP = "${currP}", collapse = ${collapse}):\n 1) isEmptyObject(${isEmptyObject(elem)})\n 2) elem === null: ${elem === null}`);
