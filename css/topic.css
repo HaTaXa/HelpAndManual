@@ -426,6 +426,7 @@ div#commentsWrapper {display: none;}
 	display: flex;
 	flex: 0 0 auto;
 	flex-flow: row nowrap;
+	user-select: none;
 }
 .msg-info {
 	background: url(../icon/info.png) no-repeat;
@@ -433,6 +434,17 @@ div#commentsWrapper {display: none;}
 	border-radius: 100px;
 	box-shadow: 0 0 20px 20px #fff;
 }
+
+.msg-close {
+	background: url(../icon/finger-up.png) no-repeat;
+	background-size: 100% 100%;
+	z-index: 1;
+}
+.msg-close:hover {
+	background: url(../icon/finger-down.png) no-repeat;
+	background-size: 100% 100%;
+}
+
 .msg-text {
 	position: relative;
 	left: 0; top: 0;
